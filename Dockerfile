@@ -10,5 +10,5 @@ RUN mkdir /frontend/node_modules/.cache && chmod -R 777 /frontend/node_modules/.
 WORKDIR /frontend
 ADD . .
 
-EXPOSE 20001
+EXPOSE 20000
 ENTRYPOINT yarn start
