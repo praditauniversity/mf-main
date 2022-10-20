@@ -1,0 +1,15 @@
+version: "3"
+services:
+
+  frontend_main:
+    container_name: ${SERVICE_NAME}
+    tty: true
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - /${SERVICE_NAME}/node_modules
+      - .:/${SERVICE_NAME}
+    ports:
+      - ${FRONTEND_PORT}:20000
+    restart: on-failure
