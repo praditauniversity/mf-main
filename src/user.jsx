@@ -14,56 +14,45 @@ mutation Login ($email: EmailAddress!, $password: String! ){
 }
 `;
 
-const GET_POST = gql`
-query Scaffold {
-  scaffold {
-    data {
-      ID
-      name
-      description
-    }
-  }
-}
-`;
-
 export default function User() {
-  let email, password;
-  // const [login, { data, loading, error }] = useMutation(LOGIN);
-
-  const [login, { data, loading, error }] = useMutation(LOGIN, {
-    refetchQueries: [
-      {query: GET_POST},
-      'GetComments'
-    ],
-  });
-
-
-  if (loading) return 'Submitting...';
-  if (error) return `Submission error! ${error.message}`;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [login, { data }] = useMutation(LOGIN);
 
   return (
     <div>
       <form
         onSubmit={e => {
           e.preventDefault();
-          login({
-            variables: {
-              email: email.value,
-              password: password.value
-            }
-          });
-          email.value = '';
-          password.value = '';
+          login({ variables: { email, password } });
+          localStorage.setItem('token', data.login.data.auth_token);
         }}
       >
-        <p> email </p>
-        <input ref={node => { email = node; }} /> <br />
-        <p> password </p>
-        <input ref={node => { password = node; }} /> <br />
-        <br />
-        <button type="submit">Submit</button>
-        result: {result}
+        <label>
+          Email:
+        </label>
+        <input
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder="Email"
+        />
+        <label>
+          Password:
+        </label>
+        <input
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          placeholder="Password"
+        />
+        <button type="submit">Login</button>
       </form>
+      {/* {data && data.login.data.auth_token} */}
     </div>
   );
 }
+// save auth_token as header
+// https://www.apollographql.com/docs/react/networking/authentication/#header
+// save auth_token as cookie
+// https://www.apollographql.com/docs/react/networking/authentication/#cookie
+// save auth_token to local storage
+// https://www.apollographql.com/docs/react/networking/authentication/#local-storage

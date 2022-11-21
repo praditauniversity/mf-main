@@ -11,10 +11,10 @@ module.exports = {
   },
 
   devServer: {
-    port: 20000,
-    historyApiFallback: true,
+    port: 8080,
+    host: '0.0.0.0',
+    hot: true,
   },
-
 
   module: {
     rules: [

@@ -11,5 +11,7 @@ services:
       - /${SERVICE_NAME}/node_modules
       - .:/${SERVICE_NAME}
     ports:
-      - ${FRONTEND_PORT}:20000
+      - ${FRONTEND_PORT}:5001
     restart: on-failure
+    environment:
+      - CHOKIDAR_USEPOLLING=true
