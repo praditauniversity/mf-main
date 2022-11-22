@@ -14,7 +14,6 @@ const client = new ApolloClient({
 export default function App() {
   return (
   <ApolloProvider client={client}>
-    <h1>HOST</h1>
       <User />
   </ApolloProvider>
   );
