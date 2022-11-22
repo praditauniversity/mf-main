@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@ap
 import User from "./user";
 
 const client = new ApolloClient({
-  uri: 'http://arkadium.my.id:4000/graphql',
+  uri: 'http://localhost:4000/graphql',
   cache: new InMemoryCache(),
   opts: {
     credentials: 'same-origin',
@@ -14,6 +14,7 @@ const client = new ApolloClient({
 export default function App() {
   return (
   <ApolloProvider client={client}>
+    <h1>HOST</h1>
       <User />
   </ApolloProvider>
   );

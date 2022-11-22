@@ -25,7 +25,9 @@ export default function User() {
         onSubmit={e => {
           e.preventDefault();
           login({ variables: { email, password } });
-          localStorage.setItem('token', data.login.data.auth_token);
+          console.log(data);
+          /// Arthur@mail.com
+          /// Arthurlouis
         }}
       >
         <label>
@@ -46,7 +48,7 @@ export default function User() {
         />
         <button type="submit">Login</button>
       </form>
-      {/* {data && data.login.data.auth_token} */}
+      Token: {data && data.login.data.auth_token}
     </div>
   );
 }
