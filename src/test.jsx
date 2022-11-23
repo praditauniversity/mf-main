@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useMutation, useQuery, gql } from '@apollo/client';
 import axios from 'axios';
 
+const endpoint= 'http://localhost:4000/graphql';
+
 const LOGIN = gql`
     mutation Login ($email: EmailAddress!, $password: String! ){
         login (input: { email: $email, password: $password }) {
@@ -9,18 +11,25 @@ const LOGIN = gql`
         }
     }
 `;
-const PROJECT = gql`query GetProject { project { Data { ID name description } } }`;
-const get_project = "query GetProject { project { Data { ID name description } } }";
 
-export default function User() {
+const PROJECT = gql`query GetProject { project { Data { ID name description } } }`;
+
+const get_project = "query GetProject { project { Data { ID name description } } }";
+const get_activity = "query GetActivity { activity { data { ID name description } } }";
+const project = '';
+
+export default function Project() {
     const [login, { data }] = useMutation(LOGIN);
-    const {project} = useQuery(PROJECT);
-    const [projectData, setProjectData] = useState(project);
     const [email, setEmail] = useState('Arthur@mail.com');
     const [password, setPassword] = useState('Arthurlouis');
     const [token, setToken] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const header = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': document.cookie,
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +38,8 @@ export default function User() {
             const response = await login({ variables: { email, password } });
             setToken(response.data.login.data.auth_token);
             document.cookie = `token=${response.data.login.data.auth_token}`;
-            console.log(document.cookie);
+            getActivity();
+            getProject();
             setError('');
         } catch (err) {
             setError(err.message);
@@ -38,35 +48,27 @@ export default function User() {
     }
 
     function getProject () {
-        fetch('http://localhost:4000/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `${token}`
-            },
-            body: JSON.stringify({
-                query: get_project
-            })
+        axios.post(endpoint, { query: get_project }, { header: header })
+        .then(function (response) {
+            console.log(response);
         })
-        .then(r => r.json())
-        .then(data => console.log('data returned:', data));
+        .catch(function (error) {
+            console.log(error);
+        });
     }
 
     function getActivity () {
-        fetch('http://localhost:4000/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `${token}`
-            },
-            body: JSON.stringify({
-                query: `{ activity { data { ID name } } }`
-            })
+        axios.post(endpoint, { query: get_activity }, { header: header })
+        .then(function (response) {
+            console.log(response);
         })
-        .then(r => r.json())
-        .then(data => console.log('data returned:', data));
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    function removeCookie() {
+        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
 
     function form () {
@@ -79,6 +81,13 @@ export default function User() {
         );
     }
 
+    // create remove cookie button
+    function removeCookieButton () {
+        return (
+            <button onClick={removeCookie}>Remove Cookie</button>
+        );
+    }
+
     // return fetched data
     return ( 
         <div>
@@ -86,18 +95,7 @@ export default function User() {
             {form()}
             {loading && <p>Loading...</p>}
             {error && <p>{error}</p>} <br />
-            <button onClick={getProject}>Fetch Project</button>
-            <button onClick={getActivity}>Fetch Activity</button>
-            {/* show projectData as array */}
-            {/* {projectData && projectData.map(({ ID, name, description }) => (
-                <div key={ID}>
-                    <h3>{ID}. {name}</h3>
-                    <p>{description}</p>
-                    <p />
-                </div>
-            ))} */}
-            {projectData && console.log("projectData", projectData)}
-
+            {removeCookieButton()}
         </div>
     );
 }

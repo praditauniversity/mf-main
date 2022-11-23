@@ -13,11 +13,11 @@ const GET_SCAFFOLD = gql`
   }
 `;
 
-function DisplayScaffold() {
+function FetchScaffold() {
   const { loading, error, data } = useQuery(GET_SCAFFOLD);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (error) return <p>Error</p>;
 
   return data.scaffold.data.map(({ ID, name, description }) => (
     <div key={ID}>
@@ -31,7 +31,7 @@ function DisplayScaffold() {
 export default function Scaffold() {
   return (
     <div>
-      <DisplayScaffold />
+      <FetchScaffold />
     </div>
   );
 }

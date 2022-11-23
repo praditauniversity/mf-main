@@ -1,20 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
-import User from "./user";
+import { HttpLink, ApolloClient, InMemoryCache, ApolloLink, ApolloProvider, createHttpLink } from '@apollo/client';
+import Login from "./Login";
+import Project from "./Project";
+import Activity from "./Activity";
+
+// TODO implement Cookies
+const token = localStorage.getItem("token");
+const link = new HttpLink({
+    uri: "http://localhost:4000/graphql", 
+    headers: { Authorization: token },
+    credentials: 'include',
+    fetch 
+})
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  link,
   cache: new InMemoryCache(),
-  opts: {
-    credentials: 'same-origin',
-  },
 });
 
 export default function App() {
   return (
   <ApolloProvider client={client}>
-      <User />
+      <Login />
+      <Project />
+      <Activity />
   </ApolloProvider>
   );
 }
