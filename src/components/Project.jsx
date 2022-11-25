@@ -41,8 +41,7 @@ export default function Project() {
     const islogin = localStorage.getItem('token') !== null;
     if (islogin) {
         return (
-            <div className="">
-                <h1 className="text-sky-500">Project</h1>
+            <div>
                 <AddProject />
                 <div className="max-w-lg mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
                     <h2>Fetched Project</h2>
