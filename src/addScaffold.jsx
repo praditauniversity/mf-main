@@ -40,8 +40,8 @@ export default function addScaffold() {
               description: description.value
             } 
           });
-          name.value = 'nameofthe';
-          description.value = 'descriptor';
+          name.value = '';
+          description.value = '';
         }}
       >
         <input ref={node => { name = node; }} /> <br />

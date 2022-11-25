@@ -7,7 +7,7 @@ module.exports = {
     publicPath: "auto",
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+    extensions: [".jsx", ".js", ".json"],
   },
 
   devServer: {
