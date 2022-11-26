@@ -73,15 +73,7 @@ export default function Login() {
         );
     }
     return ( 
-        <div className="
-            justify-between items-center
-            border-b border-slate-200 
-            border-l-4 border-l-transparent
-            max-w-sm mx-auto my-10 
-            bg-white p-8 rounded-xl 
-            shadow shadow-slate-300
-            sm:max-w-lg
-        ">
+        <div className=" max-w-sm mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300 sm:max-w-lg ">
             <h1 className="font-bold text-lg uppercase tracking-widest mb-8">Login</h1>
             {form()}
             {/* {loading && <p>Loading...</p>}
