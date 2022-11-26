@@ -11,4 +11,4 @@ WORKDIR /frontend
 ADD . .
 
 EXPOSE 5001
-ENTRYPOINT yarn start --port 5001
+ENTRYPOINT HOST=0.0.0.0 yarn start --port 5001

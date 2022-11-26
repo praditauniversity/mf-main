@@ -5,8 +5,6 @@ const GET_ACTIVITY = gql`query activity { activity { data { ID name description 
 
 function FetchActivity() {
     const { loading, error, data } = useQuery(GET_ACTIVITY);
-    if (localStorage.getItem('token') === null) {
-    }
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error</p>;
 

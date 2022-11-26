@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useMutation, gql } from '@apollo/client';
+import Button from "../Button";
+import InputField from "../Input";
+
 
 const GET_PROJECT = gql`query project { project { Data { ID name description user_id } } }`;
 const ADD_PROJECT = gql`
@@ -84,10 +87,15 @@ const UPDATE_PROJECT = gql`
     }
 `;
 
+const DELETE_PROJECT = gql`
+    mutation deleteProject ($id: String!) {
+    deleteProject(id: $id)
+    }
+`;
 
 const HeadingOne = ({ label }) => {
     return(
-        <label className="block py-2 mb-4">{label}</label>
+        <label className="block py-2 mb-4 text-md uppercase font-bold text-gray-800 tracking-widest">{label}</label>
     );
 }
 
@@ -99,8 +107,9 @@ const InputLabel = ({ label }) => {
     );
 }
 
-function Add() {
-    let name, description;
+const Add = () => {
+    const name = useRef();
+    const description= useRef();
     const [addProject, { loading, error }] = useMutation(ADD_PROJECT,{
         refetchQueries: [
             { query: GET_PROJECT }
@@ -108,60 +117,63 @@ function Add() {
     });
 
     if (loading) return 'Submitting...';
-    if (error) return `Submission error! ${error.message}`;
+    if (error) window.location.reload();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         addProject({
             variables: {
-                name: name.value,
-                description: description.value
+                name: name.current.value,
+                description: description.current.value
             }
         });
-        name.value = '';
-        description.value = '';
+        name.current.value = '';
+        description.current.value = '';
     }
+
+
     return (
         <form onSubmit={handleSubmit}>
-            <InputLabel label={"Project Name"} />
-            <input ref={node => { name = node; }} className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " />
-            <InputLabel label={"Description"} />
-            <input ref={node => { description = node; }} className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " />
-            <button type="submit" className="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded" >
-                Add Project
-            </button>
-        </form>
+            <InputField ref={name} placeholder="Project Name" label="Project Name" required />
+            <InputField ref={description} label="Project Description" placeholder="Description of the project." required />
+            <Button buttonType="submit" label="Add Project" />
+</form>
     );
 }
 
-function Update() {
-    let id, name, description;
+const Update = () => {
+    const id = useRef();
+    const name = useRef();
+    const description = useRef();
     const [updateProject, { loading, error }] = useMutation(UPDATE_PROJECT, {
         refetchQueries: [
             { query: GET_PROJECT }
         ]
     });
+    // center using tailwindcss flex
+    if (loading) return 'Submitting...';
+    if (error) return `Submission error! ${error.message}`;
 
     return (
         <form onSubmit={e => {
             e.preventDefault();
             updateProject({
                 variables: {
-                    id: id.value,
-                    name: name.value,
-                    description: description.value
+                    id: id.current.value,
+                    name: name.current.value,
+                    description: description.current.value
                 }
             });
-            id.value = '';
-            name.value = '';
-            description.value = '';
+            id.current.value = '';
+            name.current.value = '';
+            description.current.value = '';
         }}>
             <InputLabel label={"ID"} />
-            <input ref={node => { id = node; }} className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " />
+            <input ref={id} className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " />
             <InputLabel label={"Project Name"} />
-            <input ref={node => { name = node; }} className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " />
+            <input ref={name} className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " />
             <InputLabel label={"Description"} />
-            <input ref={node => { description = node; }} className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " />
+            <input ref={description} className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " />
             <button type="submit" className="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded" >
                 Update Project
             </button>
@@ -170,13 +182,56 @@ function Update() {
 }
 
 
-export default function AddProject() {
+const Delete = () => {
+    const id = useRef();
+    const [deleteProject, { loading, error }] = useMutation(DELETE_PROJECT, {
+        refetchQueries: [
+            { query: GET_PROJECT }
+        ]
+    });
 
+    if (loading) return 'Submitting...';
+    if (error) return `Submission error! ${error.message}`;
+
+    return (
+        <form onSubmit={e => {
+            e.preventDefault();
+            deleteProject({
+                variables: {
+                    id: id.current.value
+                }
+            });
+            id.current.value = '';
+        }}>
+            <InputLabel label={"ID"} />
+            <input ref={id} className="mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " />
+            <button type="submit" className="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded" >
+                Delete Project by ID
+            </button>
+        </form>
+    );
+}
+
+
+const CrudProject = () => {
     return(
-        <div className="max-w-lg mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
-            <HeadingOne label="Add New Project" />
-            {Add()}
-            {Update()}
+        <div>
+            <div className="max-w-sm mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300 sm:max-w-lg">
+                <HeadingOne label="Add New Project" />
+                {Add()}
+            </div>
+
+            <div className="max-w-sm mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300 sm:max-w-lg">
+                <HeadingOne label="Update Project" />
+                {Update()}
+            </div>
+
+            <div className="max-w-sm mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300 sm:max-w-lg">
+                <HeadingOne label="Delete Project By ID" />
+                {Delete()}
+            </div>
         </div>
     )
 }
+
+export default CrudProject;

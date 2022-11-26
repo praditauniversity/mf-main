@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useMutation, gql } from '@apollo/client';
+import Button from "./Button";
+import InputField from "./Input";
 
 const LOGIN = gql`
     mutation Login ($email: EmailAddress!, $password: String! ){
@@ -14,8 +16,6 @@ const LOGIN = gql`
 function LoginPage(){
 
 }
-
-
 
 // set state logged in using apollo client
 export default function Login() {
@@ -33,6 +33,7 @@ export default function Login() {
             const response = await login({ variables: { email, password } });
             const token = response.data.login.data.auth_token;
             localStorage.setItem('token', token, JSON.stringify(token));
+            sessionStorage.setItem('token', token, JSON.stringify(token));
             window.location.reload();
             setError('');
         } catch (err) {
@@ -40,26 +41,15 @@ export default function Login() {
         }
         setLoading(false);
     }
-    const ButtonLogin = () => {
-        return(
-            <button type="submit" className="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded" >
-                Login
-            </button>
-        )
-    }
 
     function form () {
         return (
             <form onSubmit={handleSubmit}>
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} 
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
-                />
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} 
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
-                />
-                <div className="flex">
-                <ButtonLogin />
-                {islogin && removeTokenAndReloadButton()}
+                <InputField type="email" placeholder="Arthur@mail.com" label="Email" />
+                <InputField type="password" placeholder="Arthurlouis" label="Password" />
+                <div className="py-4 mx-auto flex items-center justify-between space-x-4">
+                <Button buttonType="submit" label="Login" />
+                    {islogin && removeTokenAndReloadButton()}
                 </div>
 
             </form>
@@ -71,30 +61,31 @@ export default function Login() {
 
         const removeToken = () => {
             localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
             window.location.reload();
         }
 
         return (
-            <button onClick={removeToken}
-                className="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
-            >Remove Token and Reload</button>
+            // <Button onClick={removeToken} label="Remove Token and Reload" />
+            <button onClick={removeToken} className="underline text-slate-400">
+                Remove Token and Reload
+            </button>
         );
     }
-
     return ( 
         <div className="
             justify-between items-center
-            py-3 px-2 
             border-b border-slate-200 
             border-l-4 border-l-transparent
-            max-w-lg mx-auto my-10 
+            max-w-sm mx-auto my-10 
             bg-white p-8 rounded-xl 
             shadow shadow-slate-300
+            sm:max-w-lg
         ">
-            <h1>Login</h1>
+            <h1 className="font-bold text-lg uppercase tracking-widest mb-8">Login</h1>
             {form()}
-            {loading && <p>Loading...</p>}
-            {error && <p>{error}</p>} <br />
+            {/* {loading && <p>Loading...</p>}
+            {error && <p>{error}</p>} <br /> */}
         </div>
     );
 }

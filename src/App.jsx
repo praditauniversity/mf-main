@@ -12,10 +12,11 @@ import Routing from "./Routing";
 import './index.css';
 
 // TODO implement Cookies
-const token = localStorage.getItem('token');
+// const token = localStorage.getItem('token');
+const token = sessionStorage.getItem('token');
 
 const link = new HttpLink({
-    uri: "http://localhost:4000/graphql", 
+    uri: "http://arkadium.my.id:4000/graphql", 
     headers: { Authorization: token },
     credentials: 'include',
     fetch 
