@@ -11,12 +11,6 @@ const LOGIN = gql`
     }
 `;
 
-
-// create login page
-function LoginPage(){
-
-}
-
 // set state logged in using apollo client
 export default function Login() {
     const [login] = useMutation(LOGIN);
