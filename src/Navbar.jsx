@@ -1,67 +1,159 @@
-import React, { useState }from "react";
-import {Link} from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import logo from "/public/image/svg/Logo.svg";
 
-const Navigation = () => {
-    const [hidden, setHidden] = useState(true);
-    const toggleHidden = () => setHidden(!hidden);
+const LoginOrLogoutButton = () => {
+    const [islogin, setIslogin] = useState(sessionStorage.getItem('token') !== null);
+    const Logout = () => {
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+        window.location.href("/#/login");
+        setIslogin(false);
+    }
+    if (islogin) {
+        return (
+            <div>
+                <Link to="/" onClick={Logout} className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-700 hover:bg-white mt-4 lg:mt-0">Logout</Link>
+            </div>
+        );
+    }
     return (
-        <nav className="flex items-center justify-between flex-wrap bg-indigo-700 p-6">
-            <div className="flex items-center flex-shrink-0 text-white mr-6">
-                <Link to="/" className="font-semibold text-xl tracking-tight">OS</Link>
-            </div>
-            <div className="block lg:hidden">
-                <button onClick={toggleHidden} className="flex items-center px-3 py-2 border rounded text-indigo-200 border-indigo-400 hover:text-white hover:border-white">
-                    <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-                </button>
-            </div>
-            <div className={`${hidden ? 'hidden' : ''} w-full block flex-grow lg:flex lg:items-center lg:w-auto`} >
-                <div className="text-sm lg:flex-grow">
-                    <Link onClick={toggleHidden} to="/" className="block mt-4 lg:inline-block lg:mt-0 text-indigo-200 hover:text-white mr-4">
-                        Home
-                    </Link>
-                    <Link onClick={toggleHidden} to="/activity" className="block mt-4 lg:inline-block lg:mt-0 text-indigo-200 hover:text-white mr-4">
-                        Activity
-                    </Link>
-                    <Link onClick={toggleHidden} to="/project" className="block mt-4 lg:inline-block lg:mt-0 text-indigo-200 hover:text-white mr-4">
-                        Project
-                    </Link>
-                    <Link onClick={toggleHidden} to="/about" className="block mt-4 lg:inline-block lg:mt-0 text-indigo-200 hover:text-white mr-4">
-                        About
-                    </Link>
-                    <Link onClick={toggleHidden} to="/contact" className="block mt-4 lg:inline-block lg:mt-0 text-indigo-200 hover:text-white">
-                        Contact
-                    </Link>
-                </div>
-                <div>
-                    <Link to="/login" className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-700 hover:bg-white mt-4 lg:mt-0">Login</Link>
-                </div>
-            </div>
-        </nav>
-    );
-}
-
-
-function NavBarLink(){
-    return (
-        <div className="flex w-full">
-            <Link to="/" className="no-underline black">
-                <div className="pr-2">HOME</div>
-            </Link>
-            <Link to="/project" className="no-underline black">
-                <div className="pr-2">PROJECT</div>
-            </Link>
-            <Link to="/activity" className="no-underline black">
-                <div className="pr-2">ACTIVITY</div>
-            </Link>
+        <div>
+            <Link to="/login" className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-indigo-700 hover:bg-white mt-4 lg:mt-0">Login</Link>
         </div>
     );
 }
 
 
+const Navigation = () => {
+    const [hidden, setHidden] = useState(true);
+    const toggleHidden = () => setHidden(!hidden);
+    const items = [
+        {
+            name: "Home",
+            link: "/project",
+        },
+        {
+            name: "About",
+            link: "/about",
+        },
+        {
+            name: "Contact",
+            link: "/contact",
+        },
+        {
+            name: "Dashboard",
+            link: "/dashboard",
+        },
+        {
+            name: "Login",
+            link: "/login",
+        },
+    ];
+
+    const Hamburger = () => {
+        return(
+            <div className="block lg:hidden">
+                <button onClick={toggleHidden} className="flex items-center px-3 py-2  text-indigo-700 border-indigo-400 hover:text-indigo-900">
+                    <svg className="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
+                </button>
+            </div>
+        );
+    }
+
+    const Logo = () => {
+        return(
+            <>
+            <div className="flex items-center flex-shrink-0 text-indigo-800 mr-6 lg:h-full lg:hidden lg:invisible ">
+                <img src={logo} alt="logo" className="w-12 h-12" />
+                <div className="flex-1 ml-2 m-2">
+                    <a className="font-bold uppercase tracking-widest">CORE</a>
+                    <p className="text-xs opacity-70 uppercase tracking-wide"> General </p>
+                </div>
+            </div>
+            </>
+        );
+    }
+
+    return (
+        <nav className="flex items-center justify-between flex-wrap rounded-md bg-white lg:bg-white p-2 lg:p-3 border-gray-100 shadow-sm lg:mt-2 lg:mr-2 lg:hidden">
+
+            <Logo />
+            <Hamburger />
+
+            <div className={`${hidden ? 'hidden' : ''} w-full block flex-grow lg:flex lg:items-center lg:w-auto`} >
+                <div className="text-md lg:flex-grow">
+                    {items.map((item) => (
+                        <Link onClick={toggleHidden} to={item.link} key={item.name} className="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-indigo-800 ml-4">
+                            {item.name}
+                        </Link>
+                    ))}
+                </div>
+
+            </div>
+        </nav>
+    );
+}
+
+// const Navigation = () => {
+//     const [hidden, setHidden] = useState(true);
+//     const toggleHidden = () => setHidden(!hidden);
+//     const items = [
+//         {
+//             name: "Home",
+//             link: "/project",
+//         },
+//         {
+//             name: "About",
+//             link: "/about",
+//         },
+//         {
+//             name: "Contact",
+//             link: "/contact",
+//         },
+//         // {
+//         //     name: "Login",
+//         //     link: "/login",
+//         // },
+//     ];
+
+//     return (
+//         <nav className="flex items-center justify-between flex-wrap bg-white sm:bg-indigo-700 p-5 sm:p-2 sm:ml-16 border-indigo-100 border-b-2 ">
+//             <div className="flex items-center flex-shrink-0 text-indigo-800 mr-6 sm:h-full sm:hidden ">
+//                 <div className="flex-1 ml-2">
+//                     <Link to="/" className="text-xl tracking-widest font-bold ">CORE</Link>
+//                     <p className="text-sm"> ospro generic </p>
+//                 </div>
+//             </div>
+//             <div className="block lg:hidden">
+//                 <button onClick={toggleHidden} className="flex items-center px-3 py-2  text-indigo-200 border-indigo-400 hover:text-white hover:border-white">
+//                     <svg className="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
+//                 </button>
+//             </div>
+//             <div className={`${hidden ? 'hidden' : ''} w-full block flex-grow lg:flex lg:items-center lg:w-auto`} >
+
+//                 <div className="text-sm lg:flex-grow">
+//                     {items.map((item) => (
+//                         <Link onClick={toggleHidden} to={item.link} key={item.name} className="block mt-4 lg:inline-block lg:mt-0 text-indigo-200 hover:text-white mr-4">
+//                             {item.name}
+//                         </Link>
+//                     ))}
+//                 </div>
+
+//                 {/* <div>
+//                     <LoginOrLogoutButton />
+//                 </div> */}
+
+//             </div>
+//         </nav>
+//     );
+// }
+
+
 export default function NavBar() {
     return (
         <>
-            {Navigation()}
+            <Navigation />
         </>
     );
 }

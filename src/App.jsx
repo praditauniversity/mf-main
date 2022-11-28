@@ -1,14 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { 
-  HttpLink, 
-  ApolloClient, 
-  InMemoryCache, 
-  ApolloProvider 
+import {
+  HttpLink,
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider
 } from '@apollo/client';
-import NavBar from "./Navbar";
 import { HashRouter } from 'react-router-dom';
-import Routing from "./Routing";
+import Main from "./Main";
 import './index.css';
 
 // TODO implement Cookies
@@ -16,10 +15,10 @@ import './index.css';
 const token = sessionStorage.getItem('token');
 
 const link = new HttpLink({
-    uri: "http://arkadium.my.id:4000/graphql", 
-    headers: { Authorization: token },
-    credentials: 'include',
-    fetch 
+  uri: "http://arkadium.my.id:4000/graphql",
+  headers: { Authorization: token },
+  credentials: 'include',
+  fetch
 })
 
 const client = new ApolloClient({
@@ -31,10 +30,7 @@ export default function App() {
   return (
     <HashRouter>
       <ApolloProvider client={client}>
-        <div>
-          <NavBar />
-          <Routing />
-        </div>
+        <Main />
       </ApolloProvider>
     </HashRouter>
   );

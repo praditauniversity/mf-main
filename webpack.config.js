@@ -7,7 +7,7 @@ module.exports = {
     publicPath: "auto",
   },
   resolve: {
-    extensions: [".jsx", ".js", ".json"],
+    extensions: [".tsx",".ts",".jsx", ".js", ".json"],
   },
 
   devServer: {
@@ -29,6 +29,11 @@ module.exports = {
         test: /\.(css|s[ac]ss)$/i,
         use: ["style-loader", "css-loader", "postcss-loader"],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+
       {
         test: /\.(ts|tsx|js|jsx)$/,
         exclude: /node_modules/,
