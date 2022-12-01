@@ -11,6 +11,14 @@ const LOGIN = gql`
     }
 `;
 
+const REFETCH_TOKEN = gql`
+    mutation RefetchToken ($token: String!){
+        refetchToken (input: { token: $token }) {
+            data { auth_token }
+        }
+    }
+`;
+
 export const LoginHandler = () => {
     const [login] = useMutation(LOGIN);
     const [loading, setLoading] = useState(false);
@@ -26,7 +34,7 @@ export const LoginHandler = () => {
             const token = response.data.login.data.auth_token;
             sessionStorage.setItem('token', token, JSON.stringify(token));
             window.location.href = '/#/project';
-            // window.location.reload();
+            window.location.reload();
             setError('');
         } catch (err) {
             setError(err.message);
@@ -40,15 +48,15 @@ export const LoginHandler = () => {
                 <InputField label="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} required />
                 <InputField label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
                 <div className="py-4 mx-auto flex items-center justify-between space-x-4">
-                <button type="submit"
-                    className="w-full flex justify-center 
+                    <button type="submit"
+                        className="w-full flex justify-center 
                     bg-gradient-to-r 
                     from-indigo-600 to-indigo-800  
                     text-gray-100 p-2  
                     rounded-lg tracking-wide font-semibold  
                     shadow-lg cursor-pointer">
-                    Sign in
-                </button>
+                        Sign in
+                    </button>
                 </div>
             </form>
         </div>
@@ -56,7 +64,7 @@ export const LoginHandler = () => {
 }
 
 const Login = () => {
-    return(
+    return (
         <div className="max-w-sm mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300 sm:max-w-lg">
             <p className="font-bold text-md tracking-widest uppercase">Login</p>
             <p className="mb-8 italic text-sm">Login to access the project.</p>
