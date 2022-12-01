@@ -12,7 +12,7 @@ export const SideBar = () => {
         {
             id: 1,
             name: "Dashboard",
-            link: "/#/project",
+            link: "/#/dashboard",
             icon: chat
         },
         {
@@ -23,24 +23,36 @@ export const SideBar = () => {
         },
         {
             id: 3,
-            name: "Dashboard",
-            link: "/#/dashboard",
+            name: "PMODashboard",
+            link: "/#/pmodashboard",
             icon: dashboard
         },
         {
             id: 4,
+            name: "ProjectDashboard",
+            link: "/#/projectdashboard",
+            icon: dashboard
+        },
+        {
+            id: 5,
+            name: "MemberDashboard",
+            link: "/#/memberdashboard",
+            icon: dashboard
+        },
+        {
+            id: 6,
             name: "About",
             link: "/#/about",
             icon: compass
         },
         {
-            id: 5,
+            id: 7,
             name: "Contact",
             link: "/#/contact",
             icon: compass
         },
         {
-            id: 6,
+            id: 8,
             name: "Login",
             link: "/#/login",
             icon: key
