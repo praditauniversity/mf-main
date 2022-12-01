@@ -41,18 +41,24 @@ export const SideBar = () => {
         },
         {
             id: 6,
+            name: "Component",
+            link: "/#/componentlist",
+            icon: chart
+        },
+        {
+            id: 7,
             name: "About",
             link: "/#/about",
             icon: compass
         },
         {
-            id: 7,
+            id: 8,
             name: "Contact",
             link: "/#/contact",
             icon: compass
         },
         {
-            id: 8,
+            id: 9,
             name: "Login",
             link: "/#/login",
             icon: key
