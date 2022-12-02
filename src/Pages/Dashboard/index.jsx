@@ -1,6 +1,7 @@
 import React from "react";
 import UserCard from "../../Components/Card/UserCard";
 import BlankCard from "../../Components/Card/Blank";
+import Dropdown from "../../Components/Dropdown";
 
 const DashboardPage = () => {
     return (
@@ -11,6 +12,7 @@ const DashboardPage = () => {
             <div className="col-span-3"> <BlankCard /> </div>
             <div className="col-span-3"> <BlankCard /> </div>
             <div className="col-span-3"> <BlankCard /> </div>
+            <Dropdown />
         </div>
     );
 }
