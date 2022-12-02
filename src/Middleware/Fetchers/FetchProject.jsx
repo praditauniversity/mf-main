@@ -10,6 +10,7 @@ const FetchProject = () => {
     useEffect(() => {
         if (data) {
             setProject(data.project.Data);
+            console.log("Project Fetched");
         }
     }, [data]);
 

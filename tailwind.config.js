@@ -83,6 +83,14 @@ module.exports = {
 
       },
 
+      fontFamily: {
+        'sans': ['Inter', 'Roboto', 'Helvetica', 'sans-serif'],
+        'serif': ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+        'mono': ['Iosevka', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+        'display': ['Oswald'],
+        'body': ['Inter', 'Roboto', 'Helvetica', 'sans-serif'],
+      },
+
       gridTemplateColumns: {
         '16': 'repeat(16, minmax(0, 1fr))',
         '18': 'repeat(18, minmax(0, 1fr))'
