@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Auth from "../Components/Auth";
-import AboutPage from "../Pages/About";
+import ComponentListPage from "../Pages/ComponentList";
 import DashboardPage from "../Pages/Dashboard";
 import MemberDashboardPage from "../Pages/MemberDashboard";
 import PMODashboardPage from "../Pages/PMODashboard";
@@ -19,7 +19,10 @@ export default function Routing() {
             <Route path="/pmodashboard" element={<PMODashboardPage />} />
             <Route path="/projectdashboard" element={<ProjectDashboardPage />} />
             <Route path="/memberdashboard" element={<MemberDashboardPage />} />
-            <Route path="/about" element={<AboutPage />} />
+            <Route path="/componentlist" element={<ComponentListPage />} />
+            <Route path="/about" element={
+                <div> {Responses(503)} </div>
+            } />
             <Route path="/contact" element={
                 <div> {Responses(503)} </div>
             } />
