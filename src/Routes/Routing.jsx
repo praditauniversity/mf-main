@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Auth from "../Components/Auth";
+import { Auth, Register } from "../Components/Auth";
 import ComponentListPage from "../Pages/ComponentList";
 import DashboardPage from "../Pages/Dashboard";
 import MemberDashboardPage from "../Pages/MemberDashboard";
@@ -15,6 +15,7 @@ export default function Routing() {
             <Route path="/" element={<Auth />} />
             <Route path="/project" element={<Project />} />
             <Route path="/login" element={<Auth />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/pmodashboard" element={<PMODashboardPage />} />
             <Route path="/projectdashboard" element={<ProjectDashboardPage />} />
