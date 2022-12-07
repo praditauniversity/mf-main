@@ -68,10 +68,24 @@ export const RegisterHandler = () => {
                     shadow-lg cursor-pointer">
                         Register
                     </button>
+                </div>
+                <div className="text-center mx-auto">
                     Have an account?
-                    <a href="/#/login">Sign In</a>
+                    <a className="text-center text-primary" href="/#/login"> Sign In </a>
                 </div>
             </form>
         </div>
     );
 }
+
+const Register = () => {
+    return (
+        <div className=" max-w-sm mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300 sm:max-w-lg ">
+            <p className="font-bold text-md tracking-widest uppercase">Register</p>
+            <p className="mb-8 italic text-sm">Register to the system.</p>
+            <RegisterHandler />
+        </div>
+    );
+}
+
+export default Register;

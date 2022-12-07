@@ -42,8 +42,10 @@ export const LoginHandler = () => {
                     shadow-lg cursor-pointer">
                         Sign in
                     </button>
+                </div>
+                <div className="text-center mx-auto">
                     Don&apos;t have an account?
-                    <a href="/#/register">Sign Up</a>
+                    <a className="text-center text-primary" href="/#/register"> Sign Up </a>
                 </div>
             </form>
         </div>
