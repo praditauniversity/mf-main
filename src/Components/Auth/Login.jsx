@@ -2,22 +2,7 @@ import React, { useState } from "react";
 import { useMutation, gql } from '@apollo/client';
 import Button from "../Button";
 import { InputField } from "../Input/Input";
-
-const LOGIN = gql`
-    mutation Login ($email: EmailAddress!, $password: String! ){
-        login (input: { email: $email, password: $password }) {
-            data { auth_token }
-        }
-    }
-`;
-
-const REFETCH_TOKEN = gql`
-    mutation RefetchToken ($token: String!){
-        refetchToken (input: { token: $token }) {
-            data { auth_token }
-        }
-    }
-`;
+import { LOGIN, REFETCH_TOKEN } from "../../Middleware/GraphQL/mutations";
 
 export const LoginHandler = () => {
     const [login] = useMutation(LOGIN);
@@ -57,6 +42,8 @@ export const LoginHandler = () => {
                     shadow-lg cursor-pointer">
                         Sign in
                     </button>
+                    Don&apos;t have an account?
+                    <a href="/#/register">Sign Up</a>
                 </div>
             </form>
         </div>
