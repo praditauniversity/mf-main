@@ -79,7 +79,7 @@ const NavChip = (type) => {
 const NavChips = () => {
     return (
         <nav className="items-center justify-between rounded-md mt-2 border-gray-100 hidden lg:flex">
-            <div className="flex-1 space-x-2 flex justify-between h-11 mb-2">
+            <div className="flex-1 space-x-2 pb-1 flex justify-between">
                 <NavChip type="user" />
                 <NavChip type="breadcrumbs" />
                 <NavChip type="dashboard" />
