@@ -1,5 +1,6 @@
 import React from "react";
 import LoginPage from "../../Pages/Login";
+import RegisterPage from "../../Pages/Register";
 import Button from "../Button";
 
 const Logout = () => {
@@ -24,7 +25,7 @@ const Logout = () => {
     );
 }
 
-const Auth = () => {
+export const Auth = () => {
     const islogin = sessionStorage.getItem('token') !== null;
     if (islogin) {
         return (
@@ -39,4 +40,8 @@ const Auth = () => {
     }
 }
 
-export default Auth;
+export const Register = () => {
+    return (
+        <RegisterPage />
+    );
+}
