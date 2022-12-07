@@ -1,9 +1,9 @@
 import React from "react";
-import {LoginHandler} from "../../Components/Auth/Login";
+import { LoginHandler } from "../../Components/Auth/Login";
 
 const LoginPage = () => {
     return (
-        <div className="w-full h-full m-auto bg-white  ">
+        <div className="w-full h-full m-auto bg-white">
             <div className="flex md:items-center justify-center h-full w-full p-8">
                 <div className="max-w-md w-full space-y-8">
                     <div className="text-center">
