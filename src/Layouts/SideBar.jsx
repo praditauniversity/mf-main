@@ -99,7 +99,7 @@ export const SideBar = () => {
 
     return (
         <div className="w-15 p-3 flex-1 bg-white shadow-sm rounded-xl h-full grid grid-cols-1 grid-rows-2">
-            <div className="row-span-1">
+            <div className="row-span-2">
                 <div className="flex flex-col w-full items-center mt-0.5">
                     <Logo />
                     <Divider />
@@ -107,7 +107,7 @@ export const SideBar = () => {
                     <Divider />
                 </div>
             </div>
-            <div className="row-span-1 flex items-end">
+            <div>
                 <a href="/#/login" className="flex flex-col items-center font-normal text-gray-900 rounded-lg">
                     <img src={compass} alt="Logout" className="w-6 h-6" />
                 </a>
