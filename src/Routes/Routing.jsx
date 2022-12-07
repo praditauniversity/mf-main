@@ -10,23 +10,34 @@ import ProjectDashboardPage from "../Pages/ProjectDashboard";
 import Responses from "../Pages/Responses";
 
 export default function Routing() {
-    return (
-        <Routes>
-            <Route path="/" element={<Auth />} />
-            <Route path="/project" element={<Project />} />
-            <Route path="/login" element={<Auth />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/pmodashboard" element={<PMODashboardPage />} />
-            <Route path="/projectdashboard" element={<ProjectDashboardPage />} />
-            <Route path="/memberdashboard" element={<MemberDashboardPage />} />
-            <Route path="/componentlist" element={<ComponentListPage />} />
-            <Route path="/about" element={
-                <div> {Responses(503)} </div>
-            } />
-            <Route path="/contact" element={
-                <div> {Responses(503)} </div>
-            } />
-        </Routes>
-    );
+    const islogin = sessionStorage.getItem('token') !== null;
+    if (!islogin) {
+        return (
+            <Routes>
+                <Route path="/" element={<Auth />} />
+                <Route path="/login" element={<Auth />} />
+                <Route path="/register" element={<Register />} />
+            </Routes>
+        )
+    } else {
+        return (
+            <Routes>
+                <Route path="/" element={<Auth />} />
+                <Route path="/login" element={<Auth />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/project" element={<Project />} />
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/pmodashboard" element={<PMODashboardPage />} />
+                <Route path="/projectdashboard" element={<ProjectDashboardPage />} />
+                <Route path="/memberdashboard" element={<MemberDashboardPage />} />
+                <Route path="/componentlist" element={<ComponentListPage />} />
+                <Route path="/about" element={
+                    <div> {Responses(503)} </div>
+                } />
+                <Route path="/contact" element={
+                    <div> {Responses(503)} </div>
+                } />
+            </Routes>
+        );
+    }
 }
