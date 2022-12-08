@@ -27,6 +27,8 @@ export const LoginHandler = () => {
         setLoading(false);
     }
 
+    const rainbow = "w-full flex justify-center bg-gradient-to-r from-indigo-600 to-indigo-800  text-gray-100 p-2  rounded-lg tracking-wide font-semibold  shadow-lg cursor-pointer";
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -34,12 +36,7 @@ export const LoginHandler = () => {
                 <InputField label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
                 <div className="py-4 mx-auto flex items-center justify-between space-x-4">
                     <button type="submit"
-                        className="w-full flex justify-center 
-                    bg-gradient-to-r 
-                    from-indigo-600 to-indigo-800  
-                    text-gray-100 p-2  
-                    rounded-lg tracking-wide font-semibold  
-                    shadow-lg cursor-pointer">
+                        className={rainbow}>
                         Sign in
                     </button>
                 </div>

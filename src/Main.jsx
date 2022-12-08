@@ -19,7 +19,7 @@ const Main = () => {
                   </div>
                 </div>
                 <div className="flex flex-1 flex-col lg:mr-2">
-                  {/* <NavBar /> */}
+                  <NavBar />
                   <NavChips />
                   <div className="overflow-y-auto h-full py-2">
                     <Routing />
