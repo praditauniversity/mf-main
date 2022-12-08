@@ -45,6 +45,7 @@ module.exports = {
         'error': '#DA4747',
         'error-light': '#DD7474',
         'error-dark': '#C62828',
+        'error-lighter': '#F8E5E5',
 
         'orange': '#FDAC42',
         'orange-light': '#FCCC75',
