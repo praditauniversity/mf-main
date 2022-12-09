@@ -41,10 +41,14 @@
     "cors": "^2.8.5",
     "graphql": "^16.6.0",
     "highcharts": "^10.3.2",
+    "highcharts-react-official": "^3.1.0",
     "n": "^9.0.1",
     "react": "^17.0.2",
+    "react-apexcharts": "^1.4.0",
     "react-dom": "^17.0.2",
+    "react-highcharts": "^16.1.0",
     "react-loading-skeleton": "^3.1.0",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.2.1",
     "yarn": "^1.22.19"
   }

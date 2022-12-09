@@ -95,60 +95,6 @@ const Navigation = () => {
     );
 }
 
-// const Navigation = () => {
-//     const [hidden, setHidden] = useState(true);
-//     const toggleHidden = () => setHidden(!hidden);
-//     const items = [
-//         {
-//             name: "Home",
-//             link: "/project",
-//         },
-//         {
-//             name: "About",
-//             link: "/about",
-//         },
-//         {
-//             name: "Contact",
-//             link: "/contact",
-//         },
-//         // {
-//         //     name: "Login",
-//         //     link: "/login",
-//         // },
-//     ];
-
-//     return (
-//         <nav className="flex items-center justify-between flex-wrap bg-white sm:bg-indigo-700 p-5 sm:p-2 sm:ml-16 border-indigo-100 border-b-2 ">
-//             <div className="flex items-center flex-shrink-0 text-indigo-800 mr-6 sm:h-full sm:hidden ">
-//                 <div className="flex-1 ml-2">
-//                     <Link to="/" className="text-xl tracking-widest font-bold ">CORE</Link>
-//                     <p className="text-sm"> ospro generic </p>
-//                 </div>
-//             </div>
-//             <div className="block lg:hidden">
-//                 <button onClick={toggleHidden} className="flex items-center px-3 py-2  text-indigo-200 border-indigo-400 hover:text-white hover:border-white">
-//                     <svg className="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
-//                 </button>
-//             </div>
-//             <div className={`${hidden ? 'hidden' : ''} w-full block flex-grow lg:flex lg:items-center lg:w-auto`} >
-
-//                 <div className="text-sm lg:flex-grow">
-//                     {items.map((item) => (
-//                         <Link onClick={toggleHidden} to={item.link} key={item.name} className="block mt-4 lg:inline-block lg:mt-0 text-indigo-200 hover:text-white mr-4">
-//                             {item.name}
-//                         </Link>
-//                     ))}
-//                 </div>
-
-//                 {/* <div>
-//                     <LoginOrLogoutButton />
-//                 </div> */}
-
-//             </div>
-//         </nav>
-//     );
-// }
-
 
 export default function NavBar() {
     return (

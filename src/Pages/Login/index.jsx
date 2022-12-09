@@ -1,5 +1,6 @@
 import React from "react";
 import { LoginHandler } from "../../Components/Auth/Login";
+
 const LoginPage = () => {
     return (
         <div className="w-full h-screen m-auto bg-white flex items-center justify-center px-8">

@@ -53,11 +53,28 @@ const DashboardChips = () => {
         setActive(e.target.id);
     }
 
+    const list = [
+        { id: "project", name: "Project" },
+        { id: "dashboard", name: "Dashboard" },
+        { id: "projectdashboard", name: "Project Dashboard" },
+        { id: "pmodashboard", name: "PMO Dashboard" },
+    ];
+
+    const separator = <span className="mx-2 text-gray-600 ">|</span>;
+
     return (
         <div className="flex-1 flex bg-white shadow-sm py-2 px-4 rounded-lg text-dark text-sm items-center justify-end truncate">
-            <Link to="/dashboard" id="dashboard" onClick={handleClick} className={active === "dashboard" ? "mr-2 font-bold truncate" : "mr-2"}>Dashboard</Link>
-            <span className="ml-2 mr-2 text-gray-400 font-bold">|</span>
-            <Link to="/project" id="project" onClick={handleClick} className={active === "project" ? "mr-2 font-bold truncate" : "mr-2"}>Project</Link>
+            {list.map((item, index) => {
+                return (
+                    <Link to={item.id} key={item.id} id={item.id} onClick={handleClick} className={active === item.id ? "font-bold" : "font-normal"}>
+                        {item.name}
+                        <span className="font-normal pointer-events-none">
+                            {index < list.length - 1 ? separator : ""}
+                        </span>
+                    </Link>
+                );
+            })}
+
         </div>
     );
 }

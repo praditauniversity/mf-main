@@ -5,6 +5,8 @@ import ProjectOverviewCard from "../../Components/Card/ProjectOverviewCard";
 import UserCard from "../../Components/Card/UserCard";
 import ApexRedialBarChart from "../../Components/Charts/RadialChart";
 import BudgetCard from "../../Components/Card/BudgetCard";
+import RadialBarChart from "../../Components/Charts/RadialChart";
+import TestCard from "../../Components/Card/TestCard";
 
 const ProjectDashboardPage = () => {
     return (
@@ -24,12 +26,12 @@ const ProjectDashboardPage = () => {
             {/* should be calendar | row pertama col kedua */}
             <div className="col-span-3 row-span-3"> <UserCard /> </div>
             {/* should be row kedua col pertama */}
-            <div className="col-span-3 row-span-1"> <BudgetCard title="Budget" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-secondary-800" borderColor="border-secondary-dark" bgcolor="bg-secondary-light" /> </div>
-            <div className="col-span-3 row-span-1"> <BudgetCard title="Actual" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-primary-800" borderColor="border-primary-dark" bgcolor="bg-primary-light"/> </div>
-            <div className="col-span-3 row-span-1"> <BudgetCard title="Cost" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-orange-dark" borderColor="border-orange-dark" bgcolor="bg-orange-lighter"/> </div>
-            <div className="col-span-3 row-span-1"> <BudgetCard title="Danger" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-error-dark" borderColor="border-error-dark" bgcolor="bg-error-lighter"/> </div>
-            <div className="col-span-3 row-span-1"> <BudgetCard title="Variance" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-tertiary-800" borderColor="border-tertiary-800" bgcolor="bg-tertiary-light"/> </div>
-            <div className="col-span-6 row-span-1"> <ApexRedialBarChart /> </div>
+            <div className="col-span-3 row-span-1"> <BudgetCard title="Budget" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-secondary-800" /> </div>
+            <div className="col-span-3 row-span-1"> <BudgetCard title="Actual" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-primary-800" /> </div>
+            <div className="col-span-3 row-span-1"> <BudgetCard title="Cost" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-orange-dark" /> </div>
+            <div className="col-span-3 row-span-1"> <BudgetCard title="Danger" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-error-dark" /> </div>
+            <div className="col-span-3 row-span-1"> <BudgetCard title="Variance" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-tertiary-800" /> </div>
+            <div className="col-span-12 row-span-1"> <RadialBarChart /> </div>
         </div>
     );
 }
