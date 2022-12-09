@@ -31,7 +31,7 @@ const ProjectDashboardPage = () => {
             <div className="col-span-3 row-span-1"> <BudgetCard title="Cost" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-orange-dark" /> </div>
             <div className="col-span-3 row-span-1"> <BudgetCard title="Danger" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-error-dark" /> </div>
             <div className="col-span-3 row-span-1"> <BudgetCard title="Variance" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-tertiary-800" /> </div>
-            <div className="col-span-12 row-span-1"> <RadialBarChart /> </div>
+            <div className="col-span-9 row-span-1"> <RadialBarChart /> </div>
         </div>
     );
 }

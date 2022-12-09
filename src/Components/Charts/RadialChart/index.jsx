@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import chart from "./chart";
-import './radialChart.css'
+import optionsRadial from "./chart";
+import './radialChart.css';
 
 export default class RadialBarChart extends React.Component{
   render(){
@@ -22,11 +22,12 @@ export default class RadialBarChart extends React.Component{
         {/* disini harusnya radial chart */}
         <div className="py-4">
           {/* dibawah ini harusnya make class yang manggil dari cssnya */}
-          {/* <figure className="highcharts-figure"> */}
+          <figure id="highcharts-figure">
             <div id="container">
-              <HighchartsReact highcharts={Highcharts} options={chart}/>
+              <HighchartsReact highcharts={Highcharts} options={optionsRadial}/>
             </div>
-          {/* </figure> */}
+            {/* <div w3-include-html="index.html"></div> */}
+          </figure>
         </div>
         <div className="py-4 flex justify-end">
           <button className="font-semibold text-sm text-secondary">

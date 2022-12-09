@@ -8,8 +8,8 @@ export const LoginHandler = () => {
     const [login] = useMutation(LOGIN);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [email, setEmail] = useState('Arthur@mail.com');
-    const [password, setPassword] = useState('Arthurlouis');
+    const [email, setEmail] = useState('ValeriaReina@mail.com');
+    const [password, setPassword] = useState('ValeriaReina');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
