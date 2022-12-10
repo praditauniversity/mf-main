@@ -11,6 +11,7 @@ import Responses from "../Pages/Responses";
 import Cases from "../Pages/Cases";
 import AboutPage from "../Pages/About";
 import UserProfile from "../Pages/UserProfile";
+import Logout from "../Components/Auth/Logout";
 
 export default function Routing() {
     const islogin = localStorage.getItem('token') !== null;
@@ -39,6 +40,7 @@ export default function Routing() {
                 <Route path="/home" element={ <UserProfile />} />
                 <Route path="/profile" element={ <UserProfile />} />
                 <Route path="/projects/:id" element={ <Project />} />
+                <Route path="/logout" element={ <Logout /> } />
             </Routes>
         );
     }

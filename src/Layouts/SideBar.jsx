@@ -6,63 +6,20 @@ import key from "../Assets/Icons/svg/Key.svg";
 import chart from "../Assets/Icons/svg/Progress.svg";
 import compass from "../Assets/Icons/svg/Compass.svg"
 import dashboard from "../Assets/Icons/svg/Dashboard.svg"
+import { Dialog } from "@headlessui/react";
+import LogoutButton from "../Components/Auth/LogoutDialog";
 
 export const SideBar = () => {
     const [sideList, setSideList] = useState([
-        {
-            id: 1,
-            name: "Dashboard",
-            link: "/#/dashboard",
-            icon: chat
-        },
-        {
-            id: 2,
-            name: "Project",
-            link: "/#/project",
-            icon: chart
-        },
-        // {
-        //     id: 3,
-        //     name: "PMODashboard",
-        //     link: "/#/pmodashboard",
-        //     icon: dashboard
-        // },
-        // {
-        //     id: 4,
-        //     name: "ProjectDashboard",
-        //     link: "/#/projectdashboard",
-        //     icon: dashboard
-        // },
-        // {
-        //     id: 5,
-        //     name: "MemberDashboard",
-        //     link: "/#/memberdashboard",
-        //     icon: dashboard
-        // },
-        {
-            id: 6,
-            name: "Component",
-            link: "/#/componentlist",
-            icon: chart
-        },
-        {
-            id: 7,
-            name: "About",
-            link: "/#/about",
-            icon: compass
-        },
-        {
-            id: 8,
-            name: "Contact",
-            link: "/#/contact",
-            icon: compass
-        },
-        {
-            id: 9,
-            name: "Login",
-            link: "/#/login",
-            icon: key
-        },
+        { id: 1, name: "Dashboard", link: "/#/dashboard", icon: chat },
+        { id: 2, name: "Project", link: "/#/project", icon: chart },
+        // { id: 3, name: "PMODashboard", link: "/#/pmodashboard", icon: dashboard },
+        // { id: 4, name: "ProjectDashboard", link: "/#/projectdashboard", icon: dashboard },
+        // { id: 5, name: "MemberDashboard", link: "/#/memberdashboard", icon: dashboard },
+        { id: 6, name: "Component", link: "/#/componentlist", icon: chart },
+        { id: 7, name: "About", link: "/#/about", icon: compass },
+        { id: 8, name: "Contact", link: "/#/contact", icon: compass },
+        { id: 9, name: "Login", link: "/#/login", icon: key },
     ]);
     const [expanded, setExpanded] = useState(false);
 
@@ -97,6 +54,7 @@ export const SideBar = () => {
         )
     }
 
+
     return (
         <div className="w-15 p-3 flex-1 bg-white shadow-sm rounded-xl h-full grid grid-cols-1 grid-rows-2">
             <div className="row-span-2">
@@ -108,9 +66,7 @@ export const SideBar = () => {
                 </div>
             </div>
             <div>
-                <a href="/#/login" className="flex flex-col items-center font-normal text-gray-900 rounded-lg">
-                    <img src={compass} alt="Logout" className="w-6 h-6" />
-                </a>
+                <LogoutButton />
             </div>
         </div>
 

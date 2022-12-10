@@ -69,8 +69,8 @@ const CommandPalette = () => {
                         {filteredOptions.length > 0 && (
                             <Combobox.Options static className='max-h-60 overflow-y-auto bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border-8 border-transparent' >
                                 {filteredOptions.map((project) => (
-                                    <Combobox.Option key={project.id} value={project}>
-                                        <div key={project.id} className='px-4 py-4 text-sm text-gray-900 hover:bg-primary-dark ui-active:bg-primary-dark ui-active:text-white w-full rounded-md' >
+                                    <Combobox.Option key={project.ID} value={project}>
+                                        <div key={project.ID} className='px-4 py-4 text-sm text-gray-900 hover:bg-primary-dark ui-active:bg-primary-dark ui-active:text-white w-full rounded-md' >
                                             {project.name}: <span className='text-typo-dark/70 ui-active:text-white/70'>{project.description}</span>
                                         </div>
                                     </Combobox.Option>
