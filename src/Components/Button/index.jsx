@@ -2,7 +2,10 @@ import React from 'react';
 
 const Button = (props, buttontype, label) => {
     return (
-        <button type={buttontype} className="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded" {...props}>
+        <button 
+        type={buttontype} 
+        className="btn" 
+        {...props}>
             {props.label}
         </button>
     )

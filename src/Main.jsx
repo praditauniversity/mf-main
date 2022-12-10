@@ -3,9 +3,10 @@ import NavChips from "./Layouts/NavChips";
 import NavBar from "./Layouts/Navbar";
 import { SideBar } from "./Layouts/SideBar";
 import Routing from "./Routes/Routing";
+import CommandPalette from "./Components/CommandPalette";
 
 const Main = () => {
-  const islogin = sessionStorage.getItem('token') !== null;
+  const islogin = localStorage.getItem('token') !== null;
   if (islogin) {
     return (
       <>
@@ -23,6 +24,7 @@ const Main = () => {
                   <NavChips />
                   <div className="overflow-y-auto h-full py-2">
                     <Routing />
+                    <CommandPalette />
                   </div>
                 </div>
               </div>

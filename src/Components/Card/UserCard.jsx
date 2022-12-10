@@ -1,7 +1,11 @@
 import React from "react";
 import UserImage from "../../Assets/Images/png/User.png";
+import GetProfile from "../Auth/GetProfile";
+import Button from "../Button";
 
 const UserCard = () => {
+  const profile = GetProfile();
+
   return (
 
     <div className="rounded-xl shadow-sm bg-white py-8 px-16">
@@ -10,12 +14,12 @@ const UserCard = () => {
 
       <div className="py-4">
         <center>
-          <p className="font-semibold text-md">Valeria Reina</p>
+          <p className="font-semibold text-md">{profile.first_name} {profile.last_name}</p>
           <p className="opacity-70 text-sm">Development Operation</p>
         </center>
       </div>
 
-      <button className="mx-auto flex py-2 sm:px-8 px-12 text-sm font-semibold text-white rounded-md bg-indigo-700 tracking-wider">Edit Profile</button>
+      <Button label="Edit Profile" />
     </div>
   )
 }

@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply no-underline 
+    inline-block cursor-pointer 
+    rounded-md px-4 py-2 w-full
+    bg-primary-dark text-white 
+    hover:bg-primary-800
+    text-center text-sm font-semibold
+    transition duration-200 ease-in-out 
+    transform active:scale-95;
+  }
+}
+
+@layer utilities {
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+}

@@ -6,7 +6,7 @@ import Button from "../Button";
 const Logout = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
-        sessionStorage.removeItem('token');
+        localStorage.clear();
         window.location.href = '/';
         window.location.reload();
     }
@@ -25,7 +25,7 @@ const Logout = () => {
 }
 
 export const Auth = () => {
-    const islogin = sessionStorage.getItem('token') !== null;
+    const islogin = localStorage.getItem('token') !== null;
     if (islogin) {
         return (
             <div className="flex-col w-full-md">
@@ -41,6 +41,8 @@ export const Auth = () => {
 
 export const Register = () => {
     return (
-        <RegisterPage />
+        <div className="flex-col w-full-md no-scrollbar overflow-y-auto">
+            <RegisterPage />
+        </div>
     );
 }

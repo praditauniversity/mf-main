@@ -21,24 +21,24 @@ export const SideBar = () => {
             link: "/#/project",
             icon: chart
         },
-        {
-            id: 3,
-            name: "PMODashboard",
-            link: "/#/pmodashboard",
-            icon: dashboard
-        },
-        {
-            id: 4,
-            name: "ProjectDashboard",
-            link: "/#/projectdashboard",
-            icon: dashboard
-        },
-        {
-            id: 5,
-            name: "MemberDashboard",
-            link: "/#/memberdashboard",
-            icon: dashboard
-        },
+        // {
+        //     id: 3,
+        //     name: "PMODashboard",
+        //     link: "/#/pmodashboard",
+        //     icon: dashboard
+        // },
+        // {
+        //     id: 4,
+        //     name: "ProjectDashboard",
+        //     link: "/#/projectdashboard",
+        //     icon: dashboard
+        // },
+        // {
+        //     id: 5,
+        //     name: "MemberDashboard",
+        //     link: "/#/memberdashboard",
+        //     icon: dashboard
+        // },
         {
             id: 6,
             name: "Component",

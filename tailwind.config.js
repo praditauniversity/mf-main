@@ -53,13 +53,13 @@ module.exports = {
         'orange-dark': '#FF8800',
         'orange-darker': '#E54C00',
 
-        'text-dark': '#252B4B',
-        'text-subtitle': '#505F73',
-        'text-normal': '#475467',
-        'text-light': '#A3AED0',
-        'text-lighter': '#CCD1D7',
-        'text-lite': '#9EA9CB',
-        'text-snow': '#FAFAFA',
+        'typo-dark': '#252B4B',
+        'typo-subtitle': '#505F73',
+        'typo-normal': '#475467',
+        'typo-light': '#A3AED0',
+        'typo-lighter': '#CCD1D7',
+        'typo-lite': '#9EA9CB',
+        'typo-snow': '#FAFAFA',
 
         'table-dark': '#F5F6FA',
         'table-light': '#E9EDF7',
@@ -103,19 +103,6 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    plugin(function ({ addUtilities }) {
-      addUtilities({
-        '.content-auto': {
-          'content-visibility': 'auto',
-        },
-        ".no-scrollbar::-webkit-scrollbar": {
-          "display": " none"
-        },
-        ".no-scrollbar": {
-          "-ms-overflow-style": "none",
-          "scrollbar-width": "none"
-        }
-      })
-    })
+    require('@headlessui/tailwindcss')({ prefix: 'ui' }),
   ],
 }

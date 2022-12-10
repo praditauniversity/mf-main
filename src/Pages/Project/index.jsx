@@ -21,7 +21,7 @@ export const RenderProject = () => {
 }
 
 const Project = () => {
-    const islogin = sessionStorage.getItem('token') !== null;
+    const islogin = localStorage.getItem('token') !== null;
     const HeaderProject = () => {
         return (
             <center>

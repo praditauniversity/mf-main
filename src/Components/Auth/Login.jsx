@@ -1,39 +1,52 @@
+import { useMutation } from '@apollo/client';
 import React, { useState } from "react";
-import { useMutation, gql } from '@apollo/client';
-import Button from "../Button";
+import { LOGIN } from "../../Middleware/GraphQL/mutations";
+import useLocalStorage from "../../Middleware/useLocalStorage";
 import { InputField } from "../Input/Input";
-import { LOGIN, REFETCH_TOKEN } from "../../Middleware/GraphQL/mutations";
+
+const SubmitHandler = async (e, login, email, password, setProfile, setError) => {
+  e.preventDefault();
+  try {
+    const response = await login({ variables: { email, password } });
+    const data = response.data.login.data;
+    const token = data.auth_token;
+    localStorage.setItem('token', token, JSON.stringify(token));
+    window.location.href = '/#/project';
+    window.location.reload();
+    setProfile({
+      first_name: data.first_name,
+      last_name: data.last_name
+    });
+    setError('');
+  } catch (err) {
+    setError(err.message);
+  }
+}
 
 export const LoginHandler = () => {
     const [login] = useMutation(LOGIN);
-    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useLocalStorage('email', 'ValeriaReina@mail.com');
+    const [password, setPassword] = useLocalStorage('password', 'ValeriaReina');
     const [error, setError] = useState('');
-    const [email, setEmail] = useState('ValeriaReina@mail.com');
-    const [password, setPassword] = useState('ValeriaReina');
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        try {
-            const response = await login({ variables: { email, password } });
-            const token = response.data.login.data.auth_token;
-            sessionStorage.setItem('token', token, JSON.stringify(token));
-            window.location.href = '/#/project';
-            window.location.reload();
-            setError('');
-        } catch (err) {
-            setError(err.message);
-        }
-        setLoading(false);
+    const [profile, setProfile] = useLocalStorage('profile', () => {
+        return {
+            first_name: '',
+            last_name: '',
+            company: '',
+        } 
+    });
+    
+    const handleSubmitWrapper = (e) => {
+        SubmitHandler(e, login, email, password, setProfile, setError );
     }
 
     const rainbow = "w-full flex justify-center bg-gradient-to-r from-indigo-600 to-indigo-800  text-gray-100 p-2  rounded-lg tracking-wide font-semibold  shadow-lg cursor-pointer";
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <InputField label="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} required />
-                <InputField label="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
+            <form onSubmit={handleSubmitWrapper}>
+                <InputField label="Email" type="email" value={email} required />
+                <InputField label="Password" type="password" value={password} required />
                 <div className="py-4 mx-auto flex items-center justify-between space-x-4">
                     <button type="submit"
                         className={rainbow}>
@@ -48,6 +61,10 @@ export const LoginHandler = () => {
         </div>
     );
 }
+
+const LoginForm = () => {
+}
+
 
 const Login = () => {
     return (

@@ -9,10 +9,10 @@ import {
 import { HashRouter } from 'react-router-dom';
 import Main from "./Main";
 import './index.css';
+import { Provider } from 'react-redux';
+import store from './Redux/store';
 
-// TODO implement Cookies
-// const token = localStorage.getItem('token');
-const token = sessionStorage.getItem('token');
+const token = localStorage.getItem('token');
 
 const link = new HttpLink({
   uri: "http://arkadium.my.id:4000/graphql",
@@ -29,9 +29,11 @@ const client = new ApolloClient({
 export default function App() {
   return (
     <HashRouter>
-      <ApolloProvider client={client}>
-        <Main />
-      </ApolloProvider>
+      <Provider store={store}>
+        <ApolloProvider client={client}>
+          <Main />
+        </ApolloProvider>
+      </Provider>
     </HashRouter>
   );
 }

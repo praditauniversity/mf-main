@@ -8,9 +8,12 @@ import PMODashboardPage from "../Pages/PMODashboard";
 import Project from "../Pages/Project";
 import ProjectDashboardPage from "../Pages/ProjectDashboard";
 import Responses from "../Pages/Responses";
+import Cases from "../Pages/Cases";
+import AboutPage from "../Pages/About";
+import UserProfile from "../Pages/UserProfile";
 
 export default function Routing() {
-    const islogin = sessionStorage.getItem('token') !== null;
+    const islogin = localStorage.getItem('token') !== null;
     if (!islogin) {
         return (
             <Routes>
@@ -31,12 +34,11 @@ export default function Routing() {
                 <Route path="/projectdashboard" element={<ProjectDashboardPage />} />
                 <Route path="/memberdashboard" element={<MemberDashboardPage />} />
                 <Route path="/componentlist" element={<ComponentListPage />} />
-                <Route path="/about" element={
-                    <div> {Responses(503)} </div>
-                } />
-                <Route path="/contact" element={
-                    <div> {Responses(503)} </div>
-                } />
+                <Route path="/about" element={ <AboutPage />} />
+                <Route path="/contact" element={ <UserProfile />} />
+                <Route path="/home" element={ <UserProfile />} />
+                <Route path="/profile" element={ <UserProfile />} />
+                <Route path="/projects/:id" element={ <Project />} />
             </Routes>
         );
     }

@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import logo from "../Assets/Icons/svg/Logo.svg";
 
 const LoginOrLogoutButton = () => {
-    const [islogin, setIslogin] = useState(sessionStorage.getItem('token') !== null);
+    const [islogin, setIslogin] = useState(localStorage.getItem('token') !== null);
     const Logout = () => {
         localStorage.removeItem('token');
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
         window.location.href("/#/login");
         setIslogin(false);
     }
@@ -31,7 +31,7 @@ const Navigation = () => {
     const items = [
         {
             name: "Home",
-            link: "/project",
+            link: "/home",
         },
         {
             name: "About",
@@ -46,7 +46,7 @@ const Navigation = () => {
             link: "/dashboard",
         },
         {
-            name: "Login",
+            name: "Logout",
             link: "/login",
         },
     ];

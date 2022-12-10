@@ -1,7 +1,7 @@
 import React from "react";
 import UserCard from "../../Components/Card/UserCard";
 import BlankCard from "../../Components/Card/Blank";
-import Dropdown from "../../Components/Dropdown";
+// import Dropdown from "../../Components/Dropdown";
 import PieChart from "../../Components/Charts/PieChart";
 
 const DashboardPage = () => {
@@ -13,7 +13,7 @@ const DashboardPage = () => {
             <div className="col-span-3"> <BlankCard /> </div>
             <div className="col-span-3"> <BlankCard /> </div>
             <div className="col-span-3"> <BlankCard /> </div>
-            <Dropdown />
+            {/* <Dropdown /> */}
             <div className="col"> <PieChart /> </div>
             <div className="col"> <PieChart /> </div>
         </div>

@@ -1,16 +1,13 @@
-import { createStore, applyMiddleware } from 'redux';
+// store.js
 
-function reducer(state = {}, action) {
-  switch (action.type) {
-    case 'SOME_ACTION':
-      return { ...state, some: action.payload };
-    default:
-      return state;
-  }
-}
+import { createStore } from 'redux';
+import counterReducer from './Reducers/Counter';
+import { combineReducers } from 'redux';
 
-const initialState = {};
+const reducer = combineReducers({
+  counter: counterReducer
+});
 
-const store = createStore(reducer, initialState);
+const store = createStore(reducer);
 
 export default store;
