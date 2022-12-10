@@ -1,10 +1,10 @@
 import './radialChart.css'
 
-const optionsRadial = ('container', {
+const optionsRadial = {
     colors: ['#FFD700', '#C0C0C0', '#CD7F32'],
     chart: {
       type: 'column',
-      inverted: false,
+      inverted: true,
       polar: true
     },
     title: {
@@ -49,17 +49,6 @@ const optionsRadial = ('container', {
         '</span></span>'
       ]
     },
-    yAxis: {
-      crosshair: {
-        enabled: true,
-        color: '#333'
-      },
-      lineWidth: 0,
-      tickInterval: 25,
-      reversedStacks: false,
-      endOnTick: true,
-      showLastLabel: true
-    },
     plotOptions: {
       column: {
         stacking: 'normal',
@@ -78,6 +67,6 @@ const optionsRadial = ('container', {
       name: 'Bronze medals',
       data: [124, 95, 65, 91, 76]
     }]
-  });
+  };
   
 export default optionsRadial;
