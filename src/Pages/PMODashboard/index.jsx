@@ -3,6 +3,7 @@ import UserCard from "../../Components/Card/UserCard";
 import BlankCard from "../../Components/Card/Blank";
 import BudgetCard from "../../Components/Card/BudgetCard";
 import { SumActual, SumCost } from "../../Components/GraphQl/ProjectQueries";
+import SplineChart from "../../Components/Charts/SplineChart";
 
 const PMODashboardPage = () => {
     return (
@@ -17,6 +18,7 @@ const PMODashboardPage = () => {
             <div className="col-span-3"> <UserCard /> </div>
             <div className="col-span-3"> <BlankCard /> </div>
             <div className="col-span-3"> <BlankCard /> </div>
+            <div className="col-span-9"> <SplineChart /> </div>
         </div>
     );
 }

@@ -39,9 +39,9 @@ const optionDonut = {
     verticalAlign: 'middle',
     itemMarginTop: 5,
     itemMarginBottom: 5,
-    labelFormatter: function () {
-      return this.name + ' (click to hide)';
-  }
+  //   labelFormatter: function () {
+  //     return this.name + ' (click to hide)';
+  // }
   },
   series: [{
     showInLegend: true,
