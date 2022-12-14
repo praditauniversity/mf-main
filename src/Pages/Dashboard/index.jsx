@@ -3,6 +3,7 @@ import UserCard from "../../Components/Card/UserCard";
 import BlankCard from "../../Components/Card/Blank";
 // import Dropdown from "../../Components/Dropdown";
 import PieChart from "../../Components/Charts/PieChart";
+import DonutChart from "../../Components/Charts/PieChart";
 
 const DashboardPage = () => {
     return (
@@ -14,8 +15,8 @@ const DashboardPage = () => {
             <div className="col-span-3"> <BlankCard /> </div>
             <div className="col-span-3"> <BlankCard /> </div>
             {/* <Dropdown /> */}
-            <div className="col"> <PieChart /> </div>
-            <div className="col"> <PieChart /> </div>
+            <div className="col"> <DonutChart /> </div>
+            <div className="col"> <DonutChart /> </div>
         </div>
     );
 }

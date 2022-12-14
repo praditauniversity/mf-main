@@ -22,8 +22,8 @@ export default class RadialBarChart extends React.Component{
         {/* disini harusnya radial chart */}
         <div className="py-4">
           {/* dibawah ini harusnya make class yang manggil dari cssnya */}
-          <figure id="highcharts-figure">
-            <div id="container">
+          <figure id="highcharts-figure-radial">
+            <div id="container-radial">
               <HighchartsReact highcharts={Highcharts} options={optionsRadial}/>
             </div>
             {/* <div w3-include-html="index.html"></div> */}

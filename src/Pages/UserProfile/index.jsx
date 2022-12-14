@@ -10,7 +10,7 @@ const UserProfile = () => {
         <>
             <div className="flex flex-col">
                 <div className="flex flex-row">
-            <UserCard />
+                    <UserCard />
                 </div>
             </div>
         </>
