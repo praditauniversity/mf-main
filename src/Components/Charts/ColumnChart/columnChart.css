@@ -1,0 +1,46 @@
+#container-column {
+    height: 100px;
+  }
+
+#highcharts-figure-column,
+#highcharts-data-table-column table {
+  min-width: 320px;
+  max-width: 660px;
+  margin: 1em auto;
+}
+
+#highcharts-data-table-column table {
+  font-family: Verdana, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #ebebeb;
+  margin: 10px auto;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+#highcharts-data-table-column caption {
+  padding: 1em 0;
+  font-size: 1.2em;
+  color: #555;
+}
+
+#highcharts-data-table-column th {
+  font-weight: 600;
+  padding: 0.5em;
+}
+
+#highcharts-data-table-column td,
+#highcharts-data-table-column th,
+#highcharts-data-table-column caption {
+  padding: 0.5em;
+}
+
+#highcharts-data-table-column thead tr,
+#highcharts-data-table-column tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+#highcharts-data-table-column tr:hover {
+  background: #f1f7ff;
+}
