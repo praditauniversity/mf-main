@@ -4,21 +4,29 @@ import BlankCard from "../../Components/Card/Blank";
 import BudgetCard from "../../Components/Card/BudgetCard";
 import { SumActual, SumCost } from "../../Components/GraphQl/ProjectQueries";
 import SplineChart from "../../Components/Charts/SplineChart";
+import ColumnChart from "../../Components/Charts/ColumnChart";
+import LineChart from "../../Components/Charts/LineChart";
+import DonutChartV2 from "../../Components/Charts/PieChartProjectBy";
+import ApexRadialChart from "../../Components/ApexCharts/ProjectProgress";
+import ApexDonutChart from "../../Components/ApexCharts/TaskOverview";
+
 
 const PMODashboardPage = () => {
     return (
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 2xl:grid-cols-18 lg:mt-0 mt-4">
-            <div className="col-span-3"> <BudgetCard title="Budget" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-secondary-dark" /> </div>
-            <div className="col-span-3"> <BudgetCard title="Actual" description={<SumActual />} content="IDR 816.204.031" colorIcon="text-primary-dark" /> </div>
-            <div className="col-span-3"> <BudgetCard title="Cost" description={<SumCost />}content="IDR 816.204.031" colorIcon="text-orange-dark" /> </div>
-            <div className="col-span-3"> <BudgetCard title="Danger" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-error-dark" /> </div>
-            <div className="col-span-3"> <BudgetCard title="Variance" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-tertiary-800" /> </div>
-            <div className="col-span-3"> <UserCard /> </div>
-            <div className="col-span-9"> <UserCard /> </div>
-            <div className="col-span-3"> <UserCard /> </div>
-            <div className="col-span-3"> <BlankCard /> </div>
-            <div className="col-span-3"> <BlankCard /> </div>
-            <div className="col-span-9"> <SplineChart /> </div>
+            <div className="col-span-3 row-span-1"> <BudgetCard title="Budget" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-secondary-800" /> </div>
+            <div className="col-span-3 row-span-1"> <BudgetCard title="Actual" description={<SumActual />} content="IDR 816.204.031" colorIcon="text-primary-800" /> </div>
+            <div className="col-span-3 row-span-1"> <BudgetCard title="Cost" description={<SumCost />} content="IDR 816.204.031" colorIcon="text-orange-dark" /> </div>
+            <div className="col-span-3 row-span-1"> <BudgetCard title="Danger" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-error-dark" /> </div>
+            <div className="col-span-3 row-span-1"> <BudgetCard title="Variance" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-tertiary-800" /> </div>
+            <div className="col-span-3 row-span-3"> <UserCard /> </div>
+            <div className="col-span-7 row-span-1"> <SplineChart /> </div>
+            <div className="col-span-7 row-span-1"> <ColumnChart /> </div>
+            <div className="col-span-7 row-span-1"> <LineChart /> </div>
+            <div className="col-span-7 row-span-1"> <DonutChartV2 /> </div>
+            <div className="col-span-4 row-span-1"> <ApexRadialChart /> </div>
+            <div className="col-span-4 row-span-1"> <ApexDonutChart /> </div>
+
         </div>
     );
 }
