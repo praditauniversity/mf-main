@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DonutChart from "./chart.jsx";
 
-export default class ApexDonutChart extends React.Component {
+export default class TaskOverviewCard extends React.Component {
     render() {
         return (
             <div className="rounded-xl shadow-sm bg-white py-6 px-12">

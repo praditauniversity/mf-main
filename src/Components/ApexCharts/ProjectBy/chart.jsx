@@ -1,34 +1,36 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
-export default function DonutChart() {
-    const series = [50, 25, 25];
+export default function DonutChart2() {
+    const series = [10, 3, 5];
     const options = {
         chart: {
+            height: 350,
+            type: "line",
             id: 'task-overview-chart'
         },
         dataLabels: {
             enabled: false
         },
-        colors: ["#5E35B1", "#FDAC42", "#8AB73A"],
-        labels: ['Todo', 'In Progress', 'Done'],
+        colors: ["#C62828", "#FDAC42", "#88B135"],
+        labels: ['Cost Overrun', 'Early Warning', 'On Budget'],
         legend: {
             show: true,
-            position: 'left',
+            position: 'right',
             fontFamily: 'inherit',
             labels: {
                 colors: 'inherit'
             },
             itemMargin: {
-                horizontal: 3,
-                vertical: 3
+                horizontal: 10,
+                vertical: 10
             },
             formatter: (seriesName, opts) => `${seriesName}: ${opts.w.globals.series[opts.seriesIndex]}`
         }
     };
     return (
         <div>
-            <Chart options={options} type="donut" series={series} width="100%" height="70%" />
+            <Chart options={options} type="donut" series={series} width="100%" height="200%" />
         </div>
     );
 }

@@ -9,6 +9,9 @@ import RadialBarChart from "../../Components/Charts/RadialChart";
 import TestCard from "../../Components/Card/TestCard";
 import DonutChart from "../../Components/Charts/PieChart";
 import ColumnChart from "../../Components/Charts/ColumnChart";
+import ProjectProgressCard from "../../Components/ApexCharts/ProjectProgress";
+import TaskOverviewCard from "../../Components/ApexCharts/TaskOverview";
+import TPECard from "../../Components/ApexCharts/TPE";
 
 const ProjectDashboardPage = () => {
     return (
@@ -33,9 +36,14 @@ const ProjectDashboardPage = () => {
             <div className="col-span-3 row-span-1"> <BudgetCard title="Cost" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-orange-dark" /> </div>
             <div className="col-span-3 row-span-1"> <BudgetCard title="Danger" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-error-dark" /> </div>
             <div className="col-span-3 row-span-1"> <BudgetCard title="Variance" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-tertiary-800" /> </div>
-            <div className="col-span-9 row-span-1"> <RadialBarChart /> </div>
+            {/* <div className="col-span-9 row-span-1"> <RadialBarChart /> </div>
             <div className="col-span-6 row-span-1"> <DonutChart /> </div>
-            <div className="col-span-6 row-span-1"> <ColumnChart /> </div>
+            <div className="col-span-6 row-span-1"> <ColumnChart /> </div> */}
+            <div className="col-span-5 row-span-1"> <ProjectProgressCard /> </div>
+            {/* this should be gannt */}
+            <div className="col-span-10 row-span-2"> <TPECard /> </div>
+            <div className="col-span-5 row-span-1"> <TaskOverviewCard /> </div>
+            
         </div>
     );
 }

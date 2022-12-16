@@ -34,6 +34,7 @@ export default function RadialChart() {
         stroke: {
             lineCap: 'round'
         },
+        colors: ["#FFC107", "#E54C00", "#C62828", "#A8186E", "#4527A0", "#673AB7", "#B39DDB"],
         labels: ['Closing', 'Evaluation', 'Testing', 'Execution', 'Research', 'Planning', 'Initiation'],
         legend: {
             show: true,

@@ -7,8 +7,12 @@ import SplineChart from "../../Components/Charts/SplineChart";
 import ColumnChart from "../../Components/Charts/ColumnChart";
 import LineChart from "../../Components/Charts/LineChart";
 import DonutChartV2 from "../../Components/Charts/PieChartProjectBy";
-import ApexRadialChart from "../../Components/ApexCharts/ProjectProgress";
-import ApexDonutChart from "../../Components/ApexCharts/TaskOverview";
+import ProjectProgressCard from "../../Components/ApexCharts/ProjectProgress";
+import TaskOverviewCard from "../../Components/ApexCharts/TaskOverview";
+import ProjectByCard from "../../Components/ApexCharts/ProjectBy";
+import ManpowerCard from "../../Components/ApexCharts/Manpower";
+import SCurveCard from "../../Components/ApexCharts/SCurve";
+import TPECard from "../../Components/ApexCharts/TPE";
 
 
 const PMODashboardPage = () => {
@@ -20,13 +24,14 @@ const PMODashboardPage = () => {
             <div className="col-span-3 row-span-1"> <BudgetCard title="Danger" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-error-dark" /> </div>
             <div className="col-span-3 row-span-1"> <BudgetCard title="Variance" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-tertiary-800" /> </div>
             <div className="col-span-3 row-span-3"> <UserCard /> </div>
-            <div className="col-span-7 row-span-1"> <SplineChart /> </div>
+            {/* <div className="col-span-7 row-span-1"> <SplineChart /> </div>
             <div className="col-span-7 row-span-1"> <ColumnChart /> </div>
             <div className="col-span-7 row-span-1"> <LineChart /> </div>
-            <div className="col-span-7 row-span-1"> <DonutChartV2 /> </div>
-            <div className="col-span-4 row-span-1"> <ApexRadialChart /> </div>
-            <div className="col-span-4 row-span-1"> <ApexDonutChart /> </div>
-
+            <div className="col-span-7 row-span-1"> <DonutChartV2 /> </div> */}
+            <div className="col-span-7 row-span-1"> <SCurveCard /> </div>
+            <div className="col-span-7 row-span-1"> <TPECard /> </div>
+            <div className="col-span-7 row-span-1"> <ManpowerCard /> </div>
+            <div className="col-span-7 row-span-1"> <ProjectByCard /> </div>
         </div>
     );
 }
