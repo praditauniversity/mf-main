@@ -41,7 +41,7 @@ export const GET_PROJECT_DATA = gql`
         cost_actual
         company
         role_id
-        project_type_id
+        type_id
         progress_percentage
         description
         project_duration

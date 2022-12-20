@@ -13,6 +13,7 @@ import ProjectByCard from "../../Components/ApexCharts/ProjectBy";
 import ManpowerCard from "../../Components/ApexCharts/Manpower";
 import SCurveCard from "../../Components/ApexCharts/SCurve";
 import TPECard from "../../Components/ApexCharts/TPE";
+import ProjectListCard from "../../Components/Card/ProjectList/ProjectListCard";
 
 
 const PMODashboardPage = () => {
@@ -32,6 +33,7 @@ const PMODashboardPage = () => {
             <div className="col-span-7 row-span-1"> <TPECard /> </div>
             <div className="col-span-7 row-span-1"> <ManpowerCard /> </div>
             <div className="col-span-7 row-span-1"> <ProjectByCard /> </div>
+            <div className="col-span-full row-span-1"> <ProjectListCard /> </div>
         </div>
     );
 }
