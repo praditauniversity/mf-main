@@ -5,6 +5,7 @@ import chat from "../Assets/Icons/svg/Chat.svg";
 import key from "../Assets/Icons/svg/Key.svg";
 import chart from "../Assets/Icons/svg/Progress.svg";
 import compass from "../Assets/Icons/svg/Compass.svg"
+import plus from "../Assets/Icons/svg/Plus.svg"
 import dashboard from "../Assets/Icons/svg/Dashboard.svg"
 import { Dialog } from "@headlessui/react";
 import LogoutButton from "../Components/Auth/LogoutDialog";
@@ -20,6 +21,7 @@ export const SideBar = () => {
         { id: 7, name: "About", link: "/#/about", icon: compass },
         { id: 8, name: "Contact", link: "/#/contact", icon: compass },
         { id: 9, name: "Login", link: "/#/login", icon: key },
+        { id: 10, name: "MainDashboard", link: "/#/maindashboard", icon: plus },
     ]);
     const [expanded, setExpanded] = useState(false);
 
