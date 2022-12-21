@@ -117,11 +117,16 @@ export function SumDanger(){
   }, [data]);
 
   function printSumDanger() {
+    var sumAct = 0;
+    var sumCost = 0;
     var sumDanger = 0;
     var projectCurrency = "";
     projectdata.map((project) => {
-      sumDanger = project.cost_actual - project.cost_plan;
+      sumAct = sumAct + project.cost_actual;
+      sumCost = sumCost + project.cost_plan;
+      sumDanger = sumAct - sumCost;
       projectCurrency = project.currency_symbol;
+      console.log(sumDanger);
     });
     return (
       <div>
@@ -150,11 +155,16 @@ export function Variance(){
   }, [data]);
 
   function printVariance() {
+    var sumBudget = 0;
+    var sumAct = 0;
     var variance = 0;
     var projectCurrency = "";
     projectdata.map((project) => {
-      variance = project.budget - project.cost_actual;
+      sumBudget = sumBudget + project.budget;
+      sumAct = sumAct + project.cost_actual;
+      variance = sumBudget - sumAct;
       projectCurrency = project.currency_symbol;
+      console.log(variance);
     });
     return (
       <div>

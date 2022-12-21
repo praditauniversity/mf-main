@@ -1,13 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import { SumActual, SumBudget, SumCost, SumDanger, Variance } from "../../GraphQl/ProjectQueries";
+import { useQuery } from "@apollo/client";
+import { GET_PROJECT_DATA } from "../../GraphQl/Queries";
 
 export default function BarChart() {
+
+const { error, loading, data } = useQuery(GET_PROJECT_DATA);
+  const [projectdata, setProject] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      console.log("Data Ready");
+      console.log(data);
+      setProject(data.project.Data);
+    } else {
+      console.log("No data");
+    }
+  }, [data]);
+
+  function printDataFinance() {
+    var sumBudget = 0;
+    var sumAct = 0;
+    var sumCost = 0;
+    var sumDanger = 0;
+    var variance = 0;
+    var projectCurrency = "";
+    projectdata.map((project) => {
+      sumBudget = sumBudget + project.budget;
+      sumAct = sumAct + project.cost_actual;
+        sumCost = sumCost + project.cost_plan;
+        sumDanger = sumAct - sumCost ;
+        variance = sumBudget - sumAct;
+      projectCurrency = project.currency_symbol;
+    });
+    return (
+      [sumBudget, sumAct, sumCost, sumDanger, variance]
+    );
+  }
 
     const series = [
         {
             name: 'Value',
-            data: [SumBudget, SumActual, SumCost, SumDanger, Variance]
+            data: printDataFinance()
         }
     ]
     const options = {
