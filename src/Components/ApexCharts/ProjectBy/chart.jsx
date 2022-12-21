@@ -1,12 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
+import { useQuery } from "@apollo/client";
 import { ProjectHealth } from "../../GraphQl/ProjectQueries";
+import { GET_PROJECT_DATA } from "../../GraphQl/Queries";
 
 export default function DonutChart2() {
+    const { error, loading, data } = useQuery(GET_PROJECT_DATA);
+  const [projectdata, setProject] = useState([]);
 
-    
-    const series = [10, 10, 10];
-    
+  useEffect(() => {
+    if (data) {
+      console.log("Data Ready");
+      console.log(data);
+      setProject(data.project.Data);
+    } else {
+      console.log("No data");
+    }
+  }, [data]);
+
+  function printProjectHealth() {
+    let projectbudgetonbudget = 0;
+    let projectbudgetwarning = 0;
+    let projectbudgetoverbudget = 0;
+
+    projectdata.map((projectHealth) => {
+      // count budget health by status
+      if (projectHealth["budget_health"] === "On Budget") {
+        projectbudgetonbudget += 1;
+      } else if (projectHealth["budget_health"] === "Early Warning") {
+        projectbudgetwarning += 1;
+      } else if (projectHealth["budget_health"] === "Cost Overrun") {
+        projectbudgetoverbudget += 1;
+      }
+    });
+
+    return (
+      [projectbudgetonbudget, projectbudgetwarning, projectbudgetoverbudget]
+    );
+  }
     const options = {
         chart: {
             height: 350,
@@ -31,11 +62,10 @@ export default function DonutChart2() {
             },
             formatter: (seriesName, opts) => `${seriesName}: ${opts.w.globals.series[opts.seriesIndex]}`
         }
-    };
+    }
     return (
         <div>
-            <Chart options={options} type="donut" series={series} width="100%" height="200%" />
-            <ProjectHealth/>
+            <Chart options={options} type="donut" series={printProjectHealth()} width="100%" height="200%" />
         </div>
     );
 }

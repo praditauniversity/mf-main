@@ -16,6 +16,8 @@ import CalendarCard from "../../Components/Card/Calendar/CalendarCard";
 import TaskListCard from "../../Components/Card/TaskList/TaskListCard";
 import UpcomingTaskCard from "../../Components/Card/UpcomingTask/UpcomingTaskCard";
 import IssuesCard from "../../Components/Card/Issues/IssuesCard";
+import AppGantt from "../../Components/Gantt-Component/AppGantt";
+import TestQuery from "../../Components/Gantt-Component/TestQuery";
 
 const ProjectDashboardPage = () => {
     return (
@@ -45,7 +47,9 @@ const ProjectDashboardPage = () => {
             <div className="col-span-6 row-span-1"> <ColumnChart /> </div> */}
             <div className="col-span-5 row-span-1"> <ProjectProgressCard /> </div>
             {/* this should be gannt */}
-            <div className="col-span-10 row-span-2"> <TPECard /> </div>
+            <div className="col-span-10 row-span-2"> <AppGantt /> </div>
+            {/* <div className="col-span-10 row-span-2"> <TestQuery /> </div> */}
+
             <div className="col-span-5 row-span-1"> <TaskOverviewCard /> </div>
             <div className="col-span-full row-span-1"> <TaskListCard /> </div>
 

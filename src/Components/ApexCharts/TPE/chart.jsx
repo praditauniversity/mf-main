@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
+import { SumActual, SumBudget, SumCost, SumDanger, Variance } from "../../GraphQl/ProjectQueries";
 
 export default function BarChart() {
+
     const series = [
         {
             name: 'Value',
-            data: [42.5, 32.5, 32.5, 12.5, 12.5]
+            data: [SumBudget, SumActual, SumCost, SumDanger, Variance]
         }
     ]
     const options = {
