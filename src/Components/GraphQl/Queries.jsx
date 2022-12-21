@@ -80,3 +80,19 @@ export const GET_SCAFFOLD_DATA = gql`
     }
   }
 `;
+
+// eslint-disable-next-line import/prefer-default-export
+export const GET_PROJECTPHASE_DATA = gql`
+    query {
+        project {
+            Data {
+                Phase {
+                    ID
+                    name
+                    color
+                    order
+                }
+            }
+        }
+    }
+`;
