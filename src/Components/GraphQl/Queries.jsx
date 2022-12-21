@@ -55,6 +55,18 @@ export const GET_PROJECT_DATA = gql`
         currency_code
         currency_name
         phase_id
+        Phase {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          name
+          color
+          order
+          user_id
+          updated_by
+          deleted_by
+        }
         budget_health
         budget
       }
@@ -79,20 +91,4 @@ export const GET_SCAFFOLD_DATA = gql`
       }
     }
   }
-`;
-
-// eslint-disable-next-line import/prefer-default-export
-export const GET_PROJECTPHASE_DATA = gql`
-    query {
-        project {
-            Data {
-                Phase {
-                    ID
-                    name
-                    color
-                    order
-                }
-            }
-        }
-    }
 `;
