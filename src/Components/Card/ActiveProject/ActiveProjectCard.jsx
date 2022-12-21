@@ -7,7 +7,7 @@ const useStyles = () => ({
     }
 })
 
-const UpcomingTaskCard = () => {
+const ActiveProjectCard = () => {
     const classes = useStyles();
 
     return (
@@ -15,7 +15,7 @@ const UpcomingTaskCard = () => {
             <div>
                 <div className="pt-8 pb-8 pl-12 pr-12 flex justify-between">
                     <div className="flex justify-start">
-                        <p className="text-lg font-semibold ">Upcoming Task</p>
+                        <p className="text-lg font-semibold ">Active Projects</p>
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@ const UpcomingTaskCard = () => {
                     <div className="pt-4">
                         <div className="flex justify-between">
                             <div className="flex justify-start">
-                                <p className="text-base font-semibold ">[BE] CRUD Untuk Activity</p>
+                                <p className="text-base font-semibold ">Solar Panel Smart Lab</p>
                             </div>
                             <div className="flex justify-end">
                                 <div className="dropdown dropdown-button">
@@ -38,13 +38,13 @@ const UpcomingTaskCard = () => {
                             </div>
                         </div>
                         <div className="flex justify-start">
-                            <p className="text-xs opacity-70 align-text-bottom">Oct 18</p>
+                            <p className="text-xs opacity-70 align-text-bottom">Sulawesi Selatan</p>
                         </div>
                     </div>
                     <div className="pt-4">
                         <div className="flex justify-between">
                             <div className="flex justify-start">
-                                <p className="text-base font-semibold ">[FE] Component Figma</p>
+                                <p className="text-base font-semibold ">Winter Wonderland</p>
                             </div>
                             <div className="flex justify-end">
                                 <div className="dropdown dropdown-button">
@@ -58,13 +58,13 @@ const UpcomingTaskCard = () => {
                             </div>
                         </div>
                         <div className="flex justify-start">
-                            <p className="text-xs opacity-70 align-text-bottom">Oct 18</p>
+                            <p className="text-xs opacity-70 align-text-bottom">Singapore</p>
                         </div>
                     </div>
                     <div className="pt-4">
                         <div className="flex justify-between">
                             <div className="flex justify-start">
-                                <p className="text-base font-semibold ">Data Structure</p>
+                                <p className="text-base font-semibold ">Reverie Product...</p>
                             </div>
                             <div className="flex justify-end">
                                 <div className="dropdown dropdown-button">
@@ -78,13 +78,13 @@ const UpcomingTaskCard = () => {
                             </div>
                         </div>
                         <div className="flex justify-start">
-                            <p className="text-xs opacity-70 align-text-bottom">Oct 18</p>
+                            <p className="text-xs opacity-70 align-text-bottom">Jakarta Barat</p>
                         </div>
                     </div>
                     <div className="pt-4">
                         <div className="flex justify-between">
                             <div className="flex justify-start">
-                                <p className="text-base font-semibold ">User Management</p>
+                                <p className="text-base font-semibold ">Meraki Development</p>
                             </div>
                             <div className="flex justify-end">
                                 <div className="dropdown dropdown-button">
@@ -98,14 +98,14 @@ const UpcomingTaskCard = () => {
                             </div>
                         </div>
                         <div className="flex justify-start">
-                            <p className="text-xs opacity-70 align-text-bottom">Oct 18</p>
+                            <p className="text-xs opacity-70 align-text-bottom">Kalimantan Utara</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="pt-8 pb-8 pl-12 pr-12 flex justify-end">
                 <button className="font-semibold text-sm text-primary">
-                    View All Tasks
+                    View All Projects
                 </button>
             </div>
         </div>
@@ -113,4 +113,4 @@ const UpcomingTaskCard = () => {
 
 }
 
-export default UpcomingTaskCard;
+export default ActiveProjectCard;

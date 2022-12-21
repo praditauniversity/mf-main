@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
+import { ProjectHealth } from "../../GraphQl/ProjectQueries";
 
 export default function DonutChart2() {
-    const series = [10, 3, 5];
+
+    
+    const series = [10, 10, 10];
+    
     const options = {
         chart: {
             height: 350,
@@ -31,6 +35,7 @@ export default function DonutChart2() {
     return (
         <div>
             <Chart options={options} type="donut" series={series} width="100%" height="200%" />
+            <ProjectHealth/>
         </div>
     );
 }

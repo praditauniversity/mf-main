@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DropdownTime from "../../DropdownTime/index.jsx";
 import RadialChart from "./chart.jsx";
 
 export default class ProjectProgressCard extends React.Component {
@@ -8,7 +9,8 @@ export default class ProjectProgressCard extends React.Component {
                 <div>
                     <div className="pt-4 pb-0 flex justify-between">
                         <p className="text-sm ">Project Progress</p>
-                        <p className="text-sm ">Last Month</p>
+                        {/* <p className="text-sm ">Last Month</p> */}
+                        <DropdownTime />
                     </div>
                     <div className="pt-1 pb-4 flex justify-start">
                         <p className="text-xl font-semibold ">71</p>

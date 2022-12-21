@@ -15,6 +15,7 @@ import TPECard from "../../Components/ApexCharts/TPE";
 import CalendarCard from "../../Components/Card/Calendar/CalendarCard";
 import TaskListCard from "../../Components/Card/TaskList/TaskListCard";
 import UpcomingTaskCard from "../../Components/Card/UpcomingTask/UpcomingTaskCard";
+import IssuesCard from "../../Components/Card/Issues/IssuesCard";
 
 const ProjectDashboardPage = () => {
     return (
@@ -49,6 +50,7 @@ const ProjectDashboardPage = () => {
             <div className="col-span-full row-span-1"> <TaskListCard /> </div>
 
             <div className="col-span-3 row-span-1"> <UpcomingTaskCard /> </div>
+            <div className="col-span-3 row-span-1"> <IssuesCard /> </div>
             
         </div>
     );

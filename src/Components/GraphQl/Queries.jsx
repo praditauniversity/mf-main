@@ -56,6 +56,7 @@ export const GET_PROJECT_DATA = gql`
         currency_name
         phase_id
         budget_health
+        budget
       }
     }
   }
