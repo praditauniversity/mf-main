@@ -4,7 +4,13 @@ import "./scrollbar.css"
 import FetchProject from "../../Middleware/Fetchers/FetchProject";
 
 const MainDashboard = () => {
+    // const [options, setOptions] = useState([
+    //     { id: 1, name: "Project Anomaly 1", link: "/#/project-anomaly-1" },
+    //     { id: 2, name: "Project Anomaly 2", link: "/#/project-anomaly-2"},
+    // ]);
+
     const project = FetchProject();
+    const projectLength = project.length;
 
     // const data = [
     //     {
@@ -29,7 +35,7 @@ const MainDashboard = () => {
                         <h3 className="font-bold text-2xl mt-3">On-going Project</h3>
                         <div className="border border-none rounded-full bg-base-100 bg-primary ml-[20px] mt-3 flex items-center p-[5px] pr-[14px] pl-[14px]">
                             <h6 className="text-bold text-lg text-white">
-                                7
+                                {projectLength}
                             </h6>
                         </div>
                     </div>
