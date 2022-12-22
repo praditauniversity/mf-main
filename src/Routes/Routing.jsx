@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Auth, Register } from "../Components/Auth";
 import ComponentListPage from "../Pages/ComponentList";
@@ -15,9 +15,14 @@ import Logout from "../Components/Auth/Logout";
 import MainDashboard from "../Pages/MainDashboard";
 
 const defaultLogin = () => {
+  
   window.location.href = "/#/projectdashboard";
-  window.location.reload();
-  return <></>;
+  
+  useEffect(() => {
+  }, []);
+
+  // window.location.reload();
+  return<></>
 };
 
 export default function Routing() {
@@ -33,7 +38,7 @@ export default function Routing() {
   } else {
     return (
       <Routes>
-        <Route path="/" element={defaultLogin} />
+        <Route path="/" element={defaultLogin() } />
         <Route path="/login" element={<ProjectDashboardPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/project" element={<Project />} />

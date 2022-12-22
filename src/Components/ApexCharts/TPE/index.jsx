@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ListboxProject from "../../Listbox/ListboxProject/index.jsx";
 import BarChart from "./chart.jsx";
 
 export default class TPECard extends React.Component {
@@ -12,7 +13,8 @@ export default class TPECard extends React.Component {
                             {/* <p className="text-sm ml-1">By Duration</p> */}
                         </div>
                         <div className="flex justify-end">
-                            <p className="text-sm ">Solar Panel Smart Lab</p>
+                            {/* <p className="text-sm ">Solar Panel Smart Lab</p> */}
+                            <ListboxProject />
                         </div>
                     </div>
                     <div className="pt-1 pb-4 flex justify-start">

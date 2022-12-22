@@ -47,6 +47,7 @@
     "daisyui": "^2.46.0",
     "dhtmlx-gantt": "^7.1.13",
     "graphql": "^16.6.0",
+    "heroicons": "^2.0.13",
     "highcharts": "^10.3.2",
     "highcharts-react-official": "^3.1.0",
     "n": "^9.0.1",
