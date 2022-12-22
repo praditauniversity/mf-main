@@ -11,6 +11,16 @@ const Button = (props, buttontype, label) => {
     )
 }
 
+export const LinkButton = (link, label) => {
+    return (
+        <a href={link}>
+            <button className='btn'>
+                {label}
+            </button>
+        </a>
+    )
+}
+
 export const SubmitButton = (props) => {
     return (
         <Button {...props} buttontype="submit" />
