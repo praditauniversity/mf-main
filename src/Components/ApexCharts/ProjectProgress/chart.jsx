@@ -3,35 +3,92 @@ import Chart from "react-apexcharts";
 
 import { useQuery, gql } from "@apollo/client";
 import { GET_PROJECT_DATA } from "../../GraphQl/Queries";
+import { GET_PHASE_DATA } from "../../GraphQl/Queries";
+import GetProfile from "../../Auth/GetProfile";
 
 export default function RadialChart() {
+  const profile = GetProfile();
   const { loading, error, data } = useQuery(GET_PROJECT_DATA);
+  const { loading: loading2, error: error2, data: data2 } = useQuery(GET_PHASE_DATA);
   // if (loading) return <div>Loading...</div>;
   // if (error) return <div>Error {console.log(error)}</div>;
 
   const [projectPerPhase, setProjectPerPhase] = useState([]);
+  const [phase, setPhase] = useState([]);
   useEffect(() => {
-    if (data) {
+    if (data && data2) {
       console.log("data is ready");
-      console.log(data);
+      // console.log(data);
       setProjectPerPhase(data.project.Data);
-    //   console.log("LENGTHHHHHHH", data.project.Data.length);
+      //   console.log("LENGTHHHHHHH", data.project.Data.length);
+      setPhase(data2.projectPhase.Data);
     } else {
       // setProjectPerPhase([]);
       console.log("data is empty");
     }
+    console.log("USERRRRR", profile)
   }, [data]);
 
-  function printPerPhase() {
-    const series = [];
-    var phasename = "";
+  function printSeries() {
+    let initiation = 0;
+    let planning = 0;
+    let research = 0;
+    let execution = 0;
+    let testing = 0;
+    let evaluation = 0;
+    let closing = 0;
     projectPerPhase.map((item) => {
-      phasename = item.Phase.name;
-      console.log("PHASEEEEEEEEEEEEEEE", phasename);
-      series.push(item.Phase.order);
-      console.log(" SERIES ", series.length);
+      if (item.user_id === profile.id) {
+        if (item.Phase.name === "Initiation" ) {
+          initiation += 1;
+        } else if (item.Phase.name === "Planning") {
+          planning += 1;
+        } else if (item.Phase.name === "Research") {
+          research += 1;
+        } else if (item.Phase.name === "Execution") {
+          execution += 1;
+        } else if (item.Phase.name === "Testing") {
+          testing += 1;
+        } else if (item.Phase.name === "Evaluation") {
+          evaluation += 1;
+        } else if (item.Phase.name === "Closing") {
+          closing += 1;
+        } else {
+          console.log("no phase");
+        }
+      } else {
+        console.log("no project");
+      }
     });
-    return [series];
+    return (
+      // [initiation, planning, research, execution, testing, evaluation, closing]
+      [closing, evaluation, testing, execution, research, planning, initiation]
+    );
+  }
+
+  function printLabels() {
+    let labels = [];
+    phase.map((item) => {
+        if (item) {
+          labels.push(item.name);
+        } else {  
+          console.log("no phase")
+        }
+    });
+    return labels.reverse();
+  }
+
+  function printColors() {
+    let colors = [];
+    phase.map((item) => {
+        if (item) {
+          colors.push(item.color);
+        } else {
+          console.log("no phase")
+        }
+    });
+
+    return colors.reverse();
   }
 
   //   const series = [70, 80, 90, 100, 100, 100, 100];
@@ -70,22 +127,22 @@ export default function RadialChart() {
       "#FFC107",
       "#E54C00",
       "#C62828",
-      //   "#A8186E",
-      //   "#4527A0",
-      //   "#673AB7",
-      //   "#B39DDB",
+      "#A8186E",
+      "#4527A0",
+      "#673AB7",
+      "#B39DDB",
     ],
-    // colors : [],
-    labels: [
-      "Closing",
-      "Evaluation",
-      "Testing",
-      //   "Execution",
-      //   "Research",
-      //   "Planning",
-      //   "Initiation",
-    ],
-    // labels: [],
+    colors : printColors(),
+    // labels: [
+    //   "Closing",
+    //   "Evaluation",
+    //   "Testing",
+    //   "Execution",
+    //   "Research",
+    //   "Planning",
+    //   "Initiation",
+    // ],
+    labels: printLabels(),
     legend: {
       show: true,
       fontSize: "10px",
@@ -126,14 +183,10 @@ export default function RadialChart() {
       <Chart
         options={options}
         type="radialBar"
-        series={printPerPhase()}
+        series={printSeries()}
         width="100%"
         height="150%"
       />
-      {console.log("PHASElength", projectPerPhase.length)}
-      {console.log("PerPhase", printPerPhase())}
-      {/* {printPerPhase} */}
-      {/* {console.log("PHASE", projectPerPhase[0].Phase)} */}
     </div>
   );
 }
