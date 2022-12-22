@@ -130,12 +130,13 @@ gantt.config.columns = [
   gantt.form_blocks.my_editor = {
     render: function (sns) {
       return (
-        "<div class='dhx_cal_ltext' style='height:60px;'>" +
-        "&nbsp&nbsp;&nbsp;" +
-        "Project Name &nbsp;<input class='editor_project border-solid border-2 py-2 px-3' type='text' name='description'>" +
-        "<br/><br/>" +
-        "&nbsp;&nbsp;&nbsp;" +
-        "Description &nbsp;<input class='editor_description border-solid border-2' type='text'>" +
+        "<div class='dhx_cal_ltext px-4' style='height:px;'>" +
+        "Project Name" + 
+        "<br/>" +
+        "<input class='editor_project border-solid border-2 py-1 px-2' type='text' name='description'>" +
+        "<br/>" +
+        "Description" + 
+        "<input class='editor_description border-solid border-2 py-1 px-2' type='text'>" +
         "</div>"
       );
     },

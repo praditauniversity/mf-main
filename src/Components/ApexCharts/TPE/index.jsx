@@ -9,12 +9,14 @@ export default class TPECard extends React.Component {
                 <div>
                     <div className="pt-4 pb-0 flex justify-between">
                         <div className="flex justify-start">
-                            <p className="text-sm ">Total Project Expenditure</p>
+                            <p className="text-sm place-self-center">Total Project Expenditure</p>
                             {/* <p className="text-sm ml-1">By Duration</p> */}
                         </div>
                         <div className="flex justify-end">
                             {/* <p className="text-sm ">Solar Panel Smart Lab</p> */}
-                            <ListboxProject />
+                            <div className="mb-1">
+                                <ListboxProject />
+                            </div>
                         </div>
                     </div>
                     <div className="pt-1 pb-4 flex justify-start">
