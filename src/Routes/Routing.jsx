@@ -14,11 +14,7 @@ import UserProfile from "../Pages/UserProfile";
 import Logout from "../Components/Auth/Logout";
 import MainDashboard from "../Pages/MainDashboard";
 
-const defaultLogin = () => {
-  window.location.href = "/#/projectdashboard";
-  window.location.reload();
-  return <></>;
-};
+const defaultLogin = <ProjectDashboardPage />;
 
 export default function Routing() {
   const islogin = localStorage.getItem("token") !== null;
@@ -34,8 +30,8 @@ export default function Routing() {
     return (
       <Routes>
         <Route path="/" element={defaultLogin} />
-        <Route path="/login" element={<ProjectDashboardPage />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={defaultLogin} />
+        <Route path="/register" element={defaultLogin} />
         <Route path="/project" element={<Project />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/pmodashboard" element={<PMODashboardPage />} />
