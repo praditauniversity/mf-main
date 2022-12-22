@@ -47,7 +47,8 @@ const ProjectDashboardPage = () => {
             <div className="col-span-6 row-span-1"> <ColumnChart /> </div> */}
             <div className="col-span-5 row-span-1"> <ProjectProgressCard /> </div>
             {/* this should be gannt */}
-            <div className="col-span-10 row-span-2"> <AppGantt /> </div>
+            <div className="col-span-10 row-span-2"> <AppGantt title="Gantt Chart" /> </div>
+            {/* can be delete later - testing for gantt */}
             {/* <div className="col-span-10 row-span-2"> <TestQuery /> </div> */}
 
             <div className="col-span-5 row-span-1"> <TaskOverviewCard /> </div>
