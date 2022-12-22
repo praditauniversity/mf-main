@@ -34,7 +34,8 @@ const PMODashboardPage = () => {
             <div className="col-span-7 row-span-1"> <ProjectByCard /> </div>
             <div className="col-span-full row-span-1"> <ProjectListCard /> </div>
             <div className="col-span-3 row-span-3"> <ActiveProjectCard /> </div>
-            <div className="col-span-3 row-span-3"> <AppGantt /> </div>
+            <div className="col-span-10 row-span-2"> <AppGantt title="Gantt Chart" /> </div>
+            {/* can be delete later - testing for gantt */}
             {/* <div className="col-span-7 row-span-1"> <TestQuery /> </div> */}
         </div>
     );

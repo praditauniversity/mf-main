@@ -58,7 +58,11 @@ const DateChips = () => {
 
 const DashboardChips = () => {
     // highlight the active link
-    const [active, setActive] = useState("dashboard");
+    
+    const root = window.location.pathname === "/" ? "Root" : null;
+    const current = window.location.hash.split("/")[1];
+    const capCurrent = current.charAt(0).toLowerCase() + current.slice(1);
+    const [active, setActive] = useState(capCurrent);
     const handleClick = (e) => {
         setActive(e.target.id);
     }
