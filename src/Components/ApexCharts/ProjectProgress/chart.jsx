@@ -30,6 +30,7 @@ export default function RadialChart() {
   }, [data]);
 
   function printSeries() {
+    let totalProject = projectPerPhase.length;
     let initiation = 0;
     let planning = 0;
     let research = 0;
@@ -53,16 +54,21 @@ export default function RadialChart() {
           evaluation += 1;
         } else if (item.Phase.name === "Closing") {
           closing += 1;
-        } else {
-          console.log("no phase");
-        }
+        } 
       } else {
         console.log("no project");
       }
     });
+    closing = (closing / totalProject) * 100;
+    evaluation = (evaluation / totalProject) * 100;
+    testing = (testing / totalProject) * 100;
+    execution = (execution / totalProject) * 100;
+    research = (research / totalProject) * 100;
+    planning = (planning / totalProject) * 100;
+    initiation = (initiation / totalProject) * 100;
     return (
       // [initiation, planning, research, execution, testing, evaluation, closing]
-      [closing, evaluation, testing, execution, research, planning, initiation]
+      [closing.toFixed(2), evaluation.toFixed(2), testing.toFixed(2), execution.toFixed(2), research.toFixed(2), planning.toFixed(2), initiation.toFixed(2)]
     );
   }
 
