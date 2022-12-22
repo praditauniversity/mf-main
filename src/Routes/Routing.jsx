@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Auth, Register } from "../Components/Auth";
 import ComponentListPage from "../Pages/ComponentList";
@@ -30,8 +30,8 @@ export default function Routing() {
     return (
       <Routes>
         <Route path="/" element={defaultLogin} />
-        <Route path="/login" element={defaultLogin} />
-        <Route path="/register" element={defaultLogin} />
+        <Route path="/login" element={<ProjectDashboardPage />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/project" element={<Project />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/pmodashboard" element={<PMODashboardPage />} />

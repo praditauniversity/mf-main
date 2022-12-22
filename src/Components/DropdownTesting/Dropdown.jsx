@@ -11,9 +11,23 @@ function DropdownTest({ selected, setSelected }) {
                 {selected}
                 <span className="fas fa-caret-down"></span>
             </div>
-                {/* {isActive && (
-
-                )} */}
+            {isActive && (
+                <div className="dropdown-content">
+                    {list.map((option) =>(
+                        <div
+                            onClick={(e) => {
+                                setSelected(option);
+                                setIsActive(false);
+                            }}
+                            className="dropdown-item"
+                        >
+                            {option}
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     )
 }
+
+export default DropdownTest;

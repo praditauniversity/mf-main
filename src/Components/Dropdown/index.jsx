@@ -56,7 +56,7 @@ const Dropdown = ({ options, label }) => {
                         border-8 border-transparent" >
                         {list.map((option) => (
                             <Menu.Item key={option.id} >
-                                <button
+                                <button onClick={(e) => setValueStatus(option.value)}
                                     className=" ui-active:bg-indigo-50 text-gray-900 
                                     group flex w-full items-center 
                                     rounded-md px-2 py-2 text-sm " >

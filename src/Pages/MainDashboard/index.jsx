@@ -2,6 +2,7 @@ import React from "react";
 import Accordion from "../../Components/Accordion";
 import "./scrollbar.css"
 import FetchProject from "../../Middleware/Fetchers/FetchProject";
+import Tabs from "../../Components/Tabs";
 
 const MainDashboard = () => {
     const project = FetchProject();
@@ -44,7 +45,7 @@ const MainDashboard = () => {
                 <div className="col-span-12 ml-5 mr-5">
                     <h3 className="font-bold text-2xl mt-5 mb-5">Remaining Task</h3>
                     <div className="mt-2 border border-none rounded-lg bg-base-100 bg-background-snow p-5 h-[320px]">
-
+                        <Tabs />
                     </div>
                 </div>
             

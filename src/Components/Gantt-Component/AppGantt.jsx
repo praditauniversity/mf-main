@@ -56,9 +56,10 @@ gantt.config.columns = [
         "<div class='gantt-lb-datepicker' style='height:" +
         height +
         "px;'>" +
-        "&nbsp" +
-        "&nbsp <input type='text' name='start'> &nbsp - &nbsp  " +
-        "<input type='text' name='end'>" +
+        "&nbsp &nbsp" +
+        "<input class='border-solid border-2' type='text' name='start'>" + 
+        "&nbsp - &nbsp" +
+        "<input class='border-solid border-2' type='text' name='end'>" +
         "</div>"
       );
     },
@@ -126,28 +127,24 @@ gantt.config.columns = [
     },
     focus: (node) => {},
   };
-  gantt.form_blocks["my_editor"] = {
+  gantt.form_blocks.my_editor = {
     render: function (sns) {
       return (
-        "<div class='dhx_cal_ltext' style='height:60px;'>" +
-        "&nbsp&nbsp;&nbsp;" +
-        "Project Name &nbsp;<input class='editor_project' type='text' name='description'>" +
+        "<div class='dhx_cal_ltext px-4' style='height:px;'>" +
+        "Project Name" + 
         "<br/>" +
-        "&nbsp;&nbsp;&nbsp;" +
-        "Description &nbsp;<input class='editor_description' type='text'>" +
+        "<input class='editor_project border-solid border-2 py-1 px-2' type='text' name='description'>" +
         "<br/>" +
-        "&nbsp;&nbsp;&nbsp;" +
-        "User Id &nbsp;<input class='editor_userid' type='text'>" +
+        "Description" + 
+        "<input class='editor_description border-solid border-2 py-1 px-2' type='text'>" +
         "</div>"
       );
     },
     set_value: function (node, value, task) {
       node.querySelector(".editor_project").value = task.name || "";
       node.querySelector(".editor_description").value = task.description || "";
-      node.querySelector(".editor_userid").value = task.users || "";
     },
     get_value: function (node, task) {
-      task.users = node.querySelector(".editor_userid").value;
       task.description = node.querySelector(".editor_description").value;
       task.name = node.querySelector(".editor_project").value;
     },
@@ -200,6 +197,17 @@ function handler({ action, obj, id }) {
   if (action === "select-task") console.log(`Task ${id} was selected`);
 }
 
+function addGanttTask(id, name, description, users, start_date, end_date) {
+  gantt.addTask({
+    id: id,
+    name: name,
+    description: description,
+    users: users,
+    start_date: start_date,
+    end_date: end_date,
+  });
+}
+
 function AppGantt(props) {
   console.log("RENDER");
   const { title } = props;
@@ -208,14 +216,6 @@ function AppGantt(props) {
   const isUpdated = useRef(false);
   const isAdd = useRef(false);
   const isDelete = useRef(false);
-
-  //   const [addGantt, { data: addGanttData, error: addGanttError }] =
-  //     useMutation(ADD_GANTT, {
-  //     refetchQueries: [{ query: GET_GANTT_DATA }]
-  // });
-
-  // if (loading) return 'Submitting...';
-  // if (addGanttError) window.location.reload();
 
   const [addGantt, { data: addGanttData, error: addGanttError }] =
     useMutation(ADD_GANTT);
@@ -229,7 +229,7 @@ function AppGantt(props) {
       variables: {
         name: name,
         description: description,
-        user_id: user_id,
+        user_id: 0,
         start_time: start_time,
         end_time: end_time,
       },
@@ -253,7 +253,7 @@ function AppGantt(props) {
         id: id,
         name: name,
         description: description,
-        user_id: user_id,
+        user_id: 0,
         start_time: start_time,
         end_time: end_time,
       },
@@ -386,7 +386,8 @@ function AppGantt(props) {
           start_date: startDate,
           end_date: endDate,
         });
-        return <>{console.log(gantt.ID)}</>;
+
+        return <>{console.log("list id gant: ", gantt.ID)}</>;
       });
     }
     return (
@@ -398,14 +399,12 @@ function AppGantt(props) {
   }
 
   return (
-    <div className="bg-white flex justify-between mx-auto items-start align-middle flex-row h-32">
+    <div className="bg-white py-6 px-12">
       <div>
         <div className="py-4 px-4">
           <p className="py-1 text-md">{title}</p>
         </div>
-        <div className="py-4">
-        {renderelemen()}
-        </div>
+        <div className="py-1 px-4">{renderelemen()}</div>
       </div>
       {/* <CardContent>
           <Grid container justifyContent="space-between" alignItems="center">

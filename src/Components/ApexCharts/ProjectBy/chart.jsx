@@ -35,7 +35,7 @@ export default function DonutChart2() {
     });
 
     return (
-      [projectbudgetonbudget, projectbudgetwarning, projectbudgetoverbudget]
+      [projectbudgetoverbudget, projectbudgetwarning, projectbudgetonbudget]
     );
   }
     const options = {

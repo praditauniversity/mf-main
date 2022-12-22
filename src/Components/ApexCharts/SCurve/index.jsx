@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import ListboxBy from "../../Listbox/ListboxBy/index.jsx";
+import ListboxTime from "../../Listbox/ListboxTime/index.jsx";
 import DualLineChart from "./chart.jsx";
 
 export default class SCurveCard extends React.Component {
@@ -8,11 +10,17 @@ export default class SCurveCard extends React.Component {
                 <div>
                     <div className="pt-4 pb-0 flex justify-between">
                         <div className="flex justify-start">
-                            <p className="text-sm ">SCurve</p>
-                            <p className="text-sm ml-1">By Duration</p>
+                            <p className="text-sm place-self-center">SCurve</p>
+                            {/* <p className="text-sm ml-1">By Duration</p> */}
+                            <div className="mb-1">
+                                <ListboxBy />
+                            </div>
                         </div>
                         <div className="flex justify-end">
-                            <p className="text-sm ">Last Month</p>
+                            {/* <p className="text-sm ">Last Month</p> */}
+                            <div className="mb-1">
+                                <ListboxTime />
+                            </div>
                         </div>
                     </div>
                     <div className="pt-1 pb-4 flex justify-start">

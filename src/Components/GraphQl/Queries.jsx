@@ -92,3 +92,23 @@ export const GET_SCAFFOLD_DATA = gql`
     }
   }
 `;
+
+// eslint-disable-next-line import/prefer-default-export
+export const GET_PHASE_DATA = gql`
+  query {
+    projectPhase {
+      Data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        name
+        color
+        order
+        user_id
+        updated_by
+        deleted_by
+      }
+    }
+  }
+`;
