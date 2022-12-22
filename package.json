@@ -46,6 +46,7 @@
     "cors": "^2.8.5",
     "daisyui": "^2.46.0",
     "dhtmlx-gantt": "^7.1.13",
+    "fullcalendar": "^6.0.1",
     "graphql": "^16.6.0",
     "highcharts": "^10.3.2",
     "highcharts-react-official": "^3.1.0",
