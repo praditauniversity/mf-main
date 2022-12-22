@@ -22,8 +22,8 @@ export const RegisterHandler = () => {
     });
     const [password_confirmation, setPasswordConfirmation] = useState('');
     const gender = [
-    { id: 1, name: 'male', unavailable: false },
-    { id: 2, name: 'female', unavailable: false },
+    { id: 1, name: 'Male', value: "male", unavailable: false },
+    { id: 2, name: 'Female', value: "female", unavailable: false },
     ]
 
     const handleChange = (e) => {
@@ -59,7 +59,7 @@ export const RegisterHandler = () => {
                         <InputField name="nik" label="NIK" type="text" value={ input.nik } onChange={ handleChange } required />
                         <InputField name="address" label="Address" type="text" value={ input.address } onChange={ handleChange } required />
                         <InputField name="phone_number" label="Phone Number" type="text" value={ input.phone_number } onChange={ handleChange } required />
-                        <SelectorField options={gender} label="Gender" />
+                        <SelectField name="gender" options={gender} label="Gender" onChange={handleChange} value={input.gender} />
                         <InputField name="email" label="Email" type="email" value={input.email} onChange={handleChange} required />
                         <InputField name="password" label="Password" type="password" value={input.password} onChange={handleChange} required />
                         <InputField label="Password Confirmation" type="password" value={password_confirmation} onChange={e => setPasswordConfirmation(e.target.value)} required />

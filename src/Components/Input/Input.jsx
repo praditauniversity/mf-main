@@ -47,12 +47,11 @@ export const InputFieldWithLabelAndSubtitle = ({ label, subtitle, value, placeho
     );
 };
 
-export const SelectField = ({ value, label, name, placeholder, type, onChange, disabled, error, options }) => {
+export const SelectField = ({ value, label, name, placeholder, onChange, disabled, error, options }) => {
     return (
         <div className="form-group">
             <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
             <select
-                type={type}
                 value={value}
                 name={name}
                 className="form-control mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline "
@@ -62,8 +61,8 @@ export const SelectField = ({ value, label, name, placeholder, type, onChange, d
                 error={error}
             >
                 {options.map((option) => (
-                    <option key={option} value={option} className="hover:bg-gray-400 rounded-none">
-                        {option}
+                    <option key={option.id} value={option.value} className="hover:bg-gray-400 rounded-none">
+                        {option.name}
                     </option>
                 ))}
             </select>

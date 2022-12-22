@@ -45,8 +45,8 @@ export const LoginHandler = () => {
     return (
         <div>
             <form onSubmit={handleSubmitWrapper}>
-                <InputField label="Email" type="email" value={email} required />
-                <InputField label="Password" type="password" value={password} required />
+                <InputField label="Email" type="email" defaultValue={email} required />
+                <InputField label="Password" type="password" defaultValue={password} required />
                 <div className="py-4 mx-auto flex items-center justify-between space-x-4">
                     <button type="submit"
                         className={rainbow}>
