@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_GANTT_DATA, GET_PROJECT_DATA } from "./Queries";
 import { functionalUpdate } from "react-table";
+import GetProfile from "../Auth/GetProfile";
 
 export function SumActual() {
+  const profile = GetProfile();
   const { error, loading, data } = useQuery(GET_PROJECT_DATA);
   const [projectdata, setProject] = useState([]);
 
@@ -21,13 +23,15 @@ export function SumActual() {
     var sumAct = 0;
     var projectCurrency = "";
     projectdata.map((project) => {
-      sumAct = sumAct + project.cost_actual;
-      projectCurrency = project.currency_symbol;
+      if (profile.id === project.user_id) {
+        sumAct = sumAct + project.cost_actual;
+        projectCurrency = project.currency_symbol;
+      } 
     });
     return (
       <div>
         <p>
-          {projectCurrency} {sumAct}
+          {projectCurrency} {sumAct.toFixed(2)}
         </p>
       </div>
     );
@@ -37,6 +41,7 @@ export function SumActual() {
 }
 
 export function SumCost() {
+  const profile = GetProfile();
   const { error, loading, data } = useQuery(GET_PROJECT_DATA);
   const [projectdata, setProject] = useState([]);
 
@@ -54,13 +59,15 @@ export function SumCost() {
     var sumCost = 0;
     var projectCurrency = "";
     projectdata.map((project) => {
-      sumCost = sumCost + project.cost_plan;
-      projectCurrency = project.currency_symbol;
+      if (profile.id === project.user_id) {
+        sumCost = sumCost + project.cost_plan;
+        projectCurrency = project.currency_symbol;
+      } 
     });
     return (
       <div>
         <p>
-          {projectCurrency} {sumCost}
+          {projectCurrency} {sumCost.toFixed(2)}
         </p>
       </div>
     );
@@ -70,6 +77,7 @@ export function SumCost() {
 }
 
 export function SumBudget() {
+  const profile = GetProfile();
   const { error, loading, data } = useQuery(GET_PROJECT_DATA);
   const [projectdata, setProject] = useState([]);
 
@@ -87,13 +95,15 @@ export function SumBudget() {
     var sumBudget = 0;
     var projectCurrency = "";
     projectdata.map((project) => {
-      sumBudget = sumBudget + project.budget;
-      projectCurrency = project.currency_symbol;
+      if (profile.id === project.user_id) {
+        sumBudget = sumBudget + project.budget;
+        projectCurrency = project.currency_symbol;
+      } 
     });
     return (
       <div>
         <p>
-          {projectCurrency} {sumBudget}
+          {projectCurrency} {sumBudget.toFixed(2)}
         </p>
       </div>
     );
@@ -103,6 +113,7 @@ export function SumBudget() {
 }
 
 export function SumDanger(){
+  const profile = GetProfile();
   const { error, loading, data } = useQuery(GET_PROJECT_DATA);
   const [projectdata, setProject] = useState([]);
 
@@ -122,16 +133,17 @@ export function SumDanger(){
     var sumDanger = 0;
     var projectCurrency = "";
     projectdata.map((project) => {
-      sumAct = sumAct + project.cost_actual;
-      sumCost = sumCost + project.cost_plan;
-      sumDanger = sumAct - sumCost;
-      projectCurrency = project.currency_symbol;
-      console.log(sumDanger);
+      if (profile.id === project.user_id) {
+        sumAct = sumAct + project.cost_actual;
+        sumCost = sumCost + project.cost_plan;
+        sumDanger = sumAct - sumCost;
+        projectCurrency = project.currency_symbol;
+      } 
     });
     return (
       <div>
         <p>
-          {projectCurrency} {sumDanger}
+          {projectCurrency} {sumDanger.toFixed(2)}
         </p>
       </div>
     );
@@ -141,6 +153,7 @@ export function SumDanger(){
 }
 
 export function Variance(){
+  const profile = GetProfile();
   const { error, loading, data } = useQuery(GET_PROJECT_DATA);
   const [projectdata, setProject] = useState([]);
 
@@ -160,16 +173,17 @@ export function Variance(){
     var variance = 0;
     var projectCurrency = "";
     projectdata.map((project) => {
-      sumBudget = sumBudget + project.budget;
-      sumAct = sumAct + project.cost_actual;
-      variance = sumBudget - sumAct;
-      projectCurrency = project.currency_symbol;
-      console.log(variance);
+      if (profile.id === project.user_id) {
+        sumBudget = sumBudget + project.budget;
+        sumAct = sumAct + project.cost_actual;
+        variance = sumBudget - sumAct;
+        projectCurrency = project.currency_symbol;
+      } 
     });
     return (
       <div>
         <p>
-          {projectCurrency} {variance}
+          {projectCurrency} {variance.toFixed(2)}
         </p>
       </div>
     );
