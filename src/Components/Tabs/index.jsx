@@ -1,4 +1,5 @@
 import React from "react";
+import Tasks from "../Tasks";
 import VerticalTabs from "./verticalTabs";
 
 const Tabs = ({ color }) => {
@@ -14,7 +15,7 @@ const Tabs = ({ color }) => {
             }>
             <a
                 className={
-                  "text-lg font-bold px-5 py-3 rounded leading-normal " +
+                  "text-lg font-bold px-5 py-3 rounded leading-normal hover:text-primary transition ease-out duration-300 " +
                   (openTab === 1
                     ? "text-" + color + " bg-background-snow" + "border-b-4 border-" + color 
                     : "text-" + color + "-600")
@@ -36,7 +37,7 @@ const Tabs = ({ color }) => {
                 : "border-b-4 border-transparent")}>
               <a
                 className={
-                  "text-lg font-bold px-5 py-3 rounded leading-normal " +
+                  "text-lg font-bold px-5 py-3 rounded leading-normal hover:text-primary transition ease-out duration-300 " +
                   (openTab === 2
                     ? "text-" + color + " bg-background-snow" + "border-b-4 border-" + color 
                     : "text-" + color + "-600")
@@ -54,22 +55,16 @@ const Tabs = ({ color }) => {
             </li>
           </ul>
 
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">
-            <div className="px-4 py-5 flex-auto">
+          <div className="flex flex-col min-w-0 break-words bg-white w-full rounded">
+            <div className="px-4 flex-auto">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                   <VerticalTabs />
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  <p>
-                    Completely synergize resource taxing relationships via
-                    premier niche markets. Professionally cultivate one-to-one
-                    customer service with robust ideas.
-                    <br />
-                    <br />
-                    Dynamically innovate resource-leveling customer service for
-                    state of the art customer service.
-                  </p>
+                  <Tasks />
+                  <Tasks />
+                  <Tasks />
                 </div>
               </div>
             </div>

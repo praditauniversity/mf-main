@@ -5,11 +5,11 @@ export default function DualLineChart() {
     const series = [
         {
             name: 'Plan Curve',
-            data: [40, 80, 120, 70, 100, 120, 90, 150, 200]
+            data: [10, 20, 40, 60, 80, 95, 100, 105, 115]
         },
         {
             name: 'Actual Curve',
-            data: [20, 20, 45, 60, 39, 52, 79, 82, 120]
+            data: [5, 10, 20, 40, 50, 60, 70, 80, 90]
         }
     ]
     const options = {
@@ -46,8 +46,9 @@ export default function DualLineChart() {
             show: false
         },
         forecastDataPoints: {
-            count: [2, 3],
-            dashArray: [10, 5]
+            // count: [2, 3],
+            // dashArray: [10, 5]
+            count: [2]
         }
     };
     return (

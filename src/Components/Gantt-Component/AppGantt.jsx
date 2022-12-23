@@ -53,13 +53,12 @@ gantt.config.columns = [
       const height = sns.height || 45;
       return (
         // eslint-disable-next-line prefer-template
-        "<div class='gantt-lb-datepicker' style='height:" +
+        "<div class='gantt-lb-datepicker px-4' style='height:" +
         height +
         "px;'>" +
-        "&nbsp &nbsp" +
-        "<input class='border-solid border-2' type='text' name='start'>" + 
+        "<input class='border-solid border-2 py-1 px-2' type='text' name='start'>" + 
         "&nbsp - &nbsp" +
-        "<input class='border-solid border-2' type='text' name='end'>" +
+        "<input class='border-solid border-2 py-1 px-2' type='text' name='end'>" +
         "</div>"
       );
     },
@@ -136,6 +135,7 @@ gantt.config.columns = [
         "<input class='editor_project border-solid border-2 py-1 px-2' type='text' name='description'>" +
         "<br/>" +
         "Description" + 
+        "<br/>" +
         "<input class='editor_description border-solid border-2 py-1 px-2' type='text'>" +
         "</div>"
       );
@@ -406,22 +406,6 @@ function AppGantt(props) {
         </div>
         <div className="py-1 px-4">{renderelemen()}</div>
       </div>
-      {/* <CardContent>
-          <Grid container justifyContent="space-between" alignItems="center">
-            <Grid item>
-              <Typography align="left" component="div" variant="h5">
-                Gantt Chart
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent> */}
-      {/* {renderelemen()} */}
-      {console.log("gantt should be here")}
-      {/* <div id="gantt_here"></div> */}
-      {/* <div className="gantt-container">
-          {console.log("render elemen", ganttTask)}
-          <Gantt tasks={ganttTask} action={handler} />
-        </div> */}
     </div>
   );
 }
