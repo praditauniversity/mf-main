@@ -22,19 +22,42 @@ import TestQuery from "../../Components/Gantt-Component/TestQuery";
 const PMODashboardPage = () => {
     return (
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 2xl:grid-cols-18 lg:mt-0 mt-4">
-            <div className="col-span-3 row-span-1"> <BudgetCard title="Budget" description={<SumBudget />}  colorIcon="text-secondary-800" /> </div>
-            <div className="col-span-3 row-span-1"> <BudgetCard title="Actual" description={<SumActual />}  colorIcon="text-primary-800" /> </div>
-            <div className="col-span-3 row-span-1"> <BudgetCard title="Cost" description={<SumCost/>}  colorIcon="text-orange-dark" /> </div>
-            <div className="col-span-3 row-span-1"> <BudgetCard title="Danger" description={<SumDanger/>}  colorIcon="text-error-dark" /> </div>
-            <div className="col-span-3 row-span-1"> <BudgetCard title="Variance" description={<Variance/>}  colorIcon="text-tertiary-800" /> </div>
-            <div className="col-span-3 row-span-3"> <UserCard /> </div>
-            <div className="col-span-7 row-span-1"> <SCurveCard /> </div>
-            <div className="col-span-7 row-span-1"> <TPECard /> </div>
-            <div className="col-span-7 row-span-1"> <ManpowerCard /> </div>
-            <div className="col-span-7 row-span-1"> <ProjectByCard /> </div>
-            <div className="col-span-full row-span-1"> <ProjectListCard /> </div>
-            <div className="col-span-3 row-span-3"> <ActiveProjectCard /> </div>
-            <div className="col-span-10 row-span-2"> <AppGantt title="Gantt Chart" /> </div>
+            {/* Main Activities */}
+            <div className="col-span-15">
+                <div className="grid grid-cols-15 gap-2">
+                    {/* Top row */}
+                    <div className="col-span-3"> <BudgetCard title="Budget" description={<SumBudget />}  colorIcon="text-secondary-800" /> </div>
+                    <div className="col-span-3"> <BudgetCard title="Actual" description={<SumActual />}  colorIcon="text-primary-800" /> </div>
+                    <div className="col-span-3"> <BudgetCard title="Cost" description={<SumCost/>}  colorIcon="text-orange-dark" /> </div>
+                    <div className="col-span-3"> <BudgetCard title="Danger" description={<SumDanger/>}  colorIcon="text-error-dark" /> </div>
+                    <div className="col-span-3"> <BudgetCard title="Variance" description={<Variance/>}  colorIcon="text-tertiary-800" /> </div>
+                
+                    {/* Main row */}
+                    {/* Chart */}
+                    <div className="col-span-15 grid grid-cols-16 gap-2">
+                        <div className="col-span-8"> <SCurveCard /> </div>
+                        <div className="col-span-8"> <TPECard /> </div>
+                        <div className="col-span-8"> <ManpowerCard /> </div>
+                        <div className="col-span-8"> <ProjectByCard /> </div>
+                    </div>
+
+                    {/* Project List */}
+                    <div className="col-span-15"> <ProjectListCard /> </div>
+                </div>
+            </div>
+
+            {/* Side Activities */}
+            <div className="col-span-3 row-span-1">
+                <div className="grid gap-2">
+                    <div>
+                        <UserCard />
+                    </div>
+                    <div>
+                        <ActiveProjectCard />
+                    </div>
+                </div>
+            </div>
+            
             {/* can be delete later - testing for gantt */}
             {/* <div className="col-span-7 row-span-1"> <TestQuery /> </div> */}
         </div>
