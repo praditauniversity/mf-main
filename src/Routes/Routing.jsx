@@ -39,7 +39,7 @@ export default function Routing() {
     return (
       <Routes>
         <Route path="/" element={<ProjectDashboardPage/> } />
-        <Route path="/login" element={defaultLogin()} />
+        <Route path="/login" element={<ProjectDashboardPage/>} />
         <Route path="/register" element={<Register />} />
         <Route path="/project" element={<Project />} />
         <Route path="/dashboard" element={<DashboardPage />} />

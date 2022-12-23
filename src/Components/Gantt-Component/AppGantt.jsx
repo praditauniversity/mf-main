@@ -56,7 +56,7 @@ gantt.config.columns = [
         "<div class='gantt-lb-datepicker px-4' style='height:" +
         height +
         "px;'>" +
-        "<input class='border-solid border-2 py-1 px-2' type='text' name='start'>" + 
+        "<input class='border-solid border-2 py-1 px-2' type='text' name='start'>" +
         "&nbsp - &nbsp" +
         "<input class='border-solid border-2 py-1 px-2' type='text' name='end'>" +
         "</div>"
@@ -130,11 +130,11 @@ gantt.config.columns = [
     render: function (sns) {
       return (
         "<div class='dhx_cal_ltext px-4' style='height:px;'>" +
-        "Project Name" + 
+        "Project Name" +
         "<br/>" +
         "<input class='editor_project border-solid border-2 py-1 px-2' type='text' name='description'>" +
         "<br/>" +
-        "Description" + 
+        "Description" +
         "<br/>" +
         "<input class='editor_description border-solid border-2 py-1 px-2' type='text'>" +
         "</div>"
@@ -372,30 +372,30 @@ function AppGantt(props) {
     return str.substring(0, 10);
   }
 
+  // render elemen
   function renderelemen() {
-    if (ganttTask.data.length === 0) {
-      return ganttdata.map((gantt) => {
-        const startDate = subStringDate(gantt.start_time);
-        const endDate = subStringDate(gantt.end_time);
+    const dataData = ganttdata.map((gantt) => {
+      const startDate = subStringDate(gantt.start_time);
+      const endDate = subStringDate(gantt.end_time);
 
-        ganttTask.data.push({
-          id: gantt.ID,
-          name: gantt.name,
-          description: gantt.description,
-          users: gantt.user_id,
-          start_date: startDate,
-          end_date: endDate,
-        });
-
-        return <>{console.log("list id gant: ", gantt.ID)}</>;
+      ganttTask.data.push({
+        id: gantt.ID,
+        name: gantt.name,
+        description: gantt.description,
+        users: gantt.user_id,
+        start_date: startDate,
+        end_date: endDate,
       });
+    });
+
+    if (dataData.length > 0) {
+      return (
+        <div className="gantt-container">
+          {console.log("render elemen", ganttTask)}
+          <Gantt tasks={ganttTask} action={handler} />
+        </div>
+      );
     }
-    return (
-      <div className="gantt-container">
-        {console.log("render elemen", ganttTask)}
-        <Gantt tasks={ganttTask} action={handler} />
-      </div>
-    );
   }
 
   return (
@@ -404,7 +404,9 @@ function AppGantt(props) {
         <div className="py-5 px-4">
           <p className="text-md">{title}</p>
         </div>
+        {console.log("before renderelemen should be called")}
         <div className="py-1 px-4">{renderelemen()}</div>
+        {console.log("after renderelemen should be called")}
       </div>
     </div>
   );

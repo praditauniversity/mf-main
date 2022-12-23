@@ -17,6 +17,7 @@ import ProjectListCard from "../../Components/Card/ProjectList/ProjectListCard";
 import ActiveProjectCard from "../../Components/Card/ActiveProject/ActiveProjectCard";
 import AppGantt from "../../Components/Gantt-Component/AppGantt";
 import TestQuery from "../../Components/Gantt-Component/TestQuery";
+import ProjectProgressOverviewCard from "../../Components/ApexCharts/ProjectProgressOverview";
 
 
 const PMODashboardPage = () => {
@@ -26,12 +27,12 @@ const PMODashboardPage = () => {
             <div className="col-span-15">
                 <div className="grid grid-cols-15 gap-2">
                     {/* Top row */}
-                    <div className="col-span-3"> <BudgetCard title="Budget" description={<SumBudget />}  colorIcon="text-secondary-800" /> </div>
-                    <div className="col-span-3"> <BudgetCard title="Actual" description={<SumActual />}  colorIcon="text-primary-800" /> </div>
-                    <div className="col-span-3"> <BudgetCard title="Cost" description={<SumCost/>}  colorIcon="text-orange-dark" /> </div>
-                    <div className="col-span-3"> <BudgetCard title="Danger" description={<SumDanger/>}  colorIcon="text-error-dark" /> </div>
-                    <div className="col-span-3"> <BudgetCard title="Variance" description={<Variance/>}  colorIcon="text-tertiary-800" /> </div>
-                
+                    <div className="col-span-3"> <BudgetCard title="Budget" description={<SumBudget />} colorIcon="text-secondary-800" /> </div>
+                    <div className="col-span-3"> <BudgetCard title="Actual" description={<SumActual />} colorIcon="text-primary-800" /> </div>
+                    <div className="col-span-3"> <BudgetCard title="Cost" description={<SumCost />} colorIcon="text-orange-dark" /> </div>
+                    <div className="col-span-3"> <BudgetCard title="Danger" description={<SumDanger />} colorIcon="text-error-dark" /> </div>
+                    <div className="col-span-3"> <BudgetCard title="Variance" description={<Variance />} colorIcon="text-tertiary-800" /> </div>
+
                     {/* Main row */}
                     {/* Chart */}
                     <div className="col-span-15 grid grid-cols-16 gap-2">
@@ -41,6 +42,9 @@ const PMODashboardPage = () => {
                         <div className="col-span-8"> <ProjectByCard /> </div>
                     </div>
 
+                    {/* Project List */}
+                    {/* <div className="col-span-full"> <ProjectListCard /> </div>
+                    <div className="col-span-full"> <ProjectProgressOverviewCard /> </div> */}
                 </div>
             </div>
 
@@ -55,9 +59,10 @@ const PMODashboardPage = () => {
                     </div>
                 </div>
             </div>
-            
-            {/* Project List */}
             <div className="col-span-full"> <ProjectListCard /> </div>
+            <div className="col-span-full"> <ProjectProgressOverviewCard /> </div>
+
+
             {/* can be delete later - testing for gantt */}
             {/* <div className="col-span-7 row-span-1"> <TestQuery /> </div> */}
         </div>

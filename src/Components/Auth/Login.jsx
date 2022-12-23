@@ -23,11 +23,10 @@ const SubmitHandler = async (e, login, email, password, setProfile, setError) =>
     setError(err.message);
   }
 }
-
 export const LoginHandler = () => {
     const [login] = useMutation(LOGIN);
-    const [email, setEmail] = useLocalStorage('email', 'ValeriaReina@mail.com');
-    const [password, setPassword] = useLocalStorage('password', 'ValeriaReina');
+    const [email, setEmail] = useLocalStorage('email', 'coba@gmail.com');
+    const [password, setPassword] = useLocalStorage('password', '4dM1nSuPeR');
     const [error, setError] = useState('');
     const [profile, setProfile] = useLocalStorage('profile', () => {
         return {

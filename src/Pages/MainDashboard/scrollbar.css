@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 @layer utilities {
+
   .scrollbar::-webkit-scrollbar {
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
   }
 
   .scrollbar::-webkit-scrollbar-track {
@@ -20,5 +21,7 @@
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background: #B39DDB;
+    border-left: 2px solid #B39DDB;
+    transition: all 0.4s;
   }
 }
