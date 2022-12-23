@@ -8,7 +8,7 @@ const MemberTaskCard = () => {
         { taskname: "Create moodboard", projectname: "Reverie Product Management Application", projectmanager: "Linda", deadline: " 09/03/2022", progress: "20%" },
     ]
     return (
-        <div className="rounded-xl shadow-sm bg-white pt-6">
+        <div className="rounded-xl shadow-lg bg-white pt-6">
             <div className="flex justify-start pl-8 pb-6">
                 {/* <p className="text-lg font-semibold">Task List</p> */}
             </div>

@@ -124,7 +124,7 @@ gantt.config.columns = [
         duration: task.duration,
       };
     },
-    focus: (node) => {},
+    focus: (node) => { },
   };
   gantt.form_blocks.my_editor = {
     render: function (sns) {
@@ -399,7 +399,7 @@ function AppGantt(props) {
   }
 
   return (
-    <div className="bg-white py-6 px-12 rounded-xl shadow-sm h-full">
+    <div className="bg-white py-6 px-12 rounded-xl shadow-lg h-full">
       <div className="h-full">
         <div className="py-5 px-4">
           <p className="text-md">{title}</p>

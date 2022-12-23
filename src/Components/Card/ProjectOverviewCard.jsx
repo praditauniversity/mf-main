@@ -5,7 +5,7 @@ import ListboxProjectName from "../Listbox/ListProjectName";
 const ProjectOverviewCard = (props) => {
   const { title1, description1, title2, description2, title3, description3 } = props;
   return (
-    <div className="bg-white flex justify-between mx-auto items-center align-middle flex-row rounded-lg h-32">
+    <div className="bg-white flex shadow-lg justify-between mx-auto items-center align-middle flex-row rounded-lg h-32">
       <div className="py-4 px-12">
         <p className="py-1 text-md pl-3">{title1}</p>
         <div>

@@ -11,7 +11,7 @@ const UpcomingTaskCard = () => {
     const classes = useStyles();
 
     return (
-        <div className="rounded-xl shadow-sm bg-white">
+        <div className="rounded-xl shadow-lg bg-white">
             <div>
                 <div className="pt-8 pb-8 pl-12 pr-12 flex justify-between">
                     <div className="flex justify-start">

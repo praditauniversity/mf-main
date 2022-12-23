@@ -16,7 +16,7 @@ const UserChips = () => {
     const firstName = profile.first_name;
 
     return (
-        <div className="flex bg-white shadow-sm py-2 px-4 rounded-lg text-typo-dark text-sm items-center">
+        <div className="flex bg-white shadow-lg py-2 px-4 rounded-lg text-typo-dark text-sm items-center">
             <img src={user} alt="user" className="mr-2" />
             <span className="mr-1">Welcome</span> 
             <Link to="/profile" className="font-bold">{firstName}!</Link>
@@ -30,7 +30,7 @@ const BreadcrumbsChips = () => {
     const capCurrent = current.charAt(0).toUpperCase() + current.slice(1);
 
     return (
-        <div className="flex bg-white shadow-sm py-2 px-4 rounded-lg text-typo-dark text-sm items-center">
+        <div className="flex bg-white shadow-lg py-2 px-4 rounded-lg text-typo-dark text-sm items-center">
             <img src={subtask} alt="subtask" className="mr-2" />
             <span className="mr-1 truncate">{root}</span>
             <Chevron />
@@ -50,7 +50,7 @@ const DateChips = () => {
     const time = todayDate.getHours() + ":" + zeroMinutes + todayDate.getMinutes();
 
     return (
-        <div className="flex bg-white shadow-sm py-2 px-4 rounded-lg text-typo-dark text-sm items-center">
+        <div className="flex bg-white shadow-lg py-2 px-4 rounded-lg text-typo-dark text-sm items-center">
             <span className="mr-1 font-bold">{dates}<span className="ml-2 mr-1 text-typo-dark">|</span> {time} </span>
         </div>
     );
@@ -77,7 +77,7 @@ const DashboardChips = () => {
     const separator = <span className="mx-2 text-typo-dark ">|</span>;
 
     return (
-        <div className="flex-1 flex bg-white shadow-sm py-2 px-4 rounded-lg text-typo-dark text-sm items-center justify-end truncate">
+        <div className="flex-1 flex bg-white shadow-lg py-2 px-4 rounded-lg text-typo-dark text-sm items-center justify-end truncate">
             {list.map((item) => (
                 <div key={item.id}>
                     <Link to={`/${item.link}`} key={item.id} id={item.link} onClick={handleClick} className={`mr-2 ${active === item.link ? "font-bold" : ""}`}>{item.name}</Link>

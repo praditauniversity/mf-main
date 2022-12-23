@@ -8,7 +8,7 @@ const UserCard = () => {
 
   return (
 
-    <div className="rounded-xl shadow-sm bg-white py-8 px-16">
+    <div className="rounded-xl shadow-lg bg-white py-8 px-16">
 
       <img src={UserImage} className="m-auto border-2 p-1 border-dashed border-indigo-400" style={{ borderRadius: "9999px" }} />
 

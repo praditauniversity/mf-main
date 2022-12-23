@@ -58,7 +58,7 @@ export const SideBar = () => {
 
 
     return (
-        <div className="w-15 p-3 flex-1 bg-white shadow-sm rounded-xl h-full grid grid-cols-1 grid-rows-2">
+        <div className="w-15 p-3 flex-1 bg-white shadow-lg rounded-xl h-full grid grid-cols-1 grid-rows-2">
             <div className="row-span-2">
                 <div className="flex flex-col w-full items-center mt-0.5">
                     <Logo />

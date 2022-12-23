@@ -8,7 +8,7 @@ const ProjectListCard = () => {
         { projectname: "Reverie Product Management Application", projectmanager: "Gerald Revalin", plannedinterval: "11/10/2021 - 09/03/2022", duration: "365 Days", manpower: "2/5", projectbudget:"IDR 84.000.000.000", invoice:"IDR 40.000.000.000", cashin:"IDR 44.000.000.000", outstandingbalance:"IDR 40.000.000", progress: "20%" },
     ]
     return (
-        <div className="rounded-xl shadow-sm bg-white pt-6 overflow-x-auto">
+        <div className="rounded-xl shadow-lg bg-white pt-6 overflow-x-auto">
             <div className="flex justify-start pl-8 pb-6">
                 <p className="text-lg font-semibold">Project List</p>
             </div>
