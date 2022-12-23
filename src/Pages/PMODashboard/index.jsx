@@ -18,6 +18,7 @@ import ActiveProjectCard from "../../Components/Card/ActiveProject/ActiveProject
 import AppGantt from "../../Components/Gantt-Component/AppGantt";
 import TestQuery from "../../Components/Gantt-Component/TestQuery";
 import ProjectProgressOverviewCard from "../../Components/ApexCharts/ProjectProgressOverview";
+import MemberTaskCard from "../../Components/Card/MemberTask/MemberTaskCard";
 
 
 const PMODashboardPage = () => {
@@ -61,6 +62,7 @@ const PMODashboardPage = () => {
             </div>
             <div className="col-span-full"> <ProjectListCard /> </div>
             <div className="col-span-full"> <ProjectProgressOverviewCard /> </div>
+            <div className="col-span-10"> <MemberTaskCard /> </div>
 
 
             {/* can be delete later - testing for gantt */}

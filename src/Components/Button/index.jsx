@@ -11,9 +11,9 @@ const Button = (props, buttontype, label) => {
     )
 }
 
-export const LinkButton = (link, label) => {
+export const LinkButton = (link, label, id) => {
     return (
-        <a href={link}>
+        <a href={link} key={id}>
             <button className='btn'>
                 {label}
             </button>
