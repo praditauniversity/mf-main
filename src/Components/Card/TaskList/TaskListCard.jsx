@@ -16,7 +16,7 @@ const TaskListCard = () => {
                 <p className="text-lg font-semibold">Task List</p>
             </div>
             <div className="overflow-x-auto">
-                <table className="table table-zebra w-full table-hover">
+                <table className="table table-zebra w-full table-hover h-1/3">
                     <thead>
                         <tr>
                             <th align="center">Task Name</th>

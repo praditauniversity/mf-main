@@ -18,6 +18,7 @@ export const RegisterHandler = () => {
         gender: '',
         email: '',
         password: '',
+        company_id: '',
         created_by: 'user',
     });
     const [password_confirmation, setPasswordConfirmation] = useState('');

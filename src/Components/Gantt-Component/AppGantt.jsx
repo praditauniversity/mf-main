@@ -399,7 +399,7 @@ function AppGantt(props) {
   }
 
   return (
-    <div className="bg-white py-6 px-12 rounded-xl shadow-sm ">
+    <div className="bg-white py-6 px-12 rounded-xl shadow-sm h-full">
       <div>
         <div className="py-5 px-4">
           <p className="text-md">{title}</p>
