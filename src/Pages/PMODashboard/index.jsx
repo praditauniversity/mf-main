@@ -41,8 +41,6 @@ const PMODashboardPage = () => {
                         <div className="col-span-8"> <ProjectByCard /> </div>
                     </div>
 
-                    {/* Project List */}
-                    <div className="col-span-15"> <ProjectListCard /> </div>
                 </div>
             </div>
 
@@ -58,6 +56,8 @@ const PMODashboardPage = () => {
                 </div>
             </div>
             
+            {/* Project List */}
+            <div className="col-span-full"> <ProjectListCard /> </div>
             {/* can be delete later - testing for gantt */}
             {/* <div className="col-span-7 row-span-1"> <TestQuery /> </div> */}
         </div>
