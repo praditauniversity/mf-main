@@ -138,7 +138,7 @@ const VerticalTabs = ({ color }) => {
         </ul>
 
         <div className="relative flex flex-col min-w-0 break-words bg-white mb-6 rounded col-span-9">
-          <div className="px-4 flex-auto rounded-lg">
+          <div className="px-4 flex-auto rounded-lg max-h-[400px] overflow-y-scroll scrollbar">
             <div className="tab-content tab-space">
               <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                 {someTaskLength === 0 
@@ -147,8 +147,8 @@ const VerticalTabs = ({ color }) => {
                   <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
                 ))
                 }
-                
               </div>
+
               <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                 {someTask1Length === 0 
                 ? <NoTasks height="100"/> 
@@ -157,6 +157,7 @@ const VerticalTabs = ({ color }) => {
                 ))
                 }
               </div>
+
               <div className={openTab === 3 ? "block" : "hidden"} id="link3">
                 {someTask2Length === 0 
                 ? <NoTasks height="100"/> 
@@ -165,6 +166,7 @@ const VerticalTabs = ({ color }) => {
                 ))
                 }
               </div>
+
             </div>
           </div>
         </div>

@@ -47,6 +47,7 @@ const TabsDailyReminder = ({ color }) => {
                 Calender
               </a>
             </li>
+
             <li className= {"-mb-px mr-2 last:mr-0 flex-auto text-center pb-3 sm:pt-3 " +
             (openTab === 2
                 ? "border-b-4 border-primary"
@@ -71,8 +72,8 @@ const TabsDailyReminder = ({ color }) => {
             </li>
           </ul>
 
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">
-            <div className="px-4 py-5 flex-auto">
+          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded ">
+            <div className="px-4 py-5 flex-auto overflow-y-scroll scrollbar">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                 {someTaskLength === 0 
@@ -82,6 +83,7 @@ const TabsDailyReminder = ({ color }) => {
                 ))
                 }
                 </div>
+
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                 {someTask1Length === 0 
                 ? <NoTasks height="100"/> 
@@ -90,6 +92,7 @@ const TabsDailyReminder = ({ color }) => {
                 ))
                 }
                 </div>
+
               </div>
             </div>
           </div>

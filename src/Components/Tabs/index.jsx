@@ -40,6 +40,7 @@ const Tabs = ({ color }) => {
                 To-do
               </a>
             </li>
+            
             <li className= {"-mb-px mr-2 last:mr-0 flex-auto text-center pb-3 sm:pt-3 " +
             (openTab === 2
                 ? "border-b-4 border-primary"
@@ -70,11 +71,13 @@ const Tabs = ({ color }) => {
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                   <VerticalTabs />
                 </div>
+
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                   {someTask.map((item) => (
                     <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
                   ))}
                 </div>
+
               </div>
             </div>
           </div>
