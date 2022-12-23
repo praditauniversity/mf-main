@@ -25,7 +25,7 @@ const ProjectDashboardPage = () => {
             {/* Main Activities */}
             <div className="col-span-15 row-span-1">
                 <div className="grid grid-cols-15 gap-2">
-                    {/* First row */}
+                    {/* Top row */}
                     <div className="col-span-9">
                         <ProjectOverviewCard 
                         title1="Project Name" 
@@ -38,15 +38,15 @@ const ProjectDashboardPage = () => {
                     </div>
                     <div className="col-span-3 row-span-1"> <HealthCard title="Health by Cost" description="Cost Overrun" colorIcon="text-error-dark" /> </div>
                     <div className="col-span-3 row-span-1"> <HealthCard title="Health by Schedule" description="Early Schedule" colorIcon="text-tertiary-dark" /> </div>
-
-                    {/* Second row */}
+                    
                     <div className="col-span-3 row-span-1"> <BudgetCard title="Budget" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-secondary-800" /> </div>
                     <div className="col-span-3 row-span-1"> <BudgetCard title="Cost" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-orange-dark" /> </div>
                     <div className="col-span-3 row-span-1"> <BudgetCard title="Actual" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-primary-800" /> </div>
                     <div className="col-span-3 row-span-1"> <BudgetCard title="Danger" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-error-dark" /> </div>
                     <div className="col-span-3 row-span-1"> <BudgetCard title="Variance" description="IDR 42.562.347" content="IDR 816.204.031" colorIcon="text-tertiary-800" /> </div>
                 
-                    {/* Third row */}
+                    
+                    {/* Main row */}
                     <div className="col-span-5 row-span-1"> <ProjectProgressCard /> </div>
                     <div className="col-span-10 row-span-2"> <AppGantt title="Gantt Chart" /> </div>
                     <div className="col-span-5 row-span-1"> <TaskOverviewCard /> </div>
