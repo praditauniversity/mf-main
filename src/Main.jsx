@@ -13,7 +13,7 @@ const Main = () => {
         <main className="">
           <div className="md:rounded-lg">
             <div className="flex h-screen border-8 border-white">
-              <div className="bg-background relative rounded-lg flex h-full flex-1">
+              <div className="bg-background relative flex h-full flex-1">
                 <div className="hidden lg:flex">
                   <div className="flex-y-1 m-2">
                     <SideBar />
