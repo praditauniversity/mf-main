@@ -54,20 +54,9 @@ const ProjectDashboardPage = () => {
                 </div>
             </div>
 
-            {/* Side Activities */}
-            <div className="col-span-3 row-span-1">
-                <div className="grid gap-2">
-                    <div>
-                        <CalendarCard />
-                    </div>
-                    <div>
-                        <UpcomingTaskCard />
-                    </div>
-                    <div>
-                        <IssuesCard />
-                    </div>
-                </div>
-            </div>
+            <div className="col-span-3 row-span-1"> <UpcomingTaskCard /> </div>
+            <div className="col-span-3 row-span-1"> <IssuesCard /> </div>
+            
         </div>
     );
 }

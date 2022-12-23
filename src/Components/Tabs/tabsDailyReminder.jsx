@@ -1,8 +1,8 @@
 import React from "react";
-import Tasks from "../Tasks/index.jsx";
-import VerticalTabs from "./verticalTabs";
+import Tasks from "../Tasks/index";
+import NoTasks from "../Tasks/NoTasks";
 
-const Tabs = ({ color }) => {
+const TabsDailyReminder = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
   return (
     <>
@@ -28,7 +28,7 @@ const Tabs = ({ color }) => {
                 href="#link1"
                 role="tablist"
               >
-                To-do
+                Calender
               </a>
             </li>
             <li className= {"-mb-px mr-2 last:mr-0 flex-auto text-center pb-3 sm:pt-3 " +
@@ -50,21 +50,21 @@ const Tabs = ({ color }) => {
                 href="#link2"
                 role="tablist"
               >
-                Completed
+                 Agenda
               </a>
             </li>
           </ul>
 
-          <div className="flex flex-col min-w-0 break-words bg-white w-full rounded">
-            <div className="px-4 flex-auto">
+          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">
+            <div className="px-4 py-5 flex-auto">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                  <VerticalTabs />
+                    <Tasks />
+                    <Tasks />
+                    <Tasks />
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  <Tasks />
-                  <Tasks />
-                  <Tasks />
+                    <NoTasks />
                 </div>
               </div>
             </div>
@@ -74,4 +74,4 @@ const Tabs = ({ color }) => {
   );
 };
 
-export default Tabs;
+export default TabsDailyReminder;

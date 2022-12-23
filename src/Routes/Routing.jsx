@@ -14,7 +14,16 @@ import UserProfile from "../Pages/UserProfile";
 import Logout from "../Components/Auth/Logout";
 import MainDashboard from "../Pages/MainDashboard";
 
-const defaultLogin = <ProjectDashboardPage />;
+const defaultLogin = () => {
+  
+  window.location.href = "/#/projectdashboard";
+  
+  return(
+  <div>
+    <ProjectDashboardPage/>
+  </div>
+  );
+};
 
 export default function Routing() {
   const islogin = localStorage.getItem("token") !== null;
@@ -29,8 +38,8 @@ export default function Routing() {
   } else {
     return (
       <Routes>
-        <Route path="/" element={defaultLogin} />
-        <Route path="/login" element={<ProjectDashboardPage />} />
+        <Route path="/" element={<ProjectDashboardPage/> } />
+        <Route path="/login" element={defaultLogin()} />
         <Route path="/register" element={<Register />} />
         <Route path="/project" element={<Project />} />
         <Route path="/dashboard" element={<DashboardPage />} />
