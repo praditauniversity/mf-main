@@ -1,14 +1,15 @@
 import React from 'react';
-import subtask from "../../Assets/Icons/svg/Subtask.svg";
+import Order from "../../Assets/Icons/svg/Order.svg";
 
-const NoTasks = ( ) => {
+const NoTasks = ( props ) => {
+    const { height } = props
     return (
         <div
         tabIndex={0}
-        className="flex flex-col justify-center align-center text-center rounded-lg bg-table-dark mb-2 p-8 border-none h-100"
+        className={"flex flex-col justify-center align-center text-center rounded-lg bg-table-dark mb-2 p-8 border-none h-" + height}
         >
-            <div className="flex justify-center align-center mb-8">
-                <img src={subtask} className="w-20 text-center opacity-70"></img>
+            <div className="flex justify-center align-center mb-3">
+                <img src={Order} className="w-50 text-center opacity-70"></img>
             </div>
 
             <div className="flex flex-col text-center">

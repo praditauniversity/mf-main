@@ -1,9 +1,18 @@
 import React from "react";
 import Tasks from "../Tasks/index.jsx";
 import VerticalTabs from "./verticalTabs";
+import Trash from "../../Assets/Icons/svg/Trash.svg";
+import { useState } from "react";
 
 const Tabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
+
+  const [someTask, setSomeTask] = useState([
+    { id: 1, icon: Trash, projectName: "Project anomaly", taskName: "Make project charter", date: "30 Aug" },
+    { id: 2, icon: Trash, projectName: "Project anomaly", taskName: "Plan the BMC with team", date: "30 Aug" },
+    { id: 3, icon: Trash, projectName: "Project anomaly", taskName: "User requirements", date: "30 Aug" },
+  ]);
+
   return (
     <>
       <div className="flex flex-wrap">
@@ -50,7 +59,7 @@ const Tabs = ({ color }) => {
                 href="#link2"
                 role="tablist"
               >
-                Completed
+                 Completed
               </a>
             </li>
           </ul>
@@ -62,9 +71,9 @@ const Tabs = ({ color }) => {
                   <VerticalTabs />
                 </div>
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  <Tasks />
-                  <Tasks />
-                  <Tasks />
+                  {someTask.map((item) => (
+                    <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
+                  ))}
                 </div>
               </div>
             </div>
