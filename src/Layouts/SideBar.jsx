@@ -20,7 +20,7 @@ export const SideBar = () => {
         { id: 6, name: "Component", link: "/#/componentlist", icon: chart },
         { id: 7, name: "About", link: "/#/about", icon: compass },
         { id: 8, name: "Contact", link: "/#/contact", icon: compass },
-        { id: 9, name: "ProjectDashboard", link: "/#/projectdahsboard", icon: key },
+        { id: 9, name: "ProjectDashboard", link: "/#/projectdashboard", icon: key },
         { id: 10, name: "MainDashboard", link: "/#/maindashboard", icon: plus },
     ]);
     const [expanded, setExpanded] = useState(false);
