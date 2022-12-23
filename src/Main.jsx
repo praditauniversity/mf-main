@@ -22,7 +22,7 @@ const Main = () => {
                 <div className="flex flex-1 flex-col lg:mr-2">
                   <NavBar />
                   <NavChips />
-                  <div className="overflow-y-auto h-full py-2">
+                  <div className="overflow-y-auto overflow-x-hidden h-full py-2">
                     <Routing />
                     <CommandPalette />
                   </div>
