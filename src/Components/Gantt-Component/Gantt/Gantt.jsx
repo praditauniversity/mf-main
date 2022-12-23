@@ -17,7 +17,7 @@ export default class Gantt extends Component {
         ref={(input) => {
           this.ganttContainer = input;
         }}
-        style={{ width: "100%", height: "100%" }}
+        className="h-5/6"
       />
     );
   }

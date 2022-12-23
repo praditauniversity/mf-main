@@ -390,7 +390,7 @@ function AppGantt(props) {
 
     if (dataData.length > 0) {
       return (
-        <div className="gantt-container">
+        <div className="h-full">
           {console.log("render elemen", ganttTask)}
           <Gantt tasks={ganttTask} action={handler} />
         </div>
@@ -400,12 +400,12 @@ function AppGantt(props) {
 
   return (
     <div className="bg-white py-6 px-12 rounded-xl shadow-sm h-full">
-      <div>
+      <div className="h-full">
         <div className="py-5 px-4">
           <p className="text-md">{title}</p>
         </div>
         {console.log("before renderelemen should be called")}
-        <div className="py-1 px-4">{renderelemen()}</div>
+        <div className="py-1 px-4 h-full">{renderelemen()}</div>
         {console.log("after renderelemen should be called")}
       </div>
     </div>
