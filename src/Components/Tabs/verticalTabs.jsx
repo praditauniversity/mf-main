@@ -44,7 +44,7 @@ const VerticalTabs = ({ color }) => {
                 "text-lg font-bold px-5 py-3 rounded leading-normal " +
                 (openTab === 1
                   ? "text-background-snow" + " bg-" + color
-                  : "text-" + color + "-600")
+                  : "text-" + color + "-600 hover:text-primary")
               }
               onClick={(e) => {
                 e.preventDefault();
@@ -78,7 +78,7 @@ const VerticalTabs = ({ color }) => {
                 "text-lg font-bold px-5 py-3 rounded leading-normal " +
                 (openTab === 2
                   ? "text-background-snow" + " bg-" + color
-                  : "text-" + color + "-600")
+                  : "text-" + color + "-600 hover:text-primary")
               }
               onClick={(e) => {
                 e.preventDefault();
@@ -113,7 +113,7 @@ const VerticalTabs = ({ color }) => {
                 "text-lg font-bold px-5 py-3 rounded leading-normal " +
                 (openTab === 3
                   ? "text-background-snow" + " bg-" + color
-                  : "text-" + color + "-600")
+                  : "text-" + color + "-600 hover:text-primary")
               }
               onClick={(e) => {
                 e.preventDefault();
