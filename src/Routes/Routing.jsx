@@ -44,7 +44,6 @@ export default function Routing() {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/projects/:id" element={<Project />} />
         <Route path="/logout" element={<Logout />} />
-
         <Route path="/maindashboard" element={<MainDashboard />} />
       </Routes>
     );

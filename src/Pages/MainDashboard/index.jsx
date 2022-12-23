@@ -8,21 +8,6 @@ const MainDashboard = () => {
     const project = FetchProject();
     const projectLength = project.length;
 
-    // const data = [
-    //     {
-    //         id: 1,
-    //         name: "Project Anomaly 1",
-    //         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc sit amet aliquam lacinia, nunc nisl aliquam mauris, eget aliquam nisl nisl eu nunc. Sed euismod, nunc sit amet aliquam lacinia, nunc nisl aliquam mauris, eget aliquam nisl nisl eu nunc.",
-    //         link: "/#/project-anomaly-1",
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Project Anomaly 2",
-    //         desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc sit amet aliquam lacinia, nunc nisl aliquam mauris, eget aliquam nisl nisl eu nunc. Sed euismod, nunc sit amet aliquam lacinia, nunc nisl aliquam mauris, eget aliquam nisl nisl eu nunc.",
-    //         link: "/#/project-anomaly-2",
-    //     }
-    // ]
-
     return (
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 2xl:grid-cols-18 lg:mt-0 mt-2">
             <div className="col-span-12">
