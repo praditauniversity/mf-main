@@ -30,7 +30,8 @@ export default function RadialChart() {
   }, [data]);
 
   function printSeries() {
-    let totalProject = projectPerPhase.length;
+    // let totalProject = projectPerPhase.length;
+    let totalProject = 0;
     let initiation = 0;
     let planning = 0;
     let research = 0;
@@ -40,6 +41,7 @@ export default function RadialChart() {
     let closing = 0;
     projectPerPhase.map((item) => {
       if (item.user_id === profile.id) {
+        totalProject += 1;
         if (item.Phase.name === "Initiation" ) {
           initiation += 1;
         } else if (item.Phase.name === "Planning") {
@@ -68,7 +70,10 @@ export default function RadialChart() {
     initiation = (initiation / totalProject) * 100;
     return (
       // [initiation, planning, research, execution, testing, evaluation, closing]
-      [closing.toFixed(2), evaluation.toFixed(2), testing.toFixed(2), execution.toFixed(2), research.toFixed(2), planning.toFixed(2), initiation.toFixed(2)]
+      // [closing, evaluation, testing, execution, research, planning, initiation]
+      
+      //rounding number
+      [Math.round(closing), Math.round(evaluation), Math.round(testing), Math.round(execution), Math.round(research), Math.round(planning), Math.round(initiation)]
     );
   }
 
