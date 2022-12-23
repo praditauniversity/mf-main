@@ -39,7 +39,7 @@ const MainDashboard = () => {
                     <h3 className="font-bold text-2xl mt-5">Daily Reminder</h3>
                 </div>
 
-                <div className="mt-2 border border-none rounded-lg bg-background-snow p-5 mr-5 h-screen">
+                <div className="mt-2 border border-none rounded-lg bg-background-snow p-5 mr-5 h-[950px]">
                     {/* <fCalendar /> */}
                     <TabsDailyReminder />
                 </div>

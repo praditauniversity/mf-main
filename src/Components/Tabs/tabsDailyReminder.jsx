@@ -1,9 +1,25 @@
 import React from "react";
 import Tasks from "../Tasks/index";
 import NoTasks from "../Tasks/NoTasks";
+import Done from "../../Assets/Icons/svg/Done.svg";
+import { useState } from "react";
 
 const TabsDailyReminder = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
+
+  const [someTask, setSomeTask] = useState([
+    { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Make moodboard", date: "14 Sep" },
+    { id: 2, icon: Done, projectName: "Project anomaly", taskName: "Create wireframe", date: "14 Sep" },
+    { id: 3, icon: Done, projectName: "Project anomaly", taskName: "Make the Lo-Fi model", date: "14 Sep" },
+    { id: 4, icon: Done, projectName: "Project anomaly", taskName: "Make the Hi-Fi model", date: "14 Sep" },
+    { id: 5, icon: Done, projectName: "Project anomaly", taskName: "Usability testing", date: "14 Sep" },
+  ]);
+
+  const [someTask1, setSomeTask1] = useState([]);
+
+  const someTaskLength = someTask.length;
+  const someTask1Length = someTask1.length;
+
   return (
     <>
       <div className="flex flex-wrap">
@@ -31,6 +47,7 @@ const TabsDailyReminder = ({ color }) => {
                 Calender
               </a>
             </li>
+
             <li className= {"-mb-px mr-2 last:mr-0 flex-auto text-center pb-3 sm:pt-3 " +
             (openTab === 2
                 ? "border-b-4 border-primary"
@@ -55,17 +72,27 @@ const TabsDailyReminder = ({ color }) => {
             </li>
           </ul>
 
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">
-            <div className="px-4 py-5 flex-auto">
+          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded ">
+            <div className="px-4 py-5 flex-auto overflow-y-scroll scrollbar">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                    <Tasks />
-                    <Tasks />
-                    <Tasks />
+                {someTaskLength === 0 
+                ? <NoTasks height="100"/> 
+                : someTask.map((item) => (
+                  <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
+                ))
+                }
                 </div>
+
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                    <NoTasks />
+                {someTask1Length === 0 
+                ? <NoTasks height="100"/> 
+                : someTask1.map((item) => (
+                  <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
+                ))
+                }
                 </div>
+
               </div>
             </div>
           </div>

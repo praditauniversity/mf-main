@@ -2,9 +2,30 @@ import React from "react";
 import Tasks from "../Tasks";
 import NoTasks from "../Tasks/NoTasks";
 import Counter from "../Counter";
+import Done from "../../Assets/Icons/svg/Done.svg";
+import { useState } from "react";
 
 const VerticalTabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
+
+  const [someTask, setSomeTask] = useState([
+    { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Make moodboard", date: "14 Sep" },
+    { id: 2, icon: Done, projectName: "Project anomaly", taskName: "Create wireframe", date: "14 Sep" },
+    { id: 3, icon: Done, projectName: "Project anomaly", taskName: "Make the Lo-Fi model", date: "14 Sep" },
+    { id: 4, icon: Done, projectName: "Project anomaly", taskName: "Make the Hi-Fi model", date: "14 Sep" },
+    { id: 5, icon: Done, projectName: "Project anomaly", taskName: "Usability testing", date: "14 Sep" },
+  ]);
+
+  const [someTask1, setSomeTask1] = useState([
+    { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Discovery requirements", date: "12 Sep" },
+  ]);
+
+  const [someTask2, setSomeTask2] = useState([]);
+
+  const someTaskLength = someTask.length;
+  const someTask1Length = someTask1.length;
+  const someTask2Length = someTask2.length;
+  
   return (
     <>
       <div className="flex flex-wrap flex-row grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 lg:mt-0 mt-2">
@@ -39,8 +60,8 @@ const VerticalTabs = ({ color }) => {
             <div className="mt-1">
             {
             (openTab === 1) 
-            ? (<Counter value="5" textColor="primary" bgColor="background-snow"/>) 
-            : (<Counter value="5" textColor="background-snow" bgColor="primary"/>)
+            ? (<Counter value={someTaskLength} textColor="primary" bgColor="background-snow"/>) 
+            : (<Counter value={someTaskLength} textColor="background-snow" bgColor="primary"/>)
             }
             </div>
             
@@ -73,8 +94,8 @@ const VerticalTabs = ({ color }) => {
             <div className="mt-1">
                 {
                 (openTab === 2) 
-                ? (<Counter value="1" textColor="primary" bgColor="background-snow"/>) 
-                : (<Counter value="1" textColor="background-snow" bgColor="primary"/>)
+                ? (<Counter value={someTask1Length} textColor="primary" bgColor="background-snow"/>) 
+                : (<Counter value={someTask1Length} textColor="background-snow" bgColor="primary"/>)
                 }
             </div>
             
@@ -117,21 +138,35 @@ const VerticalTabs = ({ color }) => {
         </ul>
 
         <div className="relative flex flex-col min-w-0 break-words bg-white mb-6 rounded col-span-9">
-          <div className="px-4 flex-auto rounded-lg">
+          <div className="px-4 flex-auto rounded-lg max-h-[400px] overflow-y-scroll scrollbar">
             <div className="tab-content tab-space">
               <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                <Tasks />
-                <Tasks />
-                <Tasks />
-                <Tasks />
-                <Tasks />
+                {someTaskLength === 0 
+                ? <NoTasks height="100"/> 
+                : someTask.map((item) => (
+                  <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
+                ))
+                }
               </div>
+
               <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                <Tasks />
+                {someTask1Length === 0 
+                ? <NoTasks height="100"/> 
+                : someTask1.map((item) => (
+                  <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
+                ))
+                }
               </div>
+
               <div className={openTab === 3 ? "block" : "hidden"} id="link3">
-                <NoTasks />
+                {someTask2Length === 0 
+                ? <NoTasks height="100"/> 
+                : someTask2.map((item) => (
+                  <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
+                ))
+                }
               </div>
+
             </div>
           </div>
         </div>
