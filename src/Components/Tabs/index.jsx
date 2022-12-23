@@ -49,7 +49,7 @@ const Tabs = ({ color }) => {
                 href="#link2"
                 role="tablist"
               >
-                 Completed
+                Completed
               </a>
             </li>
           </ul>
