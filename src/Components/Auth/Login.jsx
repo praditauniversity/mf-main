@@ -14,7 +14,7 @@ const SubmitHandler = async (e, login, email, password, setProfile, setError) =>
     window.location.href = '/#/projectdashboard';
     window.location.reload();
     setProfile({
-      id: data.ID,
+      id: data.id,
       first_name: data.first_name,
       last_name: data.last_name
     });
