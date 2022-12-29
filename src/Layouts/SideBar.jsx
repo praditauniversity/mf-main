@@ -18,11 +18,13 @@ export const SideBar = () => {
         // { id: 4, name: "ProjectDashboard", link: "/#/projectdashboard", icon: dashboard },
         // { id: 5, name: "MemberDashboard", link: "/#/memberdashboard", icon: dashboard },
         { id: 5, name: "Component", link: "/#/projectcharter", icon: chat },
-        { id: 6, name: "Component", link: "/#/componentlist", icon: chart },
-        { id: 7, name: "About", link: "/#/about", icon: compass },
-        { id: 8, name: "Contact", link: "/#/contact", icon: compass },
-        { id: 9, name: "ProjectDashboard", link: "/#/projectdashboard", icon: key },
-        { id: 10, name: "MainDashboard", link: "/#/maindashboard", icon: plus },
+        { id: 6, name: "Component", link: "/#/dailyreport", icon: chat },
+        { id: 6, name: "Component", link: "/#/minutesofmeeting", icon: chat },
+        { id: 7, name: "Component", link: "/#/componentlist", icon: chart },
+        { id: 8, name: "About", link: "/#/about", icon: compass },
+        { id: 9, name: "Contact", link: "/#/contact", icon: compass },
+        { id: 10, name: "ProjectDashboard", link: "/#/projectdashboard", icon: key },
+        { id: 11, name: "MainDashboard", link: "/#/maindashboard", icon: plus },
     ]);
     const [expanded, setExpanded] = useState(false);
 
