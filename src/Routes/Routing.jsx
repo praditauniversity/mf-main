@@ -15,16 +15,15 @@ import Logout from "../Components/Auth/Logout";
 import MainDashboard from "../Pages/MainDashboard";
 import ProjectCharter from "../Pages/ProjectCharter";
 
-const defaultLogin = () => {
-  
-  window.location.href = "/#/projectdashboard";
-  
-  return(
-  <div>
-    <ProjectDashboardPage/>
-  </div>
-  );
-};
+// const defaultLogin = () => {
+//   window.location.href = "/#/projectdashboard";
+
+//   return (
+//     <div>
+//       <ProjectDashboardPage />
+//     </div>
+//   );
+// };
 
 export default function Routing() {
   const islogin = localStorage.getItem("token") !== null;
@@ -39,8 +38,8 @@ export default function Routing() {
   } else {
     return (
       <Routes>
-        <Route path="/" element={<ProjectDashboardPage/> } />
-        <Route path="/login" element={<ProjectDashboardPage/>} />
+        <Route path="/" element={<ProjectDashboardPage />} />
+        <Route path="/login" element={<ProjectDashboardPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/project" element={<Project />} />
         <Route path="/dashboard" element={<DashboardPage />} />
