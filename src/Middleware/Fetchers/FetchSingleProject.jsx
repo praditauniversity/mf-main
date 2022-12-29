@@ -1,18 +1,6 @@
 import { useEffect, useState } from "react";
-import { useQuery, gql } from '@apollo/client';
-
-const GET_PROJECT_BY_ID = gql`
-query project ($id: String!) {
-    project(id: $id) {
-        Data {
-            ID
-            name
-            description
-            user_id
-        }
-    }
-}
-`;
+import { useQuery } from "@apollo/client";
+import { GET_PROJECT_BY_ID } from "../GraphQL/mutations";
 
 export const FetchSingleProject = (id) => {
     const { loading, error, data } = useQuery(GET_PROJECT_BY_ID, {

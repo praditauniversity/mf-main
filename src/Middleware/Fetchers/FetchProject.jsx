@@ -1,7 +1,7 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useEffect, useState } from "react";
+import { GET_PROJECT } from '../GraphQL/mutations';
 
-const GET_PROJECT = gql`query project { project { Data { ID name description user_id } } }`;
 
 const FetchProject = () => {
     const { data } = useQuery(GET_PROJECT);
@@ -10,7 +10,6 @@ const FetchProject = () => {
     useEffect(() => {
         if (data) {
             setProject(data.project.Data);
-            console.log("Project Fetched");
         }
     }, [data]);
 

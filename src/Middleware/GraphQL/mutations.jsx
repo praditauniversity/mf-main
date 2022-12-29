@@ -34,82 +34,85 @@ export const REFETCH_TOKEN = gql`
 
 // Project Queries
 export const GET_PROJECT = gql`
-  query project { 
-    project { 
-      Data { 
-        ID name description user_id 
-      } 
-    } 
-  }
+    query project { 
+        project { 
+            Data { 
+                ID 
+                name 
+                description 
+                user_id 
+            } 
+        } 
+    }
 `;
 
 export const GET_PROJECT_BY_ID = gql`
-  query project ($id: String!) {
-      project(id: $id) {
-          Data {
-              ID
-              name
-              description
-              user_id
-          }
-      }
-  }
+    query project ($id: String!) {
+        project(id: $id) {
+            Data {
+                ID
+                name
+                description
+                user_id
+            }
+        }
+    }
 `;
 
 
 // Gantt Queries and Mutations
 export const ADD_GANTT = gql`
-  mutation addGantt(
-    $name: String!
-    $description: String!
-    $user_id: Int!
-    $start_time: DateTime!
-    $end_time: DateTime!
-  ) {
-    addGantt(
-      input: {
-        name: $name
-        description: $description
-        user_id: $user_id
-        start_time: $start_time
-        end_time: $end_time
-      }
+    mutation addGantt(
+        $name: String!
+        $description: String!
+        $user_id: Int!
+        $start_time: DateTime!
+        $end_time: DateTime!
     ) {
-      data {
-        ID
-      }
+        addGantt(
+            input: {
+                name: $name
+                description: $description
+                user_id: $user_id
+                start_time: $start_time
+                end_time: $end_time
+            }
+        ) {
+            data {
+                ID
+            }
+        }
     }
-  }
 `;
 
 export const UPDATE_GANTT = gql`
-  mutation updateGantt(
-    $id: String!
-    $name: String!
-    $description: String!
-    $user_id: Int!
-    $start_time: DateTime!
-    $end_time: DateTime!
-  ) {
-    updateGantt(
-      id: $id
-      input: {
-        name: $name
-        description: $description
-        user_id: $user_id
-        start_time: $start_time
-        end_time: $end_time
-      }
+    mutation updateGantt(
+        $id: String!
+        $name: String!
+        $description: String!
+        $user_id: Int!
+        $start_time: DateTime!
+        $end_time: DateTime!
     ) {
-      data {
-        ID
-      }
+        updateGantt(
+            id: $id
+            input: {
+                name: $name
+                description: $description
+                user_id: $user_id
+                start_time: $start_time
+                end_time: $end_time
+            }
+        ) {
+            data {
+                ID
+            }
+        }
     }
-  }
 `;
 
 export const DELETE_GANTT = gql`
-  mutation deleteGantt($id: String!) {
-    deleteGantt(id: $id)
-  }
+    mutation deleteGantt($id: String!) {
+        deleteGantt(id: $id)
+    }
 `;
