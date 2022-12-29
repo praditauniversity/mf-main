@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+// User Queries and Mutations
 export const LOGIN = gql`
     mutation Login ($email: EmailAddress!, $password: String! ) {
         login (input: { email: $email, password: $password }) {
@@ -29,7 +30,32 @@ export const REFETCH_TOKEN = gql`
     }
 `;
 
+// Project Queries
+export const GET_PROJECT = gql`
+  query project { 
+    project { 
+      Data { 
+        ID name description user_id 
+      } 
+    } 
+  }
+`;
 
+export const GET_PROJECT_BY_ID = gql`
+  query project ($id: String!) {
+      project(id: $id) {
+          Data {
+              ID
+              name
+              description
+              user_id
+          }
+      }
+  }
+`;
+
+
+// Gantt Queries and Mutations
 export const ADD_GANTT = gql`
   mutation addGantt(
     $name: String!
