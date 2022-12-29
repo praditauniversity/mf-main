@@ -17,6 +17,7 @@ export const SideBar = () => {
         // { id: 3, name: "PMODashboard", link: "/#/pmodashboard", icon: dashboard },
         // { id: 4, name: "ProjectDashboard", link: "/#/projectdashboard", icon: dashboard },
         // { id: 5, name: "MemberDashboard", link: "/#/memberdashboard", icon: dashboard },
+        { id: 5, name: "Component", link: "/#/projectcharter", icon: chat },
         { id: 6, name: "Component", link: "/#/componentlist", icon: chart },
         { id: 7, name: "About", link: "/#/about", icon: compass },
         { id: 8, name: "Contact", link: "/#/contact", icon: compass },

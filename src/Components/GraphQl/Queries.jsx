@@ -112,3 +112,55 @@ export const GET_PHASE_DATA = gql`
     }
   }
 `;
+
+export const GET_PROJECT_DATA_BY_ID = gql`
+  query getProjectById($id: String!) {
+    project(id: $id) {
+      Data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        user_id
+        stakeholder_ammount
+        name
+        start_project
+        end_project
+        work_area
+        office_location
+        cost_plan
+        cost_actual
+        company
+        role_id
+        type_id
+        progress_percentage
+        description
+        project_duration
+        UpdatedBy
+        DeletedBy
+        status
+        project_objectives
+        considered_success_when
+        potential_risk
+        currency_symbol
+        currency_code
+        currency_name
+        phase_id
+        Phase {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          name
+          color
+          order
+          user_id
+          updated_by
+          deleted_by
+        }
+        budget_health
+        budget
+      }
+    }
+  }
+`;

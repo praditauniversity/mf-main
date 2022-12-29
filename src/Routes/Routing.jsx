@@ -13,6 +13,7 @@ import AboutPage from "../Pages/About";
 import UserProfile from "../Pages/UserProfile";
 import Logout from "../Components/Auth/Logout";
 import MainDashboard from "../Pages/MainDashboard";
+import ProjectCharter from "../Pages/ProjectCharter";
 
 const defaultLogin = () => {
   
@@ -54,6 +55,7 @@ export default function Routing() {
         <Route path="/projects/:id" element={<Project />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/maindashboard" element={<MainDashboard />} />
+        <Route path="/projectcharter" element={<ProjectCharter />}></Route>
       </Routes>
     );
   }
