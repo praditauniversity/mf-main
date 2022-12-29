@@ -1,4 +1,4 @@
-import React, { Fragment,useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Listbox, Menu, Transition } from '@headlessui/react'
 import { Link } from "react-router-dom";
 
@@ -18,11 +18,10 @@ export const InputField = ({ value, label, name, placeholder, type, onChange, di
     </div>
 );
 
-export const InputTextArea = ({ value, label, name, placeholder, type, onChange }) => (
+export const InputTextArea = ({ value, label, name, placeholder, onChange }) => (
     <div className="form-group">
         <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
         <textarea
-            type={type}
             value={value}
             name={name}
             className="form-control"
@@ -100,3 +99,4 @@ export const SelectorField = ({ options, label }) => {
         </div>
     )
 }
+

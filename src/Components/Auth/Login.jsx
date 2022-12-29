@@ -5,23 +5,23 @@ import useLocalStorage from "../../Middleware/useLocalStorage";
 import { InputField } from "../Input/Input";
 
 const SubmitHandler = async (e, login, email, password, setProfile, setError) => {
-  e.preventDefault();
-  try {
-    const response = await login({ variables: { email, password } });
-    const data = response.data.login.data;
-    const token = data.auth_token;
-    localStorage.setItem('token', token, JSON.stringify(token));
-    window.location.href = '/#/projectdashboard';
-    window.location.reload();
-    setProfile({
-      id: data.id,
-      first_name: data.first_name,
-      last_name: data.last_name
-    });
-    setError('');
-  } catch (err) {
-    setError(err.message);
-  }
+    e.preventDefault();
+    try {
+        const response = await login({ variables: { email, password } });
+        const data = response.data.login.data;
+        const token = data.auth_token;
+        localStorage.setItem('token', token, JSON.stringify(token));
+        window.location.href = '/#/projectdashboard';
+        window.location.reload();
+        setProfile({
+            id: data.id,
+            first_name: data.first_name,
+            last_name: data.last_name
+        });
+        setError('');
+    } catch (err) {
+        setError(err.message);
+    }
 }
 export const LoginHandler = () => {
     const [login] = useMutation(LOGIN);
@@ -33,11 +33,11 @@ export const LoginHandler = () => {
             first_name: '',
             last_name: '',
             company: '',
-        } 
+        }
     });
-    
+
     const handleSubmitWrapper = (e) => {
-        SubmitHandler(e, login, email, password, setProfile, setError );
+        SubmitHandler(e, login, email, password, setProfile, setError);
     }
 
     const rainbow = "w-full flex justify-center bg-gradient-to-r from-indigo-600 to-indigo-800  text-gray-100 p-2  rounded-lg tracking-wide font-semibold  shadow-lg cursor-pointer";
