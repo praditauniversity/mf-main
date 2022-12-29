@@ -1,11 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { GET_GANTT_DATA } from "../GraphQl/Queries";
-import {
-  ADD_GANTT,
-  UPDATE_GANTT,
-  DELETE_GANTT,
-} from "../../Middleware/GraphQL/mutations";
+import {ADD_GANTT, UPDATE_GANTT, DELETE_GANTT} from "../../Middleware/GraphQL/mutations";
 import Gantt from "./Gantt";
 
 // import gantt module
@@ -16,7 +12,7 @@ import { useRef } from "react";
 
 // create custom column
 gantt.config.columns = [
-  { name: "name", label: "Name", tree: true, width: 200, resize: true },
+  { name: "name", label: "Activity", tree: true, width: 200, resize: true },
   {
     name: "start_date",
     label: "Start Time",
@@ -130,7 +126,7 @@ gantt.config.columns = [
     render: function (sns) {
       return (
         "<div class='dhx_cal_ltext px-4' style='height:px;'>" +
-        "Project Name" +
+        "Activity" +
         "<br/>" +
         "<input class='editor_project border-solid border-2 py-1 px-2' type='text' name='description'>" +
         "<br/>" +
@@ -212,7 +208,9 @@ function AppGantt(props) {
   console.log("RENDER");
   const { title } = props;
   const { error, loading, data } = useQuery(GET_GANTT_DATA);
-  const [ganttdata, setGantt] = useState([]);
+  const [ganttData, setGantt] = useState([]);
+  const [activityData, setActivity] = useState([]);
+  const [projectData, setProject] = useState([]);
   const isUpdated = useRef(false);
   const isAdd = useRef(false);
   const isDelete = useRef(false);
@@ -359,7 +357,15 @@ function AppGantt(props) {
     if (data) {
       console.log("Data Ready gantt");
       setGantt(data.gantt.data);
-      console.log(data.gantt.data);
+      setActivity(data.activity.data);
+
+      console.log("CHAOOOSSSSS",data);
+      console.log("LOLLLLLLLLLLLLLLL",data.activity.data.ID);
+      console.log("GANTTTTTTTTTTTT",data.gantt.data);
+      console.log("ACTIVTITYYYYYY",data.activity.data);
+      console.log("PROJECTTTTTT",data.project.Data);
+      console.log("asdiaosdjasdljas", data.gantt.data.ID)
+
     } else {
       console.log("No data gantt");
     }
@@ -371,10 +377,23 @@ function AppGantt(props) {
   function subStringDate(str) {
     return str.substring(0, 10);
   }
+  
+  const dataActivity = activityData.map((activity) => {
+    const startDate = subStringDate(activity.start_time);
+    const endDate = subStringDate(activity.end_time);
 
-  // render elemen
-  function renderelemen() {
-    const dataData = ganttdata.map((gantt) => {
+    ganttTask.data.push({
+      id: activity.ID,
+      name: activity.name,
+      description: activity.description,
+      users: activity.user_id,
+      start_date: startDate,
+      end_date: endDate,
+    });
+  });
+  // mapping data
+  function MappingData() {
+    const dataGantt = ganttData.map((gantt) => {
       const startDate = subStringDate(gantt.start_time);
       const endDate = subStringDate(gantt.end_time);
 
@@ -388,10 +407,11 @@ function AppGantt(props) {
       });
     });
 
-    if (dataData.length > 0) {
+
+    if (dataGantt.length > 0) {
       return (
         <div className="h-full">
-          {console.log("render elemen", ganttTask)}
+          {console.log("mapping data", ganttTask)}
           <Gantt tasks={ganttTask} action={handler} />
         </div>
       );
@@ -404,9 +424,9 @@ function AppGantt(props) {
         <div className="py-5 px-4">
           <p className="text-md">{title}</p>
         </div>
-        {console.log("before renderelemen should be called")}
-        <div className="py-1 px-4 h-full">{renderelemen()}</div>
-        {console.log("after renderelemen should be called")}
+        {console.log("before mapping data should be called")}
+        <div className="py-1 px-4 h-full">{MappingData()}</div>
+        {console.log("after mapping data should be called")}
       </div>
     </div>
   );

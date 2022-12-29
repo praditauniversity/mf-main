@@ -14,6 +14,8 @@ import UserProfile from "../Pages/UserProfile";
 import Logout from "../Components/Auth/Logout";
 import MainDashboard from "../Pages/MainDashboard";
 import ProjectCharter from "../Pages/ProjectCharter";
+import DailyReport from "../Pages/DailyReport";
+import MinutesofMeeting from "../Pages/MinuteOfMeeting";
 
 const defaultLogin = () => {
   
@@ -56,6 +58,8 @@ export default function Routing() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/maindashboard" element={<MainDashboard />} />
         <Route path="/projectcharter" element={<ProjectCharter />}></Route>
+        <Route path="/dailyreport" element={<DailyReport />}></Route>
+        <Route path="/minutesofmeeting" element={<MinutesofMeeting />}></Route>
       </Routes>
     );
   }

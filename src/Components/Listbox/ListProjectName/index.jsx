@@ -4,12 +4,14 @@ import { useQuery, gql } from '@apollo/client';
 import { GET_PROJECT_DATA } from '../../GraphQl/Queries'; 
 import { Actual } from '../../GraphQl/ProjectByIdQueries';
 
-export function Datanow(data) {
-    return data;
-}
-
 const ListboxProjectName = () => {
-    const [ selectedOption, setSelectedOption ] = React.useState("1");  
+    const [ selectedOption, setSelectedOption ] = React.useState(localStorage.getItem('selectedOption')? localStorage.getItem('selectedOption') : "1");
+    
+    useEffect(() => {
+        // Update the selectedOption value in local storage whenever it changes
+        localStorage.setItem('selectedOption', selectedOption);
+        console.log("selectedOption", selectedOption);
+    }, [selectedOption]);
 
     function printListProjectName() {
         const profile = GetProfile();
@@ -21,7 +23,6 @@ const ListboxProjectName = () => {
         useEffect(() => {
             if (data) {
                 console.log("Data Ready");
-                console.log(data);
                 setProject(data.project.Data);
             } else {
                 console.log("No data");
@@ -43,8 +44,8 @@ const ListboxProjectName = () => {
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
-        Datanow(event.target.value);
-        console.log("drdrdtrdr val:", Datanow());
+        window.location.reload();   
+        // localStorage.setItem('selectedOption', selectedOption);
     };
 
     return (
@@ -56,9 +57,10 @@ const ListboxProjectName = () => {
                 <option value="4">Project Gamma</option> */}
                 {printListProjectName()}
             </select>
-            {<Actual value={selectedOption} />}
+            {/* {<Actual value={selectedOption} />} */}
             {console.log("OPTION val:", typeof selectedOption, selectedOption)}
         </div>
     );
 }
+
 export default ListboxProjectName;
