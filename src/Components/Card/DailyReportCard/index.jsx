@@ -82,7 +82,7 @@ const DailyReportCard = (props) => {
                                 <div className="col-span-6">
                                     <div className="pb-2">
                                         <p className="text-sm font-semibold opacity-70">Location</p>
-                                    </div>
+                                </div>
                                     <div>
                                         <p className="text-base font-semibold">Merak Raya</p>
                                     </div>

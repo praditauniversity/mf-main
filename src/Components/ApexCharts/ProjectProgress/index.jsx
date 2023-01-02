@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DropdownTime from "../../DropdownTime/index.jsx";
 import ListboxTime from "../../Listbox/ListboxTime/index.jsx";
 import RadialChart from "./chart.jsx";
-import { ProgressPercentage } from "../../GraphQl/ProjectByIdQueries.jsx";
+import { ProgressPercentage } from "../../GraphQL/ProjectByIdQueries.jsx";
 
 export default class ProjectProgressCard extends React.Component {
     // useStateInClass() {
