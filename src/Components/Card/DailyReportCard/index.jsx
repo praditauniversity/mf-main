@@ -1,6 +1,8 @@
 import React from "react";
+import { Tooltip } from 'react-tooltip';
 import { IconPlus, IconEdit, IconDelete, IconList } from "../../Icons/icon";
 import DailyReportList from "./DaiilyReportList";
+import '../../../Assets/svgbutton/svgbutton.css'
 
 const DailyReportCard = (props) => {
     const { icon } = props;
@@ -13,9 +15,9 @@ const DailyReportCard = (props) => {
                     </div>
                     <div className="flex justify-end">
                         <div className="flex justify-between">
-                            <button className="px-1"><IconPlus /></button>
-                            <button className="px-1"><IconEdit /></button>
-                            <button className="px-1"><IconDelete /></button>
+                            <button className="px-1" id="icon"><IconPlus /></button>
+                            <button className="px-1" id="icon"><IconEdit /></button>
+                            <button className="px-1" id="icon"><IconDelete /></button>
                         </div>
                     </div>
                 </div>

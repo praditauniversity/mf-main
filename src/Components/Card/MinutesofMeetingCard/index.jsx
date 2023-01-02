@@ -1,6 +1,8 @@
 import React from "react";
 import MinutesofMeetingList from "./MinutesofMeetingList";
-import { IconPlus, IconEdit, IconDelete, IconFilter } from "../../Icons/icon";
+import { IconPlus, IconEdit, IconDelete, IconFilter, IconSearch } from "../../Icons/icon";
+import '../../../Assets/svgbutton/svgbutton.css'
+import { InputField } from "../../Input/Input";
 
 const MinutesofMeetingCard = (props) => {
     const { icon } = props;
@@ -13,9 +15,9 @@ const MinutesofMeetingCard = (props) => {
                     </div>
                     <div className="flex justify-end">
                         <div className="flex justify-between">
-                            <button className="px-1"><IconPlus /></button>
-                            <button className="px-1"><IconEdit /></button>
-                            <button className="px-1"><IconDelete /></button>
+                            <button className="px-1" id="icon"><IconPlus /></button>
+                            <button className="px-1" id="icon"><IconEdit /></button>
+                            <button className="px-1" id="icon"><IconDelete /></button>
                         </div>
                     </div>
                 </div>
@@ -57,9 +59,17 @@ const MinutesofMeetingCard = (props) => {
 
                     <div className="py-2">
                         <div className="content-end items-end text-right">
-                            <div className="flex justify-end">
-                                <p className="text-sm font-semibold opacity-70">Search and feature here</p>
-                                <button className="px-1"><IconFilter /></button>
+                            <div className="flex justify-end align-middle items-center text-center">
+                                {/* <Input > */}
+                                {/* <InputField /> */}
+                                {/* {var iconaaa = <IconSearch />} */}
+                                <input
+                                    className="form-control shadow appearance-none border rounded py-1 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline"
+                                    type="text"
+                                    // placeholder={iconaa}
+                                />
+                                <IconSearch />
+                                <button className="px-1" id="icon"><IconFilter /></button>
                             </div>
                         </div>
                     </div>

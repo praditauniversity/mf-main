@@ -1,56 +1,57 @@
 import React from "react";
 import { IconEdit, IconDelete } from "../../Icons/icon";
+import '../../../Assets/svgbutton/svgbutton.css'
 
 const MinutesofMeetingList = () => {
   const data = [
     {
       meetingname: "Initiation Project 1 Meeting",
-      datemeeting: "11/10/2021",
-      time: "11/10/2021",
-      location: "100 Days",
-      meetingleader: "Done",
+      datemeeting: "08/14/2022",
+      time: "12.00 - 14.00",
+      location: "Serpong, Tangerang",
+      meetingleader: "Jhon Doe",
     },
     {
       meetingname: "Initiation Project 2 Meeting",
-      datemeeting: "11/10/2021",
-      time: "11/10/2021",
-      location: "100 Days",
-      meetingleader: "Done",
+      datemeeting: "08/15/2022",
+      time: "12.00 - 14.00",
+      location: "Serpong, Tangerang",
+      meetingleader: "Jhon Doe",
     },
     {
       meetingname: "Initiation Project 3 Meeting",
-      datemeeting: "11/10/2021",
-      time: "11/10/2021",
-      location: "100 Days",
-      meetingleader: "In Progress",
+      datemeeting: "08/16/2022",
+      time: "12.30 - 14.00",
+      location: "Serpong, Tangerang",
+      meetingleader: "Jhon Doe",
     },
     {
       meetingname: "Initiation Project 4 Meeting",
-      datemeeting: "11/10/2021",
-      time: "11/10/2021",
-      location: "100 Days",
-      meetingleader: "In Progress",
+      datemeeting: "08/17/2022",
+      time: "12.00 - 14.00",
+      location: "Serpong, Tangerang",
+      meetingleader: "Jhon Doe",
     },
     {
       meetingname: "Initiation Project 5 Meeting",
-      datemeeting: "11/10/2021",
-      time: "11/10/2021",
-      location: "100 Days",
-      meetingleader: "In Progress",
+      datemeeting: "08/18/2022",
+      time: "13.00 - 15.30",
+      location: "Serpong, Tangerang",
+      meetingleader: "Jhon Doe",
     },
     {
       meetingname: "Initiation Project 6 Meeting",
-      datemeeting: "11/10/2021",
-      time: "11/10/2021",
-      location: "100 Days",
-      meetingleader: "In Progress",
+      datemeeting: "08/21/2022",
+      time: "12.00 - 14.30",
+      location: "Serpong, Tangerang",
+      meetingleader: "Jhon Doe",
     },
     {
       meetingname: "Initiation Project 7 Meeting",
-      datemeeting: "11/10/2021",
-      time: "11/10/2021",
-      location: "100 Days",
-      meetingleader: "In Progress",
+      datemeeting: "08/22/2022",
+      time: "12.00 - 14.00",
+      location: "Serpong, Tangerang",
+      meetingleader: "Jhon Doe",
     },
   ];
   return (
@@ -77,12 +78,12 @@ const MinutesofMeetingList = () => {
                 <td align="center">{item.location}</td>
                 <td align="center">{item.meetingleader}</td>
                 <td align="center">
-                  <button className="px-1">
+                  <button className="px-1" id="icon">
                     <IconEdit />
                   </button>
                 </td>
                 <td align="center">
-                  <button className="px-1"><IconDelete /></button></td>
+                  <button className="px-1" id="icon"><IconDelete /></button></td>
               </tr>
             ))}
           </tbody>

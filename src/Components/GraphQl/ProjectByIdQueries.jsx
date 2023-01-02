@@ -236,3 +236,39 @@ export function CostHealth(props) {
 
     return <div>{printCostHealth()}</div>;
 }
+
+export function ProgressPercentage(props) {
+    const profile = GetProfile();
+    const {value} = props;
+    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+        variables: { id: value },
+    });
+    const [projectData, setProject] = useState([]);
+    useEffect(() => {
+      if (data) {
+        console.log("Data Ready");
+        setProject(data.project.Data);
+        console.log(projectData);
+      } else {
+        console.log("No data");
+      }
+    }, [data]);
+  
+    function printProgressPercentage() {
+        var projectPercentage = 0;
+        projectData.map((project) => {
+            if (profile.id === project.user_id) {
+                projectPercentage = project.progress_percentage;
+            } 
+        });
+        return (
+            <div>
+            <p>
+                {Math.Round(projectPercentage)}
+            </p>
+            </div>
+        );
+    }
+    
+    return <div>{printProgressPercentage()}</div>;
+}
