@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 
 import { useQuery, gql } from "@apollo/client";
-import { GET_PROJECT_DATA } from "../../GraphQl/Queries";
-import { GET_PHASE_DATA } from "../../GraphQl/Queries";
+import { GET_PROJECT_DATA } from "../../GraphQL/Queries";
+import { GET_PHASE_DATA } from "../../GraphQL/Queries";
 import GetProfile from "../../Auth/GetProfile";
 
 export default function RadialChart() {
@@ -42,7 +42,7 @@ export default function RadialChart() {
     projectPerPhase.map((item) => {
       if (item.user_id === profile.id) {
         totalProject += 1;
-        if (item.Phase.name === "Initiation" ) {
+        if (item.Phase.name === "Initiation") {
           initiation += 1;
         } else if (item.Phase.name === "Planning") {
           planning += 1;
@@ -56,7 +56,7 @@ export default function RadialChart() {
           evaluation += 1;
         } else if (item.Phase.name === "Closing") {
           closing += 1;
-        } 
+        }
       } else {
         console.log("no project");
       }
@@ -71,7 +71,7 @@ export default function RadialChart() {
     return (
       // [initiation, planning, research, execution, testing, evaluation, closing]
       // [closing, evaluation, testing, execution, research, planning, initiation]
-      
+
       //rounding number
       [Math.round(closing), Math.round(evaluation), Math.round(testing), Math.round(execution), Math.round(research), Math.round(planning), Math.round(initiation)]
     );
@@ -80,11 +80,11 @@ export default function RadialChart() {
   function printLabels() {
     let labels = [];
     phase.map((item) => {
-        if (item) {
-          labels.push(item.name);
-        } else {  
-          console.log("no phase")
-        }
+      if (item) {
+        labels.push(item.name);
+      } else {
+        console.log("no phase")
+      }
     });
     return labels.reverse();
   }
@@ -92,11 +92,11 @@ export default function RadialChart() {
   function printColors() {
     let colors = [];
     phase.map((item) => {
-        if (item) {
-          colors.push(item.color);
-        } else {
-          console.log("no phase")
-        }
+      if (item) {
+        colors.push(item.color);
+      } else {
+        console.log("no phase")
+      }
     });
 
     return colors.reverse();
@@ -143,7 +143,7 @@ export default function RadialChart() {
       "#673AB7",
       "#B39DDB",
     ],
-    colors : printColors(),
+    colors: printColors(),
     // labels: [
     //   "Closing",
     //   "Evaluation",

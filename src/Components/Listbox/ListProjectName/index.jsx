@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import GetProfile from '../../Auth/GetProfile';
 import { useQuery, gql } from '@apollo/client';
-import { GET_PROJECT_DATA } from '../../GraphQl/Queries'; 
-import { Actual } from '../../GraphQl/ProjectByIdQueries';
+import { GET_PROJECT_DATA } from '../../GraphQL/Queries';
+import { Actual } from '../../GraphQL/ProjectByIdQueries';
 
 const ListboxProjectName = () => {
-    const [ selectedOption, setSelectedOption ] = React.useState(localStorage.getItem('selectedOption')? localStorage.getItem('selectedOption') : "1");
-    
+    const [selectedOption, setSelectedOption] = React.useState(localStorage.getItem('selectedOption') ? localStorage.getItem('selectedOption') : "1");
+
     useEffect(() => {
         // Update the selectedOption value in local storage whenever it changes
         localStorage.setItem('selectedOption', selectedOption);
@@ -28,23 +28,23 @@ const ListboxProjectName = () => {
                 console.log("No data");
             }
         }, [data]);
-        
+
         return projectData.map(({ ID, name, user_id }) => (
             <>
-            {/* {console.log("ID VALUE TYPE", typeof ID)} */}
-            {/* {console.log("ID VALUE TYPE", typeof ID.toString())} */}
-            {profile.id === user_id ? (
-                <option value={ID}>{name}</option>
-            ) : (
-                <option></option>
-            )}
+                {/* {console.log("ID VALUE TYPE", typeof ID)} */}
+                {/* {console.log("ID VALUE TYPE", typeof ID.toString())} */}
+                {profile.id === user_id ? (
+                    <option value={ID}>{name}</option>
+                ) : (
+                    <option></option>
+                )}
             </>
         ));
     }
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
-        window.location.reload();   
+        window.location.reload();
         // localStorage.setItem('selectedOption', selectedOption);
     };
 

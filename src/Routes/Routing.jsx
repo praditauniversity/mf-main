@@ -40,9 +40,7 @@ export default function Routing() {
   } else {
     return (
       <Routes>
-        <Route path="/" element={<ProjectDashboardPage />} />
-        <Route path="/login" element={<ProjectDashboardPage />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<MainDashboard />} />
         <Route path="/project" element={<Project />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/pmodashboard" element={<PMODashboardPage />} />

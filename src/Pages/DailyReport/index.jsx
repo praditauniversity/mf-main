@@ -11,14 +11,12 @@ const DailyReport = () => {
                 <div className="grid gap-2">
                     <DailyReportCard />
                 </div>
-
             </div>
             <div className="col-span-4">
                 <div className="grid gap-2">
                     <UserCard />
                     <CalendarCard />
                 </div>
-
             </div>
         </div>
     );

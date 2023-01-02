@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { useQuery } from "@apollo/client";
-import { ProjectHealth } from "../../GraphQl/ProjectQueries";
-import { GET_PROJECT_DATA } from "../../GraphQl/Queries";
+import { ProjectHealth } from "../../GraphQL/ProjectQueries";
+import { GET_PROJECT_DATA } from "../../GraphQL/Queries";
 
 export default function DonutChart2() {
-    const { error, loading, data } = useQuery(GET_PROJECT_DATA);
+  const { error, loading, data } = useQuery(GET_PROJECT_DATA);
   const [projectdata, setProject] = useState([]);
 
   useEffect(() => {
@@ -38,34 +38,34 @@ export default function DonutChart2() {
       [projectbudgetoverbudget, projectbudgetwarning, projectbudgetonbudget]
     );
   }
-    const options = {
-        chart: {
-            height: 350,
-            type: "line",
-            id: 'task-overview-chart'
-        },
-        dataLabels: {
-            enabled: false
-        },
-        colors: ["#C62828", "#FDAC42", "#88B135"],
-        labels: ['Cost Overrun', 'Early Warning', 'On Budget'],
-        legend: {
-            show: true,
-            position: 'right',
-            fontFamily: 'inherit',
-            labels: {
-                colors: 'inherit'
-            },
-            itemMargin: {
-                horizontal: 10,
-                vertical: 10
-            },
-            formatter: (seriesName, opts) => `${seriesName}: ${opts.w.globals.series[opts.seriesIndex]}`
-        }
+  const options = {
+    chart: {
+      height: 350,
+      type: "line",
+      id: 'task-overview-chart'
+    },
+    dataLabels: {
+      enabled: false
+    },
+    colors: ["#C62828", "#FDAC42", "#88B135"],
+    labels: ['Cost Overrun', 'Early Warning', 'On Budget'],
+    legend: {
+      show: true,
+      position: 'right',
+      fontFamily: 'inherit',
+      labels: {
+        colors: 'inherit'
+      },
+      itemMargin: {
+        horizontal: 10,
+        vertical: 10
+      },
+      formatter: (seriesName, opts) => `${seriesName}: ${opts.w.globals.series[opts.seriesIndex]}`
     }
-    return (
-        <div>
-            <Chart options={options} type="donut" series={printProjectHealth()} width="100%" height="200%" />
-        </div>
-    );
+  }
+  return (
+    <div>
+      <Chart options={options} type="donut" series={printProjectHealth()} width="100%" height="200%" />
+    </div>
+  );
 }

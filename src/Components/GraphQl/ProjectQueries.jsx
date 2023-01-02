@@ -26,7 +26,7 @@ export function SumActual() {
       if (profile.id === project.user_id) {
         sumAct = sumAct + project.cost_actual;
         projectCurrency = project.currency_symbol;
-      } 
+      }
     });
     return (
       <div>
@@ -62,7 +62,7 @@ export function SumCost() {
       if (profile.id === project.user_id) {
         sumCost = sumCost + project.cost_plan;
         projectCurrency = project.currency_symbol;
-      } 
+      }
     });
     return (
       <div>
@@ -98,7 +98,7 @@ export function SumBudget() {
       if (profile.id === project.user_id) {
         sumBudget = sumBudget + project.budget;
         projectCurrency = project.currency_symbol;
-      } 
+      }
     });
     return (
       <div>
@@ -112,7 +112,7 @@ export function SumBudget() {
   return <div>{printSumBudget()}</div>;
 }
 
-export function SumDanger(){
+export function SumDanger() {
   const profile = GetProfile();
   const { error, loading, data } = useQuery(GET_PROJECT_DATA);
   const [projectdata, setProject] = useState([]);
@@ -138,7 +138,7 @@ export function SumDanger(){
         sumCost = sumCost + project.cost_plan;
         sumDanger = sumAct - sumCost;
         projectCurrency = project.currency_symbol;
-      } 
+      }
     });
     return (
       <div>
@@ -152,7 +152,7 @@ export function SumDanger(){
   return <div>{printSumDanger()}</div>;
 }
 
-export function Variance(){
+export function Variance() {
   const profile = GetProfile();
   const { error, loading, data } = useQuery(GET_PROJECT_DATA);
   const [projectdata, setProject] = useState([]);
@@ -178,7 +178,7 @@ export function Variance(){
         sumAct = sumAct + project.cost_actual;
         variance = sumBudget - sumAct;
         projectCurrency = project.currency_symbol;
-      } 
+      }
     });
     return (
       <div>

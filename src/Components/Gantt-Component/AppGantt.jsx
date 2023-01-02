@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { GET_GANTT_DATA } from "../GraphQl/Queries";
-import {ADD_GANTT, UPDATE_GANTT, DELETE_GANTT} from "../../Middleware/GraphQL/mutations";
+import { GET_GANTT_DATA } from "../GraphQL/Queries";
+import { ADD_GANTT, UPDATE_GANTT, DELETE_GANTT } from "../../Middleware/GraphQL/mutations";
 import Gantt from "./Gantt";
 
 // import gantt module
@@ -359,11 +359,11 @@ function AppGantt(props) {
       setGantt(data.gantt.data);
       setActivity(data.activity.data);
 
-      console.log("CHAOOOSSSSS",data);
-      console.log("LOLLLLLLLLLLLLLLL",data.activity.data.ID);
-      console.log("GANTTTTTTTTTTTT",data.gantt.data);
-      console.log("ACTIVTITYYYYYY",data.activity.data);
-      console.log("PROJECTTTTTT",data.project.Data);
+      console.log("CHAOOOSSSSS", data);
+      console.log("LOLLLLLLLLLLLLLLL", data.activity.data.ID);
+      console.log("GANTTTTTTTTTTTT", data.gantt.data);
+      console.log("ACTIVTITYYYYYY", data.activity.data);
+      console.log("PROJECTTTTTT", data.project.Data);
       console.log("asdiaosdjasdljas", data.gantt.data.ID)
 
     } else {
@@ -377,7 +377,7 @@ function AppGantt(props) {
   function subStringDate(str) {
     return str.substring(0, 10);
   }
-  
+
   const dataActivity = activityData.map((activity) => {
     const startDate = subStringDate(activity.start_time);
     const endDate = subStringDate(activity.end_time);

@@ -2,7 +2,7 @@ import React from "react";
 import UserCard from "../../Components/Card/UserCard";
 import BlankCard from "../../Components/Card/Blank";
 import BudgetCard from "../../Components/Card/BudgetCard";
-import { SumActual, SumCost, ProjectHealth, SumBudget, SumDanger, Variance } from "../../Components/GraphQl/ProjectQueries";
+import { SumActual, SumCost, ProjectHealth, SumBudget, SumDanger, Variance } from "../../Components/GraphQL/ProjectQueries";
 import SplineChart from "../../Components/Charts/SplineChart";
 import ColumnChart from "../../Components/Charts/ColumnChart";
 import LineChart from "../../Components/Charts/LineChart";

@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { GET_GANTT_DATA } from "../GraphQl/Queries";
+import { GET_GANTT_DATA } from "../GraphQL/Queries";
 import {
   ADD_GANTT,
   UPDATE_GANTT,

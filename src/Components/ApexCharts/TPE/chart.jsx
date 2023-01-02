@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { useQuery } from "@apollo/client";
-import { GET_PROJECT_DATA } from "../../GraphQl/Queries";
+import { GET_PROJECT_DATA } from "../../GraphQL/Queries";
 
 export default function BarChart() {
 
-const { error, loading, data } = useQuery(GET_PROJECT_DATA);
+  const { error, loading, data } = useQuery(GET_PROJECT_DATA);
   const [projectdata, setProject] = useState([]);
 
   useEffect(() => {
@@ -28,9 +28,9 @@ const { error, loading, data } = useQuery(GET_PROJECT_DATA);
     projectdata.map((project) => {
       sumBudget = sumBudget + project.budget;
       sumAct = sumAct + project.cost_actual;
-        sumCost = sumCost + project.cost_plan;
-        sumDanger = sumAct - sumCost ;
-        variance = sumBudget - sumAct;
+      sumCost = sumCost + project.cost_plan;
+      sumDanger = sumAct - sumCost;
+      variance = sumBudget - sumAct;
       projectCurrency = project.currency_symbol;
     });
     return (
@@ -38,44 +38,44 @@ const { error, loading, data } = useQuery(GET_PROJECT_DATA);
     );
   }
 
-    const series = [
-        {
-            name: 'Value',
-            data: printDataFinance()
-        }
-    ]
-    const options = {
-        chart: {
-            height: 350,
-            type: 'bar',
-        },
-        plotOptions: {
-            bar: {
-                columnWidth: '55%',
-                distributed: true,
-                endingShape: 'rounded'
-            }
-        },
-        colors: ["#1565C0", "#4527A0", "#FF8800", "#C62828", "#82A027"],
-        xaxis: {
-            categories: ["Budget", "Actual", "Cost", "Danger", "Variance"]
-        },
-        yaxis: {
-            show: false
-        },
-        dataLabels: {
-            enabled: false
-        },
-        grid: {
-            show: false
-        },
-        legend: {
-            show: false
-        }
-    };
-    return (
-        <div>
-            <Chart options={options} type="bar" series={series} width="100%" height="200%" />
-        </div>
-    );
+  const series = [
+    {
+      name: 'Value',
+      data: printDataFinance()
+    }
+  ]
+  const options = {
+    chart: {
+      height: 350,
+      type: 'bar',
+    },
+    plotOptions: {
+      bar: {
+        columnWidth: '55%',
+        distributed: true,
+        endingShape: 'rounded'
+      }
+    },
+    colors: ["#1565C0", "#4527A0", "#FF8800", "#C62828", "#82A027"],
+    xaxis: {
+      categories: ["Budget", "Actual", "Cost", "Danger", "Variance"]
+    },
+    yaxis: {
+      show: false
+    },
+    dataLabels: {
+      enabled: false
+    },
+    grid: {
+      show: false
+    },
+    legend: {
+      show: false
+    }
+  };
+  return (
+    <div>
+      <Chart options={options} type="bar" series={series} width="100%" height="200%" />
+    </div>
+  );
 }

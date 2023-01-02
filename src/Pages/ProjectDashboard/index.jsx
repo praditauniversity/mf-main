@@ -18,10 +18,10 @@ import UpcomingTaskCard from "../../Components/Card/UpcomingTask/UpcomingTaskCar
 import IssuesCard from "../../Components/Card/Issues/IssuesCard";
 import AppGantt from "../../Components/Gantt-Component/AppGantt";
 import TestQuery from "../../Components/Gantt-Component/TestQuery";
-import { Actual, Cost, Budget, Danger, Variance, CostHealth } from "../../Components/GraphQl/ProjectByIdQueries";
+import { Actual, Cost, Budget, Danger, Variance, CostHealth } from "../../Components/GraphQL/ProjectByIdQueries";
 
 const ProjectDashboardPage = () => {
-    const [ savedOption, setSavedOption ] = React.useState(localStorage.getItem('selectedOption'));  
+    const [savedOption, setSavedOption] = React.useState(localStorage.getItem('selectedOption'));
 
     useEffect(() => {
         if (savedOption) {
@@ -48,25 +48,25 @@ const ProjectDashboardPage = () => {
                 <div className="grid grid-cols-15 gap-2">
                     {/* Top row */}
                     <div className="col-span-9">
-                        <ProjectOverviewCard 
-                        title1="Project Name" 
-                        description1="Project Anomaly" 
-                        title2="Project Manager" 
-                        description2="Jhon Doe" 
-                        title3="Customer" 
-                        description3="Jaya Gedung Group" 
+                        <ProjectOverviewCard
+                            title1="Project Name"
+                            description1="Project Anomaly"
+                            title2="Project Manager"
+                            description2="Jhon Doe"
+                            title3="Customer"
+                            description3="Jaya Gedung Group"
                         />
                     </div>
-                    <div className="col-span-3 row-span-1"> <HealthCard title="Health by Cost" description={<CostHealth value={savedOption}/>} colorIcon="text-error-dark" /> </div>
+                    <div className="col-span-3 row-span-1"> <HealthCard title="Health by Cost" description={<CostHealth value={savedOption} />} colorIcon="text-error-dark" /> </div>
                     <div className="col-span-3 row-span-1"> <HealthCard title="Health by Schedule" description="Early Schedule" colorIcon="text-tertiary-dark" /> </div>
-                    
-                    <div className="col-span-3 row-span-1"> <BudgetCard title="Budget" description={<Budget value={savedOption}/>} colorIcon="text-secondary-800" /> </div>
-                    <div className="col-span-3 row-span-1"> <BudgetCard title="Cost" description={<Cost value={savedOption}/>} colorIcon="text-orange-dark" /> </div>
-                    <div className="col-span-3 row-span-1"> <BudgetCard title="Actual" description={<Actual value={savedOption}/>} colorIcon="text-primary-800" /> </div>
-                    <div className="col-span-3 row-span-1"> <BudgetCard title="Danger" description={<Danger value={savedOption}/>} colorIcon="text-error-dark" /> </div>
-                    <div className="col-span-3 row-span-1"> <BudgetCard title="Variance" description={<Variance value={savedOption}/>} colorIcon="text-tertiary-800" /> </div>
-                
-                    
+
+                    <div className="col-span-3 row-span-1"> <BudgetCard title="Budget" description={<Budget value={savedOption} />} colorIcon="text-secondary-800" /> </div>
+                    <div className="col-span-3 row-span-1"> <BudgetCard title="Cost" description={<Cost value={savedOption} />} colorIcon="text-orange-dark" /> </div>
+                    <div className="col-span-3 row-span-1"> <BudgetCard title="Actual" description={<Actual value={savedOption} />} colorIcon="text-primary-800" /> </div>
+                    <div className="col-span-3 row-span-1"> <BudgetCard title="Danger" description={<Danger value={savedOption} />} colorIcon="text-error-dark" /> </div>
+                    <div className="col-span-3 row-span-1"> <BudgetCard title="Variance" description={<Variance value={savedOption} />} colorIcon="text-tertiary-800" /> </div>
+
+
                     {/* Main row */}
                     <div className="col-span-5 row-span-1"> <ProjectProgressCard /> </div>
                     <div className="col-span-10 row-span-2"> <AppGantt title="Gantt Chart" /> </div>
