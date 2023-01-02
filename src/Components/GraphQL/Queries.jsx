@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 
 // eslint-disable-next-line import/prefer-default-export
-export const GET_GANTT_DATA_LAMA = gql`
+export const GET_GANTT_DATA_LAMA1 = gql`
   query {
     gantt {
       data {
@@ -24,7 +24,7 @@ export const GET_GANTT_DATA_LAMA = gql`
 `;
 
 // eslint-disable-next-line import/prefer-default-export
-export const GET_GANTT_DATA = gql`
+export const GET_GANTT_DATA_LAMA2 = gql`
   query {
     activity {
       data {
@@ -100,6 +100,93 @@ export const GET_GANTT_DATA = gql`
         budget_health
         budget
       }
+    }
+  }
+  `;
+
+// // eslint-disable-next-line import/prefer-default-export
+// export const GET_GANTT_PROJECT_ID = gql`
+//   query ganttGetProjectID(
+//     $project_id: String!
+//     ) {
+//     ganttGetProjectID(project_id: $project_id) {
+//       data {
+//         ID
+//         CreatedAt
+//         UpdatedAt
+//         DeletedAt
+//         project_id
+//         name
+//         description
+//         start_time
+//         end_time
+//         version
+//         user_id
+//         updated_by
+//         deleted_by
+//       }
+//     }
+//   }
+// `;
+
+// eslint-disable-next-line import/prefer-default-export
+export const GET_GANTT_PROJECT_ID = gql`
+  query ganttGetProjectID(
+    $project_id: String!
+    ) {
+    ganttGetProjectID(project_id: $project_id) {
+      data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        project_id
+        name
+        description
+        start_time
+        end_time
+        version
+        user_id
+        updated_by
+        deleted_by
+      }
+    }
+  }
+`;
+
+// eslint-disable-next-line import/prefer-default-export
+export const GET_ACTIVITY_GANTT_ID = gql`
+  query activityGetGanttID(
+    $gantt_id: String!
+    ) {
+      activityGetGanttID(gantt_id: $gantt_id) {
+        data {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          parent_id
+          gantt_id
+          name
+          description
+          start_time
+          end_time
+          user_id
+          updated_by
+          deleted_by
+          cost_actual
+          cost_plan
+          weight_percentage
+          progress_percentage
+          priority
+          material_cost_plan
+          material_cost_actual
+          tool_cost_plan
+          tool_cost_actual
+          human_cost_plan
+          human_cost_actual
+          type_id
+        }
     }
   }
 `;

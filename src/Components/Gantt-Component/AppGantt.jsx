@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { GET_GANTT_DATA } from "../GraphQL/Queries";
+import { GET_ACTIVITY_GANTT_ID } from "../GraphQL/Queries";
 import { ADD_GANTT, UPDATE_GANTT, DELETE_GANTT } from "../../Middleware/GraphQL/mutations";
 import Gantt from "./Gantt";
 
@@ -10,6 +10,7 @@ import { gantt } from "dhtmlx-gantt";
 // import data
 import { useRef } from "react";
 import GetProfile from "../Auth/GetProfile";
+import ListGanttByProject from "../Listbox/ListGanttName";
 
 // create custom column
 gantt.config.columns = [
@@ -208,9 +209,14 @@ function addGanttTask(id, name, description, users, start_date, end_date) {
 function AppGantt(props) {
   console.log("RENDER");
   const { title } = props;
-  const { error, loading, data } = useQuery(GET_GANTT_DATA);
-  const [ganttData, setGantt] = useState([]);
+  const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
+
+  const { data, loading, error } = useQuery(GET_ACTIVITY_GANTT_ID, {
+    variables: { gantt_id: ganttID }
+  });
   const [activityData, setActivity] = useState([]);
+  
+  const [ganttData, setGantt] = useState([]);
   const [projectData, setProject] = useState([]);
   const isUpdated = useRef(false);
   const isAdd = useRef(false);
@@ -357,15 +363,8 @@ function AppGantt(props) {
   useEffect(() => {
     if (data) {
       console.log("Data Ready gantt");
-      setGantt(data.gantt.data);
-      setActivity(data.activity.data);
-
-      console.log("CHAOOOSSSSS", data);
-      console.log("LOLLLLLLLLLLLLLLL", data.activity.data.ID);
-      console.log("GANTTTTTTTTTTTT", data.gantt.data);
-      console.log("ACTIVTITYYYYYY", data.activity.data);
-      console.log("PROJECTTTTTT", data.project.Data);
-      console.log("asdiaosdjasdljas", data.gantt.data.ID)
+      setActivity(data.activityGetGanttID.data);
+      console.log("AAAAAAAAAAAA", data.activityGetGanttID.data);
 
     } else {
       console.log("No data gantt");
@@ -373,12 +372,12 @@ function AppGantt(props) {
     console.log("USE EFFECT gantt");
   }, [data]);
 
-  // setGantt(data.gantt.data);
+  // setGantt(data.ganttGetProjectID.data);
 
   function subStringDate(str) {
     return str.substring(0, 10);
   }
-  
+
   // mapping data
   function MappingData() {
     const profile = GetProfile();
@@ -386,7 +385,7 @@ function AppGantt(props) {
       if (profile.id === gantt.user_id) {
         const startDate = subStringDate(gantt.start_time);
         const endDate = subStringDate(gantt.end_time);
-        
+
         ganttTask.data.push({
           id: gantt.ID,
           name: gantt.name,
@@ -397,12 +396,14 @@ function AppGantt(props) {
         });
       }
     });
-    
+
     const dataActivity = activityData.map((activity) => {
-      if (profile.id === gantt.user_id) {
+      console.log("BBBBBBBBBBBBBBBb", activity);
         const startDate = subStringDate(activity.start_time);
         const endDate = subStringDate(activity.end_time);
-    
+
+        console.log("CCCCCCCCCCCCCCCCC", String(activity.parent_id), typeof activity.parent_id);
+
         ganttTask.data.push({
           id: activity.ID,
           name: activity.name,
@@ -410,11 +411,11 @@ function AppGantt(props) {
           users: activity.user_id,
           start_date: startDate,
           end_date: endDate,
+          parent: String(activity.parent_id),
         });
-      }
     });
-    
-    if (dataGantt.length > 0) {
+
+    if (dataActivity.length > 0) {
       return (
         <div className="h-full">
           {console.log("mapping data", ganttTask)}
@@ -427,8 +428,9 @@ function AppGantt(props) {
   return (
     <div className="bg-white py-6 px-12 rounded-xl shadow-lg h-full">
       <div className="h-full">
-        <div className="py-5 px-4">
+        <div className="py-5 px-4 flex justify-between">
           <p className="text-md">{title}</p>
+          <ListGanttByProject />
         </div>
         {console.log("before mapping data should be called")}
         <div className="py-1 px-4 h-full">{MappingData()}</div>

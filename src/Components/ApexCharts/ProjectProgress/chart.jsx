@@ -13,21 +13,21 @@ export default function RadialChart() {
   // if (loading) return <div>Loading...</div>;
   // if (error) return <div>Error {console.log(error)}</div>;
 
-  const [projectPerPhase, setProjectPerPhase] = useState([]);
-  const [phase, setPhase] = useState([]);
-  useEffect(() => {
-    if (data && data2) {
-      console.log("data is ready");
-      // console.log(data);
-      setProjectPerPhase(data.project.Data);
-      //   console.log("LENGTHHHHHHH", data.project.Data.length);
-      setPhase(data2.projectPhase.Data);
-    } else {
-      // setProjectPerPhase([]);
-      console.log("data is empty");
-    }
-    console.log("USERRRRR", profile)
-  }, [data]);
+  // const [projectPerPhase, setProjectPerPhase] = useState([]);
+  // const [phase, setPhase] = useState([]);
+  // useEffect(() => {
+  //   if (data && data2) {
+  //     console.log("data is ready");
+  //     // console.log(data);
+  //     setProjectPerPhase(data.project.Data);
+  //     //   console.log("LENGTHHHHHHH", data.project.Data.length);
+  //     setPhase(data2.projectPhase.Data);
+  //   } else {
+  //     // setProjectPerPhase([]);
+  //     console.log("data is empty");
+  //   }
+  //   console.log("USERRRRR", profile)
+  // }, [data]);
 
   function printSeries() {
     // let totalProject = projectPerPhase.length;
@@ -102,7 +102,7 @@ export default function RadialChart() {
     return colors.reverse();
   }
 
-  //   const series = [70, 80, 90, 100, 100, 100, 100];
+    const series = [70, 80, 90, 100, 100, 100, 100];
   const options = {
     chart: {
       // type: 'radialBar',
@@ -143,17 +143,17 @@ export default function RadialChart() {
       "#673AB7",
       "#B39DDB",
     ],
-    colors: printColors(),
-    // labels: [
-    //   "Closing",
-    //   "Evaluation",
-    //   "Testing",
-    //   "Execution",
-    //   "Research",
-    //   "Planning",
-    //   "Initiation",
-    // ],
-    labels: printLabels(),
+    // colors: printColors(),
+    labels: [
+      "Closing",
+      "Evaluation",
+      "Testing",
+      "Execution",
+      "Research",
+      "Planning",
+      "Initiation",
+    ],
+    // labels: printLabels(),
     legend: {
       show: true,
       fontSize: "10px",
@@ -194,7 +194,8 @@ export default function RadialChart() {
       <Chart
         options={options}
         type="radialBar"
-        series={printSeries()}
+        series={series}
+        // series={printSeries()}
         width="100%"
         height="150%"
       />

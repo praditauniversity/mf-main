@@ -5,13 +5,13 @@ import { GET_PROJECT_DATA } from '../../GraphQL/Queries';
 import { Actual } from '../../GraphQL/ProjectByIdQueries';
 
 const ListboxProjectName = () => {
-    const [selectedOption, setSelectedOption] = React.useState(localStorage.getItem('selectedOption') ? localStorage.getItem('selectedOption') : "1");
+    const [projectID, setProjectID] = React.useState(localStorage.getItem('projectID') ? localStorage.getItem('projectID') : "1");
 
     useEffect(() => {
         // Update the selectedOption value in local storage whenever it changes
-        localStorage.setItem('selectedOption', selectedOption);
-        console.log("selectedOption", selectedOption);
-    }, [selectedOption]);
+        localStorage.setItem('projectID', projectID);
+        console.log("projectID", projectID);
+    }, [projectID]);
 
     function printListProjectName() {
         const profile = GetProfile();
@@ -43,14 +43,15 @@ const ListboxProjectName = () => {
     }
 
     const handleChange = (event) => {
-        setSelectedOption(event.target.value);
+        setProjectID(event.target.value);
+        localStorage.setItem('ganttID', "1");
         window.location.reload();
         // localStorage.setItem('selectedOption', selectedOption);
     };
 
     return (
         <div className="flex flex-col items-center">
-            <select value={selectedOption} onChange={handleChange} className="select select-ghost select-sm w-full max-w-lg">
+            <select value={projectID} onChange={handleChange} className="select select-ghost select-sm w-full max-w-lg">
                 {/* <option value="1">Project Anomaly</option>
                 <option value="2">Project Alpha</option>
                 <option value="3">Project Beta</option>
@@ -58,7 +59,7 @@ const ListboxProjectName = () => {
                 {printListProjectName()}
             </select>
             {/* {<Actual value={selectedOption} />} */}
-            {console.log("OPTION val:", typeof selectedOption, selectedOption)}
+            {console.log("OPTION val:", typeof projectID, projectID)}
         </div>
     );
 }

@@ -21,7 +21,7 @@ import TestQuery from "../../Components/Gantt-Component/TestQuery";
 import { Actual, Cost, Budget, Danger, Variance, CostHealth } from "../../Components/GraphQL/ProjectByIdQueries";
 
 const ProjectDashboardPage = () => {
-    const [savedOption, setSavedOption] = React.useState(localStorage.getItem('selectedOption'));
+    const [savedOption, setSavedOption] = React.useState(localStorage.getItem('projectID') ? localStorage.getItem('projectID') : "1");
 
     useEffect(() => {
         if (savedOption) {
@@ -70,6 +70,7 @@ const ProjectDashboardPage = () => {
                     {/* Main row */}
                     <div className="col-span-5 row-span-1"> <ProjectProgressCard /> </div>
                     <div className="col-span-10 row-span-2"> <AppGantt title="Gantt Chart" /> </div>
+                    {/* <div className="col-span-10 row-span-2"> <TestQuery /> </div> */}
                     <div className="col-span-5 row-span-1"> <TaskOverviewCard /> </div>
                     <div className="col-span-full"> <TaskListCard /> </div>
                 </div>

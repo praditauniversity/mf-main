@@ -6,6 +6,7 @@ import { InputField } from "../../Input/Input";
 
 const MinutesofMeetingCard = (props) => {
     const { icon } = props;
+    const iconA = <IconSearch />;
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
             <div>
@@ -66,9 +67,9 @@ const MinutesofMeetingCard = (props) => {
                                 <input
                                     className="form-control shadow appearance-none border rounded py-1 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline"
                                     type="text"
-                                    // placeholder={iconaa}
+                                    placeholder={"search"}
                                 />
-                                <IconSearch />
+                                {/* <IconSearch /> */}
                                 <button className="px-1" id="icon"><IconFilter /></button>
                             </div>
                         </div>
