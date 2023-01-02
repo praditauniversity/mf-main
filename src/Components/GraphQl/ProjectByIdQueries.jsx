@@ -245,15 +245,14 @@ export function ProgressPercentage(props) {
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
-      if (data) {
-        console.log("Data Ready");
-        setProject(data.project.Data);
-        console.log(projectData);
-      } else {
-        console.log("No data");
-      }
+        if (data) {
+            console.log("Data Ready");
+            setProject(data.project.Data);
+            console.log(projectData);
+        } else {
+            console.log("No data");
+        }
     }, [data]);
-  
     function printProgressPercentage() {
         var projectPercentage = 0;
         projectData.map((project) => {
