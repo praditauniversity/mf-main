@@ -1,5 +1,4 @@
 import React from "react";
-import { Tooltip } from 'react-tooltip';
 import { IconPlus, IconEdit, IconDelete, IconList } from "../../Icons/icon";
 import DailyReportList from "./DaiilyReportList";
 import '../../../Assets/svgbutton/svgbutton.css'
@@ -85,18 +84,10 @@ const DailyReportCard = (props) => {
                                         <p className="text-sm font-semibold opacity-70">Location</p>
                                     </div>
                                     <div>
-                                        <p className="text-base font-semibold">Merak Raya Bau Bawang</p>
+                                        <p className="text-base font-semibold">Merak Raya</p>
                                     </div>
                                 </div>
                                 <div className="col-span-6">
-                                    <div className="pb-2">
-                                        <p className="text-sm font-semibold opacity-70">Weather Condition</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-base font-semibold">Sunny, Clear, mid-70s</p>
-                                    </div>
-                                </div>
-                                <div className="col-span-3">
                                     <div className="pb-2">
                                         <p className="text-sm font-semibold opacity-70">General Project Status</p>
                                     </div>
@@ -104,6 +95,14 @@ const DailyReportCard = (props) => {
                                         <p className="text-base font-semibold">In Progress</p>
                                     </div>
                                 </div>
+                                {/* <div className="col-span-3">
+                                    <div className="pb-2">
+                                        <p className="text-sm font-semibold opacity-70">Weather Condition</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-base font-semibold">Sunny, Clear, mid-70s</p>
+                                    </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
