@@ -1,0 +1,11 @@
+#icon:hover {
+    filter: 
+      invert(0)
+      sepia(0)
+      hue-rotate(20deg)
+      saturate(2)
+      brightness(0.8)
+      /* drop-shadow(16px 16px 20px purple) */
+      opacity(100%)
+      grayscale(1%);
+  }

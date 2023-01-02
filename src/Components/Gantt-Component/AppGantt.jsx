@@ -9,6 +9,7 @@ import { gantt } from "dhtmlx-gantt";
 
 // import data
 import { useRef } from "react";
+import GetProfile from "../Auth/GetProfile";
 
 // create custom column
 gantt.config.columns = [
@@ -378,36 +379,41 @@ function AppGantt(props) {
     return str.substring(0, 10);
   }
   
-  const dataActivity = activityData.map((activity) => {
-    const startDate = subStringDate(activity.start_time);
-    const endDate = subStringDate(activity.end_time);
-
-    ganttTask.data.push({
-      id: activity.ID,
-      name: activity.name,
-      description: activity.description,
-      users: activity.user_id,
-      start_date: startDate,
-      end_date: endDate,
-    });
-  });
   // mapping data
   function MappingData() {
+    const profile = GetProfile();
     const dataGantt = ganttData.map((gantt) => {
-      const startDate = subStringDate(gantt.start_time);
-      const endDate = subStringDate(gantt.end_time);
-
-      ganttTask.data.push({
-        id: gantt.ID,
-        name: gantt.name,
-        description: gantt.description,
-        users: gantt.user_id,
-        start_date: startDate,
-        end_date: endDate,
-      });
+      if (profile.id === gantt.user_id) {
+        const startDate = subStringDate(gantt.start_time);
+        const endDate = subStringDate(gantt.end_time);
+        
+        ganttTask.data.push({
+          id: gantt.ID,
+          name: gantt.name,
+          description: gantt.description,
+          users: gantt.user_id,
+          start_date: startDate,
+          end_date: endDate,
+        });
+      }
     });
-
-
+    
+    const dataActivity = activityData.map((activity) => {
+      if (profile.id === gantt.user_id) {
+        const startDate = subStringDate(activity.start_time);
+        const endDate = subStringDate(activity.end_time);
+    
+        ganttTask.data.push({
+          id: activity.ID,
+          name: activity.name,
+          description: activity.description,
+          users: activity.user_id,
+          start_date: startDate,
+          end_date: endDate,
+        });
+      }
+    });
+    
     if (dataGantt.length > 0) {
       return (
         <div className="h-full">

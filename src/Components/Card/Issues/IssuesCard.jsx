@@ -27,7 +27,7 @@ const IssuesCard = () => {
                                 <p className="text-base font-semibold ">Solar Panel Smart Lab</p>
                             </div>
                             <div className="flex justify-end">
-                                <div className="dropdown dropdown-button">
+                                <div className="dropdown dropdown-button dropdown-end">
                                     {/* <button tabIndex={0} className="btn btn-outline text-xs">:</button> */}
                                     <button tabIndex={0} className="text-base font-black">:</button>
                                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
@@ -47,7 +47,7 @@ const IssuesCard = () => {
                                 <p className="text-base font-semibold ">Winter Wonderland</p>
                             </div>
                             <div className="flex justify-end">
-                                <div className="dropdown dropdown-button">
+                                <div className="dropdown dropdown-button dropdown-end">
                                     {/* <button tabIndex={0} className="btn btn-outline text-xs">:</button> */}
                                     <button tabIndex={0} className="text-base font-black">:</button>
                                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
@@ -67,7 +67,7 @@ const IssuesCard = () => {
                                 <p className="text-base font-semibold ">Reverie Product...</p>
                             </div>
                             <div className="flex justify-end">
-                                <div className="dropdown dropdown-button">
+                                <div className="dropdown dropdown-button dropdown-end">
                                     {/* <button tabIndex={0} className="btn btn-outline text-xs">:</button> */}
                                     <button tabIndex={0} className="text-base font-black">:</button>
                                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
@@ -87,7 +87,7 @@ const IssuesCard = () => {
                                 <p className="text-base font-semibold ">Meraki Development</p>
                             </div>
                             <div className="flex justify-end">
-                                <div className="dropdown dropdown-button">
+                                <div className="dropdown dropdown-button dropdown-end">
                                     {/* <button tabIndex={0} className="btn btn-outline text-xs">:</button> */}
                                     <button tabIndex={0} className="text-base font-black">:</button>
                                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">

@@ -1,9 +1,9 @@
 import React from "react";
-import NavChips from "./Layouts/NavChips";
+import CommandPalette from "./Components/CommandPalette";
 import NavBar from "./Layouts/Navbar";
+import NavChips from "./Layouts/NavChips";
 import { SideBar } from "./Layouts/SideBar";
 import Routing from "./Routes/Routing";
-import CommandPalette from "./Components/CommandPalette";
 
 const Main = () => {
   const islogin = localStorage.getItem('token') !== null;

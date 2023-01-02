@@ -8,6 +8,7 @@ import MilestoneDue from "./milestonedue";
 import Title from "./title";
 import TitleMilestone from "./titlemilestone";
 import { IconPlus, IconEdit, IconDelete, IconList } from "../../Icons/icon";
+import '../../../Assets/svgbutton/svgbutton.css'
 
 const ProjectCharterCard = (props) => {
     const { icon } = props;
@@ -20,9 +21,9 @@ const ProjectCharterCard = (props) => {
                     </div>
                     <div className="flex justify-end">
                         <div className="flex justify-between">
-                            <button className="px-1"><IconPlus /></button>
-                            <button className="px-1"><IconEdit /></button>
-                            <button className="px-1"><IconDelete /></button>
+                            <button className="px-1" id="icon"><IconPlus /></button>
+                            <button className="px-1" id="icon"><IconEdit /></button>
+                            <button className="px-1" id="icon"><IconDelete /></button>
                         </div>
                     </div>
                 </div>

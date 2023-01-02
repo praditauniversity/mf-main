@@ -1,6 +1,8 @@
 import React from "react";
+import { Tooltip } from 'react-tooltip';
 import { IconPlus, IconEdit, IconDelete, IconList } from "../../Icons/icon";
 import DailyReportList from "./DaiilyReportList";
+import '../../../Assets/svgbutton/svgbutton.css'
 
 const DailyReportCard = (props) => {
     const { icon } = props;
@@ -13,92 +15,104 @@ const DailyReportCard = (props) => {
                     </div>
                     <div className="flex justify-end">
                         <div className="flex justify-between">
-                            <button className="px-1"><IconPlus /></button>
-                            <button className="px-1"><IconEdit /></button>
-                            <button className="px-1"><IconDelete /></button>
+                            <button className="px-1" id="icon"><IconPlus /></button>
+                            <button className="px-1" id="icon"><IconEdit /></button>
+                            <button className="px-1" id="icon"><IconDelete /></button>
                         </div>
                     </div>
                 </div>
 
                 <div className="px-36">
-                    <div>
-                        <div className="py-6 flex justify-between">
-                            <div>
-                                <div className="pb-2">
-                                    <p className="text-sm font-semibold opacity-70">Project Name</p>
-                                </div>
+                    <div className="py-10">
+                        <div className="grid grid-cols-3 gap-20">
+                            <div className="cols-span-1">
                                 <div>
-                                    <p className="text-base font-semibold">Project Anomaly</p>
+                                    <div className="pb-2">
+                                        <p className="text-sm font-semibold opacity-70">Project Name</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-base font-semibold">Project Anomaly</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <div className="pb-2">
-                                    <p className="text-sm font-semibold opacity-70">Customer</p>
-                                </div>
+                            <div className="cols-span-1">
                                 <div>
-                                    <p className="text-base font-semibold">Jaya Gedung Group</p>
+                                    <div className="pb-2">
+                                        <p className="text-sm font-semibold opacity-70">Customer</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-base font-semibold">Jaya Gedung Group</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <div className="pb-2">
-                                    <p className="text-sm font-semibold opacity-70">Report Number</p>
-                                </div>
+                            <div className="cols-span-1">
                                 <div>
-                                    <p className="text-base font-semibold">123</p>
+                                    <div className="pb-2">
+                                        <p className="text-sm font-semibold opacity-70">Report Number</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-base font-semibold">123</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="py-6 flex justify-between">
-                            <div>
-                                <div className="pb-2">
-                                    <p className="text-sm font-semibold opacity-70">Project Manager</p>
-                                </div>
+                            <div className="cols-span-1">
                                 <div>
-                                    <p className="text-base font-semibold">Jhon Doe</p>
+                                    <div className="pb-2">
+                                        <p className="text-sm font-semibold opacity-70">Project Manager</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-base font-semibold">Jhon Doe</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <div className="pb-2">
-                                    <p className="text-sm font-semibold opacity-70">Customer Contact</p>
-                                </div>
+                            <div className="cols-span-1">
                                 <div>
-                                    <p className="text-base font-semibold">812204166697</p>
+                                    <div className="pb-2">
+                                        <p className="text-sm font-semibold opacity-70">Customer Contact</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-base font-semibold">812204166697</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <div className="pb-2">
-                                    <p className="text-sm font-semibold opacity-70">Report Date</p>
-                                </div>
+                            <div className="cols-span-1">
                                 <div>
-                                    <p className="text-base font-semibold">14/08/2022</p>
+                                    <div className="pb-2">
+                                        <p className="text-sm font-semibold opacity-70">Report Date</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-base font-semibold">14/08/2022</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="py-6 flex justify-between">
-                            <div>
-                                <div className="pb-2">
-                                    <p className="text-sm font-semibold opacity-70">Location</p>
-                                </div>
+                            <div className="cols-span-1">
                                 <div>
-                                    <p className="text-base font-semibold">Merak Raya Bau Bawang</p>
+                                    <div className="pb-2">
+                                        <p className="text-sm font-semibold opacity-70">Location</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-base font-semibold">Merak Raya</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div>
-                                <div className="pb-2">
-                                    <p className="text-sm font-semibold opacity-70">Weather Condition</p>
-                                </div>
+                            {/* <div className="cols-span-1">
                                 <div>
-                                    <p className="text-base font-semibold">Sunny, Clear, mid-70s</p>
+                                    <div className="pb-2">
+                                        <p className="text-sm font-semibold opacity-70">Weather Condition</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-base font-semibold">Sunny, Clear, mid-70s</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <div className="pb-2">
-                                    <p className="text-sm font-semibold opacity-70">General Project Status</p>
-                                </div>
+                            </div> */}
+                            <div className="cols-span-1">
                                 <div>
-                                    <p className="text-base font-semibold">In Progress</p>
+                                    <div className="pb-2">
+                                        <p className="text-sm font-semibold opacity-70">General Project Status</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-base font-semibold">In Progress</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

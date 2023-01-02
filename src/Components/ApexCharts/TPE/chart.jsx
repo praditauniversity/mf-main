@@ -61,7 +61,7 @@ const { error, loading, data } = useQuery(GET_PROJECT_DATA);
             categories: ["Budget", "Actual", "Cost", "Danger", "Variance"]
         },
         yaxis: {
-            show: false
+            show: true
         },
         dataLabels: {
             enabled: false
