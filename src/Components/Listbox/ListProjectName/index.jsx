@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import GetProfile from '../../Auth/GetProfile';
 import { useQuery, gql } from '@apollo/client';
-import { GET_PROJECT_DATA } from '../../GraphQL/Queries';
+import { GET_PROJECT_DATA, GET_PROJECT_DATA_BY_USER_ID } from '../../GraphQL/Queries';
 import { Actual } from '../../GraphQL/ProjectByIdQueries';
 
 const ListboxProjectName = () => {
-    const [projectID, setProjectID] = React.useState(localStorage.getItem('projectID') ? localStorage.getItem('projectID') : "1");
+    const [projectID, setProjectID] = React.useState(localStorage.getItem('projectID')/* ? localStorage.getItem('projectID') : "1"*/);
 
     useEffect(() => {
         // Update the selectedOption value in local storage whenever it changes
@@ -15,7 +15,9 @@ const ListboxProjectName = () => {
 
     function printListProjectName() {
         const profile = GetProfile();
-        const { loading, error, data } = useQuery(GET_PROJECT_DATA);
+        const { loading, error, data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+            variables: { user_id: profile.id },
+        });
         const [projectData, setProject] = useState([]);
         // if (loading) return <p>Loading...</p>;
         // if (error) return <p>Error :(</p>;
@@ -33,11 +35,11 @@ const ListboxProjectName = () => {
             <>
                 {/* {console.log("ID VALUE TYPE", typeof ID)} */}
                 {/* {console.log("ID VALUE TYPE", typeof ID.toString())} */}
-                {profile.id === user_id ? (
+                {/* {profile.id === user_id ? ( */}
                     <option value={ID}>{name}</option>
-                ) : (
+                {/* ) : (
                     <option></option>
-                )}
+                )} */}
             </>
         ));
     }

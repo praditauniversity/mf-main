@@ -22,10 +22,11 @@ import TestRedux from "../../Components/Gantt-Component/TestRedux";
 import implementRedux from "../../Components/Gantt-Component/ImplementRedux";
 import { Actual, Cost, Budget, Danger, Variance, CostHealth, ScheduleHealth } from "../../Components/GraphQL/ProjectByIdQueries";
 import ImplementRedux from "../../Components/Gantt-Component/ImplementRedux";
-import ActivityData, { PrintGantt, PrintTask } from "../../Components/Gantt-Component/GetActivityData";
+import ActivityData, { PrintGantt, PrintTask, TEST_TestFormGantt } from "../../Components/Gantt-Component/CustomActivityState";
+import TestFormGantt from "../../Components/Gantt-Component/TestFormGantt";
 
 const ProjectDashboardPage = () => {
-    const [savedOption, setSavedOption] = React.useState(localStorage.getItem('projectID') ? localStorage.getItem('projectID') : "1");
+    const [savedOption, setSavedOption] = React.useState(localStorage.getItem('projectID')/* ? localStorage.getItem('projectID') : "1"*/);
 
     useEffect(() => {
         if (savedOption) {
@@ -74,10 +75,8 @@ const ProjectDashboardPage = () => {
                     {/* Main row */}
                     <div className="col-span-5 row-span-1"> <ProjectProgressCard /> </div>
                     {/* <div className="col-span-10 row-span-2"> <AppGantt title="Gantt Chart" /> </div> */}
-                    <div className="col-span-10 row-span-2"> <PrintGantt /> </div>
-                    {/* <div className="col-span-10 row-span-2"> <TestQuery /> </div> */}
-                    {/* <div className="col-span-10 row-span-2"> <TestRedux /> </div> */}
-                    {/* <div className="col-span-10 row-span-2"> <ImplementRedux /> </div> */}
+                    {/* <div className="col-span-10 row-span-2"> <PrintGantt title="Gantt Chart" /> </div> */}
+                    {/* <div className="col-span-10 row-span-2"> <TEST_TestFormGantt title="Gantt Chart" /> </div> */}
                     <div className="col-span-5 row-span-1"> <TaskOverviewCard /> </div>
                     <div className="col-span-full"> <TaskListCard /> </div>
                 </div>

@@ -6,7 +6,8 @@ import ActiveProjectCard from "../../Components/Card/ActiveProject/ActiveProject
 import ProjectProgressOverviewCard from "../../Components/ApexCharts/ProjectProgressOverview";
 import TaskOverviewCard from "../../Components/ApexCharts/TaskOverview";
 import MemberTaskCard from "../../Components/Card/MemberTask/MemberTaskCard";
-import { PrintGantt } from "../../Components/Gantt-Component/GetActivityData";
+import { PrintGantt, TEST_TestFormGantt } from "../../Components/Gantt-Component/CustomActivityState";
+import { TestingModal } from "../../Components/Gantt-Component/TestingModal";
 
 const DashboardPage = () => {
     return (
@@ -14,7 +15,9 @@ const DashboardPage = () => {
             <div className="col-span-14">
                 <div className="grid grid-cols-14 gap-2">
                     <div className="col-span-4 row-span-1"> <CalendarCard /> </div>
-                    <div className="col-span-10 row-span-2"> <PrintGantt /> </div>
+                    {/* <div className="col-span-10 row-span-2"> <PrintGantt /> </div> */}
+                    <div className="col-span-10 row-span-2"> <TEST_TestFormGantt title="Gantt Chart" /> </div>
+                    {/* <div className="col-span-10 row-span-2"> <TestingModal /> </div> */}
                     <div className="col-span-4 row-span-1"> <TaskOverviewCard />  </div>
 
 

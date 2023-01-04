@@ -9,7 +9,8 @@ import Title from "./title";
 import TitleMilestone from "./titlemilestone";
 import { IconPlus, IconEdit, IconDelete, IconList } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
-import AddModal from "../../Modal/ProjectCharterModal/AddModal";
+import AddModal from "../../Modal/ProjectCharterModal/AddModal/AddModal";
+import DeleteModal from "../../Modal/ProjectCharterModal/DeleteModal/DeleteModal";
 
 const ProjectCharterCard = (props) => {
     const { icon } = props;
@@ -23,9 +24,10 @@ const ProjectCharterCard = (props) => {
                     <div className="flex justify-end">
                         <div className="flex justify-between">
                             <AddModal />
-                            <button className="px-1" id="icon"><IconPlus /></button>
+                            {/* <button className="px-1" id="icon"><IconPlus /></button> */}
                             <button className="px-1" id="icon"><IconEdit /></button>
-                            <button className="px-1" id="icon"><IconDelete /></button>
+                            <DeleteModal/>
+                            {/* <button className="px-1" id="icon"><IconDelete /></button> */}
                         </div>
                     </div>
                 </div>
@@ -51,6 +53,7 @@ const ProjectCharterCard = (props) => {
                                 <List description="Implementation and building Anomaly Application" />
                                 <List description="Testing Anomaly Application" />
                                 <List description="Maintenance Anomaly Application" />
+                                <div className="bg-primary-light h-10 w-10"></div>
                             </div>
                         </div>
                     </div>
@@ -89,7 +92,7 @@ const ProjectCharterCard = (props) => {
                         </div>
                     </div>
 
-                    <div className="py-6">
+                    {/* <div className="py-6">
                         <TitleMilestone title="Milestone" />
                         <div className="flex justify-between">
                             <MilestoneDue title="Initiation" description="Dec 23 2022" />
@@ -98,7 +101,7 @@ const ProjectCharterCard = (props) => {
                             <MilestoneDue title="Evaluation" description="Dec 3 2024" />
                             <MilestoneDue title="Closing" description="Dec 24 2024" />
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="py-6 flex justify-start">
                         <div>

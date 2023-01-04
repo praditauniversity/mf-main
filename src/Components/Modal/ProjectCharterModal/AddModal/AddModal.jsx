@@ -1,7 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { IconPlus } from '../../Icons/icon';
-import '../../../Assets/svgbutton/svgbutton.css'
+import '../../../../Assets/svgbutton/svgbutton.css'
+import Addnewprojectobj from './Addnewprojectobj';
+import Addnewresource from './Addnewresource';
+import Addnewphase from './Addnewphase';
+import Addnewrisk from './Addnewrisk';
+import { IconPlus } from '../../../Icons/icon';
 
 const AddModal = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +44,7 @@ const AddModal = () => {
                                     leaveFrom="opacity-100 scale-100"
                                     leaveTo="opacity-0 scale-95"
                                 >
-                                    <Dialog.Panel className="w-full max-w-5xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                    <Dialog.Panel className="px-24 py-16 w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                                         <Dialog.Title
                                             as="h3"
                                             className="text-lg font-bold leading-6"
@@ -52,7 +56,7 @@ const AddModal = () => {
                                                 <label className="label">
                                                     <span className="label-text">Project Name</span>
                                                 </label>
-                                                <input type="text" placeholder="Enter project name" className="input input-bordered w-full" />
+                                                <input type="text" placeholder="Enter project name" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
                                         <div className="mt-3">
@@ -60,7 +64,7 @@ const AddModal = () => {
                                                 <label className="label">
                                                     <span className="label-text">Project Manager</span>
                                                 </label>
-                                                <input type="text" placeholder="Enter your name" className="input input-bordered w-full" />
+                                                <input type="text" placeholder="Enter your name" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
                                         <div className="mt-3">
@@ -68,7 +72,7 @@ const AddModal = () => {
                                                 <label className="label">
                                                     <span className="label-text">Customer</span>
                                                 </label>
-                                                <input type="text" placeholder="Enter customer name" className="input input-bordered w-full" />
+                                                <input type="text" placeholder="Enter customer name" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
                                         <div className="mt-3">
@@ -76,7 +80,7 @@ const AddModal = () => {
                                                 <label className="label">
                                                     <span className="label-text">Description</span>
                                                 </label>
-                                                <textarea className="textarea textarea-bordered h-24 w-full" placeholder="Enter a project description"></textarea>
+                                                <textarea className="textarea textarea-bordered h-36 w-full bg-table-dark border-primary-light" placeholder="Enter a project description"></textarea>
                                             </div>
                                         </div>
                                         <div className="mt-3">
@@ -84,18 +88,7 @@ const AddModal = () => {
                                                 <label className="label">
                                                     <span className="label-text">Project Objectives</span>
                                                 </label>
-                                                <div className='pb-2'>
-                                                    <input type="text" placeholder="Enter your objective" className="input input-bordered w-full" />
-                                                </div>
-                                                <div className='pb-2'>
-                                                    <input type="text" placeholder="Enter your objective" className="input input-bordered w-full" />
-                                                </div>
-                                                <div className='pb-2'>
-                                                    <input type="text" placeholder="Enter your objective" className="input input-bordered w-full" />
-                                                </div>
-                                                <div className='pb-2 pl-2'>
-                                                    <button className='text-primary'>+ New List</button>
-                                                </div>
+                                                <Addnewprojectobj />
                                             </div>
                                         </div>
                                         <div className="mt-3">
@@ -103,7 +96,7 @@ const AddModal = () => {
                                                 <label className="label">
                                                     <span className="label-text">Project Team Members</span>
                                                 </label>
-                                                <input type="text" placeholder="Enter project team members" className="input input-bordered w-full" />
+                                                <input type="text" placeholder="Enter project team members" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
                                         <div className="mt-3">
@@ -111,7 +104,7 @@ const AddModal = () => {
                                                 <label className="label">
                                                     <span className="label-text">Stakeholders</span>
                                                 </label>
-                                                <input type="text" placeholder="Enter stakeholders" className="input input-bordered w-full" />
+                                                <input type="text" placeholder="Enter stakeholders" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
                                         <div className="mt-3">
@@ -119,7 +112,7 @@ const AddModal = () => {
                                                 <label className="label">
                                                     <span className="label-text">Participants</span>
                                                 </label>
-                                                <input type="text" placeholder="Enter participants" className="input input-bordered w-full" />
+                                                <input type="text" placeholder="Enter participants" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
                                         <div className="mt-3">
@@ -127,7 +120,7 @@ const AddModal = () => {
                                                 <label className="label">
                                                     <span className="label-text">Planned Budget</span>
                                                 </label>
-                                                <input type="text" placeholder="Enter planned budget" className="input input-bordered w-full" />
+                                                <input type="text" placeholder="Enter planned budget" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
                                         <div className="mt-3">
@@ -135,7 +128,7 @@ const AddModal = () => {
                                                 <label className="label">
                                                     <span className="label-text">Actual Budget</span>
                                                 </label>
-                                                <input type="text" placeholder="Enter actual budget" className="input input-bordered w-full" />
+                                                <input type="text" placeholder="Enter actual budget" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
                                         <div className="mt-3">
@@ -143,18 +136,7 @@ const AddModal = () => {
                                                 <label className="label">
                                                     <span className="label-text">Resources</span>
                                                 </label>
-                                                <div className='pb-2'>
-                                                    <input type="text" placeholder="Enter your resource" className="input input-bordered w-full" />
-                                                </div>
-                                                <div className='pb-2'>
-                                                    <input type="text" placeholder="Enter your resource" className="input input-bordered w-full" />
-                                                </div>
-                                                <div className='pb-2'>
-                                                    <input type="text" placeholder="Enter your resource" className="input input-bordered w-full" />
-                                                </div>
-                                                <div className='pb-2 pl-2'>
-                                                    <button className='text-primary'>+ New List</button>
-                                                </div>
+                                                <Addnewresource/>
                                             </div>
                                         </div>
 
@@ -169,7 +151,7 @@ const AddModal = () => {
                                                             <p className='text-base font-medium'>Start Date</p>
                                                         </label>
                                                         <div className='pb-2'>
-                                                            <input type="text" placeholder="Enter start date" className="input input-bordered w-full" />
+                                                            <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                                         </div>
                                                     </div>
                                                     <div className='col-span-9'>
@@ -177,43 +159,11 @@ const AddModal = () => {
                                                             <p className='text-base font-medium'>End Date</p>
                                                         </label>
                                                         <div className='pb-2'>
-                                                            <input type="text" placeholder="Enter end date" className="input input-bordered w-full" />
+                                                            <input type="text" placeholder="Enter end date" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className='grid grid-cols-18 gap-5 pt-2'>
-                                                    <div className='col-span-9'>
-                                                        <label className="label">
-                                                            <p className='text-base font-medium'>Phases</p>
-                                                        </label>
-                                                        <div className='pb-2'>
-                                                            <input type="text" placeholder="Enter phase" className="input input-bordered w-full" />
-                                                        </div>
-                                                        <div className='pb-2'>
-                                                            <input type="text" placeholder="Enter phase" className="input input-bordered w-full" />
-                                                        </div>
-                                                        <div className='pb-2'>
-                                                            <input type="text" placeholder="Enter phase" className="input input-bordered w-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-span-9'>
-                                                        <label className="label">
-                                                            <p className='text-base font-medium'>End Date</p>
-                                                        </label>
-                                                        <div className='pb-2'>
-                                                            <input type="text" placeholder="Enter end date" className="input input-bordered w-full" />
-                                                        </div>
-                                                        <div className='pb-2'>
-                                                            <input type="text" placeholder="Enter end date" className="input input-bordered w-full" />
-                                                        </div>
-                                                        <div className='pb-2'>
-                                                            <input type="text" placeholder="Enter end date" className="input input-bordered w-full" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className='pb-2 pl-2'>
-                                                    <button className='text-primary'>+ New List</button>
-                                                </div>
+                                                {/* <Addnewphase/> */}
                                             </div>
                                         </div>
 
@@ -222,25 +172,14 @@ const AddModal = () => {
                                                 <label className="label">
                                                     <span className="label-text">Potential Risks</span>
                                                 </label>
-                                                <div className='pb-2'>
-                                                    <input type="text" placeholder="Enter potential risks" className="input input-bordered w-full" />
-                                                </div>
-                                                <div className='pb-2'>
-                                                    <input type="text" placeholder="Enter potential risks" className="input input-bordered w-full" />
-                                                </div>
-                                                <div className='pb-2'>
-                                                    <input type="text" placeholder="Enter potential risks" className="input input-bordered w-full" />
-                                                </div>
-                                                <div className='pb-2 pl-2'>
-                                                    <button className='text-primary'>+ New List</button>
-                                                </div>
+                                                <Addnewrisk />
                                             </div>
                                         </div>
 
                                         <div className="mt-4">
                                             <button
                                                 type="button"
-                                                className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-primary hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                 onClick={hideDialog}
                                             >
                                                 Save
