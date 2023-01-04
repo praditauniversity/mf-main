@@ -6,6 +6,7 @@ import ActiveProjectCard from "../../Components/Card/ActiveProject/ActiveProject
 import ProjectProgressOverviewCard from "../../Components/ApexCharts/ProjectProgressOverview";
 import TaskOverviewCard from "../../Components/ApexCharts/TaskOverview";
 import MemberTaskCard from "../../Components/Card/MemberTask/MemberTaskCard";
+import { PrintGantt } from "../../Components/Gantt-Component/GetActivityData";
 
 const DashboardPage = () => {
     return (
@@ -13,7 +14,7 @@ const DashboardPage = () => {
             <div className="col-span-14">
                 <div className="grid grid-cols-14 gap-2">
                     <div className="col-span-4 row-span-1"> <CalendarCard /> </div>
-                    <div className="col-span-10 row-span-2"> <AppGantt  title="Gantt Chart" />  </div>
+                    <div className="col-span-10 row-span-2"> <PrintGantt /> </div>
                     <div className="col-span-4 row-span-1"> <TaskOverviewCard />  </div>
 
 

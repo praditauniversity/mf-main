@@ -11,6 +11,7 @@ import { gantt } from "dhtmlx-gantt";
 import { useRef } from "react";
 import GetProfile from "../Auth/GetProfile";
 import ListGanttByProject from "../Listbox/ListGanttName";
+import Button from "../Button";
 
 // create custom column
 gantt.config.columns = [
@@ -208,16 +209,9 @@ function addGanttTask(id, name, description, users, start_date, end_date) {
 
 function AppGantt(props) {
   console.log("RENDER");
-  const { title } = props;
+  const { title, dataGantt } = props;
   const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
 
-  const { data, loading, error } = useQuery(GET_ACTIVITY_GANTT_ID, {
-    variables: { gantt_id: ganttID }
-  });
-  const [activityData, setActivity] = useState([]);
-  
-  const [ganttData, setGantt] = useState([]);
-  const [projectData, setProject] = useState([]);
   const isUpdated = useRef(false);
   const isAdd = useRef(false);
   const isDelete = useRef(false);
@@ -360,20 +354,6 @@ function AppGantt(props) {
     }
   });
 
-  useEffect(() => {
-    if (data) {
-      console.log("Data Ready gantt");
-      setActivity(data.activityGetGanttID.data);
-      console.log("AAAAAAAAAAAA", data.activityGetGanttID.data);
-
-    } else {
-      console.log("No data gantt");
-    }
-    console.log("USE EFFECT gantt");
-  }, [data]);
-
-  // setGantt(data.ganttGetProjectID.data);
-
   function subStringDate(str) {
     return str.substring(0, 10);
   }
@@ -381,28 +361,11 @@ function AppGantt(props) {
   // mapping data
   function MappingData() {
     const profile = GetProfile();
-    const dataGantt = ganttData.map((gantt) => {
-      if (profile.id === gantt.user_id) {
-        const startDate = subStringDate(gantt.start_time);
-        const endDate = subStringDate(gantt.end_time);
 
-        ganttTask.data.push({
-          id: gantt.ID,
-          name: gantt.name,
-          description: gantt.description,
-          users: gantt.user_id,
-          start_date: startDate,
-          end_date: endDate,
-        });
-      }
-    });
-
-    const dataActivity = activityData.map((activity) => {
-      console.log("BBBBBBBBBBBBBBBb", activity);
+    const dataActivity = dataGantt.map((activity) => {
+      // console.log("is activity data?", activity);
         const startDate = subStringDate(activity.start_time);
         const endDate = subStringDate(activity.end_time);
-
-        console.log("CCCCCCCCCCCCCCCCC", String(activity.parent_id), typeof activity.parent_id);
 
         ganttTask.data.push({
           id: activity.ID,
@@ -415,13 +378,21 @@ function AppGantt(props) {
         });
     });
 
-    if (dataActivity.length > 0) {
+    if (dataGantt.length > 0) {
       return (
         <div className="h-full">
           {console.log("mapping data", ganttTask)}
           <Gantt tasks={ganttTask} action={handler} />
         </div>
       );
+    }else{
+      return (
+      <div className="h-full px-12 align-middle">
+        {/* {console.log("Data Not Found")} */}
+        <p className="text-center align-middle">Gantt is Empty</p>
+        <Button onClick={""} label="ADD GANTT"></Button>
+      </div>
+      )
     }
   }
 

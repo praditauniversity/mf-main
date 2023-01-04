@@ -237,6 +237,42 @@ export function CostHealth(props) {
     return <div>{printCostHealth()}</div>;
 }
 
+export function ScheduleHealth(props) {
+    const profile = GetProfile();
+    const { value } = props;
+    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+        variables: { id: value },
+    });
+    const [projectData, setProject] = useState([]);
+    useEffect(() => {
+        if (data) {
+            console.log("Data Ready");
+            setProject(data.project.Data);
+            console.log(projectData);
+        } else {
+            console.log("No data");
+        }
+    }, [data]);
+
+    function printScheduleHealth() {
+        var scheduleHealth = "";
+        projectData.map((project) => {
+            if (profile.id === project.user_id) {
+                scheduleHealth = project.schedule_health;
+            }
+        });
+        return (
+            <div>
+                <p>
+                    {scheduleHealth}
+                </p>
+            </div>
+        );
+    }
+
+    return <div>{printScheduleHealth()}</div>;
+}
+
 export function ProgressPercentage(props) {
     const profile = GetProfile();
     const {value} = props;

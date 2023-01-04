@@ -2,11 +2,15 @@ import React from "react";
 import CrudProject from "../../Components/Project/crud-project";
 import Responses from "../Responses";
 import FetchProject from "../../Middleware/Fetchers/FetchProject";
+import GetProfile from "../../Components/Auth/GetProfile";
 
 export const RenderProject = () => {
+    const profile = GetProfile();
     const project = FetchProject();
 
-    return project ? project.map(({ ID, name, description }) => (
+    return project ? project.map(({ ID, name, description, user_id }) => (
+        <>
+        {user_id === profile.id ? (
         <div key={ID} className="py-3 px-2 border-b border-slate-200">
             <div className="flex items-center ">
                 <div className="flex ml-2 items-center">
@@ -17,7 +21,13 @@ export const RenderProject = () => {
                 </div>
             </div>
         </div>
-    )) : null;
+        ) : (
+            <div>You don't have any project yet</div>
+        )}
+        </>
+    )) : (
+        <div>You don't have any project yet. Please create one.</div>
+    );
 }
 
 const Project = () => {

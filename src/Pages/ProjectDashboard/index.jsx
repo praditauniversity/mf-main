@@ -18,7 +18,11 @@ import UpcomingTaskCard from "../../Components/Card/UpcomingTask/UpcomingTaskCar
 import IssuesCard from "../../Components/Card/Issues/IssuesCard";
 import AppGantt from "../../Components/Gantt-Component/AppGantt";
 import TestQuery from "../../Components/Gantt-Component/TestQuery";
-import { Actual, Cost, Budget, Danger, Variance, CostHealth } from "../../Components/GraphQL/ProjectByIdQueries";
+import TestRedux from "../../Components/Gantt-Component/TestRedux";
+import implementRedux from "../../Components/Gantt-Component/ImplementRedux";
+import { Actual, Cost, Budget, Danger, Variance, CostHealth, ScheduleHealth } from "../../Components/GraphQL/ProjectByIdQueries";
+import ImplementRedux from "../../Components/Gantt-Component/ImplementRedux";
+import ActivityData, { PrintGantt, PrintTask } from "../../Components/Gantt-Component/GetActivityData";
 
 const ProjectDashboardPage = () => {
     const [savedOption, setSavedOption] = React.useState(localStorage.getItem('projectID') ? localStorage.getItem('projectID') : "1");
@@ -58,7 +62,7 @@ const ProjectDashboardPage = () => {
                         />
                     </div>
                     <div className="col-span-3 row-span-1"> <HealthCard title="Health by Cost" description={<CostHealth value={savedOption} />} colorIcon="text-error-dark" /> </div>
-                    <div className="col-span-3 row-span-1"> <HealthCard title="Health by Schedule" description="Early Schedule" colorIcon="text-tertiary-dark" /> </div>
+                    <div className="col-span-3 row-span-1"> <HealthCard title="Health by Schedule" description={<ScheduleHealth value={savedOption} />} colorIcon="text-tertiary-dark" /> </div>
 
                     <div className="col-span-3 row-span-1"> <BudgetCard title="Budget" description={<Budget value={savedOption} />} colorIcon="text-secondary-800" /> </div>
                     <div className="col-span-3 row-span-1"> <BudgetCard title="Cost" description={<Cost value={savedOption} />} colorIcon="text-orange-dark" /> </div>
@@ -69,8 +73,11 @@ const ProjectDashboardPage = () => {
 
                     {/* Main row */}
                     <div className="col-span-5 row-span-1"> <ProjectProgressCard /> </div>
-                    <div className="col-span-10 row-span-2"> <AppGantt title="Gantt Chart" /> </div>
+                    {/* <div className="col-span-10 row-span-2"> <AppGantt title="Gantt Chart" /> </div> */}
+                    <div className="col-span-10 row-span-2"> <PrintGantt /> </div>
                     {/* <div className="col-span-10 row-span-2"> <TestQuery /> </div> */}
+                    {/* <div className="col-span-10 row-span-2"> <TestRedux /> </div> */}
+                    {/* <div className="col-span-10 row-span-2"> <ImplementRedux /> </div> */}
                     <div className="col-span-5 row-span-1"> <TaskOverviewCard /> </div>
                     <div className="col-span-full"> <TaskListCard /> </div>
                 </div>
@@ -83,7 +90,8 @@ const ProjectDashboardPage = () => {
                         <CalendarCard />
                     </div>
                     <div>
-                        <UpcomingTaskCard />
+                        {/* <UpcomingTaskCard /> */}
+                        <PrintTask />
                     </div>
                     <div>
                         <IssuesCard />

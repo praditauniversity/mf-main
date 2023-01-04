@@ -186,6 +186,7 @@ export const GET_ACTIVITY_GANTT_ID = gql`
           human_cost_plan
           human_cost_actual
           type_id
+          phase_id
         }
     }
   }
@@ -238,6 +239,7 @@ export const GET_PROJECT_DATA = gql`
           deleted_by
         }
         budget_health
+        schedule_health
         budget
       }
     }
@@ -329,6 +331,7 @@ export const GET_PROJECT_DATA_BY_ID = gql`
           deleted_by
         }
         budget_health
+        schedule_health
         budget
       }
     }

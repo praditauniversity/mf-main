@@ -9,6 +9,7 @@ import Title from "./title";
 import TitleMilestone from "./titlemilestone";
 import { IconPlus, IconEdit, IconDelete, IconList } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
+import AddModal from "../../Modal/ProjectCharterModal/AddModal";
 
 const ProjectCharterCard = (props) => {
     const { icon } = props;
@@ -21,6 +22,7 @@ const ProjectCharterCard = (props) => {
                     </div>
                     <div className="flex justify-end">
                         <div className="flex justify-between">
+                            <AddModal />
                             <button className="px-1" id="icon"><IconPlus /></button>
                             <button className="px-1" id="icon"><IconEdit /></button>
                             <button className="px-1" id="icon"><IconDelete /></button>
@@ -90,22 +92,22 @@ const ProjectCharterCard = (props) => {
                     <div className="py-6">
                         <TitleMilestone title="Milestone" />
                         <div className="flex justify-between">
-                            <MilestoneDue title="Initiation" description="Dec 23 2022"/>
-                            <MilestoneDue title="Planning" description="Mar 14 2023"/>
-                            <MilestoneDue title="Execution" description="Aug 17 2024"/>
-                            <MilestoneDue title="Evaluation" description="Dec 3 2024"/>
-                            <MilestoneDue title="Closing" description="Dec 24 2024"/>
+                            <MilestoneDue title="Initiation" description="Dec 23 2022" />
+                            <MilestoneDue title="Planning" description="Mar 14 2023" />
+                            <MilestoneDue title="Execution" description="Aug 17 2024" />
+                            <MilestoneDue title="Evaluation" description="Dec 3 2024" />
+                            <MilestoneDue title="Closing" description="Dec 24 2024" />
                         </div>
                     </div>
 
                     <div className="py-6 flex justify-start">
                         <div>
-                            <Title title="Potential Risks"/>
+                            <Title title="Potential Risks" />
                             <div>
-                                <List description="Low Performance"/>
-                                <List description="High Costs"/>
-                                <List description="Operational Changes"/>
-                                <List description="Scope Creep"/>
+                                <List description="Low Performance" />
+                                <List description="High Costs" />
+                                <List description="Operational Changes" />
+                                <List description="Scope Creep" />
                             </div>
                         </div>
                     </div>

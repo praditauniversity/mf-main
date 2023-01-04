@@ -11,7 +11,7 @@ const SubmitHandler = async (e, login, email, password, setProfile, setError) =>
         const data = response.data.login.data;
         const token = data.auth_token;
         localStorage.setItem('token', token, JSON.stringify(token));
-        window.location.href = '/#/projectdashboard';
+        window.location.href = '/#/maindashboard';
         window.location.reload();
         setProfile({
             id: data.id,

@@ -18,15 +18,15 @@ import MinutesofMeeting from "../Pages/MinuteOfMeeting";
 import Profile from "../Pages/Account";
 import UserAccount from "../Pages/Account";
 
-// const defaultLogin = () => {
-//   window.location.href = "/#/projectdashboard";
-
-//   return (
-//     <div>
-//       <ProjectDashboardPage />
-//     </div>
-//   );
-// };
+const MainRoute = async () => {
+  try {
+      window.location.href = '/#/maindashboard';
+      window.location.reload();
+      setError('');
+  } catch (err) {
+      setError(err.message);
+  }
+}
 
 export default function Routing() {
   const islogin = localStorage.getItem("token") !== null;
@@ -41,7 +41,7 @@ export default function Routing() {
   } else {
     return (
       <Routes>
-        <Route path="/" element={<MainDashboard />} />
+        <Route path="/" element={<MainRoute />} />
         <Route path="/project" element={<Project />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/pmodashboard" element={<PMODashboardPage />} />
