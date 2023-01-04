@@ -5,10 +5,10 @@ import { GET_PROJECT_DATA, GET_PROJECT_DATA_BY_USER_ID } from '../../GraphQL/Que
 import { Actual } from '../../GraphQL/ProjectByIdQueries';
 
 const ListboxProjectName = () => {
-    const [projectID, setProjectID] = React.useState(localStorage.getItem('projectID')/* ? localStorage.getItem('projectID') : "1"*/);
+    const [projectID, setProjectID] = React.useState(localStorage.getItem('projectID'));
 
     useEffect(() => {
-        // Update the selectedOption value in local storage whenever it changes
+        // Update the projectID value in local storage whenever it changes
         localStorage.setItem('projectID', projectID);
         console.log("projectID", projectID);
     }, [projectID]);
@@ -16,7 +16,7 @@ const ListboxProjectName = () => {
     function printListProjectName() {
         const profile = GetProfile();
         const { loading, error, data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
-            variables: { user_id: profile.id },
+            variables: { userId: profile.id },
         });
         const [projectData, setProject] = useState([]);
         // if (loading) return <p>Loading...</p>;
@@ -25,7 +25,7 @@ const ListboxProjectName = () => {
         useEffect(() => {
             if (data) {
                 console.log("Data Ready");
-                setProject(data.project.Data);
+                setProject(data.projectByUserId.Data);
             } else {
                 console.log("No data");
             }
@@ -33,13 +33,7 @@ const ListboxProjectName = () => {
 
         return projectData.map(({ ID, name, user_id }) => (
             <>
-                {/* {console.log("ID VALUE TYPE", typeof ID)} */}
-                {/* {console.log("ID VALUE TYPE", typeof ID.toString())} */}
-                {/* {profile.id === user_id ? ( */}
-                    <option value={ID}>{name}</option>
-                {/* ) : (
-                    <option></option>
-                )} */}
+                <option value={ID}>{name}</option>               
             </>
         ));
     }
@@ -48,7 +42,6 @@ const ListboxProjectName = () => {
         setProjectID(event.target.value);
         localStorage.setItem('ganttID', "1");
         window.location.reload();
-        // localStorage.setItem('selectedOption', selectedOption);
     };
 
     return (

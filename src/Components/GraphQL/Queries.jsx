@@ -340,8 +340,8 @@ export const GET_PROJECT_DATA_BY_ID = gql`
 `;
 
 export const GET_PROJECT_DATA_BY_USER_ID = gql`
-  query getProjectByUserId($user_id: String!) {
-    projectByUserId(user_id: $user_id) {
+  query getProjectByUserId($userId: String!) {
+    projectByUserId(userId: $userId) {
       Data {
         ID
         CreatedAt
