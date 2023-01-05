@@ -18,7 +18,14 @@ const MainDashboard = () => {
     //     { id: 5, name: "Project Anomaly 5", description: "This is project anomaly 5, totally the fifth one.", link: "/#/projectdashboard/5" },
     //     { id: 6, name: "Project Anomaly 6", description: "This is project anomaly 6, totally the sixth one.", link: "/#/projectdashboard/6" },
     // ]);
-    const projectLength = project.length;
+    // const projectLength = project.length;
+    
+    const projectLength = project.filter((item) => {
+        const todayDate = new Date();
+        const startDate = new Date(item.start_project);
+        const endDate = new Date(item.end_project);
+        return startDate <= todayDate && endDate > todayDate;
+    }).length;
 
     return (
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 2xl:grid-cols-18 lg:mt-0 mt-2 mb-7">

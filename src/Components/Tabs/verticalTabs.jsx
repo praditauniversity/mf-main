@@ -1,30 +1,74 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Tasks from "../Tasks";
 import NoTasks from "../Tasks/NoTasks";
 import Counter from "../Counter";
 import Done from "../../Assets/Icons/svg/Done.svg";
 import { useState } from "react";
+import { GET_ACTIVITY_GANTT_ID } from "../GraphQL/Queries";
+import { useQuery } from "@apollo/client";
 
 const VerticalTabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
 
-  const [someTask, setSomeTask] = useState([
-    { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Make moodboard", date: "14 Sep" },
-    { id: 2, icon: Done, projectName: "Project anomaly", taskName: "Create wireframe", date: "14 Sep" },
-    { id: 3, icon: Done, projectName: "Project anomaly", taskName: "Make the Lo-Fi model", date: "14 Sep" },
-    { id: 4, icon: Done, projectName: "Project anomaly", taskName: "Make the Hi-Fi model", date: "14 Sep" },
-    { id: 5, icon: Done, projectName: "Project anomaly", taskName: "Usability testing", date: "14 Sep" },
-  ]);
+  const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
 
-  const [someTask1, setSomeTask1] = useState([
-    { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Discovery requirements", date: "12 Sep" },
-  ]);
+  const { data, loading, error } = useQuery(GET_ACTIVITY_GANTT_ID, {
+    variables: { gantt_id: ganttID, sort: "start_time asc" }
+  });
+  const [activityData, setActivity] = useState([]);
 
-  const [someTask2, setSomeTask2] = useState([]);
+  useEffect(() => {
+    if (data) {
+      console.log("Data Ready Activity");
+      setActivity(data.activityGetGanttID.data);
+      // console.log(data.activityGetGanttID.data);
+    } else {
+      console.log("No data Activity");
+    }
+    console.log("USE EFFECT ACTIVITY");
+  }, [data]);
 
-  const someTaskLength = someTask.length;
-  const someTask1Length = someTask1.length;
-  const someTask2Length = someTask2.length;
+  const todayTaskLength = activityData.filter((item) => {
+    const todayDate = new Date();
+    const startDate = new Date(item.start_time);
+    const endDate = new Date(item.end_time);
+    const status = item.phase.name;
+    return startDate == todayDate && endDate > todayDate && status === "Todo";
+  }).length;
+
+  const overdueTaskLength = activityData.filter((item) => {
+    const todayDate = new Date();
+    const startDate = new Date(item.start_time);
+    const endDate = new Date(item.end_time);
+    const status = item.phase.name;
+    return startDate < todayDate && endDate < todayDate && status === "Todo";
+  }).length;
+
+  const nextTaskLength = activityData.filter((item) => {
+    const todayDate = new Date();
+    const startDate = new Date(item.start_time);
+    const endDate = new Date(item.end_time);
+    const status = item.phase.name;
+    return startDate > todayDate && endDate > todayDate && status === "Todo";
+  }).length;
+
+  // const [someTask, setSomeTask] = useState([
+  //   { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Make moodboard", date: "14 Sep" },
+  //   { id: 2, icon: Done, projectName: "Project anomaly", taskName: "Create wireframe", date: "14 Sep" },
+  //   { id: 3, icon: Done, projectName: "Project anomaly", taskName: "Make the Lo-Fi model", date: "14 Sep" },
+  //   { id: 4, icon: Done, projectName: "Project anomaly", taskName: "Make the Hi-Fi model", date: "14 Sep" },
+  //   { id: 5, icon: Done, projectName: "Project anomaly", taskName: "Usability testing", date: "14 Sep" },
+  // ]);
+
+  // const [someTask1, setSomeTask1] = useState([
+  //   { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Discovery requirements", date: "12 Sep" },
+  // ]);
+
+  // const [someTask2, setSomeTask2] = useState([]);
+
+  // const someTaskLength = someTask.length;
+  // const someTask1Length = someTask1.length;
+  // const someTask2Length = someTask2.length;
   
   return (
     <>
@@ -60,8 +104,8 @@ const VerticalTabs = ({ color }) => {
             <div className="mt-1">
             {
             (openTab === 1) 
-            ? (<Counter value={someTaskLength} textColor="primary" bgColor="background-snow"/>) 
-            : (<Counter value={someTaskLength} textColor="background-snow" bgColor="primary"/>)
+            ? (<Counter value={todayTaskLength} textColor="primary" bgColor="background-snow"/>) 
+            : (<Counter value={todayTaskLength} textColor="background-snow" bgColor="primary"/>)
             }
             </div>
             
@@ -94,8 +138,8 @@ const VerticalTabs = ({ color }) => {
             <div className="mt-1">
                 {
                 (openTab === 2) 
-                ? (<Counter value={someTask1Length} textColor="primary" bgColor="background-snow"/>) 
-                : (<Counter value={someTask1Length} textColor="background-snow" bgColor="primary"/>)
+                ? (<Counter value={overdueTaskLength} textColor="primary" bgColor="background-snow"/>) 
+                : (<Counter value={overdueTaskLength} textColor="background-snow" bgColor="primary"/>)
                 }
             </div>
             
@@ -129,8 +173,8 @@ const VerticalTabs = ({ color }) => {
             <div className="mt-1">
                 {
                 (openTab === 3) 
-                ? (<Counter value="0" textColor="primary" bgColor="background-snow"/>) 
-                : (<Counter value="0" textColor="background-snow" bgColor="primary"/>)
+                ? (<Counter value={nextTaskLength} textColor="primary" bgColor="background-snow"/>) 
+                : (<Counter value={nextTaskLength} textColor="background-snow" bgColor="primary"/>)
                 }
             </div>
             
@@ -141,28 +185,28 @@ const VerticalTabs = ({ color }) => {
           <div className="px-4 flex-auto rounded-lg max-h-[400px] overflow-y-scroll scrollbar">
             <div className="tab-content tab-space">
               <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                {someTaskLength === 0 
+                {todayTaskLength === 0 
                 ? <NoTasks height="100"/> 
-                : someTask.map((item) => (
-                  <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
+                : activityData.map((item) => (
+                  <Tasks id={item.ID} icon={item.icon} projectName={item.project_id} taskName={item.name} date={new Date()} />  
                 ))
                 }
               </div>
 
               <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                {someTask1Length === 0 
+                {overdueTaskLength === 0 
                 ? <NoTasks height="100"/> 
-                : someTask1.map((item) => (
-                  <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
+                : activityData.map((item) => (
+                  <Tasks id={item.ID} icon={item.icon} projectName={item.project_id} taskName={item.name} date={item.end_time} />  
                 ))
                 }
               </div>
 
               <div className={openTab === 3 ? "block" : "hidden"} id="link3">
-                {someTask2Length === 0 
+                {nextTaskLength === 0 
                 ? <NoTasks height="100"/> 
-                : someTask2.map((item) => (
-                  <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
+                : activityData.map((item) => (
+                    <Tasks id={item.ID} icon={item.icon} projectName={item.project_id} taskName={item.name} date={item.start_time} />  
                 ))
                 }
               </div>

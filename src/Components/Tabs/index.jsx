@@ -3,6 +3,7 @@ import Tasks from "../Tasks/index.jsx";
 import VerticalTabs from "./verticalTabs";
 import Trash from "../../Assets/Icons/svg/Trash.svg";
 import { useState } from "react";
+import { PrintVerticalTabs } from "../Gantt-Component/CustomActivityState/index.jsx";
 
 const Tabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);

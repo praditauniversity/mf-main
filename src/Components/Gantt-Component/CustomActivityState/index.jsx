@@ -10,6 +10,7 @@ import AppGantt from "../AppGantt";
 import UpcomingTaskCard from "../../Card/UpcomingTask/UpcomingTaskCard";
 import TestFormGantt from "../TestFormGantt";
 import TaskListCard from "../../Card/TaskList/TaskListCard";
+import VerticalTabs from "../../Tabs/verticalTabs";
 
 function useActivity() {
   const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");

@@ -30,7 +30,7 @@ const Accordion = ( { data } ) => {
                       {item.description}
                     </p>
                     <div className='mt-5'>
-                      <LinkButton link={link} id={item.ID} label="View Details"/>
+                      <LinkButton link={item.link} id={item.ID} label="View Details"/>
                     </div>
                   </div>
               </div>
