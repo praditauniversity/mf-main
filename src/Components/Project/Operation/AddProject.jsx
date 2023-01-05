@@ -6,36 +6,55 @@ import { InputField } from "../../Input/Input";
 const GET_PROJECT = gql`query project { project { Data { ID name description user_id } } }`;
 const ADD_PROJECT = gql`
     mutation addProject (
-        $name: String!
-        $description: String!
-        $company: String!
-        $office_location: String!
+        $stetus: String!,
+        $work_area: String!,
+        $start_project: String!,
+        $stakeholder_amount: Int!,
+        $role_id: Int!,
+        $type_id: Int!,
+        $company: String!,
+        $considered_success_when: String!,
+        $cost_actual: Int!,
+        $cost_plan: Int!,
+        $currency_name: String!,
+        $currency_code: String!,
+        $currency_symbol: String!,
+        $description: String!,
+        $end_project: String!,
+        $name: String!,
+        $office_location: String!,
+        $phase_id: Int!,
+        $potential_risk: [String]!,
+        $project_duration: Int!,
+        $project_objectives: [String]!,
+        $progress_percentage: Float!,
+        $budget: Int!
     ) {
     addProject(
         input: {
-            name: $name,
-            description: $description,
-            status: "Hello World",
-            work_area: "Jakarta",
-            start_project: "2022-10-20T11:04:48.377+07:00",
+            status: "None", 
+            work_area: "Other Dimensions", 
+            start_project: "2023-02-05T11:04:48.377+07:00",
             stakeholder_ammount: 10,
             role_id: 10,
-            project_type_id: 10,
-            budget_health: "OK",
-            company: $company,
+            type_id: 1,
+            company: "Anomaly co.",
             considered_success_when: "Everything is done.",
-            cost_actual: 1.5,
-            cost_plan: 1.5,
+            cost_actual: 700000,
+            cost_plan: 440000,
             currency_name: "Indonesian Rupiahs",
             currency_code: "IDR",
             currency_symbol: "IDR",
-            end_project: "2022-10-20T11:04:48.377+07:00",
-            office_location: $office_location,
+            description: "A Project of anomaly",
+            end_project: "2023-03-13T11:04:48.377+07:00",
+            name: "Anomaly Project", 
+            office_location: "Other Dimesions",
             phase_id: 1,
-            potential_risk: "Others",
+            potential_risk: ["deadline late", "engagement failure", "run of budget"],
             project_duration: 10,
-            project_objectives: "2022-10-20T11:04:48.377+07:00",
-            progress_percentage: 1.5
+            project_objectives: ["make everything good", "increase efficiency"],
+            progress_percentage: 1.5,
+            budget: 56000
         }
     )   {
             Data {
@@ -65,12 +84,8 @@ const AddProject = () => {
         e.preventDefault();
         addProject({
             variables: {
-                name,
-                description,
-                company,
-                office_location,
-                // start_project,
-                // end_project
+                status: $status,
+                
             }
         });
         setName('');
