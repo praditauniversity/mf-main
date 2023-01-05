@@ -35,7 +35,7 @@ gantt.config.columns = [
         name: "progress",
         label: "Progress(%)",
         template(obj) {
-            return obj.progress;
+            return Math.round(obj.progress * 100) / 100;
         },
     },
     { name: "add", width: 44 },
@@ -127,77 +127,122 @@ gantt.config.columns = [
         focus: (node) => { },
     };
 
-    gantt.form_blocks.my_editor = {
+    gantt.form_blocks.activity_editor = {
         render: function (sns) {
             return (
-                "<Dialog as='div' class='relative left' onClose={hideDialog} open={true}>" +
                 "<div class='dhx_cal_ltext px-4'>" +
-                "<div class='mt-3'>" +
-                "<div class='form-control w-full'>" +
+                "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>Project Name</span>" +
+                "<span class='label-text'>Activity Name</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter project name' class='editor_project input input-bordered w-full' />" +
+                "<input type='text' placeholder='Enter activity name' class='editor_name input input-bordered w-full' />" +
                 "</div>" +
-                "</div>" +
-                "<div class='mt-3'>" +
-                "<div class='form-control w-full'>" +
+                "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>Project Manager</span>" +
+                "<span class='label-text'>Activity Name</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter your name' class='editor_description input input-bordered w-full' />" +
+                "<input type='text' placeholder='Enter activity name' class='editor_description input input-bordered w-full' />" +
                 "</div>" +
-                "</div>" +
-                "</div>" +
-                "</Dialog>" +
 
-                "<div class='dhx_cal_ltext px-4' style='height:px;'>" +
-                "Activity" +
-                "<br/>" +
-                "<div class='w-full'>" +
+                "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>Project Name</span>" +
+                "<span class='label-text'>Activity Name</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter project name' class='editor_project input input-bordered w-full' />" +
+                "<input type='text' placeholder='Enter weight_percentage' class='editor input input-bordered w-full' />" +
                 "</div>" +
-                "<br/>" +
-                "Description" +
-                "<br/>" +
-                "<input class='editor_description border-solid border-2 py-1 px-2' type='text'>" +
+
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>Activity Name</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter progress_percentage' class='editor input input-bordered w-full' />" +
+                "</div>" +
+
+
                 "</div>"
             );
         },
         set_value: function (node, value, task) {
-            node.querySelector(".editor_project").value = task.name || "";
+            node.querySelector(".editor_name").value = task.name || "";
             node.querySelector(".editor_description").value = task.description || "";
         },
         get_value: function (node, task) {
             task.description = node.querySelector(".editor_description").value;
-            task.name = node.querySelector(".editor_project").value;
+            task.name = node.querySelector(".editor_name").value;
         },
         focus: function (node) {
-            var a = node.querySelector(".editor_project");
+            var a = node.querySelector(".editor_name");
+            a.select();
+            a.focus();
+        },
+    };
+
+    gantt.form_blocks.select_editor = {
+        render: function (sns) {
+            return (
+                "<div class='dhx_cal_ltext px-4'>" +
+
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>Activity Name</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter activity name' class='editor_name input input-bordered w-full' />" +
+                "</div>" +
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>Activity Name</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter activity name' class='editor_description input input-bordered w-full' />" +
+                "</div>" +
+
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>Activity Name</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' />" +
+                "</div>" +
+
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>Activity Name</span>" +
+                "</label>" +
+                // "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' />" +
+                "{MappingPhase()}" +
+                "</div>" +
+
+
+                "</div>"
+            );
+        },
+        set_value: function (node, value, task) {
+            node.querySelector(".editor_name").value = task.name || "";
+            node.querySelector(".editor_description").value = task.description || "";
+        },
+        get_value: function (node, task) {
+            task.description = node.querySelector(".editor_description").value;
+            task.name = node.querySelector(".editor_name").value;
+        },
+        focus: function (node) {
+            var a = node.querySelector(".editor_name");
             a.select();
             a.focus();
         },
     };
 })();
 
-// scheduler.locale.labels.day_activity = "Activity";
-// scheduler.locale.labels.section_details = "Details";
-// scheduler.locale.Labels.section_activity = "Activity";
 gantt.locale.labels.section_activity = "Activity Form";
+gantt.locale.labels.section_custom = "";
 
 gantt.config.lightbox.sections = [
     {
-        name: "activity",
+        name: "activtiy",
         height: 200,
         map_to: "auto",
-        type: "my_editor",
+        type: "activity_editor",
         focus: true,
     },
+    { name: "custom", height: 30, map_to: "auto", type: "select" },
     { name: "time", height: 90, type: "datepicker", map_to: "auto" },
-    // { name: "test", height: 30, map_to: "auto", type: "my_form" },
 ];
 
 // dhtmlx cancel button
@@ -243,8 +288,9 @@ function addGanttTask(id, name, description, users, start_date, end_date) {
 
 function TestFormGantt(props) {
     console.log("RENDER");
-    const { title, dataGantt } = props;
+    const { title, dataGantt, dataPhase } = props;
     const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
+    const [phaseID, setPhaseID] = useState();
 
     const isUpdated = useRef(false);
     const isAdd = useRef(false);
@@ -392,64 +438,87 @@ function TestFormGantt(props) {
         return str.substring(0, 10);
     }
 
-    // mapping data
-    function MappingData() {
-        const profile = GetProfile();
+    function MappingPhase() {
+        const handleChange = (event) => {
+            setPhaseID(event.target.value);
+        };
 
-        const dataActivity = dataGantt.map((activity) => {
-            // console.log("is activity data?", activity);
-            const startDate = subStringDate(activity.start_time);
-            const endDate = subStringDate(activity.end_time);
-
-            ganttTask.data.push({
-                id: activity.ID,
-                name: activity.name,
-                description: activity.description,
-                users: activity.user_id,
-                start_date: startDate,
-                end_date: endDate,
-                parent: String(activity.parent_id),
-            });
-        });
-
-        if (dataGantt.length > 0) {
-            return (
-                <div className="h-full">
-                    {console.log("mapping data", ganttTask)}
-                    <Gantt tasks={ganttTask} action={handler} />
-                </div>
-            );
-        } else {
-            return (
-                <div className="h-full px-12 align-middle">
-                    {/* {console.log("Data Not Found")} */}
-                    <p className="text-center align-middle">Gantt is Empty</p>
-                    <Button onClick={""} label="ADD GANTT"></Button>
-                </div>
-            )
+        function MapPhase(){
+            return dataPhase.map((phase) => {
+                // console.log("is phase data?", phase);
+                <option className="text-{{phase.color}}" value={phase.ID}>{phase.name}</option>
+            })
         }
-    }
-    const [isOpen, setIsOpen] = useState(false);
-    const showDialog = () => {
-        setIsOpen(true);
-    }
-    const hideDialog = () => {
-        setIsOpen(false);
+
+            return (
+                <select value={phaseID} onChange={handleChange} className="select select-ghost select-sm w-full max-w-lg">
+                    {/* <option value="1">Project Anomaly</option>
+                <option value="2">Project Alpha</option>
+                <option value="3">Project Beta</option>
+                <option value="4">Project Gamma</option> */}
+                    {/* {console.log("FBBBBBBBBBBBBBBBB", mapPhase)} */}
+                    {MapPhase()}
+                </select>
+            )
     }
 
-    return (
-        <div className="bg-white py-6 px-12 rounded-xl shadow-lg h-full">
+// mapping data
+function MappingData() {
+    const dataActivity = dataGantt.map((activity) => {
+        // console.log("is activity data?", activity);
+        const startDate = subStringDate(activity.start_time);
+        const endDate = subStringDate(activity.end_time);
+
+        ganttTask.data.push({
+            id: activity.ID,
+            name: activity.name,
+            description: activity.description,
+            users: activity.user_id,
+            start_date: startDate,
+            end_date: endDate,
+            parent: String(activity.parent_id),
+        });
+    });
+
+    if (dataGantt.length > 0) {
+        return (
             <div className="h-full">
-                <div className="py-5 px-4 flex justify-between">
-                    <p className="text-md">{title}</p>
-                    <ListGanttByProject />
-                </div>
-                {console.log("before mapping data should be called")}
-                <div className="py-1 px-4 h-full">{MappingData()}</div>
-                {console.log("after mapping data should be called")}
+                {console.log("mapping data", ganttTask)}
+                <Gantt tasks={ganttTask} action={handler} />
             </div>
+        );
+    } else {
+        return (
+            <div className="h-full px-12 align-middle">
+                {/* {console.log("Data Not Found")} */}
+                <p className="text-center align-middle">Gantt is Empty</p>
+                <Button label="ADD GANTT"></Button>
+            </div>
+        )
+    }
+}
+const [isOpen, setIsOpen] = useState(false);
+const showDialog = () => {
+    setIsOpen(true);
+}
+const hideDialog = () => {
+    setIsOpen(false);
+}
+
+return (
+    <div className="bg-white py-6 px-12 rounded-xl shadow-lg h-full">
+        <div className="h-full">
+            <div className="py-5 px-4 flex justify-between">
+                <p className="text-md">{title}</p>
+                <ListGanttByProject />
+            </div>
+            {console.log("before mapping data should be called")}
+            <div className="py-1 px-4 h-full">{MappingData()}</div>
+            <div className="py-1 px-4 h-full">{MappingPhase()}</div>
+            {console.log("after mapping data should be called")}
         </div>
-    );
+    </div>
+);
 }
 
 export default TestFormGantt;

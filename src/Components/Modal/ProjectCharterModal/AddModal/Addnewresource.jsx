@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import'./AddModal.css'
+import './AddModal.css'
+import '../../../../Assets/svgbutton/svgbutton.css'
+import { IconDeleteForm, IconPlusForm } from "../../../Icons/icon";
 
 const Addnewresource = () => {
     // const [inputFields, setInputFields] = useState([
@@ -32,26 +34,25 @@ const Addnewresource = () => {
             {inputFields.map((input, index) => {
                 return (
                     <div key={index}>
-                        <div>
-                            <div className="pb-2 flex justify-start" id="inputWithButton">
+                        <div className="pb-2 w-full min-w-5xl">
+                            <div className="flex justify-start">
                                 <input
-                                    className="input input-bordered border-primary-light w-full bg-table-dark"
+                                    className="input input-bordered border-primary-light w-[86%] bg-table-dark tracking-normal"
                                     name='resource'
                                     placeholder='Enter your resource'
                                     value={input.resource}
                                     onChange={event => handleFormChange(index, event)}
                                 />
-                                {(inputFields.length!==1)?<button className="text-primary ml-2" onClick={() => removeFields(index)}>X</button>:''}
-                                {/* <button onClick={() => removeFields(index)}>Remove</button> */}
-                                
+                                {inputFields.length !== 1 && <button className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2" onClick={() => removeFields(index)}><IconDeleteForm /></button>}
+                                {inputFields.length - 1 === index && <button  className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2" onClick={addFields}><IconPlusForm /></button>}
                             </div>
                         </div>
                     </div>
                 )
             })}
-            <div className='pb-2 pl-2'>
+            {/* <div className='pb-2 pl-2'>
                 <button className='text-primary' onClick={addFields}>+ New List</button>
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { IconPlus, IconEdit, IconDelete, IconList } from "../../Icons/icon";
 import DailyReportList from "./DaiilyReportList";
 import '../../../Assets/svgbutton/svgbutton.css'
+import AddModalDailyReport from "../../Modal/DailyReportModal/AddModal/AddModal";
 
 const DailyReportCard = (props) => {
     const { icon } = props;
@@ -14,7 +15,7 @@ const DailyReportCard = (props) => {
                     </div>
                     <div className="flex justify-end">
                         <div className="flex justify-between">
-                            <button className="px-1" id="icon"><IconPlus /></button>
+                            <div className="px-1" ><AddModalDailyReport /></div>
                             <button className="px-1" id="icon"><IconEdit /></button>
                             <button className="px-1" id="icon"><IconDelete /></button>
                         </div>

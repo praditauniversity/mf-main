@@ -60,6 +60,7 @@ export const GET_PROJECT_BY_ID = gql`
 `;
 
 
+
 // Gantt Queries and Mutations
 export const ADD_GANTT = gql`
     mutation addGantt(

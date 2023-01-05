@@ -36,7 +36,7 @@ export const SideBar = () => {
     const Logo = () => {
         return (
             <>
-                <a href="/#/project" className="flex flex-row items-center"> <img src={logo} alt="logo" className="w-8 h-8" /> </a>
+                <a href="/#/maindashboard" className="flex flex-row items-center"> <img src={logo} alt="logo" className="w-8 h-8" /> </a>
                 <p className="font-bold text-gray-500 dark:text-gray-200" style={{ fontSize: "7px" }}>CORE</p>
             </>
         );

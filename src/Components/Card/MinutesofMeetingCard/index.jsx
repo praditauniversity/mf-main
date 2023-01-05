@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState} from "react";
 import MinutesofMeetingList from "./MinutesofMeetingList";
 import { IconPlus, IconEdit, IconDelete, IconFilter, IconSearch } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
 import { InputField } from "../../Input/Input";
+import TableFooter from "./TableFooter";
+import AddModalMinutesOfMeeting from "../../Modal/MinutesOfMeetingModal/AddModal/AddModal";
 
 const MinutesofMeetingCard = (props) => {
     const { icon } = props;
     const iconA = <IconSearch />;
+
+    const [page, setPage] = useState(1);
+
+    const [currentPage, setCurrentPage] = useState(1)
+    const [itemsPerPage] = useState(10)
+    const [totalItems, setTotalItems] = useState(10)
+    const totalPages = Math.ceil(totalItems / itemsPerPage)
+
+    const handlePageChange = (page) => {
+      setCurrentPage(page)
+    }
+
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
             <div>
@@ -16,12 +30,13 @@ const MinutesofMeetingCard = (props) => {
                     </div>
                     <div className="flex justify-end">
                         <div className="flex justify-between">
-                            <button className="px-1" id="icon"><IconPlus /></button>
+                            <AddModalMinutesOfMeeting />
                             <button className="px-1" id="icon"><IconEdit /></button>
                             <button className="px-1" id="icon"><IconDelete /></button>
                         </div>
                     </div>
                 </div>
+
                 <div className="px-36">
                     <div className="py-6 flex justify-between">
                         <div>
@@ -82,8 +97,12 @@ const MinutesofMeetingCard = (props) => {
                     </div>
 
                     <div className="py-2">
-                        <div className="content-end items-end bg-grey-light">
-                            <p className="text-sm font-semibold opacity-70">paging should here</p>
+                        <div className="content-end items-end">
+                            <TableFooter 
+                                totalPages={totalPages} 
+                                currentPage={currentPage} 
+                                onPageChange={handlePageChange}  
+                            />
                         </div>
                     </div>
 

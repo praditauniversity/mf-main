@@ -1,14 +1,14 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import '../../../../Assets/svgbutton/svgbutton.css'
-import Addnewprojectobj from './Addnewprojectobj';
-import Addnewresource from './Addnewresource';
-import Addnewphase from './Addnewphase';
-import Addnewrisk from './Addnewrisk';
+// import Addnewprojectobj from './Addnewprojectobj';
+// import Addnewresource from './Addnewresource';
+// import Addnewphase from './Addnewphase';
+// import Addnewrisk from './Addnewrisk';
 import { IconDateForm, IconPlus, IconSaveForm } from '../../../Icons/icon';
 import './AddModal.css'
 
-const AddModalProjectCharter = () => {
+const AddModalMinutesOfMeeting = () => {
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
@@ -50,12 +50,12 @@ const AddModalProjectCharter = () => {
                                             as="h3"
                                             className="text-lg font-bold leading-6"
                                         >
-                                            Project Charter
+                                            Minutes Of Meeting
                                         </Dialog.Title>
                                         <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
-                                                    <span className="label-text">Project Name</span>
+                                                    <span className="label-text">Meeting or Project Name</span>
                                                 </label>
                                                 <input type="text" placeholder="Enter project name" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
@@ -68,6 +68,31 @@ const AddModalProjectCharter = () => {
                                                 <input type="text" placeholder="Enter your name" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
+                                        
+                                        <div className="mt-3">
+                                            <label className="label">
+                                                <span className="label-text">Date</span> 
+                                            </label>
+                                            <div className="pb-2 w-full min-w-5xl" id="buttonInside">
+                                                <div className="flex justify-start">
+                                                    <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" />
+                                                    <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-3">
+                                            <label className="label">
+                                                <span className="label-text">Time</span> 
+                                            </label>
+                                            <div className="pb-2 w-full min-w-5xl" id="buttonInside">
+                                                <div className="flex justify-start">
+                                                    <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" />
+                                                    <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
@@ -84,14 +109,14 @@ const AddModalProjectCharter = () => {
                                                 <textarea className="textarea textarea-bordered h-36 w-full bg-table-dark border-primary-light" placeholder="Enter a project description"></textarea>
                                             </div>
                                         </div>
-                                        <div className="mt-3">
+                                        {/* <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
                                                     <span className="label-text">Project Objectives</span>
                                                 </label>
                                                 <Addnewprojectobj />
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
@@ -132,14 +157,14 @@ const AddModalProjectCharter = () => {
                                                 <input type="text" placeholder="Enter actual budget" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
-                                        <div className="mt-3">
+                                        {/* <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
                                                     <span className="label-text">Resources</span>
                                                 </label>
                                                 <Addnewresource />
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         {/* <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
@@ -196,16 +221,16 @@ const AddModalProjectCharter = () => {
                                             </div>
                                         </div>
 
-                                        <div className="mt-3">
+                                        {/* <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
                                                     <span className="label-text">Potential Risks</span>
                                                 </label>
                                                 <Addnewrisk />
                                             </div>
-                                        </div>
+                                        </div> */}
 
-                                        <div className="mt-10">
+                                        {/* <div className="mt-10">
                                             <div className='flex justify-end'>
                                                 <button
                                                     type="button"
@@ -217,7 +242,7 @@ const AddModalProjectCharter = () => {
                                                 </button>
                                             </div>
 
-                                        </div>
+                                        </div> */}
                                     </Dialog.Panel>
                                 </Transition.Child>
                             </div>
@@ -239,4 +264,4 @@ const AddModalProjectCharter = () => {
         </>
     )
 }
-export default AddModalProjectCharter;
+export default AddModalMinutesOfMeeting;

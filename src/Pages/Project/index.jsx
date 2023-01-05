@@ -10,7 +10,6 @@ export const RenderProject = () => {
 
     return project ? project.map(({ ID, name, description, user_id }) => (
         <>
-        {/* {user_id === profile.id ? ( */}
         <div key={ID} className="py-3 px-2 border-b border-slate-200">
             <div className="flex items-center ">
                 <div className="flex ml-2 items-center">
@@ -21,9 +20,6 @@ export const RenderProject = () => {
                 </div>
             </div>
         </div>
-        {/* ) : (
-            <div>You don't have any project yet</div>
-        )} */}
         </>
     )) : (
         <div>You don't have any project yet. Please create one.</div>

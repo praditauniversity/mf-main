@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { GET_ACTIVITY_GANTT_ID } from "../../GraphQL/Queries";
+import { GET_ACTIVITY_GANTT_ID, GET_ACTIVITY_PHASE_DATA } from "../../GraphQL/Queries";
 import {
   ADD_GANTT,
   UPDATE_GANTT,
@@ -9,6 +9,7 @@ import {
 import AppGantt from "../AppGantt";
 import UpcomingTaskCard from "../../Card/UpcomingTask/UpcomingTaskCard";
 import TestFormGantt from "../TestFormGantt";
+import TaskListCard from "../../Card/TaskList/TaskListCard";
 
 function useActivity() {
   const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
@@ -32,6 +33,26 @@ function useActivity() {
   return [activityData, setActivity];
 }
 
+function useActivityPhase(){
+  const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
+
+  const { data, loading, error } = useQuery(GET_ACTIVITY_PHASE_DATA);
+  const [activityPhaseData, setActivityPhaseData] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      console.log("Data Ready Phase");
+      setActivityPhaseData(data.activityPhase.data);
+      console.log(data.activityPhase.data);
+    } else {
+      console.log("No data Phase");
+    }
+    console.log("USE EFFECT Phase");
+  }, [data]);
+
+  return [activityPhaseData, setActivityPhaseData];
+}
+
 export const PrintTask = () => {
   const [activityData, setActivity] = useActivity();
 
@@ -39,6 +60,15 @@ export const PrintTask = () => {
     <UpcomingTaskCard dataTask={activityData} />
   </>
 }
+
+export const PrintTaskList = () => {
+  const [activityData, setActivity] = useActivity();
+
+  return <>
+    <TaskListCard dataTask={activityData} />
+  </>
+}
+
 export const PrintGantt = (props) => {
   const {title} = props;
   const [activityData, setActivity] = useActivity();
@@ -51,8 +81,9 @@ export const PrintGantt = (props) => {
 export const TEST_TestFormGantt = (props) => {
   const {title} = props;
   const [activityData, setActivity] = useActivity();
+  const [activityPhaseData, setActivityPhaseData] = useActivityPhase();
 
   return <>
-   <TestFormGantt title={title} dataGantt={activityData} />
+   <TestFormGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData}  />
   </>
 }

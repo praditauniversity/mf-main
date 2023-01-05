@@ -34,8 +34,8 @@ const UpcomingTaskCard = (props) => {
                                     <div className="flex justify-end">
                                         <div className="dropdown dropdown-button dropdown-end">
                                             {/* <button tabIndex={0} className="btn btn-outline text-xs">:</button> */}
-                                            <button tabIndex={0} className="text-base font-black">:</button>
-                                            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
+                                            <button tabIndex={task.ID} className="text-base font-black">:</button>
+                                            <ul tabIndex={task.ID} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
                                                 <li><a>Edit</a></li>
                                                 <li><a>Delete</a></li>
                                             </ul>

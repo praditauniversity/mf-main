@@ -9,8 +9,8 @@ import Title from "./title";
 import TitleMilestone from "./titlemilestone";
 import { IconPlus, IconEdit, IconDelete, IconList } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
-import AddModal from "../../Modal/ProjectCharterModal/AddModal/AddModal";
 import DeleteModal from "../../Modal/ProjectCharterModal/DeleteModal/DeleteModal";
+import AddModalProjectCharter from "../../Modal/ProjectCharterModal/AddModal/AddModal";
 
 const ProjectCharterCard = (props) => {
     const { icon } = props;
@@ -23,7 +23,7 @@ const ProjectCharterCard = (props) => {
                     </div>
                     <div className="flex justify-end">
                         <div className="flex justify-between">
-                            <AddModal />
+                            <AddModalProjectCharter />
                             {/* <button className="px-1" id="icon"><IconPlus /></button> */}
                             <button className="px-1" id="icon"><IconEdit /></button>
                             <DeleteModal/>
@@ -53,7 +53,6 @@ const ProjectCharterCard = (props) => {
                                 <List description="Implementation and building Anomaly Application" />
                                 <List description="Testing Anomaly Application" />
                                 <List description="Maintenance Anomaly Application" />
-                                <div className="bg-primary-light h-10 w-10"></div>
                             </div>
                         </div>
                     </div>

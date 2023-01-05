@@ -26,6 +26,8 @@ const ListboxProjectName = () => {
             if (data) {
                 console.log("Data Ready");
                 setProject(data.projectByUserId.Data);
+                // console.log("FFFFFFFFFFFFFFf", data.projectByUserId.Data[0].ID);
+                localStorage.setItem('projectID', data.projectByUserId.Data[0].ID);
             } else {
                 console.log("No data");
             }

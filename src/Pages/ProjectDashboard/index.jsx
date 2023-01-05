@@ -22,7 +22,7 @@ import TestRedux from "../../Components/Gantt-Component/TestRedux";
 import implementRedux from "../../Components/Gantt-Component/ImplementRedux";
 import { Actual, Cost, Budget, Danger, Variance, CostHealth, ScheduleHealth } from "../../Components/GraphQL/ProjectByIdQueries";
 import ImplementRedux from "../../Components/Gantt-Component/ImplementRedux";
-import ActivityData, { PrintGantt, PrintTask, TEST_TestFormGantt } from "../../Components/Gantt-Component/CustomActivityState";
+import ActivityData, { PrintGantt, PrintTask, PrintTaskList, TEST_TestFormGantt } from "../../Components/Gantt-Component/CustomActivityState";
 import TestFormGantt from "../../Components/Gantt-Component/TestFormGantt";
 
 const ProjectDashboardPage = () => {
@@ -78,7 +78,10 @@ const ProjectDashboardPage = () => {
                     {/* <div className="col-span-10 row-span-2"> <PrintGantt title="Gantt Chart" /> </div> */}
                     {/* <div className="col-span-10 row-span-2"> <TEST_TestFormGantt title="Gantt Chart" /> </div> */}
                     <div className="col-span-5 row-span-1"> <TaskOverviewCard /> </div>
-                    <div className="col-span-full"> <TaskListCard /> </div>
+                    <div className="col-span-full"> 
+                        {/* <TaskListCard />  */}
+                        {<PrintTaskList/>}
+                    </div>
                 </div>
             </div>
 
