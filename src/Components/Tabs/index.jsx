@@ -3,16 +3,17 @@ import Tasks from "../Tasks/index.jsx";
 import VerticalTabs from "./verticalTabs";
 import Trash from "../../Assets/Icons/svg/Trash.svg";
 import { useState } from "react";
-import { PrintVerticalTabs } from "../Gantt-Component/CustomActivityState/index.jsx";
+import FetchActivity from "../../Middleware/Fetchers/FetchActivity.jsx";
 
 const Tabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
+  const activityData = FetchActivity();
 
-  const [someTask, setSomeTask] = useState([
-    { id: 1, icon: Trash, projectName: "Project anomaly", taskName: "Make project charter", date: "30 Aug" },
-    { id: 2, icon: Trash, projectName: "Project anomaly", taskName: "Plan the BMC with team", date: "30 Aug" },
-    { id: 3, icon: Trash, projectName: "Project anomaly", taskName: "User requirements", date: "30 Aug" },
-  ]);
+  // const [someTask, setSomeTask] = useState([
+  //   { id: 1, icon: Trash, projectName: "Project anomaly", taskName: "Make project charter", date: "30 Aug" },
+  //   { id: 2, icon: Trash, projectName: "Project anomaly", taskName: "Plan the BMC with team", date: "30 Aug" },
+  //   { id: 3, icon: Trash, projectName: "Project anomaly", taskName: "User requirements", date: "30 Aug" },
+  // ]);
 
   return (
     <>
@@ -74,9 +75,15 @@ const Tabs = ({ color }) => {
                 </div>
 
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  {someTask.map((item) => (
-                    <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
-                  ))}
+                  {activityData.map((item) => {
+                    const status = item.phase.name;
+                    if ( status === "Done") {
+                      return (
+                        <Tasks id={item.ID} icon={Trash} projectName="Project Z" taskName={item.name} date={item.start_time} />  
+                      )
+                    }
+                  })
+                  }
                 </div>
 
               </div>

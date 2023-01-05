@@ -102,27 +102,27 @@ const AddProject = () => {
         console.log(typeof stakeholder_ammount);
         addProject({
             variables: {
-                status: "active",
-                work_area: "work_area",
-                start_project: "2023-02-05T11:04:48.377+07:00",
+                status,
+                work_area,
+                start_project,
                 stakeholder_ammount,
                 role_id,
                 type_id,
-                company: "company",
-                considered_success_when: "considered_success_when",
+                company,
+                considered_success_when,
                 cost_actual,
                 cost_plan,
-                currency_name: "currency_name",
-                currency_code: "currency_code",
-                currency_symbol: "currency_symbol",
-                description: "description",
-                end_project: "2023-02-05T11:04:48.377+07:00",
-                name: "aaa",
-                office_location: "office_location",
+                currency_name,
+                currency_code,
+                currency_symbol,
+                description,
+                end_project,
+                name,
+                office_location,
                 phase_id,
-                potential_risk: "potential_risk",
+                potential_risk,
                 project_duration,
-                project_objectives: "aaa",
+                project_objectives,
                 progress_percentage,
                 budget
             }
@@ -178,7 +178,7 @@ const AddProject = () => {
                 <InputField value={project_duration} label={"Project Duration"} name={"project_duration"} placeholder={"Project Duration"} type={"number"} onChange={e => setProjectDuration(parseInt(e.target.value))} />
                 <InputField value={project_objectives} label={"Project Objectives"} name={"project_objectives"} placeholder={"Project Objectives"} type={"text"} onChange={e => setProjectObjectives(e.target.value)} />
                 <InputField value={progress_percentage} label={"Progress Percentage"} name={"progress_percentage"} placeholder={"Progress Percentage"} type={"number"} onChange={e => setProgressPercentage(parseInt(e.target.value))} />
-                <InputField value={budget} label={"Budget"} name={"budget"} placeholder={"Budget"} type={"number"} onChange={e => setBudget(e.target.value)} />
+                <InputField value={budget} label={"Budget"} name={"budget"} placeholder={"Budget"} type={"number"} onChange={e => setBudget(parseInt(e.target.value))} />
                 <SubmitButton label="Add Project" />
             </form>
         </>

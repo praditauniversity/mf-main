@@ -13,6 +13,10 @@ const Accordion = ( { data } ) => {
           const startDate = new Date(item.start_project);
           const endDate = new Date(item.end_project);
           if (startDate <= todayDate && endDate > todayDate) {
+            const startDateMonth = startDate.toLocaleDateString('en-US', { month: 'short' })
+            const startDateDay = startDate.toLocaleDateString('en-US', { day: '2-digit' })
+            const endDateMonth = endDate.toLocaleDateString('en-US', { month: 'short' })
+            const endDateDay = endDate.toLocaleDateString('en-US', { day: '2-digit' })
             return (
               <div
                   tabIndex={0}
@@ -28,6 +32,11 @@ const Accordion = ( { data } ) => {
                     <h5 className="text-lg font-bold text-gray-500">Deskripsi</h5>
                     <p className="text-md text-gray-500 mt-2">
                       {item.description}
+                    </p>
+                    <br></br>
+                    <h5 className="text-lg font-bold text-gray-500">Interval</h5>
+                    <p className="text-md text-gray-500 mt-2">
+                      {startDateDay} {startDateMonth} - {endDateDay} {endDateMonth}
                     </p>
                     <div className='mt-5'>
                       <LinkButton link={item.link} id={item.ID} label="View Details"/>

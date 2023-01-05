@@ -6,27 +6,11 @@ import Done from "../../Assets/Icons/svg/Done.svg";
 import { useState } from "react";
 import { GET_ACTIVITY_GANTT_ID } from "../GraphQL/Queries";
 import { useQuery } from "@apollo/client";
+import FetchActivity from "../../Middleware/Fetchers/FetchActivity";
 
 const VerticalTabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
-
-  const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
-
-  const { data, loading, error } = useQuery(GET_ACTIVITY_GANTT_ID, {
-    variables: { gantt_id: ganttID, sort: "start_time asc" }
-  });
-  const [activityData, setActivity] = useState([]);
-
-  useEffect(() => {
-    if (data) {
-      console.log("Data Ready Activity");
-      setActivity(data.activityGetGanttID.data);
-      // console.log(data.activityGetGanttID.data);
-    } else {
-      console.log("No data Activity");
-    }
-    console.log("USE EFFECT ACTIVITY");
-  }, [data]);
+  const activityData = FetchActivity();
 
   const todayTaskLength = activityData.filter((item) => {
     const todayDate = new Date();
@@ -187,27 +171,51 @@ const VerticalTabs = ({ color }) => {
               <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                 {todayTaskLength === 0 
                 ? <NoTasks height="100"/> 
-                : activityData.map((item) => (
-                  <Tasks id={item.ID} icon={item.icon} projectName={item.project_id} taskName={item.name} date={new Date()} />  
-                ))
+                : activityData.map((item) => {
+                  const todayDate = new Date();
+                  const startDate = new Date(item.start_time);
+                  const endDate = new Date(item.end_time);
+                  const status = item.phase.name;
+                  if (startDate == todayDate && endDate > todayDate && status === "Todo") {
+                    return (
+                      <Tasks id={item.ID} icon={Done} projectName="Project Z" taskName={item.name} date={item.start_time} />  
+                    )
+                  }
+                })
                 }
               </div>
 
               <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                 {overdueTaskLength === 0 
                 ? <NoTasks height="100"/> 
-                : activityData.map((item) => (
-                  <Tasks id={item.ID} icon={item.icon} projectName={item.project_id} taskName={item.name} date={item.end_time} />  
-                ))
+                : activityData.map((item) => {
+                  const todayDate = new Date();
+                  const startDate = new Date(item.start_time);
+                  const endDate = new Date(item.end_time);
+                  const status = item.phase.name;
+                  if (startDate < todayDate && endDate < todayDate && status === "Todo") {
+                    return (
+                      <Tasks id={item.ID} icon={Done} projectName="Project Z" taskName={item.name} date={item.start_time} />  
+                    )
+                  }
+                })
                 }
               </div>
 
               <div className={openTab === 3 ? "block" : "hidden"} id="link3">
                 {nextTaskLength === 0 
                 ? <NoTasks height="100"/> 
-                : activityData.map((item) => (
-                    <Tasks id={item.ID} icon={item.icon} projectName={item.project_id} taskName={item.name} date={item.start_time} />  
-                ))
+                : activityData.map((item) => {
+                    const todayDate = new Date();
+                    const startDate = new Date(item.start_time);
+                    const endDate = new Date(item.end_time);
+                    const status = item.phase.name;
+                    if (startDate > todayDate && endDate > todayDate && status === "Todo") {
+                      return (
+                        <Tasks id={item.ID} icon={Done} projectName="Project Z" taskName={item.name} date={item.start_time} />  
+                      )
+                    }
+                  })
                 }
               </div>
 
