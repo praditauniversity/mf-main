@@ -192,7 +192,6 @@ const AddModalProjectCharter = () => {
                                                         <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
 

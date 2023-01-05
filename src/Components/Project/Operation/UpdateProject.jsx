@@ -8,17 +8,37 @@ const UPDATE_PROJECT = gql`
         $id: String!
         $name: String!
         $description: String!
+        $status: String!
+        $work_area: String!
+        $start_project: String!
+        $stakeholder_ammount: Int!
+        $role_id: Int!
+        $type_id: Int!
+        $company: String!
+        $considered_success_when: String!
+        $cost_actual: Float!
+        $cost_plan: Float!
+        $currency_name: String!
+        $currency_code: String!
+        $currency_symbol: String!
+        $end_project: String!
+        $office_location: String!
+        $phase_id: Int!
+        $potential_risk: [String]!
+        $project_duration: Int!
+        $project_objectives: [String]!
+        $progress_percentage: Float!
+        $budget: Int!
     ) {
     updateProject( id: $id, input: {
             name: $name,
             description: $description,
-            status: "Hello World"
-            work_area: "Jakarta"
-            start_project: "2022-10-20T11:04:48.377+07:00",
+            status: "None", 
+            work_area: "Other Dimensions", 
+            start_project: "2023-01-02T11:04:48.377+07:00",
             stakeholder_ammount: 10,
             role_id: 10,
-            project_type_id: 10,
-            budget_health: "OK",
+            type_id: 1,
             company: "Anomaly co.",
             considered_success_when: "Everything is done.",
             cost_actual: 1.5,
@@ -26,13 +46,14 @@ const UPDATE_PROJECT = gql`
             currency_name: "Indonesian Rupiahs",
             currency_code: "IDR",
             currency_symbol: "IDR",
-            end_project: "2022-10-20T11:04:48.377+07:00",
+            end_project: "2023-04-20T11:04:48.377+07:00",
             office_location: "Other Dimesions",
-            phase_id: 1,
-            potential_risk: "Others",
+            phase_id: $phase_id,
+            potential_risk: ["deadline late", "engagement failure", "run of budget"],
             project_duration: 10,
-            project_objectives: "2022-10-20T11:04:48.377+07:00",
-            progress_percentage: 1.5
+            project_objectives: ["make everything good", "increase efficiency"],
+            progress_percentage: 1.5,
+            budget: 770000
         }
     )   {
             Data {

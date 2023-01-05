@@ -207,8 +207,8 @@ gantt.config.columns = [
                 "<span class='label-text'>Activity Name</span>" +
                 "</label>" +
                 // "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' />" +
-                "{MappingPhase()}" +
                 "</div>" +
+                "{MappingPhase()}" +
 
 
                 "</div>"
@@ -437,88 +437,96 @@ function TestFormGantt(props) {
     function subStringDate(str) {
         return str.substring(0, 10);
     }
-
     function MappingPhase() {
         const handleChange = (event) => {
             setPhaseID(event.target.value);
         };
 
-        function MapPhase(){
+        function MapPhase() {
             return dataPhase.map((phase) => {
                 // console.log("is phase data?", phase);
-                <option className="text-{{phase.color}}" value={phase.ID}>{phase.name}</option>
+                return (
+                    <>
+                    <option value={phase.ID}>{phase.name}</option>
+                    {console.log("aaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAa", phase.name, phase.ID, "AAAAAAAAAAAAAAAaaaa")}
+                    </>
+                )
             })
         }
 
-            return (
-                <select value={phaseID} onChange={handleChange} className="select select-ghost select-sm w-full max-w-lg">
-                    {/* <option value="1">Project Anomaly</option>
+        return (
+            <select value={phaseID} onChange={handleChange} className="select select-sm w-full max-w-lg select-bordered">
+                {/* <option value="1">Project Anomaly</option>
                 <option value="2">Project Alpha</option>
                 <option value="3">Project Beta</option>
                 <option value="4">Project Gamma</option> */}
-                    {/* {console.log("FBBBBBBBBBBBBBBBB", mapPhase)} */}
-                    {MapPhase()}
-                </select>
-            )
-    }
-
-// mapping data
-function MappingData() {
-    const dataActivity = dataGantt.map((activity) => {
-        // console.log("is activity data?", activity);
-        const startDate = subStringDate(activity.start_time);
-        const endDate = subStringDate(activity.end_time);
-
-        ganttTask.data.push({
-            id: activity.ID,
-            name: activity.name,
-            description: activity.description,
-            users: activity.user_id,
-            start_date: startDate,
-            end_date: endDate,
-            parent: String(activity.parent_id),
-        });
-    });
-
-    if (dataGantt.length > 0) {
-        return (
-            <div className="h-full">
-                {console.log("mapping data", ganttTask)}
-                <Gantt tasks={ganttTask} action={handler} />
-            </div>
-        );
-    } else {
-        return (
-            <div className="h-full px-12 align-middle">
-                {/* {console.log("Data Not Found")} */}
-                <p className="text-center align-middle">Gantt is Empty</p>
-                <Button label="ADD GANTT"></Button>
-            </div>
+                {/* {console.log("FBBBBBBBBBBBBBBBB", MapPhase)} */}
+                {MapPhase()}
+            </select>
         )
     }
-}
-const [isOpen, setIsOpen] = useState(false);
-const showDialog = () => {
-    setIsOpen(true);
-}
-const hideDialog = () => {
-    setIsOpen(false);
-}
 
-return (
-    <div className="bg-white py-6 px-12 rounded-xl shadow-lg h-full">
-        <div className="h-full">
-            <div className="py-5 px-4 flex justify-between">
-                <p className="text-md">{title}</p>
-                <ListGanttByProject />
+
+    // mapping data
+    function MappingData() {
+        const dataActivity = dataGantt.map((activity) => {
+            // console.log("is activity data?", activity);
+            const startDate = subStringDate(activity.start_time);
+            const endDate = subStringDate(activity.end_time);
+
+            ganttTask.data.push({
+                id: activity.ID,
+                name: activity.name,
+                description: activity.description,
+                users: activity.user_id,
+                start_date: startDate,
+                end_date: endDate,
+                parent: String(activity.parent_id),
+            });
+        });
+
+        if (dataGantt.length > 0) {
+            return (
+                <div className="h-full">
+                    {console.log("mapping data", ganttTask)}
+                    <Gantt tasks={ganttTask} action={handler} />
+                </div>
+            );
+        } else {
+            return (
+                <div className="h-full px-12 align-middle">
+                    {/* {console.log("Data Not Found")} */}
+                    <p className="text-center align-middle">Gantt is Empty</p>
+                    <Button label="ADD GANTT"></Button>
+                </div>
+            )
+        }
+    }
+    const [isOpen, setIsOpen] = useState(false);
+    const showDialog = () => {
+        setIsOpen(true);
+    }
+    const hideDialog = () => {
+        setIsOpen(false);
+    }
+
+    return (
+        <div className="bg-white py-6 px-12 rounded-xl shadow-lg h-full">
+            <div className="h-full">
+                <div className="py-5 px-4 flex justify-between">
+                    <p className="text-md">{title}</p>
+                    <ListGanttByProject />
+                    {/* {MappingPhase()} */}
+                </div>
+                {console.log("before mapping data should be called")}
+                <div className="py-1 px-4 h-full">{MappingData()}</div>
+                    {/* {MappingPhase()} */}
+                {/* <div className="py-1 px-4">{MappingPhase()}</div> */}
+                {/* {MappingPhase()} */}
+                {console.log("after mapping data should be called")}
             </div>
-            {console.log("before mapping data should be called")}
-            <div className="py-1 px-4 h-full">{MappingData()}</div>
-            <div className="py-1 px-4 h-full">{MappingPhase()}</div>
-            {console.log("after mapping data should be called")}
         </div>
-    </div>
-);
+    );
 }
 
 export default TestFormGantt;

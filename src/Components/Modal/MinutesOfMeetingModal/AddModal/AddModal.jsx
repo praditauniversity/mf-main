@@ -5,7 +5,7 @@ import '../../../../Assets/svgbutton/svgbutton.css'
 // import Addnewresource from './Addnewresource';
 // import Addnewphase from './Addnewphase';
 // import Addnewrisk from './Addnewrisk';
-import { IconDateForm, IconPlus, IconSaveForm } from '../../../Icons/icon';
+import { IconDateForm, IconPlus, IconSaveForm, IconTime } from '../../../Icons/icon';
 import './AddModal.css'
 
 const AddModalMinutesOfMeeting = () => {
@@ -75,7 +75,7 @@ const AddModalMinutesOfMeeting = () => {
                                             </label>
                                             <div className="pb-2 w-full min-w-5xl" id="buttonInside">
                                                 <div className="flex justify-start">
-                                                    <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" />
+                                                    <input type="text" placeholder="Select date of meeting" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                                     <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button>
                                                 </div>
                                             </div>
@@ -87,8 +87,8 @@ const AddModalMinutesOfMeeting = () => {
                                             </label>
                                             <div className="pb-2 w-full min-w-5xl" id="buttonInside">
                                                 <div className="flex justify-start">
-                                                    <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                                    <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button>
+                                                    <input type="text" placeholder="Select time of meeting" className="input input-bordered w-full bg-table-dark border-primary-light" />
+                                                    <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconTime /></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -96,141 +96,41 @@ const AddModalMinutesOfMeeting = () => {
                                         <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
-                                                    <span className="label-text">Customer</span>
+                                                    <span className="label-text">Location</span>
                                                 </label>
-                                                <input type="text" placeholder="Enter customer name" className="input input-bordered w-full bg-table-dark border-primary-light" />
+                                                <input type="text" placeholder="Enter location of meeting" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Description</span>
-                                                </label>
-                                                <textarea className="textarea textarea-bordered h-36 w-full bg-table-dark border-primary-light" placeholder="Enter a project description"></textarea>
-                                            </div>
-                                        </div>
-                                        {/* <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Project Objectives</span>
-                                                </label>
-                                                <Addnewprojectobj />
-                                            </div>
-                                        </div> */}
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Project Team Members</span>
-                                                </label>
-                                                <input type="text" placeholder="Enter project team members" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Stakeholders</span>
-                                                </label>
-                                                <input type="text" placeholder="Enter stakeholders" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Participants</span>
-                                                </label>
-                                                <input type="text" placeholder="Enter participants" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Planned Budget</span>
-                                                </label>
-                                                <input type="text" placeholder="Enter planned budget" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Actual Budget</span>
-                                                </label>
-                                                <input type="text" placeholder="Enter actual budget" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                            </div>
-                                        </div>
-                                        {/* <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Resources</span>
-                                                </label>
-                                                <Addnewresource />
-                                            </div>
-                                        </div> */}
 
-                                        {/* <div className="mt-3">
+                                        <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
-                                                    <span className="label-text">Milestone</span>
+                                                    <span className="label-text">Meeting Leader</span>
                                                 </label>
-                                                <div className='grid grid-cols-18 gap-5 pb-2'>
-                                                    <div className='col-span-9'>
-                                                        <label className="label">
-                                                            <p className='text-base font-medium'>Start Date</p>
-                                                        </label>
-                                                        <div className='pb-2'>
-                                                            <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-span-9'>
-                                                        <label className="label">
-                                                            <p className='text-base font-medium'>End Date</p>
-                                                        </label>
-                                                        <div className='pb-2'>
-                                                            <input type="text" placeholder="Enter end date" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <Addnewphase/>
+                                                <input type="text" placeholder="Enter meeting ladder name" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
-                                        </div> */}
+                                        </div>
 
                                         <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
-                                                    <span className="label-text">Milestone</span>
+                                                    <span className="label-text">Meeting Objective</span>
                                                 </label>
-                                                <label className="label">
-                                                    <p className='text-base font-medium'>Start Date</p>
-                                                </label>
-                                                <div className="pb-2 w-full min-w-5xl" id="buttonInside">
-                                                    <div className="flex justify-start">
-                                                        <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                                        <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button>
-                                                    </div>
-                                                </div>
-
-                                                <label className="label">
-                                                    <p className='text-base font-medium'>End Date</p>
-                                                </label>
-                                                <div className="pb-2 w-full min-w-5xl" id="buttonInside">
-                                                    <div className="flex justify-start">
-                                                        <input type="text" placeholder="Enter end date" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                                        <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button>
-                                                    </div>
-                                                </div>
-
+                                                <input type="text" placeholder="Enter purpose of meeting" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
 
-                                        {/* <div className="mt-3">
+                                        <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
-                                                    <span className="label-text">Potential Risks</span>
+                                                    <span className="label-text">Attendees</span>
                                                 </label>
-                                                <Addnewrisk />
+                                                <textarea className="textarea textarea-bordered h-36 w-full bg-table-dark border-primary-light" placeholder="Enter meeting attendees"></textarea>
                                             </div>
-                                        </div> */}
+                                        </div>
 
-                                        {/* <div className="mt-10">
+
+                                        <div className="mt-10">
                                             <div className='flex justify-end'>
                                                 <button
                                                     type="button"
@@ -242,7 +142,7 @@ const AddModalMinutesOfMeeting = () => {
                                                 </button>
                                             </div>
 
-                                        </div> */}
+                                        </div>
                                     </Dialog.Panel>
                                 </Transition.Child>
                             </div>

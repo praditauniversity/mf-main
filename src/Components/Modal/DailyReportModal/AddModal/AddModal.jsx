@@ -3,6 +3,8 @@ import { Dialog, Transition } from '@headlessui/react';
 import '../../../../Assets/svgbutton/svgbutton.css'
 import { IconDateForm, IconPlus, IconSaveForm } from '../../../Icons/icon';
 import './AddModal.css'
+import Addnewequipment from './Addnewequipment';
+import Addnewworklog from './Addnewworklog';
 
 const AddModalDailyReport = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -101,56 +103,6 @@ const AddModalDailyReport = () => {
                                                 <label className="label">
                                                     <span className="label-text">Report Date</span>
                                                 </label>
-                                                <input type="text" placeholder="Enter your report date" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                                {/* <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button> */}
-                                            </div>
-                                        </div>
-                                        
-                                        {/* <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Project Objectives</span>
-                                                </label>
-                                                <Addnewprojectobj />
-                                            </div>
-                                        </div> */}
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Project Team Members</span>
-                                                </label>
-                                                <input type="text" placeholder="Enter project team members" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Stakeholders</span>
-                                                </label>
-                                                <input type="text" placeholder="Enter stakeholders" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Participants</span>
-                                                </label>
-                                                <input type="text" placeholder="Enter participants" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Planned Budget</span>
-                                                </label>
-                                                <input type="text" placeholder="Enter planned budget" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Actual Budget</span>
-                                                </label>
                                                 <div className="pb-2 w-full min-w-5xl" id="buttonInside">
                                                     <div className="flex justify-start">
                                                         <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" />
@@ -159,78 +111,56 @@ const AddModalDailyReport = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Resources</span>
-                                                </label>
-                                                <Addnewresource />
-                                            </div>
-                                        </div> */}
 
-                                        {/* <div className="mt-3">
+                                        <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
-                                                    <span className="label-text">Milestone</span>
+                                                    <span className="label-text">General Project Status</span>
                                                 </label>
-                                                <div className='grid grid-cols-18 gap-5 pb-2'>
-                                                    <div className='col-span-9'>
-                                                        <label className="label">
-                                                            <p className='text-base font-medium'>Start Date</p>
-                                                        </label>
-                                                        <div className='pb-2'>
+                                                {/* ini harusnya bukan input kali */}
+                                                <input type="text" placeholder="Select Status" className="input input-bordered w-full bg-table-dark border-primary-light" />
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-6">
+                                            <div className="form-control w-full max-w-5xl">
+                                                <div className='border-2 border-grey-border rounded-lg px-4 py-2'>
+                                                    <div className=''>
+                                                        <p className='text-lg font-semibold'>Work Log</p>
+                                                    </div>
+                                                    <Addnewworklog/>
+                                                    {/* <label className="label">
+                                                        <p className='text-base font-medium'>Start Date</p>
+                                                    </label>
+                                                    <div className="pb-2 w-full min-w-5xl" id="buttonInside">
+                                                        <div className="flex justify-start">
                                                             <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" />
+                                                            <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button>
                                                         </div>
                                                     </div>
-                                                    <div className='col-span-9'>
-                                                        <label className="label">
-                                                            <p className='text-base font-medium'>End Date</p>
-                                                        </label>
-                                                        <div className='pb-2'>
+
+                                                    <label className="label">
+                                                        <p className='text-base font-medium'>End Date</p>
+                                                    </label>
+                                                    <div className="pb-2 w-full min-w-5xl" id="buttonInside">
+                                                        <div className="flex justify-start">
                                                             <input type="text" placeholder="Enter end date" className="input input-bordered w-full bg-table-dark border-primary-light" />
+                                                            <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button>
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                 </div>
-                                                <Addnewphase/>
                                             </div>
-                                        </div> */}
+                                        </div>
 
                                         <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
-                                                    <span className="label-text">Milestone</span>
+                                                    <span className="label-text">Equipments</span>
                                                 </label>
-                                                <label className="label">
-                                                    <p className='text-base font-medium'>Start Date</p>
-                                                </label>
-                                                <div className="pb-2 w-full min-w-5xl" id="buttonInside">
-                                                    <div className="flex justify-start">
-                                                        <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                                        <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button>
-                                                    </div>
-                                                </div>
-
-                                                <label className="label">
-                                                    <p className='text-base font-medium'>End Date</p>
-                                                </label>
-                                                <div className="pb-2 w-full min-w-5xl" id="buttonInside">
-                                                    <div className="flex justify-start">
-                                                        <input type="text" placeholder="Enter end date" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                                        <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button>
-                                                    </div>
-                                                </div>
-
+                                                <Addnewequipment />
                                             </div>
                                         </div>
 
-                                        {/* <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Potential Risks</span>
-                                                </label>
-                                                <Addnewrisk />
-                                            </div>
-                                        </div> */}
 
                                         <div className="mt-10">
                                             <div className='flex justify-end'>
