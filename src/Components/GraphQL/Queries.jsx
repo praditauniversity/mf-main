@@ -379,6 +379,28 @@ export const GET_PROJECT_DATA_BY_USER_ID = gql`
   }
 `;
 
+export const GET_GANTT_DATA = gql`
+  query MyQuery {
+    gantt {
+      data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        project_id
+        name
+        description
+        start_time
+        end_time
+        version
+        user_id
+        updated_by
+        deleted_by
+      }
+    }
+  }
+`;
+
 export const GET_ACTIVITY_DATA = gql`
   query Activity {
     activity {
@@ -409,6 +431,18 @@ export const GET_ACTIVITY_DATA = gql`
         human_cost_actual
         activity_type
         phase_id
+        phase {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          name
+          color
+          order
+          user_id
+          updated_by
+          deleted_by
+        }
       }
     }
   }

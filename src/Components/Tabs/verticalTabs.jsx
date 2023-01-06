@@ -7,10 +7,14 @@ import { useState } from "react";
 import { GET_ACTIVITY_GANTT_ID } from "../GraphQL/Queries";
 import { useQuery } from "@apollo/client";
 import FetchActivity from "../../Middleware/Fetchers/FetchActivity";
+import FetchGantt from "../../Middleware/Fetchers/FetchGantt";
+import FetchProject from "../../Middleware/Fetchers/FetchProject";
 
 const VerticalTabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
   const activityData = FetchActivity();
+  const ganttData = FetchGantt();
+  const projectData = FetchProject();
 
   const todayTaskLength = activityData.filter((item) => {
     const todayDate = new Date();
@@ -171,16 +175,22 @@ const VerticalTabs = ({ color }) => {
               <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                 {todayTaskLength === 0 
                 ? <NoTasks height="100"/> 
-                : activityData.map((item) => {
-                  const todayDate = new Date();
-                  const startDate = new Date(item.start_time);
-                  const endDate = new Date(item.end_time);
-                  const status = item.phase.name;
-                  if (startDate == todayDate && endDate > todayDate && status === "Todo") {
-                    return (
-                      <Tasks id={item.ID} icon={Done} projectName="Project Z" taskName={item.name} date={item.start_time} />  
-                    )
-                  }
+                : projectData.map((project) => {
+                  return ganttData.map((gantt) => {
+                    return activityData.map((activity) => {
+                      if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id) {
+                        const todayDate = new Date();
+                        const startDate = new Date(activity.start_time);
+                        const endDate = new Date(activity.end_time);
+                        const status = activity.phase.name;
+                        if (startDate == todayDate && endDate > todayDate && status === "Todo") {
+                          return (
+                            <Tasks id={activity.ID} icon={Done} projectName={project.name} taskName={activity.name} date={activity.start_time} />  
+                          )
+                        }
+                      }
+                    })
+                  })
                 })
                 }
               </div>
@@ -188,16 +198,22 @@ const VerticalTabs = ({ color }) => {
               <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                 {overdueTaskLength === 0 
                 ? <NoTasks height="100"/> 
-                : activityData.map((item) => {
-                  const todayDate = new Date();
-                  const startDate = new Date(item.start_time);
-                  const endDate = new Date(item.end_time);
-                  const status = item.phase.name;
-                  if (startDate < todayDate && endDate < todayDate && status === "Todo") {
-                    return (
-                      <Tasks id={item.ID} icon={Done} projectName="Project Z" taskName={item.name} date={item.start_time} />  
-                    )
-                  }
+                : projectData.map((project) => {
+                  return ganttData.map((gantt) => {
+                    return activityData.map((activity) => {
+                      if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id) {
+                        const todayDate = new Date();
+                        const startDate = new Date(activity.start_time);
+                        const endDate = new Date(activity.end_time);
+                        const status = activity.phase.name;
+                        if (startDate < todayDate && endDate < todayDate && status === "Todo") {
+                          return (
+                            <Tasks id={activity.ID} icon={Done} projectName={project.name} taskName={activity.name} date={activity.start_time} />  
+                          )
+                        }
+                      }
+                    })
+                  })
                 })
                 }
               </div>
@@ -205,17 +221,23 @@ const VerticalTabs = ({ color }) => {
               <div className={openTab === 3 ? "block" : "hidden"} id="link3">
                 {nextTaskLength === 0 
                 ? <NoTasks height="100"/> 
-                : activityData.map((item) => {
-                    const todayDate = new Date();
-                    const startDate = new Date(item.start_time);
-                    const endDate = new Date(item.end_time);
-                    const status = item.phase.name;
-                    if (startDate > todayDate && endDate > todayDate && status === "Todo") {
-                      return (
-                        <Tasks id={item.ID} icon={Done} projectName="Project Z" taskName={item.name} date={item.start_time} />  
-                      )
-                    }
+                : projectData.map((project) => {
+                  return ganttData.map((gantt) => {
+                    return activityData.map((activity) => {
+                      if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id) {
+                        const todayDate = new Date();
+                        const startDate = new Date(activity.start_time);
+                        const endDate = new Date(activity.end_time);
+                        const status = activity.phase.name;
+                        if (startDate > todayDate && endDate > todayDate && status === "Todo") {
+                          return (
+                            <Tasks id={activity.ID} icon={Done} projectName={project.name} taskName={activity.name} date={activity.start_time} />  
+                          )
+                        }
+                      }
+                    })
                   })
+                })
                 }
               </div>
 

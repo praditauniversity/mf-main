@@ -4,9 +4,13 @@ import VerticalTabs from "./verticalTabs";
 import Trash from "../../Assets/Icons/svg/Trash.svg";
 import { useState } from "react";
 import FetchActivity from "../../Middleware/Fetchers/FetchActivity.jsx";
+import FetchGantt from "../../Middleware/Fetchers/FetchGantt.jsx";
+import FetchProject from "../../Middleware/Fetchers/FetchProject.jsx";
 
 const Tabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
+  const projectData = FetchProject();
+  const ganttData = FetchGantt();
   const activityData = FetchActivity();
 
   // const [someTask, setSomeTask] = useState([
@@ -75,15 +79,17 @@ const Tabs = ({ color }) => {
                 </div>
 
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                  {activityData.map((item) => {
-                    const status = item.phase.name;
-                    if ( status === "Done") {
-                      return (
-                        <Tasks id={item.ID} icon={Trash} projectName="Project Z" taskName={item.name} date={item.start_time} />  
-                      )
-                    }
-                  })
-                  }
+                {projectData.map((project) => {
+                  return ganttData.map((gantt) => {
+                    return activityData.map((activity) => {
+                      if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id && activity.phase.name === "Done") {
+                        return (
+                        <Tasks id={activity.ID} icon={Trash} projectName={project.name} taskName={activity.name} date={activity.end_time} />
+                        );
+                      }
+                    });
+                  });
+                })}
                 </div>
 
               </div>
