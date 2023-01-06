@@ -10,7 +10,7 @@ const UPDATE_PROJECT = gql`
         $description: String!
         $status: String!
         $work_area: String!
-        $start_project: String!
+        $start_project: DateTime!
         $stakeholder_ammount: Int!
         $role_id: Int!
         $type_id: Int!
@@ -21,7 +21,7 @@ const UPDATE_PROJECT = gql`
         $currency_name: String!
         $currency_code: String!
         $currency_symbol: String!
-        $end_project: String!
+        $end_project: DateTime!
         $office_location: String!
         $phase_id: Int!
         $potential_risk: [String]!
@@ -33,27 +33,27 @@ const UPDATE_PROJECT = gql`
     updateProject( id: $id, input: {
             name: $name,
             description: $description,
-            status: "None", 
-            work_area: "Other Dimensions", 
-            start_project: "2023-01-02T11:04:48.377+07:00",
-            stakeholder_ammount: 10,
-            role_id: 10,
-            type_id: 1,
-            company: "Anomaly co.",
+            status: $status, 
+            work_area: $work_area, 
+            start_project: $start_project,
+            stakeholder_ammount: $stakeholder_ammount,
+            role_id: $role_id,
+            type_id: $type_id,
+            company:   $company,
             considered_success_when: "Everything is done.",
-            cost_actual: 1.5,
-            cost_plan: 1.5,
-            currency_name: "Indonesian Rupiahs",
-            currency_code: "IDR",
-            currency_symbol: "IDR",
-            end_project: "2023-04-20T11:04:48.377+07:00",
-            office_location: "Other Dimesions",
+            cost_actual: $cost_actual,
+            cost_plan: $cost_plan,
+            currency_name: $currency_name,
+            currency_code: $currency_code,
+            currency_symbol: $currency_symbol,
+            end_project: $end_project,
+            office_location: $office_location,
             phase_id: $phase_id,
-            potential_risk: ["deadline late", "engagement failure", "run of budget"],
-            project_duration: 10,
-            project_objectives: ["make everything good", "increase efficiency"],
-            progress_percentage: 1.5,
-            budget: 770000
+            potential_risk: [$potential_risk],
+            project_duration: $project_duration,
+            project_objectives: [$project_objectives],
+            progress_percentage: $progress_percentage,
+            budget: $budget
         }
     )   {
             Data {
@@ -69,6 +69,27 @@ const UpdateProject = () => {
     const [id, setId] = React.useState('');
     const [name, setName] = React.useState('');
     const [description, setDescription] = React.useState('');
+    const [status, setStatus] = React.useState('');
+    const [work_area, setWorkArea] = React.useState('');
+    const [start_project, setStartProject] = React.useState('');
+    const [stakeholder_ammount, setStakeholderAmmount] = React.useState('');
+    const [role_id, setRoleId] = React.useState('');
+    const [type_id, setTypeId] = React.useState('');
+    const [company, setCompany] = React.useState('');
+    const [considered_success_when, setConsideredSuccessWhen] = React.useState('');
+    const [cost_actual, setCostActual] = React.useState('');
+    const [cost_plan, setCostPlan] = React.useState('');
+    const [currency_name, setCurrencyName] = React.useState('');
+    const [currency_code, setCurrencyCode] = React.useState('');
+    const [currency_symbol, setCurrencySymbol] = React.useState('');
+    const [end_project, setEndProject] = React.useState('');
+    const [office_location, setOfficeLocation] = React.useState('');
+    const [phase_id, setPhaseId] = React.useState('');
+    const [potential_risk, setPotentialRisk] = React.useState('');
+    const [project_duration, setProjectDuration] = React.useState('');
+    const [project_objectives, setProjectObjectives] = React.useState('');
+    const [progress_percentage, setProgressPercentage] = React.useState('');
+    const [budget, setBudget] = React.useState('');
     const [updateProject, { loading, error }] = useMutation(UPDATE_PROJECT,{
         refetchQueries: [ { query: GET_PROJECT } ]
     });

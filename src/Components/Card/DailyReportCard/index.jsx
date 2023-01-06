@@ -1,6 +1,6 @@
 import React from "react";
 import { IconPlus, IconEdit, IconDelete, IconList } from "../../Icons/icon";
-import DailyReportList from "./DaiilyReportList";
+import DailyReportList from "./DailyReportList";
 import '../../../Assets/svgbutton/svgbutton.css'
 import AddModalDailyReport from "../../Modal/DailyReportModal/AddModal/AddModal";
 
@@ -83,7 +83,7 @@ const DailyReportCard = (props) => {
                                 <div className="col-span-6">
                                     <div className="pb-2">
                                         <p className="text-sm font-semibold opacity-70">Location</p>
-                                </div>
+                                    </div>
                                     <div>
                                         <p className="text-base font-semibold">Merak Raya</p>
                                     </div>

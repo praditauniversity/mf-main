@@ -5,6 +5,7 @@ import { IconDateForm, IconPlus, IconSaveForm } from '../../../Icons/icon';
 import './AddModal.css'
 import Addnewequipment from './Addnewequipment';
 import Addnewworklog from './Addnewworklog';
+import TableDatePicker from '../../ModalDatePicker/DatePickerModal';
 
 const AddModalDailyReport = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +49,7 @@ const AddModalDailyReport = () => {
                                             as="h3"
                                             className="text-lg font-bold leading-6"
                                         >
-                                            Project Charter
+                                            Daily Report
                                         </Dialog.Title>
                                         <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
@@ -104,9 +105,10 @@ const AddModalDailyReport = () => {
                                                     <span className="label-text">Report Date</span>
                                                 </label>
                                                 <div className="pb-2 w-full min-w-5xl" id="buttonInside">
-                                                    <div className="flex justify-start">
-                                                        <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                                        <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button>
+                                                    <div className="">
+                                                        <TableDatePicker/>
+                                                        {/* <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" />
+                                                        <button id="buttonInputInside" className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"><IconDateForm /></button> */}
                                                     </div>
                                                 </div>
                                             </div>

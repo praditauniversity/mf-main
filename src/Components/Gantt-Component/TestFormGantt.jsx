@@ -35,7 +35,8 @@ gantt.config.columns = [
         name: "progress",
         label: "Progress(%)",
         template(obj) {
-            return Math.round(obj.progress * 100) / 100;
+            // return Math.round(obj.progress * 100);
+            return Math.round(obj.progress * 100);
         },
     },
     { name: "add", width: 44 },
@@ -49,9 +50,9 @@ gantt.config.columns = [
     const endDateInput = (node) => $(node).find("input[name='end']");
 
     gantt.form_blocks.datepicker = {
-        render: (sns) => {
-            const height = sns.height || 45;
-            return (
+            render: (sns) => {
+              const height = sns.height || 45;
+              return (
                 // eslint-disable-next-line prefer-template
                 "<div class='gantt-lb-datepicker px-4' style='height:" +
                 height +
@@ -60,72 +61,72 @@ gantt.config.columns = [
                 "&nbsp - &nbsp" +
                 "<input class='border-solid border-2 py-1 px-2' type='text' name='end'>" +
                 "</div>"
-            );
-        },
-        set_value: (node, value, task, section) => {
-            const datepickerConfig = {
+              );
+            },
+            set_value: (node, value, task, section) => {
+              const datepickerConfig = {
                 format: "yyyy-mm-dd",
                 autoclose: true,
                 container: gantt.$container,
-            };
-            startDatepicker(node).datepicker(datepickerConfig);
-            startDatepicker(node).datepicker(
+              };
+              startDatepicker(node).datepicker(datepickerConfig);
+              startDatepicker(node).datepicker(
                 "setDate",
                 value ? value.start_date : task.start_date
-            );
-
-            endDateInput(node).datepicker(datepickerConfig);
-            endDateInput(node).datepicker(
+              );
+        
+              endDateInput(node).datepicker(datepickerConfig);
+              endDateInput(node).datepicker(
                 "setDate",
                 value ? value.end_date : task.end_date
-            );
-
-            startDatepicker(node)
+              );
+        
+              startDatepicker(node)
                 .datepicker()
                 .on("changeDate", (e) => {
-                    const endValue = endDateInput(node).datepicker("getDate");
-                    const startValue = startDatepicker(node).datepicker("getDate");
-
-                    if (startValue && endValue) {
-                        if (endValue.valueOf() <= startValue.valueOf()) {
-                            endDateInput(node).datepicker(
-                                "setDate",
-                                gantt.calculateEndDate({
-                                    start_date: startValue,
-                                    duration: 1,
-                                    task,
-                                })
-                            );
-                        }
+                  const endValue = endDateInput(node).datepicker("getDate");
+                  const startValue = startDatepicker(node).datepicker("getDate");
+        
+                  if (startValue && endValue) {
+                    if (endValue.valueOf() <= startValue.valueOf()) {
+                      endDateInput(node).datepicker(
+                        "setDate",
+                        gantt.calculateEndDate({
+                          start_date: startValue,
+                          duration: 1,
+                          task,
+                        })
+                      );
                     }
+                  }
                 });
-        },
-        get_value: (node, task, section) => {
-            const start = startDatepicker(node).datepicker("getDate");
-            let end = endDateInput(node).datepicker("getDate");
-
-            if (end.valueOf() <= start.valueOf()) {
+            },
+            get_value: (node, task, section) => {
+              const start = startDatepicker(node).datepicker("getDate");
+              let end = endDateInput(node).datepicker("getDate");
+        
+              if (end.valueOf() <= start.valueOf()) {
                 end = gantt.calculateEndDate({
-                    start_date: start,
-                    duration: 1,
-                    task,
+                  start_date: start,
+                  duration: 1,
+                  task,
                 });
-            }
-            if (task.start_date && task.end_date) {
+              }
+              if (task.start_date && task.end_date) {
                 task.start_date = start;
                 task.end_date = end;
-            }
-
-            task.duration = gantt.calculateDuration(task);
-
-            return {
+              }
+        
+              task.duration = gantt.calculateDuration(task);
+        
+              return {
                 start_date: start,
                 end_date: end,
                 duration: task.duration,
-            };
-        },
-        focus: (node) => { },
-    };
+              };
+            },
+            focus: (node) => { },
+          };
 
     gantt.form_blocks.activity_editor = {
         render: function (sns) {
@@ -133,36 +134,20 @@ gantt.config.columns = [
                 "<div class='dhx_cal_ltext px-4'>" +
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>Activity Name</span>" +
+                "<span class='label-text'>Name</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor_name input input-bordered w-full' />" +
+                "<input type='text' placeholder='Enter activity name' class='editor_name input input-bordered w-full' name='name' />" +
                 "</div>" +
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>Activity Name</span>" +
+                "<span class='label-text'>Description</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor_description input input-bordered w-full' />" +
+                "<input type='text' placeholder='Enter activity description' class='editor_description input input-bordered w-full' name='description' />" +
                 "</div>" +
-
-                "<div class='form-control w-3/4'>" +
-                "<label class='label'>" +
-                "<span class='label-text'>Activity Name</span>" +
-                "</label>" +
-                "<input type='text' placeholder='Enter weight_percentage' class='editor input input-bordered w-full' />" +
-                "</div>" +
-
-                "<div class='form-control w-3/4'>" +
-                "<label class='label'>" +
-                "<span class='label-text'>Activity Name</span>" +
-                "</label>" +
-                "<input type='text' placeholder='Enter progress_percentage' class='editor input input-bordered w-full' />" +
-                "</div>" +
-
-
                 "</div>"
-            );
-        },
-        set_value: function (node, value, task) {
+                );
+            },
+            set_value: function (node, value, task) {
             node.querySelector(".editor_name").value = task.name || "";
             node.querySelector(".editor_description").value = task.description || "";
         },
@@ -177,60 +162,145 @@ gantt.config.columns = [
         },
     };
 
-    gantt.form_blocks.select_editor = {
+    gantt.form_blocks.percentage_editor = {
         render: function (sns) {
             return (
                 "<div class='dhx_cal_ltext px-4'>" +
 
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>Activity Name</span>" +
+                "<span class='label-text'>Weight Percentage</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor_name input input-bordered w-full' />" +
+                "<input type='text' placeholder='Enter weight percentage' class='editor_weight input input-bordered w-full' name='weight' />" +
                 "</div>" +
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>Activity Name</span>" +
+                "<span class='label-text'>Progress Percentage</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor_description input input-bordered w-full' />" +
+                "<input type='text' placeholder='Enter progress percentage' class='editor_progress input input-bordered w-full' name='progress' />" +
                 "</div>" +
-
-                "<div class='form-control w-3/4'>" +
-                "<label class='label'>" +
-                "<span class='label-text'>Activity Name</span>" +
-                "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' />" +
-                "</div>" +
-
-                "<div class='form-control w-3/4'>" +
-                "<label class='label'>" +
-                "<span class='label-text'>Activity Name</span>" +
-                "</label>" +
-                // "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' />" +
-                "</div>" +
-                "{MappingPhase()}" +
-
 
                 "</div>"
             );
         },
         set_value: function (node, value, task) {
-            node.querySelector(".editor_name").value = task.name || "";
-            node.querySelector(".editor_description").value = task.description || "";
+            node.querySelector(".editor_weight").value = task.weight || "";
+            node.querySelector(".editor_progress").value = task.progress || "";
+        },
+        get_value: function (node, task) {
+            task.weight = node.querySelector(".editor_progress").value;
+            task.progress = node.querySelector(".editor_weight").value;
+        },
+    };
+
+    gantt.form_blocks.costplan_editor = {
+        render: function (sns) {
+            return (
+                "<div class='dhx_cal_ltext px-4'>" +
+
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>Cost Plan</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter activity name' class='editor_costPlan input input-bordered w-full' name='costPlan' />" +
+                "</div>" +
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>Cost Actual</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter activity name' class='editor_costActual input input-bordered w-full' name='costActual' />" +
+                "</div>" +
+
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>material_cost_plan</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' name='materialPlan' />" +
+                "</div>" +
+
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>material_cost_actual</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' name='MaterialActual' />" + 
+                "</div>" +
+                
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>tool_cost_plan</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' name='toolPlan' />" + 
+                "</div>" +
+
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>tool_cost_actual</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' name='toolActual' />" + 
+                "</div>" +
+                
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>human_cost_plan</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' name='humanPlan' />" + 
+                "</div>" +
+                
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>human_cost_actual</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' name='humanActual' />" + 
+                "</div>" +
+                "</div>"
+            );
+        },
+        set_value: function (node, value, task) {
+            node.querySelector(".editor_name").value = task.costPlan || "";
+            node.querySelector(".editor_description").value = task.costActual || "";
+            node.querySelector(".editor_name").value = task.materialPlan || "";
+            node.querySelector(".editor_description").value = task.MaterialActual || "";
+            node.querySelector(".editor_name").value = task.toolPlan || "";
+            node.querySelector(".editor_description").value = task.toolActual || "";
+            node.querySelector(".editor_name").value = task.humanPlan || "";
+            node.querySelector(".editor_description").value = task.humanActual || "";
         },
         get_value: function (node, task) {
             task.description = node.querySelector(".editor_description").value;
             task.name = node.querySelector(".editor_name").value;
+            task.description = node.querySelector(".editor_description").value;
+            task.name = node.querySelector(".editor_name").value;
+            task.description = node.querySelector(".editor_description").value;
+            task.name = node.querySelector(".editor_name").value;
+            task.description = node.querySelector(".editor_description").value;
+            task.name = node.querySelector(".editor_name").value;
+            task.description = node.querySelector(".editor_description").value;
+            task.name = node.querySelector(".editor_name").value;
         },
-        focus: function (node) {
-            var a = node.querySelector(".editor_name");
-            a.select();
-            a.focus();
-        },
+
+        // focus: function (node) {
+        //     var a = node.querySelector(".editor_name");
+        //     a.select();
+        //     a.focus();
+        // },
     };
 })();
 
+var optionPriority = [
+    { key: "1", label: "High" },
+    { key: "2", label: "Medium" },
+    { key: "3", label: "Low" },
+];
+
+var optionPhase = [
+    { key: "1", label: "AA" },
+    { key: "2", label: "BB" },
+    { key: "3", label: "CC" },
+];
+
 gantt.locale.labels.section_activity = "Activity Form";
+gantt.locale.labels.section_priority = "Priority";
+gantt.locale.labels.section_phase = "Phase";
 gantt.locale.labels.section_custom = "";
 
 gantt.config.lightbox.sections = [
@@ -241,8 +311,11 @@ gantt.config.lightbox.sections = [
         type: "activity_editor",
         focus: true,
     },
-    { name: "custom", height: 30, map_to: "auto", type: "select" },
-    { name: "time", height: 90, type: "datepicker", map_to: "auto" },
+    { name: "time", height: 40, type: "datepicker", map_to: "auto" },
+    { name: "custom", height: 30, map_to: "auto", type: "percentage_editor"},
+    { name: "priority", height: 30, map_to: "auto", type: "select", options: optionPriority },
+    { name: "phase", height: 30, map_to: "auto", type: "select", options: optionPhase },
+    { name: "custom", height: 30, map_to: "auto", type: "costplan_editor"},
 ];
 
 // dhtmlx cancel button
@@ -437,6 +510,7 @@ function TestFormGantt(props) {
     function subStringDate(str) {
         return str.substring(0, 10);
     }
+
     function MappingPhase() {
         const handleChange = (event) => {
             setPhaseID(event.target.value);
@@ -454,18 +528,8 @@ function TestFormGantt(props) {
             })
         }
 
-        return (
-            <select value={phaseID} onChange={handleChange} className="select select-sm w-full max-w-lg select-bordered">
-                {/* <option value="1">Project Anomaly</option>
-                <option value="2">Project Alpha</option>
-                <option value="3">Project Beta</option>
-                <option value="4">Project Gamma</option> */}
-                {/* {console.log("FBBBBBBBBBBBBBBBB", MapPhase)} */}
-                {MapPhase()}
-            </select>
-        )
+        return 
     }
-
 
     // mapping data
     function MappingData() {
@@ -482,6 +546,7 @@ function TestFormGantt(props) {
                 start_date: startDate,
                 end_date: endDate,
                 parent: String(activity.parent_id),
+                progress: activity.progress_percentage/100,
             });
         });
 

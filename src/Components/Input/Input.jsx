@@ -100,3 +100,22 @@ export const SelectorField = ({ options, label }) => {
     )
 }
 
+export const DatePickerField = ({ value, label, name, placeholder, onChange, disabled, error }) => {
+    return (
+        <div className="form-group">
+            <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
+            <input
+                type="date"
+                value={value}
+                name={name}
+                className="form-control mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline "
+                placeholder={placeholder}
+                onChange={onChange}
+                disabled={disabled}
+                error={error}
+            />
+        </div>
+    );
+}
+
+
