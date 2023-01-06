@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Listbox, Menu, Transition } from '@headlessui/react'
+import DatePicker from "react-datepicker";
 import { Link } from "react-router-dom";
 
 export const InputField = ({ value, label, name, placeholder, type, onChange, disabled, error }) => (
@@ -58,7 +59,7 @@ export const SelectField = ({ value, label, name, placeholder, onChange, disable
                 onChange={onChange}
                 disabled={disabled}
                 error={error}
-            >
+                >
                 {options.map((option) => (
                     <option key={option.id} value={option.value} className="hover:bg-gray-400 rounded-none">
                         {option.name}
@@ -82,11 +83,11 @@ export const SelectorField = ({ options, label }) => {
                 >{selectedValue.name}</Listbox.Button>
                 <Listbox.Options
                     className="absolute mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border-8 border-transparent"
-                >
+                    >
                     {options.map((value) => (
                         <Listbox.Option
-                            key={value.id}
-                            value={value}
+                        key={value.id}
+                        value={value}
                             disabled={value.unavailable}
                         >
                             <button className="ui-active:bg-indigo-50 text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm" >
@@ -100,19 +101,18 @@ export const SelectorField = ({ options, label }) => {
     )
 }
 
-export const DatePickerField = ({ value, label, name, placeholder, onChange, disabled, error }) => {
+export const DatePickerField = ({ label, selected, placeholder, onChange, disabled, error }) => {
     return (
         <div className="form-group">
             <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
-            <input
-                type="date"
-                value={value}
-                name={name}
-                className="form-control mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline "
-                placeholder={placeholder}
-                onChange={onChange}
-                disabled={disabled}
-                error={error}
+            <DatePicker
+            className="form-control mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline "
+            selected={selected}
+            onChange={onChange}
+            placeholder={placeholder}
+            disabled={disabled}
+            error={error}
+
             />
         </div>
     );

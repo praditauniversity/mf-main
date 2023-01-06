@@ -36,7 +36,7 @@ const TaskListCard = (props) => {
                                 const startDate = new Date(task.start_time);
                                 const endDate = new Date(task.end_time);
                                 const duration = endDate - startDate;
-                                const durationInDays = duration / (1000 * 3600 * 24);
+                                const durationInDays = Math.round(duration / (1000 * 3600 * 24));
 
                                 const startDateYear = startDate.toLocaleDateString('en-US', {year: 'numeric'});
                                 const startDateMonth = startDate.toLocaleDateString('en-US', {month: '2-digit'});
@@ -45,6 +45,9 @@ const TaskListCard = (props) => {
                                 const endDateYear = endDate.toLocaleDateString('en-US', {year: 'numeric'});
                                 const endDateMonth = endDate.toLocaleDateString('en-US', {month: '2-digit'});
                                 const endDateDay = endDate.toLocaleDateString('en-US', {day: '2-digit'});
+
+                                //capitalizeFirstLetter
+                                const priority = task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
                                 
                                 return (
                                     <tr key={task.ID}>
@@ -53,7 +56,7 @@ const TaskListCard = (props) => {
                                         <td align="center">{endDateYear}/{endDateMonth}/{endDateDay}</td>
                                         <td align="center">{durationInDays} Days</td>
                                         <td align="center">{task.phase.name}</td>
-                                        <td align="center">{task.priority}</td>
+                                        <td align="center">{priority}</td>
                                         <td align="center">Rendha Vateria</td>
                                         <td align="center">{task.progress_percentage}%</td>
                                     </tr>  

@@ -60,14 +60,6 @@ const AddModalMinutesOfMeeting = () => {
                                                 <input type="text" placeholder="Enter project name" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
                                         </div>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl">
-                                                <label className="label">
-                                                    <span className="label-text">Project Manager</span>
-                                                </label>
-                                                <input type="text" placeholder="Enter your name" className="input input-bordered w-full bg-table-dark border-primary-light" />
-                                            </div>
-                                        </div>
                                         
                                         <div className="mt-3">
                                             <label className="label">

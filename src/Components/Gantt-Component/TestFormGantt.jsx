@@ -50,9 +50,9 @@ gantt.config.columns = [
     const endDateInput = (node) => $(node).find("input[name='end']");
 
     gantt.form_blocks.datepicker = {
-            render: (sns) => {
-              const height = sns.height || 45;
-              return (
+        render: (sns) => {
+            const height = sns.height || 45;
+            return (
                 // eslint-disable-next-line prefer-template
                 "<div class='gantt-lb-datepicker px-4' style='height:" +
                 height +
@@ -61,72 +61,71 @@ gantt.config.columns = [
                 "&nbsp - &nbsp" +
                 "<input class='border-solid border-2 py-1 px-2' type='text' name='end'>" +
                 "</div>"
-              );
-            },
-            set_value: (node, value, task, section) => {
-              const datepickerConfig = {
+            );
+        },
+        set_value: (node, value, task, section) => {
+            const datepickerConfig = {
                 format: "yyyy-mm-dd",
                 autoclose: true,
                 container: gantt.$container,
-              };
-              startDatepicker(node).datepicker(datepickerConfig);
-              startDatepicker(node).datepicker(
+            };
+            startDatepicker(node).datepicker(datepickerConfig);
+            startDatepicker(node).datepicker(
                 "setDate",
                 value ? value.start_date : task.start_date
-              );
-        
-              endDateInput(node).datepicker(datepickerConfig);
-              endDateInput(node).datepicker(
+            );
+
+            endDateInput(node).datepicker(datepickerConfig);
+            endDateInput(node).datepicker(
                 "setDate",
                 value ? value.end_date : task.end_date
-              );
-        
-              startDatepicker(node)
+            );
+
+            startDatepicker(node)
                 .datepicker()
                 .on("changeDate", (e) => {
-                  const endValue = endDateInput(node).datepicker("getDate");
-                  const startValue = startDatepicker(node).datepicker("getDate");
-        
-                  if (startValue && endValue) {
-                    if (endValue.valueOf() <= startValue.valueOf()) {
-                      endDateInput(node).datepicker(
-                        "setDate",
-                        gantt.calculateEndDate({
-                          start_date: startValue,
-                          duration: 1,
-                          task,
-                        })
-                      );
+                    const endValue = endDateInput(node).datepicker("getDate");
+                    const startValue = startDatepicker(node).datepicker("getDate");
+
+                    if (startValue && endValue) {
+                        if (endValue.valueOf() <= startValue.valueOf()) {
+                            endDateInput(node).datepicker(
+                                "setDate",
+                                gantt.calculateEndDate({
+                                    start_date: startValue,
+                                    duration: 1,
+                                    task,
+                                })
+                            );
+                        }
                     }
-                  }
                 });
-            },
-            get_value: (node, task, section) => {
-              const start = startDatepicker(node).datepicker("getDate");
-              let end = endDateInput(node).datepicker("getDate");
-        
-              if (end.valueOf() <= start.valueOf()) {
+        },
+        get_value: (node, task, section) => {
+            const start = startDatepicker(node).datepicker("getDate");
+            let end = endDateInput(node).datepicker("getDate");
+
+            if (end.valueOf() <= start.valueOf()) {
                 end = gantt.calculateEndDate({
-                  start_date: start,
-                  duration: 1,
-                  task,
+                    start_date: start,
+                    duration: 1,
+                    task,
                 });
-              }
-              if (task.start_date && task.end_date) {
+            }
+            if (task.start_date && task.end_date) {
                 task.start_date = start;
                 task.end_date = end;
-              }
-        
-              task.duration = gantt.calculateDuration(task);
-        
-              return {
+            }
+
+            task.duration = gantt.calculateDuration(task);
+
+            return {
                 start_date: start,
                 end_date: end,
                 duration: task.duration,
-              };
-            },
-            focus: (node) => { },
-          };
+            };
+        },
+    };
 
     gantt.form_blocks.activity_editor = {
         render: function (sns) {
@@ -145,9 +144,9 @@ gantt.config.columns = [
                 "<input type='text' placeholder='Enter activity description' class='editor_description input input-bordered w-full' name='description' />" +
                 "</div>" +
                 "</div>"
-                );
-            },
-            set_value: function (node, value, task) {
+            );
+        },
+        set_value: function (node, value, task) {
             node.querySelector(".editor_name").value = task.name || "";
             node.querySelector(".editor_description").value = task.description || "";
         },
@@ -202,101 +201,188 @@ gantt.config.columns = [
                 "<label class='label'>" +
                 "<span class='label-text'>Cost Plan</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor_costPlan input input-bordered w-full' name='costPlan' />" +
+                "<input type='text' placeholder='Enter cost plan' class='editor_costPlan input input-bordered w-full' name='costPlan' />" +
                 "</div>" +
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
                 "<span class='label-text'>Cost Actual</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor_costActual input input-bordered w-full' name='costActual' />" +
+                "<input type='text' placeholder='Enter cost actual' class='editor_costActual input input-bordered w-full' name='costActual' />" +
                 "</div>" +
 
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>material_cost_plan</span>" +
+                "<span class='label-text'>Material Cost Plan</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' name='materialPlan' />" +
+                "<input type='text' placeholder='Enter material cost plan' class='editor_materialPlan input input-bordered w-full' name='materialPlan' />" +
                 "</div>" +
 
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>material_cost_actual</span>" +
+                "<span class='label-text'>Material Cost Actual</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' name='MaterialActual' />" + 
-                "</div>" +
-                
-                "<div class='form-control w-3/4'>" +
-                "<label class='label'>" +
-                "<span class='label-text'>tool_cost_plan</span>" +
-                "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' name='toolPlan' />" + 
+                "<input type='text' placeholder='Enter material cost actual' class='editor_materialActual input input-bordered w-full' name='materialActual' />" +
                 "</div>" +
 
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>tool_cost_actual</span>" +
+                "<span class='label-text'>tool Cost Plan</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' name='toolActual' />" + 
+                "<input type='text' placeholder='Enter tool cost plan' class='editor_toolPlan input input-bordered w-full' name='toolPlan' />" +
                 "</div>" +
-                
+
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>human_cost_plan</span>" +
+                "<span class='label-text'>tool Cost Actual</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' name='humanPlan' />" + 
+                "<input type='text' placeholder='Enter tool cost actual' class='editor_toolActual input input-bordered w-full' name='toolActual' />" +
                 "</div>" +
-                
+
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>human_cost_actual</span>" +
+                "<span class='label-text'>Human Cost Plan</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor input input-bordered w-full' name='humanActual' />" + 
+                "<input type='text' placeholder='Enter human cost plan' class='editor_humanPlan input input-bordered w-full' name='humanPlan' />" +
                 "</div>" +
+
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>Human Cost Actual</span>" +
+                "</label>" +
+                "<input type='text' placeholder='Enter human cost actual' class='editor_humanActual input input-bordered w-full' name='humanActual' />" +
+                "</div>" +
+                "</br>" +
                 "</div>"
             );
         },
         set_value: function (node, value, task) {
-            node.querySelector(".editor_name").value = task.costPlan || "";
-            node.querySelector(".editor_description").value = task.costActual || "";
-            node.querySelector(".editor_name").value = task.materialPlan || "";
-            node.querySelector(".editor_description").value = task.MaterialActual || "";
-            node.querySelector(".editor_name").value = task.toolPlan || "";
-            node.querySelector(".editor_description").value = task.toolActual || "";
-            node.querySelector(".editor_name").value = task.humanPlan || "";
-            node.querySelector(".editor_description").value = task.humanActual || "";
+            node.querySelector(".editor_costPlan").value = task.costPlan || "";
+            node.querySelector(".editor_costActual").value = task.costActual || "";
+            node.querySelector(".editor_materialPlan").value = task.materialPlan || "";
+            node.querySelector(".editor_materialActual").value = task.materialActual || "";
+            node.querySelector(".editor_toolPlan").value = task.toolPlan || "";
+            node.querySelector(".editor_toolActual").value = task.toolActual || "";
+            node.querySelector(".editor_humanPlan").value = task.humanPlan || "";
+            node.querySelector(".editor_humanActual").value = task.humanActual || "";
         },
         get_value: function (node, task) {
+            task.costPlan = node.querySelector(".editor_costPlan").value;
+            task.costActual = node.querySelector(".editor_costActual").value;
+            task.materialPlan = node.querySelector(".editor_materialPlan").value;
+            task.MaterialActual = node.querySelector(".editor_materialActual").value;
             task.description = node.querySelector(".editor_description").value;
-            task.name = node.querySelector(".editor_name").value;
-            task.description = node.querySelector(".editor_description").value;
-            task.name = node.querySelector(".editor_name").value;
-            task.description = node.querySelector(".editor_description").value;
-            task.name = node.querySelector(".editor_name").value;
-            task.description = node.querySelector(".editor_description").value;
-            task.name = node.querySelector(".editor_name").value;
-            task.description = node.querySelector(".editor_description").value;
-            task.name = node.querySelector(".editor_name").value;
+            task.toolPlan = node.querySelector(".editor_toolPlan").value;
+            task.toolActual = node.querySelector(".editor_toolActual").value;
+            task.humanPlan = node.querySelector(".editor_humanPlan").value;
+            task.humanActual = node.querySelector(".editor_humanActual").value;
         },
-
-        // focus: function (node) {
-        //     var a = node.querySelector(".editor_name");
-        //     a.select();
-        //     a.focus();
-        // },
     };
+
 })();
 
+gantt.form_blocks.dropDownCustom = {
+    // createEditor: function (gantt, container, task, config) {
+    //     const options = ['Option 1', 'Option 2', 'Option 3'];
+    //     // Create a new dropdown element
+    //     const dropdown = document.createElement('select');
+
+    //     // Add options to the dropdown
+    //     options.forEach(option => {
+    //         const optionElement = document.createElement('option');
+    //         optionElement.value = option;
+    //         optionElement.textContent = option;
+    //         dropdown.appendChild(optionElement);
+    //     });
+
+    //     // Set the initial value of the dropdown
+    //     dropdown.value = task[config.name];
+
+    //     // Add the dropdown to the container
+    //     container.appendChild(dropdown);
+
+    //     // Return the dropdown element
+    //     return dropdown;
+    // },
+
+    render: function (sns) {
+        return (
+            "<div class='dhx_cal_ltext px-4'>" +
+            "<div class='form-control w-3/4'>" +
+            "<label class='label'>" +
+            "<span class='label-text'>Cost Plan</span>" +
+            "</label>" +
+            "<select class='editor_selectCustom input input-bordered w-full'>" +
+            // "<option value='1' class='editor_optionCustom input input-bordered w-full'></option>" +
+            "</select>" +
+            "</div>" +
+            "</div>"
+        );
+    },
+    // createEditor: function(gantt, container, task, config) {
+    //     console.log("createEditor");
+    //     // Create a new dropdown element
+    //     const dropdown = document.createElement('select');
+
+    //     // Add options to the dropdown
+    //     const options = ['Option 1', 'Option 2', 'Option 3'];
+    //     options.forEach(option => {
+    //       const optionElement = document.createElement('option');
+    //       optionElement.value = option;
+    //       optionElement.textContent = option;
+    //       dropdown.appendChild(optionElement);
+    //     });
+
+    //     // // Set the initial value of the dropdown
+    //     // dropdown.value = task[config.name];
+
+    //     // // Add the dropdown to the container
+    //     // container.appendChild(dropdown);
+
+    //     // Return the dropdown element
+    //     return dropdown;
+    //   },
+
+    //   setValue: function(gantt, editor, value) {
+    //     // Set the value of the dropdown
+    //     editor.value = value;
+    //   },
+
+    //   getValue: function(gantt, editor) {
+    //     // Get the value of the dropdown
+    //     return editor.value;
+    //   },
+
+    //   destroy: function(gantt, editor) {
+    //     // Destroy the editor
+    //     editor.parentNode.removeChild(editor);
+    //   }
+
+    set_value: function (node, value, task, options) {
+        const selectorSelect = node.querySelector(".editor_selectCustom");
+        options.options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option.value;
+                    optionElement.textContent = option.label;
+                    optionElement.className = "input input-bordered w-full'";
+                    selectorSelect.appendChild(optionElement);
+                });
+    },
+    get_value: function (node, task, options) {
+        // task.priority = node.querySelector(".editor_optionCustom").textContent;
+        task.priority = node.querySelector(".editor_selectCustom").textContent;
+        console.log("BBBBBBBBBBB", AAA)
+    },
+};
+
+// static data
 var optionPriority = [
-    { key: "1", label: "High" },
-    { key: "2", label: "Medium" },
-    { key: "3", label: "Low" },
+    { value: "1", label: "High" },
+    { value: "2", label: "Medium" },
+    { value: "3", label: "Low" },
 ];
 
-var optionPhase = [
-    { key: "1", label: "AA" },
-    { key: "2", label: "BB" },
-    { key: "3", label: "CC" },
-];
+// add by mappingPhase()
+var optionPhase = [];
 
 gantt.locale.labels.section_activity = "Activity Form";
 gantt.locale.labels.section_priority = "Priority";
@@ -312,10 +398,10 @@ gantt.config.lightbox.sections = [
         focus: true,
     },
     { name: "time", height: 40, type: "datepicker", map_to: "auto" },
-    { name: "custom", height: 30, map_to: "auto", type: "percentage_editor"},
-    { name: "priority", height: 30, map_to: "auto", type: "select", options: optionPriority },
-    { name: "phase", height: 30, map_to: "auto", type: "select", options: optionPhase },
-    { name: "custom", height: 30, map_to: "auto", type: "costplan_editor"},
+    { name: "custom", height: 30, map_to: "auto", type: "percentage_editor" },
+    { name: "custom", height: 30, map_to: "auto", type: "dropDownCustom", options: optionPriority },
+    { name: "custom", height: 30, map_to: "auto", type: "dropDownCustom", options: optionPhase },
+    { name: "custom", height: 30, map_to: "auto", type: "costplan_editor" },
 ];
 
 // dhtmlx cancel button
@@ -329,6 +415,7 @@ gantt.attachEvent("onBeforeTaskDisplay", (id, task) => {
     task.start_date = task.start_date;
     task.end_date = task.end_date;
     task.progress = task.progress;
+    // task.materialActual = task.materialActual;
     task.duration = task.duration;
     task.parent = task.parent;
     task.id = task.id;
@@ -474,6 +561,7 @@ function TestFormGantt(props) {
     // dhtmlx save button update
     gantt.attachEvent("onAfterTaskUpdate", (id, item) => {
         console.log(isUpdated.current);
+        console.log("AAAAAAAAAAAAAAAAAAAAAAA", typeof item.start_date, item.start_date);
         if (isUpdated.current === true) {
             isUpdated.current = false;
             const name = item.name;
@@ -512,23 +600,15 @@ function TestFormGantt(props) {
     }
 
     function MappingPhase() {
-        const handleChange = (event) => {
-            setPhaseID(event.target.value);
-        };
-
-        function MapPhase() {
-            return dataPhase.map((phase) => {
-                // console.log("is phase data?", phase);
-                return (
-                    <>
-                    <option value={phase.ID}>{phase.name}</option>
-                    {console.log("aaaaaaaAAAAAAAAAAAAAAAAAAAAAAAAAa", phase.name, phase.ID, "AAAAAAAAAAAAAAAaaaa")}
-                    </>
-                )
-            })
-        }
-
-        return 
+        // if optionPhase.length < 0 {
+        const arrayPhase = dataPhase.map((phase) => {
+            // console.log("is activity data?", activity);
+            optionPhase.push({
+                value: phase.ID,
+                label: phase.name,
+            });
+        });
+        // return arrayPhase;
     }
 
     // mapping data
@@ -546,7 +626,22 @@ function TestFormGantt(props) {
                 start_date: startDate,
                 end_date: endDate,
                 parent: String(activity.parent_id),
-                progress: activity.progress_percentage/100,
+                progress: activity.progress_percentage / 100,
+                materialActual: activity.material_cost_actual,
+                ganttID: activity.gantt_id,
+                costActual: activity.cost_actual,
+                costPlan: activity.cost_plan,
+                weight: activity.weight_percentage,
+                progress: activity.progress_percentage,
+                priority: activity.priority,
+                materialPlan: activity.material_cost_plan,
+                materialActual: activity.material_cost_actual,
+                toolPlan: activity.tool_cost_plan,
+                toolActual: activity.tool_cost_actual,
+                humanPlan: activity.human_cost_plan,
+                humanActual: activity.human_cost_actual,
+                activity_type: activity.activity_type,
+                phase_id: activity.phase_id,
             });
         });
 
@@ -581,11 +676,10 @@ function TestFormGantt(props) {
                 <div className="py-5 px-4 flex justify-between">
                     <p className="text-md">{title}</p>
                     <ListGanttByProject />
-                    {/* {MappingPhase()} */}
                 </div>
                 {console.log("before mapping data should be called")}
+                {MappingPhase()}
                 <div className="py-1 px-4 h-full">{MappingData()}</div>
-                    {/* {MappingPhase()} */}
                 {/* <div className="py-1 px-4">{MappingPhase()}</div> */}
                 {/* {MappingPhase()} */}
                 {console.log("after mapping data should be called")}
