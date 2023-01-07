@@ -20,7 +20,7 @@ import AppGantt from "../../Components/Gantt-Component/AppGantt";
 import TestQuery from "../../Components/Gantt-Component/TestQuery";
 import TestRedux from "../../Components/Gantt-Component/TestRedux";
 import implementRedux from "../../Components/Gantt-Component/ImplementRedux";
-import { Actual, Cost, Budget, Danger, Variance, CostHealth, ScheduleHealth } from "../../Components/GraphQL/ProjectByIdQueries";
+import { Actual, Cost, Budget, Danger, Variance, CostHealth, ScheduleHealth, Client, ProjectManager } from "../../Components/GraphQL/ProjectByIdQueries";
 import ImplementRedux from "../../Components/Gantt-Component/ImplementRedux";
 import ActivityData, { PrintGantt, PrintTask, PrintTaskList, TEST_TestFormGantt } from "../../Components/Gantt-Component/CustomActivityState";
 import TestFormGantt from "../../Components/Gantt-Component/TestFormGantt";
@@ -57,9 +57,9 @@ const ProjectDashboardPage = () => {
                             title1="Project Name"
                             description1="Project Anomaly"
                             title2="Project Manager"
-                            description2="Jhon Doe"
-                            title3="Customer"
-                            description3="Jaya Gedung Group"
+                            description2={<ProjectManager value={savedOption} />}
+                            title3="Client"
+                            description3={<Client value={savedOption} />}
                         />
                     </div>
                     <div className="col-span-3 row-span-1"> <HealthCard title="Health by Cost" description={<CostHealth value={savedOption} />} colorIcon="text-error-dark" /> </div>

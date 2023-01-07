@@ -1,7 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import SubmitButton from "../../Button";
-import DatePicker from "react-datepicker";
 import { DatePickerField, InputField } from "../../Input/Input";
 
 const GET_PROJECT = gql`
@@ -24,10 +23,11 @@ const ADD_PROJECT = gql`
     $stakeholder_ammount: Int!
     $role_id: Int!
     $type_id: Int!
-    $company: String!
     $considered_success_when: String!
     $cost_actual: Float!
     $cost_plan: Float!
+    $client: String!
+    $client_contact: String!
     $currency_name: String!
     $currency_code: String!
     $currency_symbol: String!
@@ -50,10 +50,11 @@ const ADD_PROJECT = gql`
         stakeholder_ammount: $stakeholder_ammount
         role_id: $role_id
         type_id: $type_id
-        company: $company
         considered_success_when: $considered_success_when
         cost_actual: $cost_actual
         cost_plan: $cost_plan
+        client: $client
+        client_contact: $client_contact
         currency_name: $currency_name
         currency_code: $currency_code
         currency_symbol: $currency_symbol
@@ -85,10 +86,11 @@ const AddProject = () => {
     const [stakeholder_ammount, setStakeholderAmmount] = useState(0);
     const [role_id, setRoleId] = useState(0);
     const [type_id, setTypeId] = useState(0);
-    const [company, setCompany] = useState("");
     const [considered_success_when, setConsideredSuccessWhen] = useState("");
     const [cost_actual, setCostActual] = useState(0);
     const [cost_plan, setCostPlan] = useState(0);
+    const [client, setClient] = useState("");
+    const [client_contact, setClientContact] = useState("");
     const [currency_name, setCurrencyName] = useState("");
     const [currency_code, setCurrencyCode] = useState("");
     const [currency_symbol, setCurrencySymbol] = useState("");
@@ -120,10 +122,11 @@ const AddProject = () => {
                 stakeholder_ammount,
                 role_id,
                 type_id,
-                company,
                 considered_success_when,
                 cost_actual,
                 cost_plan,
+                client,
+                client_contact,
                 currency_name,
                 currency_code,
                 currency_symbol,
@@ -145,10 +148,11 @@ const AddProject = () => {
         setStakeholderAmmount(0);
         setRoleId(0);
         setTypeId(0);
-        setCompany("");
         setConsideredSuccessWhen("");
         setCostActual(0);
         setCostPlan(0);
+        setClient("");
+        setClientContact();
         setCurrencyName("");
         setCurrencyCode("");
         setCurrencySymbol("");
@@ -206,14 +210,6 @@ const AddProject = () => {
             onChange: (e) => setTypeId(parseInt(e.target.value)),
         },
         {
-            label: "Company",
-            name: "company",
-            placeholder: "Company",
-            type: "text",
-            value: company,
-            onChange: (e) => setCompany(e.target.value),
-        },
-        {
             label: "Considered Success When",
             name: "considered_success_when",
             placeholder: "Considered Success When",
@@ -227,7 +223,7 @@ const AddProject = () => {
             placeholder: "Cost Actual",
             type: "number",
             value: cost_actual,
-            onChange: (e) => setCostActual(parseInt(e.target.value)),
+            onChange: (e) => setCostActual(parseFloat(e.target.value)),
         },
         {
             label: "Cost Plan",
@@ -235,7 +231,23 @@ const AddProject = () => {
             placeholder: "Cost Plan",
             type: "number",
             value: cost_plan,
-            onChange: (e) => setCostPlan(parseInt(e.target.value)),
+            onChange: (e) => setCostPlan(parseFloat(e.target.value)),
+        },
+        {
+            label: "Client",
+            name: "client",
+            placeholder: "Client",
+            type: "text",
+            value: client,
+            onChange: (e) => setClient(e.target.value),
+        },
+        {
+            label: "Client Contact",
+            name: "client_contact",
+            placeholder: "Client Contact",
+            type: "number",
+            value: client_contact,
+            onChange: (e) => setClientContact(e.target.value),
         },
         {
             label: "Currency Name",
@@ -323,7 +335,7 @@ const AddProject = () => {
             placeholder: "Progress Precentage",
             type: "number",
             value: progress_percentage,
-            onChange: (e) => setProgressPercentage(parseInt(e.target.value)),
+            onChange: (e) => setProgressPercentage(parseFloat(e.target.value)),
         },
         {
             label: "Budget",

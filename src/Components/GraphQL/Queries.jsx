@@ -81,11 +81,14 @@ export const GET_GANTT_DATA_LAMA2 = gql`
         office_location
         cost_plan
         cost_actual
+        client
+        client_contact
         company
         role_id
         type_id
         progress_percentage
         description
+        project_manager
         project_duration
         UpdatedBy
         DeletedBy
@@ -182,56 +185,44 @@ export const GET_ACTIVITY_GANTT_ID = gql`
 
 // eslint-disable-next-line import/prefer-default-export
 export const GET_PROJECT_DATA = gql`
-  query {
-    project {
-      Data {
-        ID
-        CreatedAt
-        UpdatedAt
-        DeletedAt
-        user_id
-        stakeholder_ammount
-        name
-        start_project
-        end_project
-        work_area
-        office_location
-        cost_plan
-        cost_actual
-        company
-        role_id
-        type_id
-        progress_percentage
-        description
-        project_duration
-        UpdatedBy
-        DeletedBy
-        status
-        project_objectives
-        considered_success_when
-        potential_risk
-        currency_symbol
-        currency_code
-        currency_name
-        phase_id
-        Phase {
-          ID
-          CreatedAt
-          UpdatedAt
-          DeletedAt
-          name
-          color
-          order
-          user_id
-          updated_by
-          deleted_by
-        }
-        budget_health
-        schedule_health
-        budget
-      }
+query{
+  project {
+    Data {
+      ID
+      CreatedAt
+      UpdatedAt
+      DeletedAt
+      user_id
+      stakeholder_ammount
+      name
+      start_project
+      end_project
+      work_area
+      office_location
+      cost_plan
+      cost_actual
+      client
+      client_contact
+      role_id
+      project_type_id
+      progress_percentage
+      description
+      project_manager
+      project_duration
+      UpdatedBy
+      DeletedBy
+      status
+      considered_success_when
+      currency_symbol
+      currency_code
+      currency_name
+      phase_id
+      budget_health
+      schedule_health
+      budget
     }
   }
+}
 `;
 
 // eslint-disable-next-line import/prefer-default-export
@@ -290,11 +281,13 @@ export const GET_PROJECT_DATA_BY_ID = gql`
         office_location
         cost_plan
         cost_actual
-        company
+        client
+        client_contact
         role_id
-        type_id
+        project_type_id
         progress_percentage
         description
+        project_manager
         project_duration
         UpdatedBy
         DeletedBy
@@ -343,11 +336,13 @@ export const GET_PROJECT_DATA_BY_USER_ID = gql`
         office_location
         cost_plan
         cost_actual
-        company
+        client
+        client_contact
         role_id
-        type_id
+        project_type_id
         progress_percentage
         description
+        project_manager
         project_duration
         UpdatedBy
         DeletedBy

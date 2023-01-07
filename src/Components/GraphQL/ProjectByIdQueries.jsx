@@ -307,3 +307,75 @@ export function ProgressPercentage(props) {
     
     return <div>{printProgressPercentage()}</div>;
 }
+
+export function ProjectManager(props) {
+    const profile = GetProfile();
+    const { value } = props;
+    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+        variables: { id: value },
+    });
+    const [projectData, setProject] = useState([]);
+    useEffect(() => {
+        if (data) {
+            console.log("Data Ready");
+            setProject(data.project.Data);
+            console.log(projectData);
+        } else {
+            console.log("No data");
+        }
+    }, [data]);
+
+    function printProjectManager() {
+        var projectManager = "";
+        projectData.map((project) => {
+            if (profile.id === project.user_id) {
+                projectManager = project.project_manager;
+            }
+        });
+        return (
+            <div>
+                <p>
+                    {projectManager}
+                </p>
+            </div>
+        );
+    }
+
+    return <div>{printProjectManager()}</div>;
+}
+
+export function Client(props) {
+    const profile = GetProfile();
+    const { value } = props;
+    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+        variables: { id: value },
+    });
+    const [projectData, setProject] = useState([]);
+    useEffect(() => {
+        if (data) {
+            console.log("Data Ready");
+            setProject(data.project.Data);
+            console.log(projectData);
+        } else {
+            console.log("No data");
+        }
+    }, [data]);
+
+    function printClient() {
+        var client = "";
+        projectData.map((project) => {
+            if (profile.id === project.user_id) {
+                client = project.client;
+            }
+        });
+        return (
+            <div>
+                <p>
+                    {client}
+                </p>
+            </div>
+        );
+    }
+
+    return <div>{printClient()}</div>;
+}
