@@ -1,7 +1,9 @@
-import React from "react";
+import React, { Profiler } from "react";
+import GetProfile from "../../Auth/GetProfile";
 import { IconEdit } from "../../Icons/icon";
 
 const AboutMeCard = () => {
+    const profile = GetProfile();
     return (
         <div className="rounded-xl shadow-lg bg-white py-8 px-12">
 
@@ -35,7 +37,7 @@ const AboutMeCard = () => {
                                 <p className="text-sm opacity-70">Full Name</p>
                             </div>
                             <div className="col-span-12">
-                                <p className="text-sm">Valeria Reina</p>
+                                <p className="text-sm">{profile.first_name} {profile.last_name}</p>
                             </div>
                         </div>
                         <div className="grid grid-cols-15 py-1">
@@ -43,7 +45,7 @@ const AboutMeCard = () => {
                                 <p className="text-sm opacity-70">Gender</p>
                             </div>
                             <div className="col-span-12">
-                                <p className="text-sm">Female</p>
+                                <p className="text-sm">{profile.gender}</p>
                             </div>
                         </div>
                         <div className="grid grid-cols-15 py-1">
@@ -67,7 +69,7 @@ const AboutMeCard = () => {
                                 <p className="text-sm opacity-70">Phone</p>
                             </div>
                             <div className="col-span-12">
-                                <p className="text-sm font-semibold">+68 123456789</p>
+                                <p className="text-sm font-semibold">{profile.phone_number}</p>
                             </div>
                         </div>
                         <div className="grid grid-cols-15 py-1">
@@ -75,7 +77,7 @@ const AboutMeCard = () => {
                                 <p className="text-sm opacity-70">Email</p>
                             </div>
                             <div className="col-span-12">
-                                <p className="text-sm">valeriareina@gmail.com</p>
+                                <p className="text-sm">{profile.email}</p>
                             </div>
                         </div>
                         <div className="grid grid-cols-15 py-1">

@@ -27,6 +27,7 @@ const UPDATE_PROJECT = gql`
         $phase_id: Int!
         $potential_risk: [String]!
         $project_duration: Int!
+        $total_man_power: Int!
         $project_objectives: [String]!
         $progress_percentage: Float!
         $budget: Int!
@@ -53,6 +54,7 @@ const UPDATE_PROJECT = gql`
             phase_id: $phase_id,
             potential_risk: $potential_risk,
             project_duration: $project_duration,
+            total_man_power: $total_man_power,
             project_objectives: $project_objectives,
             progress_percentage: $progress_percentage,
             budget: $budget
@@ -90,6 +92,7 @@ const UpdateProject = () => {
     const [phase_id, setPhaseId] = React.useState('');
     const [potential_risk, setPotentialRisk] = React.useState('');
     const [project_duration, setProjectDuration] = React.useState('');
+    const [total_man_power, setTotalManPower] = React.useState('');
     const [project_objectives, setProjectObjectives] = React.useState('');
     const [progress_percentage, setProgressPercentage] = React.useState('');
     const [budget, setBudget] = React.useState('');
@@ -125,6 +128,7 @@ const UpdateProject = () => {
             phase_id,
             potential_risk,
             project_duration,
+            total_man_power,
             project_objectives,
             progress_percentage,
             budget
@@ -152,6 +156,7 @@ const UpdateProject = () => {
             setPhaseId('');
             setPotentialRisk('');
             setProjectDuration('');
+            setTotalManPower('');
             setProjectObjectives('');
             setProgressPercentage('');
             setBudget('');
@@ -317,6 +322,14 @@ const UpdateProject = () => {
         type: "number",
         value: project_duration,
         onChange: e => setProjectDuration(parseInt(e.target.value))
+    },
+    {
+        label: "Total Man Power",
+        name:"total_man_power",
+        placeholder: "total_man_power",
+        type: "number",
+        value: total_man_power,
+        onChange: e => setTotalManPower(parseInt(e.target.value))
     },
     {
         label: "Project Objectives",

@@ -90,6 +90,7 @@ export const GET_GANTT_DATA_LAMA2 = gql`
         description
         project_manager
         project_duration
+        total_man_power
         UpdatedBy
         DeletedBy
         status
@@ -185,7 +186,7 @@ export const GET_ACTIVITY_GANTT_ID = gql`
 
 // eslint-disable-next-line import/prefer-default-export
 export const GET_PROJECT_DATA = gql`
-query{
+query {
   project {
     Data {
       ID
@@ -204,11 +205,12 @@ query{
       client
       client_contact
       role_id
-      project_type_id
+      type_id
       progress_percentage
       description
       project_manager
       project_duration
+      total_man_power
       UpdatedBy
       DeletedBy
       status
@@ -220,9 +222,9 @@ query{
       budget_health
       schedule_health
       budget
-    }
+    } 
   }
-}
+}	
 `;
 
 // eslint-disable-next-line import/prefer-default-export
@@ -284,11 +286,12 @@ export const GET_PROJECT_DATA_BY_ID = gql`
         client
         client_contact
         role_id
-        project_type_id
+        type_id
         progress_percentage
         description
         project_manager
         project_duration
+        total_man_power
         UpdatedBy
         DeletedBy
         status
@@ -339,11 +342,12 @@ export const GET_PROJECT_DATA_BY_USER_ID = gql`
         client
         client_contact
         role_id
-        project_type_id
+        type_id
         progress_percentage
         description
         project_manager
         project_duration
+        total_man_power
         UpdatedBy
         DeletedBy
         status

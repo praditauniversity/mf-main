@@ -6,7 +6,10 @@ import { IconEdit } from "../../Icons/icon";
 
 const MyAccount = () => {
     const profile = GetProfile();
-
+    const joined = new Date(profile.created_at);
+    const joinedDate = joined.getDate();
+    const joinedMonth = joined.toLocaleString('default', { month: 'long' });
+    const joinedYear = joined.getFullYear();
     return (
 
         <div className="rounded-xl shadow-lg bg-white py-8 px-12">
@@ -17,7 +20,7 @@ const MyAccount = () => {
                     <button><IconEdit /></button>
                 </div>
                 <div className="flex justify-start">
-                    <p className="text-sm opacity-70">Joined on May 28, 2019</p>
+                    <p className="text-sm opacity-70">Joined on {joinedMonth} {joinedDate}, {joinedYear}</p>
                 </div>
             </div>
 
@@ -38,13 +41,13 @@ const MyAccount = () => {
                 <div className="py-3">
                     <div className="flex justify-between">
                         <p className="text-sm opacity-70">Email</p>
-                        <p className="text-sm font-semibold">valeriareina@email.com</p>
+                        <p className="text-sm font-semibold">{profile.email}</p>
                     </div>
                 </div>
                 <div className="py-3">
                     <div className="flex justify-between">
                         <p className="text-sm opacity-70">Username</p>
-                        <p className="text-sm font-semibold">valeria_r</p>
+                        <p className="text-sm font-semibold">{profile.username}</p>
                     </div>
                 </div>
                 <div className="py-3">

@@ -11,6 +11,11 @@ export const LOGIN = gql`
                 auth_token
                 company_id
                 role_id
+                username
+                phone_number
+                gender
+                email
+                CreatedAt
             }
         }
     }

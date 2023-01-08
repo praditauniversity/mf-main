@@ -16,7 +16,12 @@ const SubmitHandler = async (e, login, email, password, setProfile, setError) =>
         setProfile({
             id: data.id,
             first_name: data.first_name,
-            last_name: data.last_name
+            last_name: data.last_name,
+            username: data.username,
+            phone_number: data.phone_number,
+            gender: data.gender,
+            email: data.email,
+            created_at: data.CreatedAt,
         });
         setError('');
     } catch (err) {

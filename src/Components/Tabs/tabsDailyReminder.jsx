@@ -44,7 +44,7 @@ const TabsDailyReminder = ({ color }) => {
                 href="#link1"
                 role="tablist"
               >
-                Calender
+                Calendar
               </a>
             </li>
 

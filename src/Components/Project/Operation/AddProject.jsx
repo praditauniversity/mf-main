@@ -1,7 +1,10 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
+import FetchProjectPhase from "../../../Middleware/Fetchers/FetchProjectPhase";
 import SubmitButton from "../../Button";
-import { DatePickerField, InputField } from "../../Input/Input";
+import { DatePickerField, InputField, SelectorField } from "../../Input/Input";
+
+// const projectPhase = FetchProjectPhase();
 
 const GET_PROJECT = gql`
   query project {
@@ -38,6 +41,7 @@ const ADD_PROJECT = gql`
     $phase_id: Int!
     $potential_risk: [String]!
     $project_duration: Int!
+    $total_man_power: Int!
     $project_objectives: [String]!
     $progress_percentage: Float!
     $budget: Int!
@@ -65,6 +69,7 @@ const ADD_PROJECT = gql`
         phase_id: $phase_id
         potential_risk: $potential_risk
         project_duration: $project_duration
+        total_man_power: $total_man_power
         project_objectives: $project_objectives
         progress_percentage: $progress_percentage
         budget: $budget
@@ -101,6 +106,7 @@ const AddProject = () => {
     const [phase_id, setPhaseId] = useState(0);
     const [potential_risk, setPotentialRisk] = useState("");
     const [project_duration, setProjectDuration] = useState(0);
+    const [total_man_power, setTotalManPower] = useState(0);
     const [project_objectives, setProjectObjectives] = useState("");
     const [progress_percentage, setProgressPercentage] = useState(0);
     const [budget, setBudget] = useState(0);
@@ -137,6 +143,7 @@ const AddProject = () => {
                 phase_id,
                 potential_risk,
                 project_duration,
+                total_man_power,
                 project_objectives,
                 progress_percentage,
                 budget,
@@ -163,6 +170,7 @@ const AddProject = () => {
         setPhaseId(0);
         setPotentialRisk("");
         setProjectDuration(0);
+        setTotalManPower(0);
         setProjectObjectives("");
         setProgressPercentage(0);
         setBudget(0);
@@ -322,6 +330,14 @@ const AddProject = () => {
             onChange: (e) => setProjectDuration(parseInt(e.target.value)),
         },
         {
+            label: "Total Man Power",
+            name: "total_man_power",
+            placeholder:"total_man_power",
+            type: "number",
+            valueL: total_man_power,
+            onChange: (e) => setTotalManPower(parseInt(e.target.value)),
+        },
+        {
             label: "Project Objectives",
             name: "project_objectives",
             placeholder: "Project Objectives",
@@ -376,6 +392,11 @@ const AddProject = () => {
                     onChange={(date) => setEndProject(date)}
                     placeholder="DD/MM/YYYY"
                 />
+                {/* <SelectorField
+                    options={projectPhase}
+                    label="Phase"
+                /> */}
+
                 <SubmitButton label="Add Project" />
             </form>
         </>
