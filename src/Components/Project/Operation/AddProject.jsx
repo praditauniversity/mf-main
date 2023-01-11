@@ -5,7 +5,7 @@ import SubmitButton from "../../Button";
 import { DatePickerField, InputField, SelectorField } from "../../Input/Input";
 import { IconDeleteForm, IconPlusForm } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
-import { GET_TYPE_DATA } from "../../GraphQL/Queries";
+import { GET_PHASE_DATA, GET_TYPE_DATA } from "../../GraphQL/Queries";
 
 // const projectPhase = FetchProjectPhase();
 
@@ -104,7 +104,7 @@ const AddProject = () => {
     const [end_project, setEndProject] = useState("");
     const [name, setName] = useState("");
     const [office_location, setOfficeLocation] = useState("");
-    const [phase_id, setPhaseId] = useState(0);
+    // const [phase_id, setPhaseId] = useState(0);
     const [total_man_power, setTotalManPower] = useState(0);
     const [progress_percentage, setProgressPercentage] = useState(0);
     const [budget, setBudget] = useState(0);
@@ -112,15 +112,19 @@ const AddProject = () => {
     const [potential_risk, setPotentialRisk] = useState(['']);
     const [project_objectives, setProjectObjectives] = useState(['']);
     const [type_id, setTypeId] = useState(1);
+    const [phase_id, setPhaseId] = useState(1);
     
     const inputRefType = useRef(null);
+    const inputRefPhase = useRef(null);
     
     const [addProject, { loading: addProjectLoading, error: addProjectError }] = useMutation(ADD_PROJECT, {
         refetchQueries: [{ query: GET_PROJECT }],
     });
 
-    const { data, loading, error } = useQuery(GET_TYPE_DATA);
+    const { data, loading, error } = useQuery(GET_TYPE_DATA,GET_PHASE_DATA);
+    const { data: dataPhase, loading: loadingPhase, error: errorPhase } = useQuery(GET_PHASE_DATA);
     const [typeName, setTypeName] = useState([]);
+    const [phaseName, setPhaseName] = useState([]);
 
     // useEffect(() => {
     //     localStorage.setItem('type_id', type_id);
@@ -138,6 +142,18 @@ const AddProject = () => {
                 console.log("USE EFFECT list type");
             }, [data]);
 
+            useEffect(() => {
+                if (dataPhase) {
+                    console.log("data Ready list phase");
+                    setPhaseName(dataPhase.projectPhase.Data);
+                    console.log("data Ready", dataPhase.projectPhase.Data);
+                } else {
+                    console.log("No data list phase");
+                }
+                console.log("USE EFFECT list phase");
+            }, [dataPhase]);
+
+
 
     function printListTypeName() {
         // if (loading) return <p>Loading...</p>;
@@ -152,10 +168,28 @@ const AddProject = () => {
         ));
     }
 
+    function printListPhaseName() {
+        // if (loading) return <p>Loading...</p>;
+        // if (error) return <p>Error :(</p>;
+
+        return phaseName.map(({ ID, name }) => (
+            <>
+                {/* {console.log("ID VALUE TYPE", typeof ID)} */}
+                {/* {console.log("ID VALUE TYPE", typeof ID.toString())} */}
+                <option value={ID}>{name}</option>
+            </>
+        ));
+    }
+
 
     const handleChangeType = (event) => {
         setTypeId(parseInt(event.target.value));
         console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
+    };
+
+    const handleChangePhase = (event) => {
+        setPhaseId(parseInt(event.target.value));
+        console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleFormChangeProjectobj = (value, index) => {
@@ -197,6 +231,8 @@ const AddProject = () => {
 
     if (loading) return "Submitting...";
     if (error) console.log(JSON.stringify(error));
+    if (loadingPhase) return "submitting...";
+    if (errorPhase) console.log(JSON.stringify(errorPhase));
 
 
 
@@ -273,12 +309,14 @@ const AddProject = () => {
         // type_id = type_id ? type_id : typeSelector.option[0].value;
         // console.log("MASUKKKKKKKKKKK MANGGGGGGG")
         type_id !== 0 ? type_id : setTypeId(parseInt(inputRefType.current.value))
+        phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))
         
         // console.log("MASUKKKKKKKKKKK MANGGGGGGG")
         // // type_id = parseInt(type_id);
         // console.log(inputRefType.current.value)
         console.log(typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
         console.log(typeof type_id, type_id);
+        console.log(typeof phase_id, phase_id);
 
         // console.log(typeSelector.option)
         // console.log("type_id", type_id);
@@ -407,14 +445,14 @@ const AddProject = () => {
         //     value: type_id,
         //     onChange: (e) => setTypeId(parseInt(e.target.value)),
         // },
-        {
-            label: "Phase ID",
-            name: "phase_id",
-            placeholder: "Phase ID",
-            type: "number",
-            value: phase_id,
-            onChange: (e) => setPhaseId(parseInt(e.target.value)),
-        },
+        // {
+        //     label: "Phase ID",
+        //     name: "phase_id",
+        //     placeholder: "Phase ID",
+        //     type: "number",
+        //     value: phase_id,
+        //     onChange: (e) => setPhaseId(parseInt(e.target.value)),
+        // },
         {
             label: "Stakeholder Ammount",
             name: "stakeholder_ammount",
@@ -606,13 +644,21 @@ const AddProject = () => {
                 />
 
                 {/* <ListProjectType/> */}
-
+                
+                <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">Type Name</label>
                 <div className="flex flex-col items-center">
                     <select ref={inputRefType} value={type_id} onChange={handleChangeType} className="editor_type select select-ghost select-sm w-full max-w-lg">
                         {printListTypeName()}
                     </select>
                 </div>
 
+                
+                <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">Phase Name</label>
+                <div className="flex flex-col items-center">
+                    <select ref={inputRefPhase} value={phase_id} onChange={handleChangePhase} className="editor_type select select-ghost select-sm w-full max-w-lg">
+                        {printListPhaseName()}
+                    </select>
+                </div>
                 <SubmitButton label="Add Project" />
             </form>
         </>

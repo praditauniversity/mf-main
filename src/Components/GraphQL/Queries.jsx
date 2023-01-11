@@ -310,7 +310,7 @@ export const GET_PROJECT_WITH_LIMIT = gql`
 
 // eslint-disable-next-line import/prefer-default-export
 export const GET_PHASE_DATA = gql`
-  query {
+  query projectPhase{
     projectPhase {
       Data {
         ID
@@ -326,7 +326,7 @@ export const GET_PHASE_DATA = gql`
       }
     }
   }
-`;
+`
 
 export const GET_TYPE_DATA = gql`
   query projectTYPE {
