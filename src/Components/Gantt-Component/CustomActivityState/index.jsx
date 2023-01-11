@@ -19,6 +19,7 @@ function useActivity() {
     variables: { gantt_id: ganttID, sort: "start_time asc" }
   });
   const [activityData, setActivity] = useState([]);
+  const [testData,settestData] = useState([]);
 
   useEffect(() => {
     if (data) {
@@ -31,7 +32,7 @@ function useActivity() {
     console.log("USE EFFECT ACTIVITY");
   }, [data]);
 
-  return [activityData, setActivity];
+  return [activityData, setActivity, testData, settestData];
 }
 
 function useActivityPhase(){

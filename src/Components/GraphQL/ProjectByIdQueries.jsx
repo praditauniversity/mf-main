@@ -258,7 +258,16 @@ export function ScheduleHealth(props) {
         var scheduleHealth = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                scheduleHealth = project.schedule_health;
+                const dateNow = new Date();
+                const dateEnd = new Date(project.end_project);
+                if (dateNow == dateEnd) {
+                    scheduleHealth = "On Schedule";
+                }
+                else if (dateNow < dateEnd) {
+                    scheduleHealth = "Early Schedule";
+                } else if (dateNow > dateEnd) {
+                    scheduleHealth = "Behind Schedule";
+                }
             }
         });
         return (

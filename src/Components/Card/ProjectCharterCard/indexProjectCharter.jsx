@@ -66,7 +66,7 @@ const ProjectCharterPage = (props) => {
 
                     <div className="py-2">
                         <div className="col-span-15">
-                            <PCList />
+                            {/* <PCList /> */}
                         </div>
                     </div>
 

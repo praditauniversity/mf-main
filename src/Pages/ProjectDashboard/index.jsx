@@ -76,7 +76,7 @@ const ProjectDashboardPage = () => {
                     <div className="col-span-5 row-span-1"> <ProjectProgressCard /> </div>
                     {/* <div className="col-span-10 row-span-2"> <AppGantt title="Gantt Chart" /> </div> */}
                     {/* <div className="col-span-10 row-span-2"> <PrintGantt title="Gantt Chart" /> </div> */}
-                    {/* <div className="col-span-10 row-span-2"> <TEST_TestFormGantt title="Gantt Chart" /> </div> */}
+                    <div className="col-span-10 row-span-2"> <TEST_TestFormGantt title="Gantt Chart" /> </div>
                     <div className="col-span-5 row-span-1"> <TaskOverviewCard /> </div>
                     <div className="col-span-full"> 
                         {/* <TaskListCard />  */}

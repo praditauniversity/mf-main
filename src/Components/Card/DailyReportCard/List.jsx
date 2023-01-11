@@ -65,8 +65,7 @@ const DRList = () => {
               <th align="center">Report Number</th>
               <th align="center">Report Date</th>
               <th align="center">Activity</th>
-              <th align="center">Edit</th>
-              <th align="center">Delete</th>
+              <th align="center">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -80,9 +79,8 @@ const DRList = () => {
                   <button className="px-1" id="icon">
                     <IconEdit />
                   </button>
+                  <button className="px-1" id="icon"><IconDelete /></button>
                 </td>
-                <td align="center">
-                  <button className="px-1" id="icon"><IconDelete /></button></td>
               </tr>
             ))}
           </tbody>

@@ -16,7 +16,7 @@ const DashboardPage = () => {
                 <div className="grid grid-cols-14 gap-2">
                     <div className="col-span-4 row-span-1"> <CalendarCard /> </div>
                     {/* <div className="col-span-10 row-span-2"> <PrintGantt /> </div> */}
-                    <div className="col-span-10 row-span-2"> <TEST_TestFormGantt title="Gantt Chart" /> </div>
+                    {/* <div className="col-span-10 row-span-2"> <TEST_TestFormGantt title="Gantt Chart" /> </div> */}
                     {/* <div className="col-span-10 row-span-2"> <TestingModal /> </div> */}
                     <div className="col-span-4 row-span-1"> <TaskOverviewCard />  </div>
 

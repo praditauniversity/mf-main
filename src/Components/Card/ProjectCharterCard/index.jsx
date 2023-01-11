@@ -11,6 +11,7 @@ import { IconPlus, IconEdit, IconDelete, IconList } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
 import DeleteModal from "../../Modal/ProjectCharterModal/DeleteModal/DeleteModal";
 import AddModalProjectCharter from "../../Modal/ProjectCharterModal/AddModal/AddModal";
+import ProjectCharterPage from "./indexProjectCharter";
 
 const ProjectCharterCard = (props) => {
     const { icon } = props;
@@ -23,7 +24,7 @@ const ProjectCharterCard = (props) => {
                     </div>
                     <div className="flex justify-end">
                         <div className="flex justify-between">
-                            <AddModalProjectCharter />
+                            <ProjectCharterPage />
                             {/* <button className="px-1" id="icon"><IconPlus /></button> */}
                             <button className="px-1" id="icon"><IconEdit /></button>
                             <DeleteModal/>

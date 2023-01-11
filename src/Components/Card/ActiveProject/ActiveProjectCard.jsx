@@ -1,4 +1,6 @@
 import React from "react";
+import FetchProject from "../../../Middleware/Fetchers/FetchProject";
+import Accordion from "../../Accordion";
 
 //ini gabisa
 const useStyles = () => ({
@@ -9,7 +11,14 @@ const useStyles = () => ({
 
 const ActiveProjectCard = () => {
     const classes = useStyles();
+    const project = FetchProject();
 
+    const projectdata = project.map((item) => {
+        const todayDate = new Date();
+        const startDate = new Date(item.start_project);
+        const endDate = new Date(item.end_project);
+        return startDate <= todayDate && endDate > todayDate;
+    });
     return (
         <div className="rounded-xl shadow-lg bg-white">
             <div>
@@ -24,7 +33,7 @@ const ActiveProjectCard = () => {
                     <div className="pt-4">
                         <div className="flex justify-between">
                             <div className="flex justify-start">
-                                <p className="text-base font-semibold ">Solar Panel Smart Lab</p>
+                                <p className="text-base font-semibold ">{projectdata.name}</p>
                             </div>
                             <div className="flex justify-end">
                                 <div className="dropdown dropdown-button dropdown-end">

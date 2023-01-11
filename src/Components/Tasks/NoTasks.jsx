@@ -13,8 +13,8 @@ const NoTasks = ( props ) => {
             </div>
 
             <div className="flex flex-col text-center">
-                <h4 className="text-lg font-bold">No tasks in here!</h4>
-                <h6 className="text-lg">While it’s empty, please take a rest :D</h6>
+                <h4 className="text-lg font-bold">No tasks for now.</h4>
+                <h6 className="text-lg">Take your time.</h6>
             </div>
 
             

@@ -1,11 +1,10 @@
 import React from "react";
 import Accordion from "../../Components/Accordion";
-import "./scrollbar.css"
-import FetchProject from "../../Middleware/Fetchers/FetchProject";
-import Tabs from "../../Components/Tabs";
 import Counter from "../../Components/Counter";
+import Tabs from "../../Components/Tabs";
 import TabsDailyReminder from "../../Components/Tabs/tabsDailyReminder";
-import { useState } from "react";
+import FetchProject from "../../Middleware/Fetchers/FetchProject";
+import "./scrollbar.css";
 
 const MainDashboard = () => {
     const project = FetchProject();
@@ -32,7 +31,7 @@ const MainDashboard = () => {
             <div className="col-span-12 h-screen">
                 <div className="col-span-12 ml-5 mb-10 mr-5 h-100">
                     <div className="flex items-center mb-3 mt-3">
-                        <h3 className="font-bold text-2xl">On-going Project</h3>
+                        <h3 className="font-bold text-xl">On-going Project</h3>
                         <Counter value={projectLength} textColor="white" bgColor="primary"/>
                     </div>
                     
@@ -43,7 +42,7 @@ const MainDashboard = () => {
                 </div>
 
                 <div className="col-span-12 ml-5 mr-5 mb-10">
-                    <h3 className="font-bold text-2xl mt-5 mb-5">Remaining Task</h3>
+                    <h3 className="font-bold text-xl mt-5 mb-5">Remaining Task</h3>
                     <div className="border border-none rounded-lg bg-background-snow p-5">
                         <Tabs />
                     </div>
@@ -53,7 +52,7 @@ const MainDashboard = () => {
 
             <div className="xl:col-span-6 lg:col-span-12 ml-5">
                 <div className="flex items-center mb-3">
-                    <h3 className="font-bold text-2xl mt-5">Daily Reminder</h3>
+                    <h3 className="font-bold text-xl mt-5">Daily Reminder</h3>
                 </div>
 
                 <div className="mt-2 border border-none rounded-lg bg-background-snow p-5 mr-5 h-[950px]">

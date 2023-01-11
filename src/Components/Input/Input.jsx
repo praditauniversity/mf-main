@@ -119,3 +119,52 @@ export const DatePickerField = ({ label, selected, placeholder, onChange, disabl
 }
 
 
+export const InputProjectObj = ({ label, name, placeholder, onChange}) => {
+    const [project_objectives, setProjectObjectives] = useState([
+        { objective: '' }
+    ])
+
+    const handleFormChange = (index, event) => {
+        let data = [...project_objectives];
+        data[index][event.target.name] = event.target.value;
+        setProjectObjectives(data);
+    }
+
+    const addFields = () => {
+        let newfield = { objective: '' }
+
+        setProjectObjectives([...project_objectives, newfield])
+    }
+
+    const removeFields = (index) => {
+        let data = [...project_objectives];
+        data.splice(index, 1)
+        setProjectObjectives(data)
+    }
+
+    return (
+        <div className="">
+            <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
+            {project_objectives.map((input, index) => {
+                return (
+                    <div key={index}>
+                        <div className="pb-2 w-full min-w-5xl" id="buttonInside">
+                            <div className="flex justify-start">
+                                <input
+                                    className="input input-border border-primary-light shadow appearance-none w-[86%]"
+                                    name={name}
+                                    placeholder={placeholder}
+                                    defaultValue={input.objective}
+                                    onChange={event => handleFormChange(index, event)}
+                                />
+                                {project_objectives.length !== 1 && <button className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2" onClick={() => removeFields(index)}><IconDeleteForm /></button>}
+                                {project_objectives.length - 1 === index && <button className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2" onClick={addFields}><IconPlusForm /></button>}
+                            </div>
+                        </div>
+                    </div>
+                )
+            })}
+        </div>
+    );
+}
+

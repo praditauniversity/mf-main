@@ -89,7 +89,6 @@ export const GET_GANTT_DATA_LAMA2 = gql`
         progress_percentage
         description
         project_manager
-        project_duration
         total_man_power
         UpdatedBy
         DeletedBy
@@ -209,7 +208,6 @@ query {
       progress_percentage
       description
       project_manager
-      project_duration
       total_man_power
       UpdatedBy
       DeletedBy
@@ -220,7 +218,7 @@ query {
       currency_name
       phase_id
       budget_health
-      schedule_health
+      project_duration
       budget
     } 
   }
@@ -290,7 +288,6 @@ export const GET_PROJECT_DATA_BY_ID = gql`
         progress_percentage
         description
         project_manager
-        project_duration
         total_man_power
         UpdatedBy
         DeletedBy
@@ -315,7 +312,7 @@ export const GET_PROJECT_DATA_BY_ID = gql`
           deleted_by
         }
         budget_health
-        schedule_health
+        project_duration
         budget
       }
     }
@@ -346,7 +343,6 @@ export const GET_PROJECT_DATA_BY_USER_ID = gql`
         progress_percentage
         description
         project_manager
-        project_duration
         total_man_power
         UpdatedBy
         DeletedBy
@@ -371,7 +367,7 @@ export const GET_PROJECT_DATA_BY_USER_ID = gql`
           deleted_by
         }
         budget_health
-        schedule_health
+        project_duration
         budget
       }
     }

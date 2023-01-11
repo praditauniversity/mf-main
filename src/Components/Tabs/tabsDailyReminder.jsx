@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import Done from "../../Assets/Icons/svg/Done.svg";
 import Tasks from "../Tasks/index";
 import NoTasks from "../Tasks/NoTasks";
-import Done from "../../Assets/Icons/svg/Done.svg";
-import { useState } from "react";
 
 const TabsDailyReminder = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
+
+  const [taskList, setTaskList] = useState([]);
 
   const [someTask, setSomeTask] = useState([
     { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Make moodboard", date: "14 Sep" },
