@@ -244,6 +244,70 @@ export const GET_SCAFFOLD_DATA = gql`
   }
 `;
 
+export const GET_PROJECT_WITH_LIMIT = gql`
+  query projectPage($page: String!, $limit: String!) {
+    projectPage(page: $page, limit: $limit) {
+      Data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        user_id
+        stakeholder_ammount
+        name
+        start_project
+        end_project
+        work_area
+        office_location
+        cost_plan
+        cost_actual
+        client
+        client_contact
+        role_id
+        type_id
+        Type {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          name
+          description
+          user_id
+          updated_by
+          deleted_by
+        }
+        progress_percentage
+        project_duration
+        description
+        project_manager
+        total_man_power
+        UpdatedBy
+        DeletedBy
+        status
+        considered_success_when
+        currency_symbol
+        currency_code
+        currency_name
+        phase_id
+        Phase {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          name
+          color
+          order
+          user_id
+          updated_by
+          deleted_by
+        }
+        budget_health
+        budget
+      }
+    }
+  }
+`
+
 // eslint-disable-next-line import/prefer-default-export
 export const GET_PHASE_DATA = gql`
   query {
@@ -263,6 +327,24 @@ export const GET_PHASE_DATA = gql`
     }
   }
 `;
+
+export const GET_TYPE_DATA = gql`
+  query projectTYPE {
+    projectType {
+      Data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        name
+        description
+        user_id
+        updated_by
+        deleted_by
+      }
+    }
+  }
+`
 
 export const GET_PROJECT_DATA_BY_ID = gql`
   query getProjectById($id: String!) {

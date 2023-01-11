@@ -4,32 +4,31 @@ import { useQuery, gql } from '@apollo/client';
 import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 
 const ListGanttByProject = () => {
-    const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
-    const [projectID, setProjectID] = React.useState(localStorage.getItem('projectID') ? localStorage.getItem('projectID') : "1");
+    const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
+    const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
+
+    const { data, loading, error } = useQuery(GET_GANTT_PROJECT_ID, {
+        variables: { project_id: projectID }
+    });
+    const [ganttName, setGanttName] = useState([]);
 
     useEffect(() => {
-        localStorage.setItem('ganttID', ganttID);
-        console.log("ganttID", ganttID);
-    }, [ganttID]);
+        if (data) {
+            console.log("Data Ready list gantt");
+            setGanttName(data.ganttGetProjectID.data);
+            console.log("Data Ready", data.ganttGetProjectID.data);
+            ganttID ? localStorage.setItem('ganttID', ganttID) : localStorage.setItem('ganttID', data.ganttGetProjectID.data[0].ID);
+
+        } else {
+            console.log("No data list gantt");
+        }
+        console.log("USE EFFECT list gantt");
+    }, [data]);
 
     function printListGanttName() {
-        const { data, loading, error } = useQuery(GET_GANTT_PROJECT_ID, {
-            variables: { project_id: projectID }
-        });
-        const [ganttName, setGanttName] = useState([]);
         // if (loading) return <p>Loading...</p>;
         // if (error) return <p>Error :(</p>;
 
-        useEffect(() => {
-            if (data) {
-                console.log("Data Ready list gantt");
-                setGanttName(data.ganttGetProjectID.data);
-                console.log("Data Ready", data.ganttGetProjectID.data);
-            } else {
-                console.log("No data list gantt");
-            }
-            console.log("USE EFFECT list gantt");
-        }, [data]);
 
         return ganttName.map(({ ID, name }) => (
             <>
@@ -42,6 +41,7 @@ const ListGanttByProject = () => {
 
     const handleChange = (event) => {
         setGanttID(event.target.value);
+        localStorage.setItem('ganttID', event.target.value);
         window.location.reload();
         // localStorage.setItem('selectedOption', selectedOption);
     };

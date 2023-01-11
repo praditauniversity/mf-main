@@ -13,7 +13,8 @@ import TaskListCard from "../../Card/TaskList/TaskListCard";
 import VerticalTabs from "../../Tabs/verticalTabs";
 
 function useActivity() {
-  const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
+  const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
+  // const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
 
   const { data, loading, error } = useQuery(GET_ACTIVITY_GANTT_ID, {
     variables: { gantt_id: ganttID, sort: "start_time asc" }
@@ -74,9 +75,10 @@ export const PrintTaskList = () => {
 export const PrintGantt = (props) => {
   const {title} = props;
   const [activityData, setActivity] = useActivity();
+  const [activityPhaseData, setActivityPhaseData] = useActivityPhase();
 
   return <>
-   <AppGantt title={title} dataGantt={activityData} />
+   <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} />
   </>
 }
 

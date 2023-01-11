@@ -1,10 +1,11 @@
-import { gql, useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import React, { useState, useEffect, useRef } from "react";
 import FetchProjectPhase from "../../../Middleware/Fetchers/FetchProjectPhase";
 import SubmitButton from "../../Button";
 import { DatePickerField, InputField, SelectorField } from "../../Input/Input";
 import { IconDeleteForm, IconPlusForm } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
+import { GET_TYPE_DATA } from "../../GraphQL/Queries";
 
 // const projectPhase = FetchProjectPhase();
 
@@ -90,7 +91,7 @@ const AddProject = () => {
     const [start_project, setStartProject] = useState("");
     const [stakeholder_ammount, setStakeholderAmmount] = useState(0);
     const [role_id, setRoleId] = useState(0);
-    const [type_id, setTypeId] = useState(0);
+    // const [type_id, setTypeId] = useState(0);
     const [considered_success_when, setConsideredSuccessWhen] = useState("");
     const [cost_actual, setCostActual] = useState(0);
     const [cost_plan, setCostPlan] = useState(0);
@@ -107,18 +108,55 @@ const AddProject = () => {
     const [total_man_power, setTotalManPower] = useState(0);
     const [progress_percentage, setProgressPercentage] = useState(0);
     const [budget, setBudget] = useState(0);
-
+    
     const [potential_risk, setPotentialRisk] = useState(['']);
     const [project_objectives, setProjectObjectives] = useState(['']);
-
-    const [addProject, { loading, error }] = useMutation(ADD_PROJECT, {
+    const [type_id, setTypeId] = useState(1);
+    
+    const inputRefType = useRef(null);
+    
+    const [addProject, { loading: addProjectLoading, error: addProjectError }] = useMutation(ADD_PROJECT, {
         refetchQueries: [{ query: GET_PROJECT }],
     });
 
-    if (loading) return "Submitting...";
-    if (error) console.log(JSON.stringify(error));
+    const { data, loading, error } = useQuery(GET_TYPE_DATA);
+    const [typeName, setTypeName] = useState([]);
+
+    // useEffect(() => {
+    //     localStorage.setItem('type_id', type_id);
+    //     console.log("type_id", type_id);
+    // }, [type_id]);
+    
+            useEffect(() => {
+                if (data) {
+                    console.log("Data Ready list type");
+                    setTypeName(data.projectType.Data);
+                    console.log("Data Ready", data.projectType.Data);
+                } else {
+                    console.log("No data list type");
+                }
+                console.log("USE EFFECT list type");
+            }, [data]);
 
 
+    function printListTypeName() {
+        // if (loading) return <p>Loading...</p>;
+        // if (error) return <p>Error :(</p>;
+
+        return typeName.map(({ ID, name }) => (
+            <>
+                {/* {console.log("ID VALUE TYPE", typeof ID)} */}
+                {/* {console.log("ID VALUE TYPE", typeof ID.toString())} */}
+                <option value={ID}>{name}</option>
+            </>
+        ));
+    }
+
+
+    const handleChangeType = (event) => {
+        setTypeId(parseInt(event.target.value));
+        console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
+    };
 
     const handleFormChangeProjectobj = (value, index) => {
         const dataObj = project_objectives.map((objItem, objIndex) => {
@@ -155,6 +193,10 @@ const AddProject = () => {
         console.log("removefields", dataRisk)
         setPotentialRisk(dataRisk)
     }
+
+
+    if (loading) return "Submitting...";
+    if (error) console.log(JSON.stringify(error));
 
 
 
@@ -227,6 +269,21 @@ const AddProject = () => {
     // }
 
     const handleSubmit = (e) => {
+        // const typeSelector = document.querySelector(".editor_type");
+        // type_id = type_id ? type_id : typeSelector.option[0].value;
+        // console.log("MASUKKKKKKKKKKK MANGGGGGGG")
+        type_id !== 0 ? type_id : setTypeId(parseInt(inputRefType.current.value))
+        
+        // console.log("MASUKKKKKKKKKKK MANGGGGGGG")
+        // // type_id = parseInt(type_id);
+        // console.log(inputRefType.current.value)
+        console.log(typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
+        console.log(typeof type_id, type_id);
+
+        // console.log(typeSelector.option)
+        // console.log("type_id", type_id);
+
+        // console.log(e)
         e.preventDefault();
         console.log(typeof start_project, start_project, "SEWI");
         console.log(typeof project_objectives, "LIPAW");
@@ -269,7 +326,7 @@ const AddProject = () => {
         setCostActual(0);
         setCostPlan(0);
         setClient("");
-        setClientContact();
+        setClientContact("");
         setCurrencyName("");
         setCurrencyCode("");
         setCurrencySymbol("");
@@ -342,14 +399,14 @@ const AddProject = () => {
             value: role_id,
             onChange: (e) => setRoleId(parseInt(e.target.value)),
         },
-        {
-            label: "Type ID",
-            name: "type_id",
-            placeholder: "Type ID",
-            type: "number",
-            value: type_id,
-            onChange: (e) => setTypeId(parseInt(e.target.value)),
-        },
+        // {
+        //     label: "Type ID",
+        //     name: "type_id",
+        //     placeholder: "Type ID",
+        //     type: "number",
+        //     value: type_id,
+        //     onChange: (e) => setTypeId(parseInt(e.target.value)),
+        // },
         {
             label: "Phase ID",
             name: "phase_id",
@@ -547,6 +604,14 @@ const AddProject = () => {
                     onChange={(date) => setEndProject(date)}
                     placeholder="DD/MM/YYYY"
                 />
+
+                {/* <ListProjectType/> */}
+
+                <div className="flex flex-col items-center">
+                    <select ref={inputRefType} value={type_id} onChange={handleChangeType} className="editor_type select select-ghost select-sm w-full max-w-lg">
+                        {printListTypeName()}
+                    </select>
+                </div>
 
                 <SubmitButton label="Add Project" />
             </form>

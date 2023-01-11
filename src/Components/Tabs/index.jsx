@@ -6,6 +6,7 @@ import { useState } from "react";
 import FetchActivity from "../../Middleware/Fetchers/FetchActivity.jsx";
 import FetchGantt from "../../Middleware/Fetchers/FetchGantt.jsx";
 import FetchProject from "../../Middleware/Fetchers/FetchProject.jsx";
+import NoTasks from "../Tasks/NoTasks.jsx";
 
 const Tabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
@@ -18,6 +19,8 @@ const Tabs = ({ color }) => {
   //   { id: 2, icon: Trash, projectName: "Project anomaly", taskName: "Plan the BMC with team", date: "30 Aug" },
   //   { id: 3, icon: Trash, projectName: "Project anomaly", taskName: "User requirements", date: "30 Aug" },
   // ]);
+
+  const completedTaskLength = activityData.filter((task) => task.status === "Done").length;
 
   return (
     <>
@@ -79,7 +82,9 @@ const Tabs = ({ color }) => {
                 </div>
 
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                {projectData.map((project) => {
+                {completedTaskLength === 0 
+                ? <NoTasks height="100" />
+                : projectData.map((project) => {
                   return ganttData.map((gantt) => {
                     return activityData.map((activity) => {
                       if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id && activity.phase.name === "Done") {

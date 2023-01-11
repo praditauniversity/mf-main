@@ -32,6 +32,8 @@ export const LoginHandler = () => {
     const [login] = useMutation(LOGIN);
     const [email, setEmail] = useLocalStorage('email', 'coba@gmail.com');
     const [password, setPassword] = useLocalStorage('password', '4dM1nSuPeR');
+    // const [email, setEmail] = useLocalStorage('email', 'stephen.winata@student.pradita.ac.id');
+    // const [password, setPassword] = useLocalStorage('password', 'testing123');
     const [error, setError] = useState('');
     const [profile, setProfile] = useLocalStorage('profile', () => {
         return {
