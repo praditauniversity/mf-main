@@ -32,8 +32,8 @@ const ProjectCharterPage = (props) => {
                     <div className="flex justify-end">
                         <div className="flex justify-between">
                             <AddModalProjectCharter />
-                            <button className="px-1" id="icon"><IconEdit /></button>
-                            <button className="px-1" id="icon"><IconDelete /></button>
+                            {/* <button className="px-1" id="icon"><IconEdit /></button>
+                            <button className="px-1" id="icon"><IconDelete /></button> */}
                         </div>
                     </div>
                 </div>

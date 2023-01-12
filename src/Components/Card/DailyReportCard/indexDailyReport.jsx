@@ -37,7 +37,7 @@ const DailyReportPage = (props) => {
                     </div>
                 </div>
 
-                <div className="px-36">
+                <div className="px-8">
                     <div className="grid grid-cols-18">
                         <div className="pt-6 pb-4 col-span-18">
                             <div className="grid grid-cols-15">
@@ -46,7 +46,10 @@ const DailyReportPage = (props) => {
                                         <p className="text-sm font-semibold opacity-70">Project Name</p>
                                     </div>
                                     <div>
-                                        <p className="text-base font-semibold">Project Anomaly</p>
+                                        {/* <p className="text-base font-semibold">Project Anomaly</p> */}
+                                        <select value={0} onChange={0} className="select select-ghost select-sm w-full max-w-lg">
+                                            <option value="1">Project Anomaly</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="col-span-6">

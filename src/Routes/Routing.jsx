@@ -1,23 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Auth, Register } from "../Components/Auth";
+import Logout from "../Components/Auth/Logout";
+import AboutPage from "../Pages/About";
+import { default as Profile, default as UserAccount } from "../Pages/Account";
+import DailyReport from "../Pages/DailyReport";
+import DailyReportView from "../Pages/DailyReport/dailyreportview";
 import DashboardPage from "../Pages/Dashboard";
+import MainDashboard from "../Pages/MainDashboard";
 import MemberDashboardPage from "../Pages/MemberDashboard";
+import MinutesofMeeting from "../Pages/MinuteOfMeeting";
 import PMODashboardPage from "../Pages/PMODashboard";
 import Project from "../Pages/Project";
-import ProjectDashboardPage from "../Pages/ProjectDashboard";
-import Responses from "../Pages/Responses";
-import Cases from "../Pages/Cases";
-import AboutPage from "../Pages/About";
-import UserProfile from "../Pages/UserProfile";
-import Logout from "../Components/Auth/Logout";
-import MainDashboard from "../Pages/MainDashboard";
 import ProjectCharter from "../Pages/ProjectCharter";
-import DailyReport from "../Pages/DailyReport";
-import MinutesofMeeting from "../Pages/MinuteOfMeeting";
-import Profile from "../Pages/Account";
-import UserAccount from "../Pages/Account";
 import ProjectCharterView from "../Pages/ProjectCharter/projectcharterview";
+import ProjectDashboardPage from "../Pages/ProjectDashboard";
+import ProjectList from "../Pages/ProjectList";
+import UserProfile from "../Pages/UserProfile";
 
 const MainRoute = async () => {
   try {
@@ -43,6 +42,7 @@ export default function Routing() {
     return (
       <Routes>
         <Route path="/" element={<MainRoute />} />
+        <Route path="/login" element={<MainRoute />} />
         <Route path="/project" element={<Project />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/pmodashboard" element={<PMODashboardPage />} />
@@ -59,6 +59,8 @@ export default function Routing() {
         <Route path="/projectcharter" element={<ProjectCharter />}></Route>
         <Route path="/charterview" element={<ProjectCharterView />}></Route>
         <Route path="/dailyreport" element={<DailyReport />}></Route>
+        <Route path="/dailyreportview" element={<DailyReportView />}></Route>
+        <Route path="/project-list" element={<ProjectList />}></Route>
         <Route path="/minutesofmeeting" element={<MinutesofMeeting />}></Route>
       </Routes>
     );

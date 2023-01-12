@@ -482,6 +482,7 @@ export const GET_CHARTER_DATA = gql`
             Project{
                 ID
                 name
+                project_manager
                 client
                 start_project
                 end_project
@@ -572,6 +573,33 @@ export const GET_ACTIVITY_PHASE_DATA = gql`
         color
         order
         user_id
+        updated_by
+        deleted_by
+      }
+    }
+  }
+`;
+
+export const GET_DAILY_REPORT_DATA = gql`
+  query dailyReport {
+    dailyReport {
+      data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        name
+        description
+        status
+        report_date
+        report_number
+        activity_id
+        project_id
+        user_id
+        work_log_name
+        work_log_desc
+        work_log_hour
+        work_log_status
         updated_by
         deleted_by
       }

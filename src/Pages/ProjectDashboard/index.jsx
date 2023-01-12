@@ -1,37 +1,20 @@
 import React, { useEffect, useState } from "react";
 
-import HealthCard from "../../Components/Card/HealthCard";
-import ProjectOverviewCard from "../../Components/Card/ProjectOverviewCard";
-import UserCard from "../../Components/Card/UserCard";
-import ApexRedialBarChart from "../../Components/Charts/RadialChart";
-import BudgetCard from "../../Components/Card/BudgetCard";
-import RadialBarChart from "../../Components/Charts/RadialChart";
-import TestCard from "../../Components/Card/TestCard";
-import DonutChart from "../../Components/Charts/PieChart";
-import ColumnChart from "../../Components/Charts/ColumnChart";
 import ProjectProgressCard from "../../Components/ApexCharts/ProjectProgress";
 import TaskOverviewCard from "../../Components/ApexCharts/TaskOverview";
-import TPECard from "../../Components/ApexCharts/TPE";
+import BudgetCard from "../../Components/Card/BudgetCard";
 import CalendarCard from "../../Components/Card/Calendar/CalendarCard";
-import TaskListCard from "../../Components/Card/TaskList/TaskListCard";
-import UpcomingTaskCard from "../../Components/Card/UpcomingTask/UpcomingTaskCard";
+import HealthCard from "../../Components/Card/HealthCard";
 import IssuesCard from "../../Components/Card/Issues/IssuesCard";
-import AppGantt from "../../Components/Gantt-Component/AppGantt";
-import TestQuery from "../../Components/Gantt-Component/TestQuery";
-import TestRedux from "../../Components/Gantt-Component/TestRedux";
-import implementRedux from "../../Components/Gantt-Component/ImplementRedux";
-import { Actual, Cost, Budget, Danger, Variance, CostHealth, ScheduleHealth, Client, ProjectManager } from "../../Components/GraphQL/ProjectByIdQueries";
-import ImplementRedux from "../../Components/Gantt-Component/ImplementRedux";
-import ActivityData, { PrintGantt, PrintTask, PrintTaskList, TEST_TestFormGantt } from "../../Components/Gantt-Component/CustomActivityState";
-import TestFormGantt from "../../Components/Gantt-Component/TestFormGantt";
+import ProjectOverviewCard from "../../Components/Card/ProjectOverviewCard";
+import { PrintGantt, PrintTask, PrintTaskList } from "../../Components/Gantt-Component/CustomActivityState";
+import { Actual, Budget, Client, Cost, CostHealth, Danger, ProjectManager, ScheduleHealth, Variance } from "../../Components/GraphQL/ProjectByIdQueries";
 
 const ProjectDashboardPage = () => {
     const [savedOption, setSavedOption] = React.useState(localStorage.getItem('projectID')/* ? localStorage.getItem('projectID') : "1"*/);
 
     useEffect(() => {
-        if (savedOption) {
-            setSavedOption(savedOption);
-        }
+        savedOption ? setSavedOption(savedOption) : setSavedOption(0);
         console.log("savedOption", savedOption);
         // Update the savedOption value in local storage whenever it changes
         // localStorage.setItem('savedOption', savedOption);
@@ -57,9 +40,9 @@ const ProjectDashboardPage = () => {
                             title1="Project Name"
                             description1="Project Anomaly"
                             title2="Project Manager"
-                            description2={<ProjectManager value={savedOption} />}
+                            description2={savedOption === 0 ? <ProjectManager value={savedOption} /> : "N/A"}
                             title3="Client"
-                            description3={<Client value={savedOption} />}
+                            description3={savedOption === 0 ? <Client value={savedOption} /> : "N/A"}
                         />
                     </div>
                     <div className="col-span-3 row-span-1"> <HealthCard title="Health by Cost" description={<CostHealth value={savedOption} />} colorIcon="text-error-dark" /> </div>
@@ -76,9 +59,9 @@ const ProjectDashboardPage = () => {
                     <div className="col-span-5 row-span-1"> <ProjectProgressCard /> </div>
                     <div className="col-span-10 row-span-2"> <PrintGantt title="Gantt Chart" /> </div>
                     <div className="col-span-5 row-span-1"> <TaskOverviewCard /> </div>
-                    <div className="col-span-full"> 
+                    <div className="col-span-full">
                         {/* <TaskListCard />  */}
-                        {<PrintTaskList/>}
+                        {<PrintTaskList />}
                     </div>
                 </div>
             </div>

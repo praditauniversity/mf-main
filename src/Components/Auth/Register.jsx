@@ -8,6 +8,7 @@ export const RegisterHandler = () => {
     const [register, { error: registerError }] = useMutation(REGISTER);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [testate, settestate] = useState('');
     const [input, setInput] = useState({
         username: '',
         first_name: '',
@@ -34,35 +35,33 @@ export const RegisterHandler = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        console.log("ASDASDASD", inputRefGender.current.value);
+        // console.log("ASDASDASD", inputRefGender.current.value);
         
         setInput({ ...input, [name]: value });
     }
     
     const handleSubmit = async (e) => {
+
+        const data = input;
+        data.gender === '' ? data.gender=inputRefGender.current.value : data.gender;
+        const inputHasEmptyValues = Object.values(input).some(value => value === '');
         
-        console.log("ASDASDASD", inputRefGender.current.value, "input gender", input.gender);
-        input.gender === '' ? setInput({ ...input, gender: inputRefGender.current.value}) : input.gender;
-        console.log("INPUT GENDER", input.gender);
         if (input.password !== password_confirmation) {
             alert("Password confirmation does not match");
         }
-
-        const inputHasEmptyValues = Object.values(input).some(value => value === '');
-        console.log(inputHasEmptyValues);
-        if (inputHasEmptyValues) {
+    
+        if (inputHasEmptyValues === true) {
             alert("Please fill all the fields");
         }
-
+        
         e.preventDefault();
         setLoading(true);
         try {
-            const data = input;
             console.log(data);
-            const response = await register({
+            register({
                 variables: data
             });
-            // window.location.href = '/#/login';
+            window.location.href = '/#/login';
             // window.location.reload();
             console.log("data berhasil");
             setError('');

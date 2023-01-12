@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IconDeleteForm, IconPlusForm } from "../../../Icons/icon";
 import './AddModal.css'
 import '../../../../Assets/svgbutton/svgbutton.css'
 
 const Addnewequipment = () => {
-    const [inputFields, setInputFields] = useState([
-        { equipment: '' }
-    ])
+    // const [inputFields, setInputFields] = useState([
+    //     { equipment: '' }
+    // ])
+    const [equipment, inputFields, setInputFields] = useEquipment()
+
+    console.log("SEWIWIWIWIWIWIWIWII", equipment[0]);
+
 
     const handleFormChange = (index, event) => {
         let data = [...inputFields];
         data[index][event.target.name] = event.target.value;
-        setInputFields(data);
+        // setInputFields(data);
     }
 
     const addFields = () => {
@@ -37,8 +41,8 @@ const Addnewequipment = () => {
                                     className="input input-bordered border-primary-light w-[86%] bg-table-dark tracking-normal"
                                     name='equipment'
                                     placeholder='Enter your equipment'
-                                    value={input.equipment}
-                                    onChange={event => handleFormChange(index, event)}
+                                    // value={equipment}
+                                    // onChange={event => handleFormChange(index, event)}
                                 />
 
                                 {inputFields.length !== 1 && <button className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2" onClick={() => removeFields(index)}><IconDeleteForm /></button>}
@@ -54,5 +58,18 @@ const Addnewequipment = () => {
         </div>
     );
 }
+export function useEquipment(){
+    const [inputFields, setInputFields] = useState([
+        { equipment: '' }
+    ])
+    const [equipment, setEquipment] = useState([]);
+    useEffect(() => {
+        setEquipment(inputFields);
+    },[inputFields])
 
-export default Addnewequipment;
+        return [equipment,inputFields, setInputFields];
+    
+}
+
+
+export default Addnewequipment ;

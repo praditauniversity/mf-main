@@ -15,6 +15,7 @@ import ProjectCharterPage from "./indexProjectCharter";
 
 const ProjectCharterCard = (props) => {
     const { icon } = props;
+    // const { value } = props.location.state;
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
             <div>
