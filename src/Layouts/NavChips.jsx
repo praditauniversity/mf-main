@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import user from "../Assets/Icons/svg/User_bw.svg";
-import subtask from "../Assets/Icons/svg/Subtask_bw.svg";
 import { Link } from "react-router-dom";
-import useLocalStorage from "../Middleware/useLocalStorage";
+import subtask from "../Assets/Icons/svg/Subtask_bw.svg";
+import user from "../Assets/Icons/svg/User_bw.svg";
 import GetProfile from "../Components/Auth/GetProfile";
 
 const Chevron = () => {
@@ -18,7 +17,7 @@ const UserChips = () => {
     return (
         <div className="flex bg-white shadow-lg py-2 px-4 rounded-lg text-typo-dark text-sm items-center">
             <img src={user} alt="user" className="mr-2" />
-            <span className="mr-1">Welcome</span> 
+            <span className="mr-1">Welcome</span>
             <Link to="/profile" className="font-bold">{firstName}!</Link>
         </div>
     );
@@ -58,7 +57,7 @@ const DateChips = () => {
 
 const DashboardChips = () => {
     // highlight the active link
-    
+
     const root = window.location.pathname === "/" ? "Root" : null;
     const current = window.location.hash.split("/")[1];
     const capCurrent = current.charAt(0).toLowerCase() + current.slice(1);
@@ -72,6 +71,7 @@ const DashboardChips = () => {
         { id: 1, link: "dashboard", name: "Dashboard" },
         { id: 2, link: "projectdashboard", name: "Project Dashboard" },
         { id: 3, link: "pmodashboard", name: "PMO Dashboard" },
+        { id: 4, link: "project-list", name: "Project List" },
     ];
 
     const separator = <span className="mx-2 text-typo-dark ">|</span>;
@@ -81,7 +81,7 @@ const DashboardChips = () => {
             {list.map((item) => (
                 <div key={item.id}>
                     <Link to={`/${item.link}`} key={item.id} id={item.link} onClick={handleClick} className={`mr-2 ${active === item.link ? "font-bold" : ""}`}>{item.name}</Link>
-                    {item.id !== list.length ?  <span className="mr-2">|</span> : null}
+                    {item.id !== list.length ? <span className="mr-2">|</span> : null}
                 </div>
             ))}
         </div>

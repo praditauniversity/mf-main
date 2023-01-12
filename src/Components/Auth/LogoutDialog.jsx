@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import { Dialog } from '@headlessui/react';
+import React, { useState } from 'react';
 import compass from '../../Assets/Icons/svg/Compass.svg';
 
 const LogoutButton = () => {
