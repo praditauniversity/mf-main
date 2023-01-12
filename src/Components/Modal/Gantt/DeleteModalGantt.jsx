@@ -14,7 +14,7 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 import { DatePickerField } from '../../Input/Input';
 import TableDatePicker from '../ModalDatePicker/DatePickerModal';
 
-const AddModalActivity = () => {
+const DeleteModalGantt = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const profile = GetProfile();
@@ -100,7 +100,7 @@ const AddModalActivity = () => {
                                             as="h3"
                                             className="text-lg font-bold leading-6"
                                         >
-                                            Create Activity
+                                            Create Gantt
                                         </Dialog.Title>
                                         <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
@@ -175,10 +175,10 @@ const AddModalActivity = () => {
     return (
         <>
             <div className="h-full px-5 align-right">
-                <Button onClick={showDialog} label="ADD Activity"></Button>
+                <Button onClick={showDialog} label="Delete GANTT"></Button>
             </div>
             <AddDialog />
         </>
     )
 }
-export default AddModalActivity;
+export default DeleteModalGantt;

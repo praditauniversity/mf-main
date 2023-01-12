@@ -185,7 +185,7 @@ export const GET_ACTIVITY_GANTT_ID = gql`
 
 // eslint-disable-next-line import/prefer-default-export
 export const GET_PROJECT_DATA = gql`
-query {
+query project{
   project {
     Data {
       ID
@@ -602,6 +602,34 @@ export const GET_DAILY_REPORT_DATA = gql`
         work_log_status
         updated_by
         deleted_by
+      }
+    }
+  }
+`;
+
+export const GET_DAILY_REPORT_DATA_BY_PROJECT_ID = gql`
+  query dailyReportByProjectId($projectId: String!) {
+    dailyReportGetProjectID(project_id: $projectId) {
+      data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        name
+        description
+        status
+        report_date
+        report_number
+        activity_id
+        project_id
+        user_id
+        updated_by
+        deleted_by
+        equipment
+        work_log_desc
+        work_log_hour
+        work_log_name
+        work_log_status
       }
     }
   }

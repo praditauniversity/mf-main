@@ -6,12 +6,14 @@ import FetchGantt from "../../../Middleware/Fetchers/FetchGantt";
 import FetchActivity from "../../../Middleware/Fetchers/FetchActivity";
 import FetchDailyReport from "../../../Middleware/Fetchers/FetchDailyReport";
 import { Link } from "react-router-dom";
+import FetchDailyReportByProjectId from "../../../Middleware/Fetchers/FetchDailyReportByProjectId";
 
 const DRList = () => {
   const projectData = FetchProject();
   const ganttData = FetchGantt();
   const activityData = FetchActivity();
-  const dailyReportData = FetchDailyReport();
+  // const dailyReportData = FetchDailyReport();
+  const dailyReportData = FetchDailyReportByProjectId();
   // const data = [
   //   {
   //     id: 1,

@@ -9,13 +9,15 @@ const Addnewequipment = () => {
     // ])
     const [equipment, inputFields, setInputFields] = useEquipment()
 
-    console.log("SEWIWIWIWIWIWIWIWII", equipment[0]);
-
-
+    
+    
     const handleFormChange = (index, event) => {
+        // console.log("SEWIWIWIWIWIWIWIWII", equipment[0].equipment);
         let data = [...inputFields];
-        data[index][event.target.name] = event.target.value;
-        // setInputFields(data);
+        const dataEvent = event.target.name;
+        data[index].dataEvent = event.target.value;
+        console.log("SEWIWIWIWIWIWIWIWII", data);
+        setInputFields(data);
     }
 
     const addFields = () => {
@@ -42,7 +44,7 @@ const Addnewequipment = () => {
                                     name='equipment'
                                     placeholder='Enter your equipment'
                                     // value={equipment}
-                                    // onChange={event => handleFormChange(index, event)}
+                                    onChange={event => handleFormChange(index, event)}
                                 />
 
                                 {inputFields.length !== 1 && <button className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2" onClick={() => removeFields(index)}><IconDeleteForm /></button>}
@@ -67,7 +69,7 @@ export function useEquipment(){
         setEquipment(inputFields);
     },[inputFields])
 
-        return [equipment,inputFields, setInputFields];
+        return [equipment,inputFields, setInputFields,setEquipment];
     
 }
 

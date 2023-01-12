@@ -388,3 +388,111 @@ export function Client(props) {
 
     return <div>{printClient()}</div>;
 }
+
+export function ClientContact(props) {
+    const profile = GetProfile();
+    const { value } = props;
+    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+        variables: { id: value },
+    });
+    const [projectData, setProject] = useState([]);
+    useEffect(() => {
+        if (data) {
+            console.log("Data Ready");
+            setProject(data.project.Data);
+            console.log(projectData);
+        } else {
+            console.log("No data");
+        }
+    }, [data]);
+
+    function printClientContact() {
+        var clientContact = "";
+        projectData.map((project) => {
+            if (profile.id === project.user_id) {
+                clientContact = project.client_contact;
+            }
+        });
+        return (
+            <div>
+                <p>
+                    {clientContact}
+                </p>
+            </div>
+        );
+    }
+
+    return <div>{printClientContact()}</div>;
+}
+
+export function ProjectStatus(props) {
+    const { value } = props;
+    const profile = GetProfile();
+    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+        variables: { id: value },
+    });
+    const [projectData, setProject] = useState([]);
+    useEffect(() => {
+        if (data) {
+            console.log("Data Ready");
+            setProject(data.project.Data);
+            console.log(projectData);
+        } else {
+            console.log("No data");
+        }
+    }, [data]);
+
+    function printProjectStatus() {
+        var projectStatus = "";
+        projectData.map((project) => {
+            if (profile.id === project.user_id) {
+                projectStatus = project.status;
+            }
+        });
+        return (
+            <div>
+                <p>
+                    {projectStatus}
+                </p>
+            </div>
+        );
+    }
+
+    return <div>{printProjectStatus()}</div>;
+}
+
+export function Location(props) {
+    const { value } = props;
+    const profile = GetProfile();
+    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+        variables: { id: value },
+    });
+    const [projectData, setProject] = useState([]);
+    useEffect(() => {
+        if (data) {
+            console.log("Data Ready");
+            setProject(data.project.Data);
+            console.log(projectData);
+        } else {
+            console.log("No data");
+        }
+    }, [data]);
+
+    function printLocation() {
+        var location = "";
+        projectData.map((project) => {
+            if (profile.id === project.user_id) {
+                location = project.office_location;
+            }
+        });
+        return (
+            <div>
+                <p>
+                    {location}
+                </p>
+            </div>
+        );
+    }
+    
+    return <div>{printLocation()}</div>;
+}

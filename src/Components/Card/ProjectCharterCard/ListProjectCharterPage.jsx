@@ -66,20 +66,20 @@ const PCList = () => {
   //   },
   // ];
 
-  const [value, setValue] = useState('');
+  // const [value, setValue] = useState('');
   // const history = useHistory();
 
-  const handleClick = (val) => {
-    // setIsClicked(!isClicked);
-    // event.currentTarget.classList.toggle("selected");
-    // console.log(event.currentTarget);
-    // setValue(val);
-    // history.push({
-    //   pathname: '/charterview',
-    //   state: { value }
-    // })
-    return val;
-  }
+  // const handleClick = (val) => {
+  //   // setIsClicked(!isClicked);
+  //   // event.currentTarget.classList.toggle("selected");
+  //   // console.log(event.currentTarget);
+  //   // setValue(val);
+  //   // history.push({
+  //   //   pathname: '/charterview',
+  //   //   state: { value }
+  //   // })
+  //   return val;
+  // }
   
   return (
     <div className="rounded-xl shadow-lg bg-white pt-6">
@@ -109,10 +109,8 @@ const PCList = () => {
               const endProjectDay = endProject.toLocaleDateString('en-US', {day: '2-digit'});
               return (
                 <tr key={item.ID}>
-                  {/* <Link to={{pathname: '/charterview', state: { value: handleClick(item) }}}> */}
                   {/* className={`cursor-pointer ${isClicked ? 'bg-yellow-500 text-primary' : ''}`} */}
-                  <td align="center"><Link to="/charterview"><button className="hover:text-primary">{item.Project.name}</button></Link></td>
-                    {/* <td align="center">{item.Project.name}</td> */}
+                  <td align="center"><Link to={{pathname: '/charterview', state: { value: item.ID }}}><button className="hover:text-primary">{item.Project.name}</button></Link></td>
                   <td align="center">{item.Project.project_manager}</td>
                   <td align="center">{item.Project.client}</td>
                   <td align="center">{startProjectYear}/{startProjectMonth}/{startProjectDay}</td>

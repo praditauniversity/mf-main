@@ -14,6 +14,10 @@ import Button from "../Button";
 import AddModalGantt from "../Modal/Gantt/AddModalGantt";
 import AddModalActivity from "../Modal/Activity/AddModalActivity";
 import { PrintListGanttName } from "./CustomActivityState";
+import EditModalActivity from "../Modal/Gantt/EditModalGantt";
+import DeleteModalActivity from "../Modal/Gantt/DeleteModalGantt";
+import EditModalGantt from "../Modal/Gantt/EditModalGantt";
+import DeleteModalGantt from "../Modal/Gantt/DeleteModalGantt";
 
 // create custom column
 gantt.config.columns = [
@@ -737,26 +741,6 @@ function AppGantt(props) {
             });
         });
 
-    //     if (dataGantt.length > 0) {
-    //         console.log("data gantt ada");
-    //         return (
-    //             <div className="h-full">
-    //                 {MappingPhase()}
-    //                 {console.log("mapping data", ganttTask)}
-    //                 <Gantt tasks={ganttTask} action={handler} />
-    //             </div>
-    //         );
-    //     } else {
-    //         console.log("data gantt tidak ada");
-    //         return (
-    //             // <AddModalActivity />
-    //             <div>
-    //                 <p>Gantt is Empty</p>
-    //             </div>
-    //         )
-    //     }
-    // }
-
 
         // conditional show gantt (gantt empty? activity empty?)
         if (ganttID > 0) {
@@ -775,11 +759,11 @@ function AppGantt(props) {
                 console.log("data gantt tidak ada");
                 return (
                     <AddModalActivity />
-                    )
-                }
-            } else {
-                console.log("ganttID tidak ada");
-                return (
+                )
+            }
+        } else {
+            console.log("ganttID tidak ada");
+            return (
                 <AddModalGantt />
             )
         }
@@ -796,9 +780,14 @@ function AppGantt(props) {
     return (
         <div className="bg-white py-6 px-12 rounded-xl shadow-lg h-full">
             <div className="h-full">
-                <div className="py-5 px-4 flex justify-between">
+                <div className="py-5 px-4 flex justify-between items-center align-middle">
                     <p className="text-md">{title}</p>
-                    <PrintListGanttName />
+                    <div className="py-5 px-4 flex items-center align-right">
+                        <AddModalGantt />
+                        <EditModalGantt />
+                        <DeleteModalGantt />
+                        <PrintListGanttName />
+                    </div>
                 </div>
                 {console.log("before mapping data should be called")}
                 <div className="py-1 px-4 h-full">{MappingData()}</div>

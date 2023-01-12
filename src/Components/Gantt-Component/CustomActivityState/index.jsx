@@ -12,6 +12,7 @@ import TestFormGantt from "../TestFormGantt";
 import TaskListCard from "../../Card/TaskList/TaskListCard";
 import VerticalTabs from "../../Tabs/verticalTabs";
 import ListGanttByProject from "../../Listbox/ListGanttName";
+import ListboxProjectName from "../../Listbox/ListProjectName";
 
 function useActivity() {
   // const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
@@ -64,7 +65,7 @@ function useGantt() {
     console.log("USE EFFECT list gantt");
   }, [data]);
 
-  return [ganttID, setGanttID, projectID, ganttName ]
+  return [ganttID, setGanttID, ganttName, projectID, setProjectID ]
 }
 
 function useActivityPhase() {
@@ -129,3 +130,12 @@ export const PrintListGanttName = () => {
     <ListGanttByProject ganttID={ganttID} setGanttID={setGanttID} projectID={projectID} ganttName={ganttName} />
   </>
 }
+
+export const PrintListProjetcName = () => {
+  const [setGanttID, projectID, setProjectID  ] = useGantt();
+
+  return <>
+    <ListboxProjectName setGanttID={setGanttID} projectID={projectID} setProject={setProjectID} />
+  </>
+}
+

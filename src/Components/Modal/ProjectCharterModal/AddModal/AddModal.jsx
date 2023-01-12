@@ -4,8 +4,11 @@ import '../../../../Assets/svgbutton/svgbutton.css'
 import { IconDateForm, IconDeleteForm, IconPlus, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
 import './AddModal.css'
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { GET_MILESTONE_DATA, GET_PROJECT_DATA_BY_ID } from '../../../GraphQL/Queries';
+import { GET_MILESTONE_DATA, GET_PROJECT_DATA_BY_ID, GET_PROJECT_DATA_BY_USER_ID } from '../../../GraphQL/Queries';
 import { InputField } from '../../../Input/Input';
+import GetProjectName from './GetProjectName';
+import GetProfile from '../../../Auth/GetProfile';
+import FetchCharter from '../../../../Middleware/Fetchers/FetchCharter';
 
 const ADD_CHARTER = gql`
         mutation addProjectCharter(
@@ -45,27 +48,39 @@ const AddModalProjectCharter = () => {
     const [addProjectCharter, { loading: addProjectLoading, error: addProjectError }] = useMutation(ADD_CHARTER);
 
 
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: project_id }
+    // const pName = GetProjectName();
+    const profile = GetProfile();
+    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+        variables: { userId: profile.id },
     });
     const { data: dataMilestone, loading: loadingMilestone, error: errorMilestone } = useQuery(GET_MILESTONE_DATA);
     const [projectName, setProjectName] = useState([]);
     const [milestoneStatus, setMilestoneStatus] = useState([]);
 
     useEffect(() => {
-        if (data, dataMilestone) {
+        if (data) {
             console.log("Data Ready list project and milestone");
-            // setProjectName(data.project.Data);
+            setProjectName(data.projectByUserId.Data);
+        }
+        if (dataMilestone) {
             setMilestoneStatus(dataMilestone.projectMilestone.Data);
             // console.log("Data Ready", data.project.Data);
             console.log("Data Ready", dataMilestone.projectMilestone.Data)
-        } else {
+        }
+        else {
             console.log("No data list project and milestone");
         }
         console.log("USE EFFECT list project and milestone");
     }, [data, dataMilestone]);
 
+    const charterData = FetchCharter();
     function printListProjectName() {
+        // const [selectedOption, setSelectedOption] = useState('');
+        // return(
+        //         projectName.map(({ ID, name }) => (
+        //             if(!showOption && projectName.values ===)
+        //         ))
+        // );
         return projectName.map(({ ID, name }) => (
             <>
                 <option value={ID}>{name}</option>
@@ -122,10 +137,18 @@ const AddModalProjectCharter = () => {
     if (loadingMilestone) return "submitting...";
     if (errorMilestone) console.log(JSON.stringify(errorMilestone));
 
+    if (addProjectError) console.log(JSON.stringify(addProjectError));
+
 
     const handleSubmit = (e) => {
-        project_id !== 0 ? project_id : setProjectId(parseInt(inputRefProject.current.value))
-        milestone_id !== 0 ? milestone_id : setMilestoneId(parseInt(inputRefMilestone.current.value))
+        const project_id = parseInt(inputRefProject.current.value);
+        const milestone_id = parseInt(inputRefMilestone.current.value);
+        // console.log(typeof project_id, project_id);
+        // console.log(typeof milestone_id, milestone_id);
+        // console.log("Project id true 0", project_id)
+        // project_id === 0 ? console.log("Project id true 0", project_id) : console.log("Project id false 0", project_id)
+        project_id === 0 ? setProjectId(parseInt(inputRefProject.current.value)) : project_id
+        milestone_id === 0 ? setMilestoneId(parseInt(inputRefMilestone.current.value)) : milestone_id
 
         console.log(typeof parseInt(inputRefProject.current.value), parseInt(inputRefProject.current.value));
         console.log(typeof parseInt(inputRefMilestone.current.value), parseInt(inputRefMilestone.current.value));
@@ -146,10 +169,10 @@ const AddModalProjectCharter = () => {
 
     const dataDailyReport = [
         {
-            label: "Participants",
+            label: "Participant",
             name: "participants",
             placeholder: "Participants",
-            type: "text",
+            type: "number",
             value: participants,
             onChange: (e) => setParticipants(parseInt(e.target.value)),
         },
@@ -199,8 +222,8 @@ const AddModalProjectCharter = () => {
                                     {/* project */}
                                     <div className="pt-1 pb-3">
                                         <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">Project Name</label>
-                                        <div className="flex flex-col items-center">
-                                            <select ref={inputRefProject} value={project_id} onChange={handleChangeProject} className="editor_type select select-bordered w-full max-w-lg">
+                                        <div className="flex flex-col w-full">
+                                            <select ref={inputRefProject} value={project_id} onChange={handleChangeProject} className="editor_type select select-bordered w-full max-w-5xl">
                                                 {printListProjectName()}
                                             </select>
                                         </div>
@@ -209,8 +232,8 @@ const AddModalProjectCharter = () => {
                                     {/* milestone */}
                                     <div className="pt-1 pb-3">
                                         <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">Milestone Status</label>
-                                        <div className="flex flex-col items-center">
-                                            <select ref={inputRefMilestone} value={milestone_id} onChange={handleChangeMilestone} className="editor_type select select-bordered w-full max-w-lg">
+                                        <div className="flex flex-col w-full">
+                                            <select ref={inputRefMilestone} value={milestone_id} onChange={handleChangeMilestone} className="editor_type select select-bordered w-full max-w-5xl">
                                                 {printListMilestoneName()}
                                             </select>
                                         </div>

@@ -4,19 +4,19 @@ import { useQuery, gql } from '@apollo/client';
 import { GET_PROJECT_DATA, GET_PROJECT_DATA_BY_USER_ID } from '../../GraphQL/Queries';
 import { Actual } from '../../GraphQL/ProjectByIdQueries';
 
-const ListboxProjectName = () => {
+const ListboxProjectName = (props) => {
+    const {setGanttID, projectID, setProjectID} = props;
     const profile = GetProfile();
     const { loading, error, data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: profile.id },
     });
-    const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
     const [projectData, setProject] = useState([]);
 
     useEffect(() => {
         if (data) {
             setProject(data.projectByUserId.Data);
             // console.log("FFFFFFFFFFFFFFf", data.projectByUserId.Data[0].ID);
-            projectID == 0 ? localStorage.setItem('projectID', data.projectByUserId.Data[0].ID) : localStorage.setItem('projectID', projectID);
+            projectID === 0 ? localStorage.setItem('projectID', data.projectByUserId.Data[0].ID) : localStorage.setItem('projectID', projectID);
         } else {
             console.log("No data");
             localStorage.setItem('projectID', 0)
@@ -37,7 +37,7 @@ const ListboxProjectName = () => {
     const handleChange = (event) => {
         setProjectID(event.target.value);
         localStorage.setItem('projectID', event.target.value);
-        // localStorage.setItem('ganttID', 0);
+        setGanttID(0);
         // localStorage.setItem('ganttID', "1");
         window.location.reload();
     };

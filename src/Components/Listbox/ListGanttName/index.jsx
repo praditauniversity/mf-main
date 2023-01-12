@@ -8,11 +8,19 @@ const ListGanttByProject = (props) => {
 
     function printListGanttName() {
 
+        var isData = false;
+
+        if (ganttName.length > 0){
+            isData = true;
+        }else{
+            isData = false;
+        }
+
         return ganttName.map(({ ID, name }) => (
             <>
                 {/* {console.log("ID VALUE TYPE", typeof ID)} */}
                 {/* {console.log("ID VALUE TYPE", typeof ID.toString())} */}
-                <option value={ID}>{name}</option>
+                {isData ? <option value={ID}>{name}</option> : <option value="0">No Gantt</option> }
             </>
         ));
     }

@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useQuery } from '@apollo/client';
 import { IconPlus, IconEdit, IconDelete, IconFilter, IconSearch } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
 import { InputField } from "../../Input/Input";
 import TableFooter from "./TableFooter";
 import DRList from "./List";
 import AddModalDailyReport from "../../Modal/DailyReportModal/AddModal/AddModal";
+import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
+import GetProfile from "../../Auth/GetProfile";
+import { Client, ClientContact, Location, ProjectManager, ProjectStatus } from "../../GraphQL/ProjectByIdQueries";
+import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 
 const DailyReportPage = (props) => {
     const { icon } = props;
@@ -20,6 +25,39 @@ const DailyReportPage = (props) => {
     const handlePageChange = (page) => {
         setCurrentPage(page)
     }
+
+    // const projectData = FetchProjectByUserId();
+
+    const profile = GetProfile();
+    const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+        variables: { userId: profile.id},
+    });
+    const [projectData, setProject] = useState([]);
+    const [reportProjectID, setReportProjectID] = useState(localStorage.getItem('reportProjectID'));
+
+    useEffect(() => {
+        if (data) {
+            setProject(data.projectByUserId.Data);
+            reportProjectID == 0 ? localStorage.setItem('reportProjectID', data.projectByUserId.Data[0].ID) : localStorage.setItem('reportProjectID', reportProjectID);
+        } else {
+            console.log("No data found for project with user id : " + profile.id);
+            localStorage.setItem('reportProjectID', 0)
+        }
+    }, [data]);
+
+    function printListProjectName() {
+        return projectData.map(({ ID, name }) => (
+            <>
+                <option value={ID}>{name}</option>               
+            </>
+        ));
+    }
+
+    const handleChange = (event) => {
+        setReportProjectID(event.target.value);
+        localStorage.setItem('reportProjectID', event.target.value);
+        window.location.reload();
+    };
 
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
@@ -47,8 +85,8 @@ const DailyReportPage = (props) => {
                                     </div>
                                     <div>
                                         {/* <p className="text-base font-semibold">Project Anomaly</p> */}
-                                        <select value={0} onChange={0} className="select select-ghost select-sm w-full max-w-lg">
-                                            <option value="1">Project Anomaly</option>
+                                        <select value={reportProjectID} onChange={handleChange} className="select select-ghost select-sm w-full max-w-xs">
+                                            {printListProjectName()}
                                         </select>
                                     </div>
                                 </div>
@@ -57,15 +95,15 @@ const DailyReportPage = (props) => {
                                         <p className="text-sm font-semibold opacity-70">Project Manager</p>
                                     </div>
                                     <div>
-                                        <p className="text-base font-semibold">Jhon Doe</p>
+                                        <p className="text-base font-semibold"><ProjectManager value={reportProjectID}/></p>
                                     </div>
                                 </div>
                                 <div className="col-span-3">
                                     <div className="pb-2">
-                                        <p className="text-sm font-semibold opacity-70">Customer</p>
+                                        <p className="text-sm font-semibold opacity-70">Client</p>
                                     </div>
                                     <div>
-                                        <p className="text-base font-semibold">Jaya Gedung Group</p>
+                                        <p className="text-base font-semibold"><Client value={reportProjectID}/></p>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +114,7 @@ const DailyReportPage = (props) => {
                                         <p className="text-sm font-semibold opacity-70">Location</p>
                                     </div>
                                     <div>
-                                        <p className="text-base font-semibold">Merak Raya</p>
+                                        <p className="text-base font-semibold"><Location value={reportProjectID}/></p>
                                     </div>
                                 </div>
                                 <div className="col-span-6">
@@ -84,15 +122,15 @@ const DailyReportPage = (props) => {
                                         <p className="text-sm font-semibold opacity-70">General Project Status</p>
                                     </div>
                                     <div>
-                                        <p className="text-base font-semibold">In Progress</p>
+                                        <p className="text-base font-semibold"><ProjectStatus value={reportProjectID}/></p>
                                     </div>
                                 </div>
                                 <div className="col-span-3">
                                     <div className="pb-2">
-                                        <p className="text-sm font-semibold opacity-70">Customer Contact</p>
+                                        <p className="text-sm font-semibold opacity-70">Client Contact</p>
                                     </div>
                                     <div>
-                                        <p className="text-base font-semibold">812204166697</p>
+                                        <p className="text-base font-semibold"><ClientContact value={reportProjectID}/></p>
                                     </div>
                                 </div>
                             </div>

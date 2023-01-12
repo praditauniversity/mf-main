@@ -122,14 +122,17 @@ const AddProject = () => {
     const [phaseName, setPhaseName] = useState([]);
 
     useEffect(() => {
-        if (data, dataPhase) {
+        if (data) {
             console.log("Data Ready list type and phase");
             setTypeName(data.projectType.Data);
-            setPhaseName(dataPhase.projectPhase.Data);
             console.log("Data Ready", data.projectType.Data);
-            console.log("Data Ready",dataPhase.projectPhase.Data)
         } else {
             console.log("No data list type and phase");
+        }
+        if (dataPhase){
+            console.log("Data Ready list phase");
+            setPhaseName(dataPhase.projectPhase.Data);
+            console.log("Data Ready",dataPhase.projectPhase.Data)
         }
         console.log("USE EFFECT list type and phase");
     }, [data, dataPhase]);

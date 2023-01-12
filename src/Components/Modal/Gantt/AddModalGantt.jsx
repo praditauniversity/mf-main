@@ -39,7 +39,7 @@ const AddModalGantt = () => {
 
     const handleSave = (e) => {
         e.preventDefault();
-        
+
         addGantt({
             variables: {
                 name,
@@ -174,8 +174,7 @@ const AddModalGantt = () => {
 
     return (
         <>
-            <div className="h-full px-12 align-middle">
-                <p className="text-center align-middle">Gantt is Empty</p>
+            <div className="h-full px-5 align-right">
                 <Button onClick={showDialog} label="ADD GANTT"></Button>
             </div>
             <AddDialog />

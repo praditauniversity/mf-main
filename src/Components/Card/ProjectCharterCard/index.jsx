@@ -12,10 +12,12 @@ import '../../../Assets/svgbutton/svgbutton.css'
 import DeleteModal from "../../Modal/ProjectCharterModal/DeleteModal/DeleteModal";
 import AddModalProjectCharter from "../../Modal/ProjectCharterModal/AddModal/AddModal";
 import ProjectCharterPage from "./indexProjectCharter";
+import { withRouter } from 'react-router-dom';
 
 const ProjectCharterCard = (props) => {
     const { icon } = props;
-    // const { value } = props.location.state;
+    const value = props.location.state.value;
+    console.log("VALCHARTER", value);
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
             <div>
