@@ -114,6 +114,34 @@ const AddModalDailyReport = () => {
 
   const handleSubmit = (e) => {
     activity_id !== 0? activity_id : setActivityId(parseInt(inputRefActivity.current.value));
+
+    addDailyReport({
+      variables: {
+        name,
+        description,
+        status,
+        equipment,
+        activity_id,
+        project_id,
+        report_date,
+        work_log_name,
+        work_log_desc,
+        work_log_status,
+        work_log_hour
+      },
+    });
+    setName("");
+    setDescription("");
+    setStatus("");
+    setEquipment([]);
+    setActivityId(0);
+    setProjectId(0);
+    setReportDate("");
+    setWorkLogDesc([]);
+    setWorkLogName([]);
+    setWorkLogStatus([]);
+    setWorkLogHour([]);
+
     
     e.preventDefault();
   };
