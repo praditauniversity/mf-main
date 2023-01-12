@@ -456,6 +456,41 @@ export const GET_PROJECT_DATA_BY_USER_ID = gql`
   }
 `;
 
+export const GET_MILESTONE_DATA = gql`
+  query projectMilestone {
+    projectMilestone {
+        Data {
+            ID
+            project_id
+            Project {
+                name
+            }
+            status
+            due_date
+        }
+    }
+  }
+`;
+
+export const GET_CHARTER_DATA = gql`
+  query projectCharter {
+    projectCharter {
+        Data {
+            ID
+            project_id
+            milestone_id
+            Project{
+                ID
+                name
+                client
+                start_project
+                end_project
+            }
+        }
+    }
+  }
+`;
+
 export const GET_GANTT_DATA = gql`
   query MyQuery {
     gantt {
@@ -486,7 +521,6 @@ export const GET_ACTIVITY_DATA = gql`
         CreatedAt
         UpdatedAt
         DeletedAt
-        parent_id
         name
         description
         gantt_id

@@ -1,24 +1,35 @@
 import React, { useState } from "react";
 import Done from "../../Assets/Icons/svg/Done.svg";
+import FetchActivity from "../../Middleware/Fetchers/FetchActivity";
+import FetchGantt from "../../Middleware/Fetchers/FetchGantt";
+import FetchProject from "../../Middleware/Fetchers/FetchProject";
 import Tasks from "../Tasks/index";
 import NoTasks from "../Tasks/NoTasks";
 
 const TabsDailyReminder = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
 
-  const [taskList, setTaskList] = useState([]);
+  const projectData = FetchProject();
+  const ganttData = FetchGantt();
+  const activityData = FetchActivity();
 
-  const [someTask, setSomeTask] = useState([
-    { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Make moodboard", date: "14 Sep" },
-    { id: 2, icon: Done, projectName: "Project anomaly", taskName: "Create wireframe", date: "14 Sep" },
-    { id: 3, icon: Done, projectName: "Project anomaly", taskName: "Make the Lo-Fi model", date: "14 Sep" },
-    { id: 4, icon: Done, projectName: "Project anomaly", taskName: "Make the Hi-Fi model", date: "14 Sep" },
-    { id: 5, icon: Done, projectName: "Project anomaly", taskName: "Usability testing", date: "14 Sep" },
-  ]);
+  const calendarTaskLength = activityData.filter((item) => {
+    const todayDate = new Date();
+    const endDate = new Date(item.end_time);
+    const status = item.phase.name;
+    return endDate > todayDate && status === "In Progress";
+  }).length;
+
+  // const [someTask, setSomeTask] = useState([
+  //   { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Make moodboard", date: "14 Sep" },
+  //   { id: 2, icon: Done, projectName: "Project anomaly", taskName: "Create wireframe", date: "14 Sep" },
+  //   { id: 3, icon: Done, projectName: "Project anomaly", taskName: "Make the Lo-Fi model", date: "14 Sep" },
+  //   { id: 4, icon: Done, projectName: "Project anomaly", taskName: "Make the Hi-Fi model", date: "14 Sep" },
+  //   { id: 5, icon: Done, projectName: "Project anomaly", taskName: "Usability testing", date: "14 Sep" },
+  // ]);
+  // const someTaskLength = someTask.length;
 
   const [someTask1, setSomeTask1] = useState([]);
-
-  const someTaskLength = someTask.length;
   const someTask1Length = someTask1.length;
 
   return (
@@ -77,19 +88,28 @@ const TabsDailyReminder = ({ color }) => {
             <div className="px-4 py-5 flex-auto overflow-y-scroll scrollbar">
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                {someTaskLength === 0 
+                {calendarTaskLength === 0 
                 ? <NoTasks height="100"/> 
-                : someTask.map((item) => (
-                  <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
-                ))
-                }
+                : projectData.map((project) => {
+                  return ganttData.map((gantt) => {
+                    return activityData.map((activity) => {
+                      const todayDate = new Date();
+                      const endDate = new Date(activity.end_time);
+                      if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id && endDate > todayDate && activity.phase.name === "In Progress") {
+                        return (
+                          <Tasks id={activity.ID} icon={Done} projectName={project.name} taskName={activity.name} startDate={activity.start_time} endDate={activity.end_time} />
+                        );
+                      }
+                    });
+                  });
+                })}
                 </div>
 
                 <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                 {someTask1Length === 0 
                 ? <NoTasks height="100"/> 
                 : someTask1.map((item) => (
-                  <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} date={item.date} />
+                  <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} startDate={item.date} endDate={item.date} />
                 ))
                 }
                 </div>

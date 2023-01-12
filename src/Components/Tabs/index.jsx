@@ -20,7 +20,7 @@ const Tabs = ({ color }) => {
   //   { id: 3, icon: Trash, projectName: "Project anomaly", taskName: "User requirements", date: "30 Aug" },
   // ]);
 
-  const completedTaskLength = activityData.filter((task) => task.status === "Done").length;
+  const completedTaskLength = activityData.filter((task) => task.phase.name === "Done").length;
 
   return (
     <>
@@ -89,7 +89,7 @@ const Tabs = ({ color }) => {
                     return activityData.map((activity) => {
                       if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id && activity.phase.name === "Done") {
                         return (
-                        <Tasks id={activity.ID} icon={Trash} projectName={project.name} taskName={activity.name} date={activity.end_time} />
+                          <Tasks id={activity.ID} icon={Trash} projectName={project.name} taskName={activity.name} startDate={activity.start_time} endDate={activity.end_time} />
                         );
                       }
                     });

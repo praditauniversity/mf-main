@@ -13,6 +13,7 @@ import ListGanttByProject from "../Listbox/ListGanttName";
 import Button from "../Button";
 import AddModalGantt from "../Modal/Gantt/AddModalGantt";
 import AddModalActivity from "../Modal/Activity/AddModalActivity";
+import { PrintListGanttName } from "./CustomActivityState";
 
 // create custom column
 gantt.config.columns = [
@@ -420,10 +421,10 @@ function handler({ action, obj, id }) {
 
 function AppGantt(props) {
     console.log("RENDER");
-    const { title, dataGantt, dataPhase } = props;
+    const { title, dataGantt, dataPhase, ganttID } = props;
     // const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
-    const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
-    const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
+    // const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
+    // const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
     const profile = GetProfile();
     const [phaseID, setPhaseID] = useState();
 
@@ -736,8 +737,33 @@ function AppGantt(props) {
             });
         });
 
-        if (ganttID.length > 0) {
+    //     if (dataGantt.length > 0) {
+    //         console.log("data gantt ada");
+    //         return (
+    //             <div className="h-full">
+    //                 {MappingPhase()}
+    //                 {console.log("mapping data", ganttTask)}
+    //                 <Gantt tasks={ganttTask} action={handler} />
+    //             </div>
+    //         );
+    //     } else {
+    //         console.log("data gantt tidak ada");
+    //         return (
+    //             // <AddModalActivity />
+    //             <div>
+    //                 <p>Gantt is Empty</p>
+    //             </div>
+    //         )
+    //     }
+    // }
+
+
+        // conditional show gantt (gantt empty? activity empty?)
+        if (ganttID > 0) {
+            console.log("ganttID ada");
+
             if (dataGantt.length > 0) {
+                console.log("data gantt ada");
                 return (
                     <div className="h-full">
                         {MappingPhase()}
@@ -746,40 +772,42 @@ function AppGantt(props) {
                     </div>
                 );
             } else {
+                console.log("data gantt tidak ada");
                 return (
                     <AddModalActivity />
-                )
-            }
-        } else {
-            return (
+                    )
+                }
+            } else {
+                console.log("ganttID tidak ada");
+                return (
                 <AddModalGantt />
             )
         }
     }
 
-        const [isOpen, setIsOpen] = useState(false);
-        const showDialog = () => {
-            setIsOpen(true);
-        }
-        const hideDialog = () => {
-            setIsOpen(false);
-        }
-
-        return (
-            <div className="bg-white py-6 px-12 rounded-xl shadow-lg h-full">
-                <div className="h-full">
-                    <div className="py-5 px-4 flex justify-between">
-                        <p className="text-md">{title}</p>
-                        <ListGanttByProject />
-                    </div>
-                    {console.log("before mapping data should be called")}
-                    <div className="py-1 px-4 h-full">{MappingData()}</div>
-                    {/* <div className="py-1 px-4">{MappingPhase()}</div> */}
-                    {/* {MappingPhase()} */}
-                    {console.log("after mapping data should be called")}
-                </div>
-            </div>
-        );
+    const [isOpen, setIsOpen] = useState(false);
+    const showDialog = () => {
+        setIsOpen(true);
+    }
+    const hideDialog = () => {
+        setIsOpen(false);
     }
 
-    export default AppGantt;
+    return (
+        <div className="bg-white py-6 px-12 rounded-xl shadow-lg h-full">
+            <div className="h-full">
+                <div className="py-5 px-4 flex justify-between">
+                    <p className="text-md">{title}</p>
+                    <PrintListGanttName />
+                </div>
+                {console.log("before mapping data should be called")}
+                <div className="py-1 px-4 h-full">{MappingData()}</div>
+                {/* <div className="py-1 px-4">{MappingPhase()}</div> */}
+                {/* {MappingPhase()} */}
+                {console.log("after mapping data should be called")}
+            </div>
+        </div>
+    );
+}
+
+export default AppGantt;

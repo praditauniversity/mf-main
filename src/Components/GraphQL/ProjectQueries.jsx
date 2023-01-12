@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_GANTT_DATA, GET_PROJECT_DATA } from "./Queries";
+import { GET_PROJECT_DATA } from "./Queries";
 import { functionalUpdate } from "react-table";
 import GetProfile from "../Auth/GetProfile";
 
@@ -152,7 +152,7 @@ export function SumDanger() {
   return <div>{printSumDanger()}</div>;
 }
 
-export function Variance() {
+export function SumVariance() {
   const profile = GetProfile();
   const { error, loading, data } = useQuery(GET_PROJECT_DATA);
   const [projectdata, setProject] = useState([]);
@@ -167,7 +167,7 @@ export function Variance() {
     }
   }, [data]);
 
-  function printVariance() {
+  function printSumVariance() {
     var sumBudget = 0;
     var sumAct = 0;
     var variance = 0;
@@ -189,5 +189,5 @@ export function Variance() {
     );
   }
 
-  return <div>{printVariance()}</div>;
+  return <div>{printSumVariance()}</div>;
 }

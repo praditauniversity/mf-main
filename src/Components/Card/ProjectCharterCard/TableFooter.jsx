@@ -30,9 +30,9 @@ const TableFooter = ({ totalPages, currentPage, onPageChange }) => {
         </button>
       </div>
 
-      <div className="add-button">
+      {/* <div className="add-button">
         <Button label="+ Add Meeting"/>
-      </div>
+      </div> */}
     </div>
   )
 }

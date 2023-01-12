@@ -1,12 +1,18 @@
 import React from "react";
+import FetchActivity from "../../../Middleware/Fetchers/FetchActivity";
+import FetchGantt from "../../../Middleware/Fetchers/FetchGantt";
+import FetchProject from "../../../Middleware/Fetchers/FetchProject";
 
 const MemberTaskCard = () => {
-    const data = [
-        { taskname: "UI for Desktop", projectname: "Solar Panel Smart Lab", projectmanager: "Alicia", deadline: "09/03/2022", progress: "50%" },
-        { taskname: "UI for Mobile", projectname: "Project After Math", projectmanager: "Daniel", deadline: " 09/03/2022", progress: "50%" },
-        { taskname: "Review the Project", projectname: "John Winter Wonderland Singapore", projectmanager: "Richard", deadline: " 09/03/2022", progress: "80%" },
-        { taskname: "Create moodboard", projectname: "Reverie Product Management Application", projectmanager: "Linda", deadline: " 09/03/2022", progress: "20%" },
-    ]
+    const projectData = FetchProject();
+    const ganttData = FetchGantt();
+    const activityData = FetchActivity();
+    // const data = [
+    //     { taskname: "UI for Desktop", projectname: "Solar Panel Smart Lab", projectmanager: "Alicia", deadline: "09/03/2022", progress: "50%" },
+    //     { taskname: "UI for Mobile", projectname: "Project After Math", projectmanager: "Daniel", deadline: " 09/03/2022", progress: "50%" },
+    //     { taskname: "Review the Project", projectname: "John Winter Wonderland Singapore", projectmanager: "Richard", deadline: " 09/03/2022", progress: "80%" },
+    //     { taskname: "Create moodboard", projectname: "Reverie Product Management Application", projectmanager: "Linda", deadline: " 09/03/2022", progress: "20%" },
+    // ]
     return (
         <div className="rounded-xl shadow-lg bg-white pt-6">
             <div className="flex justify-start pl-8 pb-6">
@@ -25,15 +31,36 @@ const MemberTaskCard = () => {
                     </thead>
                     <tbody>
                         {
-                            data.map((item, index) =>
-                                <tr key={index}>
-                                    <td align="center">{item.taskname}</td>
-                                    <td align="center">{item.projectname}</td>
-                                    <td align="center">{item.projectmanager}</td>
-                                    <td align="center">{item.deadline}</td>
-                                    <td align="center">{item.progress}</td>
-                                </tr>
-                            )
+                            // data.map((item, index) =>
+                            //     <tr key={index}>
+                            //         <td align="center">{item.taskname}</td>
+                            //         <td align="center">{item.projectname}</td>
+                            //         <td align="center">{item.projectmanager}</td>
+                            //         <td align="center">{item.deadline}</td>
+                            //         <td align="center">{item.progress}</td>
+                            //     </tr>
+                            // )
+                            projectData.map((project) => {
+                                return ganttData.map((gantt) => {
+                                    return activityData.map((activity, index) => {
+                                        if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id) {
+                                            const deadline = new Date(activity.end_time);
+                                            const deadlineYear = deadline.toLocaleDateString('en-US', {year: 'numeric'});
+                                            const deadlineMonth = deadline.toLocaleDateString('en-US', {month: '2-digit'});
+                                            const deadlineDay = deadline.toLocaleDateString('en-US', {day: '2-digit'});
+                                            return (
+                                                <tr key ={index}>
+                                                    <td align="center">{activity.name}</td>
+                                                    <td align="center">{project.name}</td>
+                                                    <td align="center">{project.project_manager}</td>
+                                                    <td align="center">{deadlineYear}/{deadlineMonth}/{deadlineDay}</td>
+                                                    <td align="center">{activity.progress_percentage}%</td>
+                                                </tr>
+                                            )
+                                        }
+                                    })
+                                })
+                            })
                         }
                     </tbody>
                 </table>

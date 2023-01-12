@@ -71,7 +71,7 @@ const DRList = () => {
           <tbody>
             {data.map((item, index) => (
               <tr key={index}>
-                <td align="center">{item.reportname}</td>
+                <td align="center"><Link to="/dailyreportview"><button className="hover:text-primary">{item.reportname}</button></Link></td>
                 <td align="center">{item.reportnumber}</td>
                 <td align="center">{item.reportdate}</td>
                 <td align="center">{item.activity}</td>

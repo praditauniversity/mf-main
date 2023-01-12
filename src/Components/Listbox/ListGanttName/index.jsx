@@ -3,32 +3,10 @@ import GetProfile from '../../Auth/GetProfile';
 import { useQuery, gql } from '@apollo/client';
 import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 
-const ListGanttByProject = () => {
-    const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
-    const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
-
-    const { data, loading, error } = useQuery(GET_GANTT_PROJECT_ID, {
-        variables: { project_id: projectID }
-    });
-    const [ganttName, setGanttName] = useState([]);
-
-    useEffect(() => {
-        if (data) {
-            console.log("Data Ready list gantt");
-            setGanttName(data.ganttGetProjectID.data);
-            console.log("Data Ready", data.ganttGetProjectID.data);
-            ganttID ? localStorage.setItem('ganttID', ganttID) : localStorage.setItem('ganttID', data.ganttGetProjectID.data[0].ID);
-
-        } else {
-            console.log("No data list gantt");
-        }
-        console.log("USE EFFECT list gantt");
-    }, [data]);
+const ListGanttByProject = (props) => {
+    const {ganttID, setGanttID, projectID, ganttName} = props;
 
     function printListGanttName() {
-        // if (loading) return <p>Loading...</p>;
-        // if (error) return <p>Error :(</p>;
-
 
         return ganttName.map(({ ID, name }) => (
             <>

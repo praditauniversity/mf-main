@@ -16,9 +16,10 @@ const ListboxProjectName = () => {
         if (data) {
             setProject(data.projectByUserId.Data);
             // console.log("FFFFFFFFFFFFFFf", data.projectByUserId.Data[0].ID);
-            projectID ? localStorage.setItem('projectID', projectID) : localStorage.setItem('projectID', data.projectByUserId.Data[0].ID);
+            projectID == 0 ? localStorage.setItem('projectID', data.projectByUserId.Data[0].ID) : localStorage.setItem('projectID', projectID);
         } else {
             console.log("No data");
+            localStorage.setItem('projectID', 0)
         }
     }, [data]);
 
@@ -36,6 +37,7 @@ const ListboxProjectName = () => {
     const handleChange = (event) => {
         setProjectID(event.target.value);
         localStorage.setItem('projectID', event.target.value);
+        // localStorage.setItem('ganttID', 0);
         // localStorage.setItem('ganttID', "1");
         window.location.reload();
     };

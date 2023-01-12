@@ -24,7 +24,7 @@ const ProjectCharterCard = (props) => {
                     </div>
                     <div className="flex justify-end">
                         <div className="flex justify-between">
-                            <ProjectCharterPage />
+                            <AddModalProjectCharter/>
                             {/* <button className="px-1" id="icon"><IconPlus /></button> */}
                             <button className="px-1" id="icon"><IconEdit /></button>
                             <DeleteModal/>

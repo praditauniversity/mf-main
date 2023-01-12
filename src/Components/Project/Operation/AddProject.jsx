@@ -1,13 +1,11 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState, useEffect, useRef } from "react";
-import FetchProjectPhase from "../../../Middleware/Fetchers/FetchProjectPhase";
 import SubmitButton from "../../Button";
 import { DatePickerField, InputField, SelectorField } from "../../Input/Input";
 import { IconDeleteForm, IconPlusForm } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
 import { GET_PHASE_DATA, GET_TYPE_DATA } from "../../GraphQL/Queries";
 
-// const projectPhase = FetchProjectPhase();
 
 const GET_PROJECT = gql`
   query project {
@@ -16,7 +14,6 @@ const GET_PROJECT = gql`
         ID
         name
         description
-        user_id
       }
     }
   }
@@ -91,7 +88,6 @@ const AddProject = () => {
     const [start_project, setStartProject] = useState("");
     const [stakeholder_ammount, setStakeholderAmmount] = useState(0);
     const [role_id, setRoleId] = useState(0);
-    // const [type_id, setTypeId] = useState(0);
     const [considered_success_when, setConsideredSuccessWhen] = useState("");
     const [cost_actual, setCostActual] = useState(0);
     const [cost_plan, setCostPlan] = useState(0);
@@ -104,78 +100,55 @@ const AddProject = () => {
     const [end_project, setEndProject] = useState("");
     const [name, setName] = useState("");
     const [office_location, setOfficeLocation] = useState("");
-    // const [phase_id, setPhaseId] = useState(0);
     const [total_man_power, setTotalManPower] = useState(0);
     const [progress_percentage, setProgressPercentage] = useState(0);
     const [budget, setBudget] = useState(0);
-    
+
     const [potential_risk, setPotentialRisk] = useState(['']);
     const [project_objectives, setProjectObjectives] = useState(['']);
     const [type_id, setTypeId] = useState(1);
     const [phase_id, setPhaseId] = useState(1);
-    
+
     const inputRefType = useRef(null);
     const inputRefPhase = useRef(null);
-    
+
     const [addProject, { loading: addProjectLoading, error: addProjectError }] = useMutation(ADD_PROJECT, {
         refetchQueries: [{ query: GET_PROJECT }],
     });
 
-    const { data, loading, error } = useQuery(GET_TYPE_DATA,GET_PHASE_DATA);
+    const { data, loading, error } = useQuery(GET_TYPE_DATA);
     const { data: dataPhase, loading: loadingPhase, error: errorPhase } = useQuery(GET_PHASE_DATA);
     const [typeName, setTypeName] = useState([]);
     const [phaseName, setPhaseName] = useState([]);
 
-    // useEffect(() => {
-    //     localStorage.setItem('type_id', type_id);
-    //     console.log("type_id", type_id);
-    // }, [type_id]);
-    
-            useEffect(() => {
-                if (data) {
-                    console.log("Data Ready list type");
-                    setTypeName(data.projectType.Data);
-                    console.log("Data Ready", data.projectType.Data);
-                } else {
-                    console.log("No data list type");
-                }
-                console.log("USE EFFECT list type");
-            }, [data]);
-
-            useEffect(() => {
-                if (dataPhase) {
-                    console.log("data Ready list phase");
-                    setPhaseName(dataPhase.projectPhase.Data);
-                    console.log("data Ready", dataPhase.projectPhase.Data);
-                } else {
-                    console.log("No data list phase");
-                }
-                console.log("USE EFFECT list phase");
-            }, [dataPhase]);
+    useEffect(() => {
+        if (data, dataPhase) {
+            console.log("Data Ready list type and phase");
+            setTypeName(data.projectType.Data);
+            setPhaseName(dataPhase.projectPhase.Data);
+            console.log("Data Ready", data.projectType.Data);
+            console.log("Data Ready",dataPhase.projectPhase.Data)
+        } else {
+            console.log("No data list type and phase");
+        }
+        console.log("USE EFFECT list type and phase");
+    }, [data, dataPhase]);
 
 
 
     function printListTypeName() {
-        // if (loading) return <p>Loading...</p>;
-        // if (error) return <p>Error :(</p>;
 
         return typeName.map(({ ID, name }) => (
             <>
-                {/* {console.log("ID VALUE TYPE", typeof ID)} */}
-                {/* {console.log("ID VALUE TYPE", typeof ID.toString())} */}
                 <option value={ID}>{name}</option>
             </>
         ));
     }
 
     function printListPhaseName() {
-        // if (loading) return <p>Loading...</p>;
-        // if (error) return <p>Error :(</p>;
 
         return phaseName.map(({ ID, name }) => (
             <>
-                {/* {console.log("ID VALUE TYPE", typeof ID)} */}
-                {/* {console.log("ID VALUE TYPE", typeof ID.toString())} */}
                 <option value={ID}>{name}</option>
             </>
         ));
@@ -236,92 +209,16 @@ const AddProject = () => {
 
 
 
-    //kalo di dalem project_objectives dibilangnya project_objectives.map is not a function
-    //kalo diluar gabisa disimpen di graphql, soalnya project_objectives ga masuk ke handle submitnya
-
-
-    // const InputProjectObj = ({ label, name, placeholder }) => {
-    //     // const [project_objectives, setProjectObjectives] = useState([''])
-    //     const handleFormChange = (value, index) => {
-    //         const data = project_objectives.map((objItem, objIndex) => {
-    //             return objIndex === index ? value : objItem
-    //         })
-    //         setProjectObjectives(data)
-
-    //         // let data = [...project_objectives];
-    //         // // const { name, value } = event.target;
-    //         // // data[index] = event.target.value;
-    //         // data[index][event.target.name] = event.target.value;
-    //         // setProjectObjectives(data);
-    //         console.log("XXXXXXXXDATADATADATADATAXXXXXXx", data)
-    //         console.log("XXXXXXXXXXXXXXx", project_objectives)
-    //     }
-
-    //     const addFields = () => {
-    //         console.log("addfields", project_objectives)
-    //         console.log("addfields", data)
-    //         setProjectObjectives([...project_objectives, ''])
-    //     }
-
-    //     const removeFields = (index) => {
-    //         let data = [...project_objectives];
-    //         data.splice(index, 1)
-    //         console.log("removefields", project_objectives)
-    //         console.log("removefields", data)
-    //         setProjectObjectives(data)
-    //     }
-
-
-    //     return (
-    //         <div className="">
-    //             <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
-    //             {project_objectives.map((input, index) => {
-    //                 return (
-    //                     <div key={index}>
-    //                         <div className="pb-2 w-full min-w-5xl" id="buttonInside">
-    //                             <div className="flex justify-start">
-    //                                 <input
-    //                                     className="input input-border border-primary-light shadow appearance-none w-[86%]"
-    //                                     name={name}
-    //                                     placeholder={placeholder}
-    //                                     // defaultValue={input.project_objectives}
-    //                                     value={input}
-    //                                     // onChange={onChange}
-    //                                     // defaultValue={input}
-    //                                     // value={input.objective}
-    //                                     // onInput={event => handleFormChange(index, event)}
-    //                                     onChange={event => handleFormChange(event.target.value, index)}
-    //                                 />
-    //                                 {project_objectives.length !== 1 && <button className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2" onClick={() => removeFields(index)}>Remove</button>}
-    //                                 {project_objectives.length - 1 === index && <button className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2" onClick={() => {setProjectObjectives([...project_objectives, ''])}}>Add</button>}
-    //                                 {/* {project_objectives.length - 1 === index && <button className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2" onClick={(addFields)}>Add</button>} */}
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 )
-    //             })}
-    //         </div>
-    //     );
-    // }
 
     const handleSubmit = (e) => {
-        // const typeSelector = document.querySelector(".editor_type");
-        // type_id = type_id ? type_id : typeSelector.option[0].value;
-        // console.log("MASUKKKKKKKKKKK MANGGGGGGG")
         type_id !== 0 ? type_id : setTypeId(parseInt(inputRefType.current.value))
         phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))
-        
-        // console.log("MASUKKKKKKKKKKK MANGGGGGGG")
-        // // type_id = parseInt(type_id);
-        // console.log(inputRefType.current.value)
+
         console.log(typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
         console.log(typeof type_id, type_id);
         console.log(typeof phase_id, phase_id);
 
-        // console.log(typeSelector.option)
-        // console.log("type_id", type_id);
 
-        // console.log(e)
         e.preventDefault();
         console.log(typeof start_project, start_project, "SEWI");
         console.log(typeof project_objectives, "LIPAW");
@@ -437,22 +334,6 @@ const AddProject = () => {
             value: role_id,
             onChange: (e) => setRoleId(parseInt(e.target.value)),
         },
-        // {
-        //     label: "Type ID",
-        //     name: "type_id",
-        //     placeholder: "Type ID",
-        //     type: "number",
-        //     value: type_id,
-        //     onChange: (e) => setTypeId(parseInt(e.target.value)),
-        // },
-        // {
-        //     label: "Phase ID",
-        //     name: "phase_id",
-        //     placeholder: "Phase ID",
-        //     type: "number",
-        //     value: phase_id,
-        //     onChange: (e) => setPhaseId(parseInt(e.target.value)),
-        // },
         {
             label: "Stakeholder Ammount",
             name: "stakeholder_ammount",
@@ -541,23 +422,6 @@ const AddProject = () => {
             value: considered_success_when,
             onChange: (e) => setConsideredSuccessWhen(e.target.value),
         },
-        // {
-        //     label: "Potential Risk",
-        //     name: "potential_risk",
-        //     placeholder: "Potential Risk",
-        //     type: "text",
-        //     value: potential_risk,
-        //     onChange: (e) => setPotentialRisk(e.target.value),
-        // },
-
-        // {
-        //     label: "Project Objectives",
-        //     name: "project_objectives",
-        //     placeholder: "Project Objectives",
-        //     type: "text",
-        //     value: project_objectives,
-        //     onChange: (e) => setProjectObjectives(e.target.value),
-        // },
 
     ];
 
@@ -588,7 +452,7 @@ const AddProject = () => {
                                 <div className="pb-2 w-full min-w-5xl" id="buttonInside">
                                     <div className="flex justify-start">
                                         <input
-                                            className="input input-border border-primary-light shadow appearance-none w-[86%]"
+                                            className="input input-border border-primary-light shadow appearance-none w-full"
                                             name='ProjectObjectives'
                                             placeholder="Project Objectives"
                                             value={input}
@@ -613,7 +477,7 @@ const AddProject = () => {
                                 <div className="pb-2 w-full min-w-5xl" id="buttonInside">
                                     <div className="flex justify-start">
                                         <input
-                                            className="input input-border border-primary-light shadow appearance-none w-[86%]"
+                                            className="input input-border border-primary-light shadow appearance-none w-full"
                                             name='PotentialRisk'
                                             placeholder="Potential Risk"
                                             value={input}
@@ -643,22 +507,27 @@ const AddProject = () => {
                     placeholder="DD/MM/YYYY"
                 />
 
-                {/* <ListProjectType/> */}
-                
-                <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">Type Name</label>
-                <div className="flex flex-col items-center">
-                    <select ref={inputRefType} value={type_id} onChange={handleChangeType} className="editor_type select select-ghost select-sm w-full max-w-lg">
-                        {printListTypeName()}
-                    </select>
+                {/* Type */}
+                <div className="pt-1 pb-3">
+                    <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">Type Name</label>
+                    <div className="flex flex-col items-center">
+                        <select ref={inputRefType} value={type_id} onChange={handleChangeType} className="editor_type select select-bordered w-full max-w-lg">
+                            {printListTypeName()}
+                        </select>
+                    </div>
                 </div>
 
-                
-                <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">Phase Name</label>
-                <div className="flex flex-col items-center">
-                    <select ref={inputRefPhase} value={phase_id} onChange={handleChangePhase} className="editor_type select select-ghost select-sm w-full max-w-lg">
-                        {printListPhaseName()}
-                    </select>
+
+                {/* Phase */}
+                <div className="pt-1 pb-4">
+                    <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">Phase Name</label>
+                    <div className="flex flex-col items-center">
+                        <select ref={inputRefPhase} value={phase_id} onChange={handleChangePhase} className="editor_type select select-bordered w-full max-w-lg">
+                            {printListPhaseName()}
+                        </select>
+                    </div>
                 </div>
+
                 <SubmitButton label="Add Project" />
             </form>
         </>

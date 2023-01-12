@@ -4,6 +4,7 @@ import GetProfile from '../../Components/Auth/GetProfile';
 import { GET_PROJECT_DATA_BY_USER_ID } from '../../Components/GraphQL/Queries';
 
 const FetchProjectByUserId = () => {
+    const profile = GetProfile();
     const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: profile.id},
     });

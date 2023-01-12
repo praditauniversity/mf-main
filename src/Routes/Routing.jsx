@@ -17,6 +17,7 @@ import DailyReport from "../Pages/DailyReport";
 import MinutesofMeeting from "../Pages/MinuteOfMeeting";
 import Profile from "../Pages/Account";
 import UserAccount from "../Pages/Account";
+import ProjectCharterView from "../Pages/ProjectCharter/projectcharterview";
 
 const MainRoute = async () => {
   try {
@@ -56,6 +57,7 @@ export default function Routing() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/maindashboard" element={<MainDashboard />} />
         <Route path="/projectcharter" element={<ProjectCharter />}></Route>
+        <Route path="/charterview" element={<ProjectCharterView />}></Route>
         <Route path="/dailyreport" element={<DailyReport />}></Route>
         <Route path="/minutesofmeeting" element={<MinutesofMeeting />}></Route>
       </Routes>

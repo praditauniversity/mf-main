@@ -175,7 +175,7 @@ const AddModalActivity = () => {
     return (
         <>
             <div className="h-full px-12 align-middle">
-                <p className="text-center align-middle">Gantt is Empty</p>
+                <p className="text-center align-middle">Activity is Empty</p>
                 <Button onClick={showDialog} label="ADD GANTT"></Button>
             </div>
             <AddDialog />

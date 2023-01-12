@@ -1,12 +1,15 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import '../../../../Assets/svgbutton/svgbutton.css'
 import Addnewprojectobj from './Addnewprojectobj';
 import Addnewresource from './Addnewresource';
 import Addnewphase from './Addnewphase';
 import Addnewrisk from './Addnewrisk';
-import { IconDateForm, IconPlus, IconSaveForm } from '../../../Icons/icon';
+import { IconDateForm, IconDeleteForm, IconPlus, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
 import './AddModal.css'
+import { gql, useMutation, useQuery } from "@apollo/client";
+import FetchProjectByUserId from '../../../../Middleware/Fetchers/FetchProjectByUserId';
+import FetchMilestone from '../../../../Middleware/Fetchers/FetchMilestone';
 
 const AddModalProjectCharter = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +19,89 @@ const AddModalProjectCharter = () => {
     const hideDialog = () => {
         setIsOpen(false);
     }
+
+    const ADD_CHARTER = gql`
+        mutation addProjectCharter(
+            $project_id: Int!,
+            $participants: Int!,
+            $available_resources:[String]!,
+            $milestone_id: Int!
+        ) {
+        addProjectCharter(
+            input: {
+            project_id: $project_id, 
+            participants: $participants,
+            available_resources: $available_resources,
+            milestone_id: $milestone_id
+            }
+        ) {
+            Data {
+                ID
+                project_id
+                participants
+                available_resources
+                milestone_id
+            }
+        }
+        }
+    `; 
+
+    const [project_id, setProjectId] = useState(1);
+    const projectData = FetchProjectByUserId();
+    function printListProjectName() {
+        return projectData.map(({ ID, name }) => (
+            <>
+                <option value={ID}>{name}</option>
+            </>
+        ));
+    }
+    const handleChangeProject= (event) => {
+        setProjectId(parseInt(event.target.value));
+        console.log("Project ID", typeof parseInt(event.target.value), event.target.value);
+    };
+
+    const handleChangeParticipant= (event) => {
+        // setProjectId(parseInt(event.target.value));
+        setParticipants(parseInt(event.target.value));
+        console.log("Participants", typeof parseInt(event.target.value), event.target.value);
+    };
+
+    const [participants, setParticipants] = useState(0);
+
+    // const [resources, setResources] = useState(['']);
+    // const handleFormChangeResources = (value, index) => {
+    //     const dataResources = resources.map((resourcesItem, resourcesIndex) => {
+    //         return resourcesIndex === index ? value : resourcesItem
+    //     })
+    //     setResources(dataResources)
+
+    //     console.log("DATA", dataResources)
+    //     console.log("RESOURCES", resources)
+    // }
+    // const removeFieldsResources = (index) => {
+    //     let dataResources = [...resources];
+    //     dataResources.splice(index, 1)
+    //     console.log("removefields", resources)
+    //     console.log("removefields", dataResources)
+    //     setResources(dataResources)
+    // }
+
+    const [milestone_id, setMilestoneId] = useState(1);
+    const milestoneData = FetchMilestone();
+    function printListMilestoneName() {
+        return milestoneData.map(({ID, status}) => (
+            <>
+                <option value={ID}>{status}</option>
+            </> 
+        ));
+    }
+    const handleChangeMilestone = (event) => {
+        setMilestoneId(parseInt(event.target.value));
+        console.log("Milestone ID", typeof parseInt(event.target.value), event.target.value);
+    };
+
+    const inputRefProject = useRef(null);
+    const inputRefMilestone = useRef(null);
 
     const AddDialog = () => {
         return (
@@ -52,7 +138,18 @@ const AddModalProjectCharter = () => {
                                         >
                                             Project Charter
                                         </Dialog.Title>
+                                        {/* Project */}
                                         <div className="mt-3">
+                                            <div className="form-control w-full max-w-5xl">
+                                                <label className="label">
+                                                    <span className="label-text">Project Name</span>
+                                                </label>
+                                                <select ref={inputRefProject} value={project_id} onChange={handleChangeProject} className="editor_type select select-bordered w-full max-w-lg">
+                                                    {printListProjectName()}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {/* <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
                                                     <span className="label-text">Project Name</span>
@@ -107,16 +204,23 @@ const AddModalProjectCharter = () => {
                                                 </label>
                                                 <input type="text" placeholder="Enter stakeholders" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
                                                     <span className="label-text">Participants</span>
                                                 </label>
-                                                <input type="text" placeholder="Enter participants" className="input input-bordered w-full bg-table-dark border-primary-light" />
+                                                <input 
+                                                type="text" 
+                                                value={participants} 
+                                                name="participants" 
+                                                placeholder="Enter participants" 
+                                                className="input input-bordered w-full bg-table-dark border-primary-light" 
+                                                onChange={handleChangeParticipant}
+                                                />
                                             </div>
                                         </div>
-                                        <div className="mt-3">
+                                        {/* <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
                                                     <span className="label-text">Planned Budget</span>
@@ -131,7 +235,7 @@ const AddModalProjectCharter = () => {
                                                 </label>
                                                 <input type="text" placeholder="Enter actual budget" className="input input-bordered w-full bg-table-dark border-primary-light" />
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
@@ -168,7 +272,7 @@ const AddModalProjectCharter = () => {
                                             </div>
                                         </div> */}
 
-                                        <div className="mt-3">
+                                        {/* <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
                                                     <span className="label-text">Milestone</span>
@@ -201,6 +305,18 @@ const AddModalProjectCharter = () => {
                                                     <span className="label-text">Potential Risks</span>
                                                 </label>
                                                 <Addnewrisk />
+                                            </div>
+                                        </div> */}
+
+                                        {/* Milestone */}
+                                        <div className="mt-3">
+                                            <div className="form-control w-full max-w-5xl">
+                                                <label className="label">
+                                                    <span className="label-text">Milestone Name</span>
+                                                </label>
+                                                <select ref={inputRefMilestone} value={milestone_id} onChange={handleChangeMilestone} className="editor_type select select-bordered w-full max-w-lg">
+                                                    {printListMilestoneName()}
+                                                </select>
                                             </div>
                                         </div>
 

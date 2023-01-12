@@ -2,7 +2,7 @@ import React from "react";
 import UserCard from "../../Components/Card/UserCard";
 import BlankCard from "../../Components/Card/Blank";
 import BudgetCard from "../../Components/Card/BudgetCard";
-import { SumActual, SumCost, ProjectHealth, SumBudget, SumDanger, Variance } from "../../Components/GraphQL/ProjectQueries";
+import { SumActual, SumCost, ProjectHealth, SumBudget, SumDanger, SumVariance } from "../../Components/GraphQL/ProjectQueries";
 import SplineChart from "../../Components/Charts/SplineChart";
 import ColumnChart from "../../Components/Charts/ColumnChart";
 import LineChart from "../../Components/Charts/LineChart";
@@ -30,7 +30,7 @@ const PMODashboardPage = () => {
                     <div className="col-span-3"> <BudgetCard title="Actual" description={<SumActual />} colorIcon="text-primary-800" /> </div>
                     <div className="col-span-3"> <BudgetCard title="Cost" description={<SumCost />} colorIcon="text-orange-dark" /> </div>
                     <div className="col-span-3"> <BudgetCard title="Danger" description={<SumDanger />} colorIcon="text-error-dark" /> </div>
-                    <div className="col-span-3"> <BudgetCard title="Variance" description={<Variance />} colorIcon="text-tertiary-800" /> </div>
+                    <div className="col-span-3"> <BudgetCard title="Variance" description={<SumVariance />} colorIcon="text-tertiary-800" /> </div>
 
                     {/* Main row */}
                     {/* Chart */}
