@@ -1,4 +1,5 @@
 import React from "react";
+import { PrintListProjetcName } from "../Gantt-Component/CustomActivityState";
 import ListboxProjectName from "../Listbox/ListProjectName";
 
 
@@ -9,7 +10,9 @@ const ProjectOverviewCard = (props) => {
       <div className="py-4 px-12">
         <p className="py-1 text-md pl-3">{title1}</p>
         <div>
-        <ListboxProjectName />
+        {/* <ListboxProjectName /> */}
+        {/* error below */}
+        <PrintListProjetcName />
         </div>
         {/* <p className={`py-1 font-semibold text-xl`}>{description1}</p> */}
       </div>

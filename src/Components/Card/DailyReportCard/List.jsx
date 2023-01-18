@@ -7,6 +7,13 @@ import FetchActivity from "../../../Middleware/Fetchers/FetchActivity";
 import FetchDailyReport from "../../../Middleware/Fetchers/FetchDailyReport";
 import { Link } from "react-router-dom";
 import FetchDailyReportByProjectId from "../../../Middleware/Fetchers/FetchDailyReportByProjectId";
+import { GET_DAILY_REPORT_DATA_BY_PROJECT_ID } from "../../GraphQL/Queries";
+
+const DELETE_DAILYREPORT = gql`
+  mutation DeleteDailyReport($id: String!) {
+    deleteDailyReport(id: $id) 
+  }`;
+ 
 
 const DRList = () => {
   const projectData = FetchProject();
@@ -14,57 +21,18 @@ const DRList = () => {
   const activityData = FetchActivity();
   // const dailyReportData = FetchDailyReport();
   const dailyReportData = FetchDailyReportByProjectId();
-  // const data = [
-  //   {
-  //     id: 1,
-  //     reportname: "Daily Report 1",
-  //     reportnumber: "100",
-  //     reportdate: "08/14/2022",
-  //     activity: "Activity 2",
-  //   },
-  //   {
-  //     id: 2,
-  //     reportname: "Daily Report 2",
-  //     reportnumber: "101",
-  //     reportdate: "08/15/2022",
-  //     activity: "Activity 3",
-  //   },
-  //   {
-  //     id: 3,
-  //     reportname: "Daily Report 3",
-  //     reportnumber: "102",
-  //     reportdate: "08/16/2022",
-  //     activity: "Activity 1",
-  //   },
-  //   {
-  //     id: 4,
-  //     reportname: "Daily Report 4",
-  //     reportnumber: "103",
-  //     reportdate: "08/16/2022",
-  //     activity: "Activity 1",
-  //   },
-  //   {
-  //     id: 5,
-  //     reportname: "Daily Report 5",
-  //     reportnumber: "104",
-  //     reportdate: "08/16/2022",
-  //     activity: "Activity 2",
-  //   },
-  //   {
-  //     id: 6,
-  //     reportname: "Daily Report 6",
-  //     reportnumber: "105",
-  //     reportdate: "08/16/2022",
-  //     activity: "Activity 2",
-  //   },
-  //   {
-  //     id: 7,
-  //     reportname: "Daily Report 7",
-  //     reportnumber: "106",
-  //     reportdate: "08/17/2022",
-  //     activity: "Activity 3",
-  //   },
-  // ];
+
+  const [deleteReport, { loading, error }] = useMutation(DELETE_DAILYREPORT ,
+    {
+    refetchQueries: [
+      { query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID}
+    ]
+  }
+  );
+
+  if (loading) return 'Submitting...';
+  if (error) return `Submission error! ${error.message}`;
+  
 
   return (
     <div className="rounded-xl shadow-lg bg-white pt-6">
@@ -105,6 +73,7 @@ const DRList = () => {
                             return (
                               dailyReportData.map((dailyReport) => {
                                 if (activity.ID === dailyReport.activity_id /*&& gantt.project_id === dailyReport.project_id*/) {
+                                  // const listID = toString(dailyReport.ID);
                                   const reportDate = new Date(dailyReport.report_date);
                                   const reportDateYear = reportDate.toLocaleDateString('en-US', {year: 'numeric'});
                                   const reportDateMonth = reportDate.toLocaleDateString('en-US', {month: '2-digit'});
@@ -116,7 +85,14 @@ const DRList = () => {
                                       <td align="center">{reportDateYear}/{reportDateMonth}/{reportDateDay}</td>
                                       <td align="center">{activity.name}</td>
                                       <td align="center">
-                                        <button className="px-1" id="icon">
+                                        <button className="px-1" id="icon"
+                                        onClick={e => {
+                                          const listID = String(dailyReport.ID);
+                                          console.log(typeof listID, listID);
+                                          e.preventDefault();
+                                          deleteReport({ variables: { id: listID } });
+                                        }}
+                                        >
                                           <IconEdit />
                                         </button>
                                         <button className="px-1" id="icon"><IconDelete /></button>

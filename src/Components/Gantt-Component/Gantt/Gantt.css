@@ -1,0 +1,14 @@
+/* Full screen mode */
+/* To correctly display a Gantt chart in the full-screen mode in different browsers, define the following style on the page: */
+
+
+/* <style type="text/css" media="screen"> */
+html,
+body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* </style> */

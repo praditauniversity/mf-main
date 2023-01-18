@@ -4,7 +4,7 @@ import '../../../../Assets/svgbutton/svgbutton.css'
 import { IconDateForm, IconDeleteForm, IconPlus, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
 import './AddModal.css'
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { GET_MILESTONE_DATA, GET_PROJECT_DATA_BY_ID, GET_PROJECT_DATA_BY_USER_ID } from '../../../GraphQL/Queries';
+import { GET_CHARTER_DATA, GET_MILESTONE_DATA, GET_PROJECT_DATA_BY_ID, GET_PROJECT_DATA_BY_USER_ID } from '../../../GraphQL/Queries';
 import { InputField } from '../../../Input/Input';
 import GetProjectName from './GetProjectName';
 import GetProfile from '../../../Auth/GetProfile';
@@ -45,7 +45,12 @@ const AddModalProjectCharter = () => {
     const inputRefProject = useRef(null);
     const inputRefMilestone = useRef(null);
 
-    const [addProjectCharter, { loading: addProjectLoading, error: addProjectError }] = useMutation(ADD_CHARTER);
+    const [addProjectCharter, { loading: addProjectLoading, error: addProjectError }] = useMutation(ADD_CHARTER,
+        {
+            refetchQueries: [
+                { query: GET_CHARTER_DATA }
+            ]
+        });
 
 
     // const pName = GetProjectName();
@@ -164,6 +169,12 @@ const AddModalProjectCharter = () => {
                 milestone_id
             },
         });
+
+
+        setParticipants(0);
+        setAvailableResources(['']);
+               
+        hideDialog();
 
     }
 

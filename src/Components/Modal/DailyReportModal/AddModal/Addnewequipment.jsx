@@ -4,20 +4,30 @@ import './AddModal.css'
 import '../../../../Assets/svgbutton/svgbutton.css'
 
 const Addnewequipment = () => {
-    // const [inputFields, setInputFields] = useState([
-    //     { equipment: '' }
-    // ])
-    const [equipment, inputFields, setInputFields] = useEquipment()
+    const [inputFields, setInputFields] = useState([
+        { equipment: '' }
+    ])
+    // const [equipment, inputFields, setInputFields, setEquipment] = useEquipment()
 
-    
-    
     const handleFormChange = (index, event) => {
         // console.log("SEWIWIWIWIWIWIWIWII", equipment[0].equipment);
         let data = [...inputFields];
         const dataEvent = event.target.name;
-        data[index].dataEvent = event.target.value;
+        data[index][event.target.name] = event.target.value;
+
         console.log("SEWIWIWIWIWIWIWIWII", data);
-        setInputFields(data);
+
+        var equipment = [];
+        
+
+
+        var Addnewequipment = data.map((item) => {
+            equipment.push(item.equipment)
+            return;
+        })
+        console.log("coba", equipment);
+        // setInputFields(coba);
+        setEquipment(equipment);
     }
 
     const addFields = () => {
@@ -34,6 +44,7 @@ const Addnewequipment = () => {
 
     return (
         <div className="">
+            {console.log("inputFields", inputFields)}
             {inputFields.map((input, index) => {
                 return (
                     <div key={index}>

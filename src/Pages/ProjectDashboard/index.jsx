@@ -14,7 +14,7 @@ const ProjectDashboardPage = () => {
     const [savedOption, setSavedOption] = React.useState(localStorage.getItem('projectID')/* ? localStorage.getItem('projectID') : "1"*/);
 
     useEffect(() => {
-        savedOption ? setSavedOption(savedOption) : setSavedOption(0);
+        savedOption !=0 ? setSavedOption(savedOption) : setSavedOption(0);
         console.log("savedOption", savedOption);
         // Update the savedOption value in local storage whenever it changes
         // localStorage.setItem('savedOption', savedOption);
@@ -40,9 +40,9 @@ const ProjectDashboardPage = () => {
                             title1="Project Name"
                             description1="Project Anomaly"
                             title2="Project Manager"
-                            description2={savedOption === 0 ? <ProjectManager value={savedOption} /> : "N/A"}
+                            description2={savedOption != 0 ? <ProjectManager value={savedOption} /> : "N/A"}
                             title3="Client"
-                            description3={savedOption === 0 ? <Client value={savedOption} /> : "N/A"}
+                            description3={savedOption != 0 ? <Client value={savedOption} /> : "N/A"}
                         />
                     </div>
                     <div className="col-span-3 row-span-1"> <HealthCard title="Health by Cost" description={<CostHealth value={savedOption} />} colorIcon="text-error-dark" /> </div>
@@ -57,7 +57,7 @@ const ProjectDashboardPage = () => {
 
                     {/* Main row */}
                     <div className="col-span-5 row-span-1"> <ProjectProgressCard /> </div>
-                    <div className="col-span-10 row-span-2"> <PrintGantt title="Gantt Chart" /> </div>
+                    <div className="col-span-10 row-span-3"> <PrintGantt title="Gantt Chart" /> </div>
                     <div className="col-span-5 row-span-1"> <TaskOverviewCard /> </div>
                     <div className="col-span-full">
                         {/* <TaskListCard />  */}

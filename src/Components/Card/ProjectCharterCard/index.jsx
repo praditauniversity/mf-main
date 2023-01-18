@@ -13,11 +13,39 @@ import DeleteModal from "../../Modal/ProjectCharterModal/DeleteModal/DeleteModal
 import AddModalProjectCharter from "../../Modal/ProjectCharterModal/AddModal/AddModal";
 import ProjectCharterPage from "./indexProjectCharter";
 import { withRouter } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { useEffect, useState } from "react";
+import { GET_CHARTER_DATA_BY_ID } from "../../GraphQL/Queries";
 
 const ProjectCharterCard = (props) => {
     const { icon } = props;
-    const value = props.location.state.value;
-    console.log("VALCHARTER", value);
+    // const value = props.location.state.value;
+    // console.log("VALCHARTER", value);
+
+    // const { data } = useQuery(GET_CHARTER_DATA_BY_ID, {
+    //     variables: { projectId: localStorage.getItem('charterID') }
+    // });
+    // const [charterData, setCharter] = useState([]);
+    // // const [charterID, setCharterID] = useState(0);
+
+    // useEffect(() => {
+    //     if (data) {
+    //         setCharter(data.projectCharter.data);
+    //         // charterID === 0 ? localStorage.setItem('charterID', data.projectCharter.data[0].ID) : localStorage.setItem('charterID', charterID);
+    //         console.log("Charter data with project id " + localStorage.getItem('charterID') + " found");
+    //     } else {
+    //         console.log("No data found for charter with project id " + localStorage.getItem('charterID'));
+    //     }
+    // }, [data]);
+
+    // function printProjectName(){
+    //     var projectName = "";
+    //     charterData.map((charter) => {
+    //         projectName = charter.Project.name;
+    //     })
+    //     return projectName;
+    // }
+
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
             <div>
@@ -37,7 +65,7 @@ const ProjectCharterCard = (props) => {
                 </div>
                 <div className="px-36">
                     <div className="py-6 flex justify-between">
-                        <div> <DescTitle title="Project Name" description="Project Anomaly" /></div>
+                        <div> <DescTitle title="Project Name" description="Anomalika"/></div>
                         <div> <DescTitle title="Project Manager" description="Jhon Doe" /></div>
                         <div> <DescTitle title="Customer" description="Jaya Gedung Group" /></div>
                     </div>

@@ -75,8 +75,8 @@ const TableHeader = () => {
 const ActionsButton = () => {
     const buttonName = [
         { id: 1, name: "Project Charter", icon: dailyReportIcon, link: "/#/projectcharter" },
-        { id: 2, name: "Gantt", icon: dailyReportIcon, link: "/#/gantt" },
-        { id: 3, name: "Daily Report", icon: dailyReportIcon, link: "/#/dailyreportview" },
+        { id: 2, name: "Gantt", icon: dailyReportIcon, link: "/#/projectdashboard" }, // TODO: Change this link to gantt
+        { id: 3, name: "Daily Report", icon: dailyReportIcon, link: "/#/dailyreport" },
     ]
 
     return (

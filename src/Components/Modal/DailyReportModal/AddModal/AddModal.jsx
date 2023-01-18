@@ -3,12 +3,20 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import "../../../../Assets/svgbutton/svgbutton.css";
 import { GET_ACTIVITY_DATA, GET_PROJECT_DATA } from "../../../GraphQL/Queries";
-import { IconPlus, IconSaveForm } from "../../../Icons/icon";
+import {
+  IconDeleteForm,
+  IconPlus,
+  IconPlusForm,
+  IconSaveForm,
+} from "../../../Icons/icon";
 import { DatePickerField } from "../../../Input/Input";
 import "./AddModal.css";
 import Addnewequipment, { useEquipment } from "./Addnewequipment";
 import Addnewworklog, { useWorkLog } from "./Addnewworklog";
 
+
+//note
+//activity dan project name 0 (masalah di yang awal submit)
 const GET_DAILY_REPORT = gql`
   query DailyReport {
     dailyReport {
@@ -60,14 +68,23 @@ const ADD_DAILY_REPORT = gql`
 `;
 
 const AddModalDailyReport = () => {
-  const [equipment, setEquipment] = useEquipment();
+  const [inputFields, setInputFields] = useState([
+    { name: "", description: "", status: "", hour: 0 },
+  ]);
+  const [equipment, setEquipment] = useState([""]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
   const [activity_id, setActivityId] = useState(0);
   const [project_id, setProjectId] = useState(0);
   const [report_date, setReportDate] = useState("");
-  const [work_log_name, work_log_desc,work_log_status,work_log_hour, setWorkLog] = useWorkLog([]);
+  const [work_log_name, setWorkLogName] = useState([""]);
+  const [work_log_desc, setWorkLogDesc] = useState([""]);
+  const [work_log_status, setWorkLogStatus] = useState([""]);
+  const [work_log_hour, setWorkLogHour] = useState([0]);
+  const [projectidtest, setProjectIdTest] = useState(0);
+  const [activityidtest, setActivityIdTest] = useState(0);
+  console.log("work_log_name", setEquipment);
   const [
     addDailyReport,
     { loading: addDailyReportLoading, error: addDailyReportError },
@@ -163,14 +180,73 @@ const AddModalDailyReport = () => {
     console.log("Report Date", event.target.value);
   };
 
-  const handleSubmit = (e) => {
-    activity_id !== 0
-      ? activity_id
-      : setActivityId(parseInt(inputRefActivity.current.value));
-    project_id !== 0
-      ? project_id
-      : setProjectId(parseInt(inputRefProject.current.value));
+  const handleFormChangeEquipment = (value, index) => {
+    const dataEquip = equipment.map((equipItem, equipIndex) => {
+      return equipIndex === index ? value : equipItem;
+    });
+    setEquipment(dataEquip);
 
+    console.log("DATA", dataEquip);
+    console.log("DAILYREPORTEQUP", equipment);
+  };
+  const handleFormChange = (index, event) => {
+    let data = [...inputFields];
+    data[index][event.target.name] = event.target.value;
+    setInputFields(data);
+    
+  };
+
+  // setWorkLogName(inputFields.map((inputField) => inputField.name));
+  const addFields = () => {
+    let newfield = { equipment: "" };
+
+    setInputFields([...inputFields, newfield]);
+  };
+
+  const removeFields = (index) => {
+    let data = [...inputFields];
+    data.splice(index, 1);
+    setInputFields(data);
+  };
+
+  const removeFieldsEquipment = (index) => {
+    let dataEquip = [...equipment];
+    dataEquip.splice(index, 1);
+    console.log("removefields", equipment);
+    console.log("removefields", dataEquip);
+    setProjectObjectives(dataEquip);
+  };
+  
+  const handleSubmit = (e) => {
+    const activity_id = parseInt(inputRefActivity.current.value);
+    const project_id = parseInt(inputRefProject.current.value);
+    activity_id === 0 ?setActivityId(parseInt(inputRefActivity.current.value)): activity_id
+    project_id === 0 ? setProjectId(parseInt(inputRefProject.current.value)): project_id
+
+      
+
+      setWorkLogName(inputFields.map((inputField) => inputField.name));
+      setWorkLogDesc(inputFields.map((inputField) => inputField.description));
+      setWorkLogStatus(inputFields.map((inputField) => inputField.status));
+      setWorkLogHour(inputFields.map((inputField) => parseInt(inputField.hour)));
+      var gue = work_log_name;
+      var gue2 = work_log_desc;
+      var gue3 = work_log_status;
+      var gue4 = work_log_hour;
+
+      console.log("BABIBADASDA",inputFields.map((inputField) => inputField.name))
+      console.log("fakkkkkkkkkkkkkkkkkkkkkkk", gue)
+      console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue2)
+      
+      console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue3)
+      console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue4)
+      console.log("equipmentt",equipment)
+      console.log("namee",name)
+      console.log("description",description)
+      console.log("Status",status)
+      console.log("activity_id",activityidtest)
+      console.log("project_id",projectidtest)
+      
     e.preventDefault();
 
     addDailyReport({
@@ -189,16 +265,12 @@ const AddModalDailyReport = () => {
       },
     });
     setName("");
+    setEquipment([''])
     setDescription("");
     setStatus("");
-    setEquipment =>([]);
     setActivityId(0);
     setProjectId(0);
     setReportDate("");
-    setWorkLogDesc =>([]);
-    setWorkLogName =>([]);
-    setWorkLogStatus =>([]);
-    setWorkLogHour=>([]);
   };
 
   return (
@@ -288,29 +360,12 @@ const AddModalDailyReport = () => {
                       </div>
                     </div>
                     <div className="mt-3">
-                    <DatePickerField
-                      label="Report Date"
-                      selected={report_date}
-                      onChange={(date) => setReportDate(date)}
-                      placeholder="DD/MM/YYYY"
-                    />
-                    </div>
-
-                    <div className="mt-3">
-                      <div className="form-control w-full max-w-5xl">
-                        <label className="label">
-                          <span className="label-text">
-                            General Project Status
-                          </span>
-                        </label>
-                        {/* ini harusnya bukan input kali */}
-                        <input
-                          type="text"
-                          placeholder="Select Status"
-                          onChange={handleStatus}
-                          className="input input-bordered w-full bg-table-dark border-primary-light"
-                        />
-                      </div>
+                      <DatePickerField
+                        label="Report Date"
+                        selected={report_date}
+                        onChange={(date) => setReportDate(date)}
+                        placeholder="DD/MM/YYYY"
+                      />
                     </div>
                     {/* activity */}
                     <div className="mt-3">
@@ -344,8 +399,7 @@ const AddModalDailyReport = () => {
                         </select>
                       </div>
                     </div>
-
-                    <div className="mt-6">
+                    {/* <div className="mt-6">
                       <div className="form-control w-full max-w-5xl">
                         <div className="border-2 border-grey-border rounded-lg px-4 py-2">
                           <div className="">
@@ -354,15 +408,165 @@ const AddModalDailyReport = () => {
                           <Addnewworklog />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
+                    <div>
+                      <div className="">
+                        <div className="pt-2 w-full max-w-5xl">
+                          <div className=" flex justify-start gap-3">
+                            <div className="w-[20%]">
+                              <label className="label">
+                                <p className="text-base font-medium">Name</p>
+                              </label>
+                            </div>
+                            <div className="w-[20%]">
+                              <label className="label">
+                                <p className="text-base font-medium">
+                                  Work Description
+                                </p>
+                              </label>
+                            </div>
+                            <div className="w-[20%]">
+                              <label className="label">
+                                <p className="text-base font-medium">Status</p>
+                              </label>
+                            </div>
+                            <div className="w-[20%]">
+                              <label className="label">
+                                <p className="text-base font-medium">
+                                  Number of Hour
+                                </p>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        {console.log(inputFields)}
+                        {inputFields.map((input, index) => {
+                          return (
+                            <div key={index}>
+                              <div>
+                                <div
+                                  className="pb-2 w-full max-w-5xl"
+                                  id="buttonInside"
+                                >
+                                  <div className="flex justify-start gap-3">
+                                    <input
+                                      className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
+                                      name="name"
+                                      placeholder="Enter name"
+                                      value={input.name}
+                                      onChange={(event) =>
+                                        handleFormChange(index, event)
+                                      }
+                                    />
+                                    <input
+                                      className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
+                                      name="description"
+                                      placeholder="Enter description"
+                                      value={input.description}
+                                      onChange={(event) =>
+                                        handleFormChange(index, event)
+                                      }
+                                    />
+                                    <input
+                                      className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
+                                      name="status"
+                                      placeholder="Enter status"
+                                      value={input.status}
+                                      onChange={(event) =>
+                                        handleFormChange(index, event)
+                                      }
+                                    />
+                                    <input
+                                      className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
+                                      name="hour"
+                                      type={"number"}
+                                      placeholder="Enter hour"
+                                      value={input.hour}
+                                      onChange={(event) =>
+                                        handleFormChange(index, event)
+                                      }
+                                    />
 
-                    <div className="mt-3">
+                                    {inputFields.length !== 1 && (
+                                      <button
+                                        className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg"
+                                        onClick={() => removeFields(index)}
+                                      >
+                                        <IconDeleteForm />
+                                      </button>
+                                    )}
+                                    {inputFields.length - 1 === index && (
+                                      <button
+                                        className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg"
+                                        onClick={addFields}
+                                      >
+                                        <IconPlusForm />
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    {/* <div className="mt-3">
                       <div className="form-control w-full max-w-5xl">
                         <label className="label">
                           <span className="label-text">Equipments</span>
                         </label>
                         <Addnewequipment />
                       </div>
+                    </div> */}
+                    {/* project objectives */}
+                    <div className="pb-2">
+                      <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
+                        Equipment
+                      </label>
+                      {equipment.map((input, index) => {
+                        return (
+                          <div key={index}>
+                            <div
+                              className="pb-2 w-full min-w-5xl"
+                              id="buttonInside"
+                            >
+                              <div className="flex justify-start">
+                                <input
+                                  className="input input-border border-primary-light shadow appearance-none w-full"
+                                  name="Equipment"
+                                  placeholder="Equipment"
+                                  value={input}
+                                  onChange={(event) =>
+                                    handleFormChangeEquipment(
+                                      event.target.value,
+                                      index
+                                    )
+                                  }
+                                />
+                                {equipment.length !== 1 && (
+                                  <button
+                                    className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"
+                                    onClick={() => removeFieldsEquipment(index)}
+                                  >
+                                    <IconDeleteForm />
+                                  </button>
+                                )}
+                                {equipment.length - 1 === index && (
+                                  <button
+                                    className="bg-primary hover:bg-primary-800 py-2.5 px-2.5 rounded-lg ml-2"
+                                    onClick={() => {
+                                      setEquipment([...equipment, ""]);
+                                    }}
+                                  >
+                                    <IconPlusForm />
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                     <div className="mt-10">
                       <div className="flex justify-end">

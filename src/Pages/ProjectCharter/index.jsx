@@ -3,6 +3,7 @@ import CalendarCard from "../../Components/Card/Calendar/CalendarCard";
 import ProjectCharterCard from "../../Components/Card/ProjectCharterCard";
 import ProjectCharterPage from "../../Components/Card/ProjectCharterCard/indexProjectCharter";
 import UserCard from "../../Components/Card/UserCard";
+import AddModalGantt from "../../Components/Modal/Gantt/AddModalGantt";
 
 const ProjectCharter = () => {
 
@@ -12,6 +13,7 @@ const ProjectCharter = () => {
                 <div className="grid gap-2">
                     <ProjectCharterPage />
                     {/* <ProjectCharterCard /> */}
+                    {/* <AddModalGantt/> */}
                 </div>
 
             </div>

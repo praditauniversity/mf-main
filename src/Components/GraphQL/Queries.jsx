@@ -492,6 +492,72 @@ export const GET_CHARTER_DATA = gql`
   }
 `;
 
+export const GET_CHARTER_DATA_BY_ID = gql`
+  query projectCharterById($id: String!) {
+    projectCharter(id: $id) {
+      Data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        project_id
+        milestone_id
+        participants
+        available_resources
+        user_id
+        updated_by
+        deleted_by
+        Project {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          user_id
+          stakeholder_ammount
+          name
+          start_project
+          end_project
+          work_area
+          office_location
+          cost_plan
+          cost_actual
+          client
+          client_contact
+          role_id
+          type_id
+          progress_percentage
+          description
+          project_manager
+          project_duration
+          total_man_power
+          UpdatedBy
+          DeletedBy
+          status
+          considered_success_when
+          currency_symbol
+          currency_code
+          currency_name
+          phase_id
+          budget_health
+          budget
+        }
+        Milestone {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          project_id
+          status
+          due_date
+          user_id
+          updated_by
+          deleted_by
+        }
+      }
+    }
+  }
+`;
+
 export const GET_GANTT_DATA = gql`
   query MyQuery {
     gantt {

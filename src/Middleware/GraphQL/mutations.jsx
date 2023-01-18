@@ -22,43 +22,43 @@ export const LOGIN = gql`
 `;
 
 export const REGISTER = gql`
-mutation register (
-  $username: String!,
-  $first_name: String!,
-  $last_name: String!
-  $nik: String!,
-  $address: String!,
-  $phone_number: String!,
-  $gender: String!,
-  $email: EmailAddress,
-  $password: String!,
-  $created_by: String!,
-  $company_id: String!
-  
-){
-register (input: {
-      username: $username,
-      first_name: $first_name,
-      last_name: $last_name,
-      nik: $nik,
-      address: $address,
-      phone_number: $phone_number,
-      gender: $gender,
-      email: $email,
-      password: $password,
-      created_by: $created_by,
-      company_id: $company_id
-}) {
-  data{
-      id
-      username
-      nik
-      phone_number
-      address
-
+  mutation register(
+    $username: String!
+    $first_name: String!
+    $last_name: String!
+    $nik: String!
+    $address: String!
+    $phone_number: String!
+    $gender: String!
+    $email: EmailAddress
+    $password: String!
+    $created_by: String!
+    $company_id: String!
+  ) {
+    register(
+      input: {
+        username: $username
+        first_name: $first_name
+        last_name: $last_name
+        nik: $nik
+        address: $address
+        phone_number: $phone_number
+        gender: $gender
+        email: $email
+        password: $password
+        created_by: $created_by
+        company_id: $company_id
+      }
+    ) {
+      data {
+        id
+        username
+        nik
+        phone_number
+        address
+      }
+    }
   }
-}
-}
 `;
 
 export const REFETCH_TOKEN = gql`
@@ -103,7 +103,7 @@ export const ADD_GANTT = gql`
   mutation addGantt(
     $name: String!
     $description: String!
-    $user_id: Int!
+    $user_id: String!
     $version: Int!
     $project_id: Int!
     $start_time: DateTime!
@@ -132,7 +132,7 @@ export const UPDATE_GANTT = gql`
     $id: String!
     $name: String!
     $description: String!
-    $user_id: Int!
+    $user_id: String!
     $version: Int!
     $project_id: Int!
     $start_time: DateTime!
@@ -171,18 +171,17 @@ export const ADD_ACTIVITY = gql`
     $description: String!
     $start_time: DateTime!
     $end_time: DateTime!
-    $user_id: String!
-    $weight_percentage: Int!
-    $progress_percentage: Int!
+    $weight_percentage: Float!
+    $progress_percentage: Float!
     $priority: String!
-    $cost_plan: Int!
-    $cost_actual: Int!
-    $material_cost_plan: Int!
-    $material_cost_actual: Int!
-    $tool_cost_plan: Int!
-    $tool_cost_actual: Int!
-    $human_cost_plan: Int!
-    $human_cost_actual: Int!
+    $cost_plan: Float!
+    $cost_actual: Float!
+    $material_cost_plan: Float!
+    $material_cost_actual: Float!
+    $tool_cost_plan: Float!
+    $tool_cost_actual: Float!
+    $human_cost_plan: Float!
+    $human_cost_actual: Float!
     $activity_type: String!
     $phase_id: Int!
   ) {
@@ -194,7 +193,6 @@ export const ADD_ACTIVITY = gql`
         description: $description
         start_time: $start_time
         end_time: $end_time
-        user_id: $user_id
         weight_percentage: $weight_percentage
         progress_percentage: $progress_percentage
         priority: $priority
@@ -211,6 +209,7 @@ export const ADD_ACTIVITY = gql`
       }
     ) {
       data {
+        ID
         name
         description
         user_id
@@ -228,18 +227,17 @@ export const UPDATE_ACTIVITY = gql`
     $description: String!
     $start_time: DateTime!
     $end_time: DateTime!
-    $user_id: String!
-    $weight_percentage: Int!
-    $progress_percentage: Int!
+    $weight_percentage: Float!
+    $progress_percentage: Float!
     $priority: String!
-    $cost_plan: Int!
-    $cost_actual: Int!
-    $material_cost_plan: Int!
-    $material_cost_actual: Int!
-    $tool_cost_plan: Int!
-    $tool_cost_actual: Int!
-    $human_cost_plan: Int!
-    $human_cost_actual: Int!
+    $cost_plan: Float!
+    $cost_actual: Float!
+    $material_cost_plan: Float!
+    $material_cost_actual: Float!
+    $tool_cost_plan: Float!
+    $tool_cost_actual: Float!
+    $human_cost_plan: Float!
+    $human_cost_actual: Float!
     $activity_type: String!
     $phase_id: Int!
   ) {

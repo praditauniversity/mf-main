@@ -42,7 +42,7 @@ export default function Routing() {
     return (
       <Routes>
         <Route path="/" element={<MainRoute />} />
-        <Route path="/login" element={<MainRoute />} />
+        {/* <Route path="/login" element={<MainRoute />} /> */}
         <Route path="/project" element={<Project />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/pmodashboard" element={<PMODashboardPage />} />

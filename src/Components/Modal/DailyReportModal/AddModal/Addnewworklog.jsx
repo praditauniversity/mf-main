@@ -7,7 +7,7 @@ const Addnewworklog = () => {
     // const [inputFields, setInputFields] = useState([
     //     { name: '', description: '', status: '', hour: '' }
     // ])
-    const [worklog, inputFields, setInputFields] = useWorkLog()
+    const [ inputFields, setInputFields,setWorkLogName,setWorkLogDesc,setWorkLogStatus,setWorkLogHour] = useWorkLog()
 
     const handleFormChange = (index, event) => {
 
@@ -15,7 +15,27 @@ const Addnewworklog = () => {
         const dataevent=event.target.name;
         data[index][event.target.name] = event.target.value;
         console.log("awawawaaw",data)
-        setInputFields(data);
+        console.log("awawawaaw",inputFields)
+
+        var work_log_name = [];
+        var work_log_desc = [];
+        var work_log_status = [];
+        var work_log_hour = [];
+
+
+        var getdatanewwork = data.map((item) => {
+            work_log_name.push(item.work_log_name)
+            work_log_desc.push(item.work_log_desc)
+            work_log_status.push(item.work_log_status)
+            work_log_hour.push(item.work_log_hour)
+            return;
+        })
+        console.log ("testing111",getdatanewwork)
+        
+        setWorkLogName(work_log_name);
+        setWorkLogDesc(work_log_desc);
+        setWorkLogStatus(work_log_status);
+        setWorkLogHour(work_log_hour);
     }
 
     const addFields = () => {
@@ -57,6 +77,7 @@ const Addnewworklog = () => {
                         </div>
                     </div>
                 </div>
+                {console.log(inputFields)}
                 {inputFields.map((input, index) => {
                     return (
                         <div key={index}>
@@ -109,11 +130,18 @@ const Addnewworklog = () => {
         const [inputFields, setInputFields] = useState([
             { work_log_name: '', work_log_desc: '', work_log_status: '', work_log_hour: '' },
         ]);
-        const [workLog, setWorkLog] = useState([]);
+        const [work_log_name, setWorkLogName] = useState([]);
+        const [work_log_desc, setWorkLogDesc] = useState([]);
+        const [work_log_status, setWorkLogStatus] = useState([]);
+        const [work_log_hour, setWorkLogHour] = useState([]);
         useEffect(() => {
-            setWorkLog(inputFields);
-        }, [inputFields]);
-        return [workLog, inputFields, setInputFields,setWorkLog];
- }
+            setWorkLogName(inputFields[work_log_name]);
+            setWorkLogDesc(inputFields[work_log_desc]);
+            setWorkLogStatus(inputFields[work_log_status]);
+            setWorkLogHour(inputFields[work_log_hour]);
 
-export default Addnewworklog;
+        }, [inputFields]);
+        return [inputFields, setInputFields, work_log_name, work_log_desc, work_log_status, work_log_hour,setWorkLogName,setWorkLogDesc,setWorkLogStatus,setWorkLogHour];
+    }
+    
+    export default Addnewworklog;

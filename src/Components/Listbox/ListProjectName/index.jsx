@@ -5,40 +5,57 @@ import { GET_PROJECT_DATA, GET_PROJECT_DATA_BY_USER_ID } from '../../GraphQL/Que
 import { Actual } from '../../GraphQL/ProjectByIdQueries';
 
 const ListboxProjectName = (props) => {
-    const {setGanttID, projectID, setProjectID} = props;
-    const profile = GetProfile();
-    const { loading, error, data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
-        variables: { userId: profile.id },
-    });
-    const [projectData, setProject] = useState([]);
+    const {setGanttID, projectID, setProjectID, projectData} = props;
 
-    useEffect(() => {
-        if (data) {
-            setProject(data.projectByUserId.Data);
-            // console.log("FFFFFFFFFFFFFFf", data.projectByUserId.Data[0].ID);
-            projectID === 0 ? localStorage.setItem('projectID', data.projectByUserId.Data[0].ID) : localStorage.setItem('projectID', projectID);
-        } else {
-            console.log("No data");
-            localStorage.setItem('projectID', 0)
-        }
-    }, [data]);
+    console.log("XXXXXXXXXXXXXXX", projectData);
 
+    
+    
+    // const [projectID, setProjectID] = React.useState(localStorage.getItem('projectID'));
+    // const profile = GetProfile();
+    // const { loading, error, data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+    //     variables: { userId: profile.id },
+    // });
+    // const [projectData, setProject] = useState([]);
+    // // if (loading) return <p>Loading...</p>;
+    // // if (error) return <p>Error :(</p>;
+
+    // useEffect(() => {
+    //     if (data) {
+    //         console.log("Data Ready");
+    //         setProject(data.projectByUserId.Data);
+    //         // console.log("FFFFFFFFFFFFFFf", data.projectByUserId.Data[0].ID);
+    //         localStorage.setItem('projectID', data.projectByUserId.Data[0].ID);
+    //     } else {
+    //         console.log("No data");
+    //     }
+    // }, [data]);
+
+    // useEffect(() => {
+    //     // Update the projectID value in local storage whenever it changes
+    //     localStorage.setItem('projectID', projectID);
+    //     console.log("projectID", projectID);
+    // }, [projectID]);
+
+    
+// TODO: Fix this
     function printListProjectName() {
-        // if (loading) return <p>Loading...</p>;
-        // if (error) return <p>Error :(</p>;
-
+        if(projectData.length>0){
         return projectData.map(({ ID, name, user_id }) => (
             <>
                 <option value={ID}>{name}</option>               
             </>
         ));
+        }
+        //  else {
+        //     return <option value="0">No Data Project</option>
+        // }
     }
 
     const handleChange = (event) => {
         setProjectID(event.target.value);
         localStorage.setItem('projectID', event.target.value);
-        setGanttID(0);
-        // localStorage.setItem('ganttID', "1");
+        localStorage.setItem('ganttID', "0");
         window.location.reload();
     };
 

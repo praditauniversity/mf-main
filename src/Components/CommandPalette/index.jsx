@@ -2,7 +2,7 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Combobox, Dialog, Transition } from '@headlessui/react'
-import React, { useEffect, useState, Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import FetchProject from '../../Middleware/Fetchers/FetchProject'
 
 const CommandPalette = () => {
@@ -50,7 +50,8 @@ const CommandPalette = () => {
                     <Combobox
                         onChange={(project) => {
                             console.log(project.ID)
-                            window.location.href = `/#/projects/${project.ID}`
+                            // window.location.href = `/#/projects/${project.ID}`
+                            window.location.href = `/#/projectdashboard`
                         }}
                         as="div"
                         className='relative mx-auto max-w-xl rounded-md shadow-md ring-1 ring-dark/5 bg-white z-10'

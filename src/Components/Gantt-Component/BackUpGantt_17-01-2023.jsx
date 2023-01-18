@@ -423,7 +423,7 @@ function handler({ action, obj, id }) {
     if (action === "select-task") console.log(`Task ${id} was selected`);
 }
 
-function AppGantt(props) {
+function AppGantt_BACKUP(props) {
     console.log("RENDER");
     const { title, dataGantt, dataPhase, ganttID } = props;
     // const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
@@ -568,7 +568,7 @@ function AppGantt(props) {
             console.log("TEMBAK GRAPHQL", item.name, item.description, item.users, item.start_date, item.end_date, item.parent, ganttID, item.weight_percentage, item.progress, item.priority, item.cost_plan, item.cost_actual, item.material_cost_plan, item.material_cost_actual, item.tool_cost_plan, item.tool_cost_actual, item.human_cost_plan, item.human_cost_actual, item.activity_type, item.phase_id);
 
             console.log("TEMBAK GRAPHQL", name, description, user_id, start_time, end_time, parent_id, gantt_id, weight_percentage, progress_percentage, priority, cost_plan, cost_actual, material_cost_plan, material_cost_actual, tool_cost_plan, tool_cost_actual, human_cost_plan, human_cost_actual, activity_type, phase_id);
-            console.log("TEMBAK GRAPHQL", typeof name, typeof description, typeof user_id, typeof start_time, typeof end_time, typeof parent_id, typeof gantt_id, typeof weight_percentage, typeof progress_percentage, typeof priority, typeof cost_plan, typeof cost_actual, typeof material_cost_plan, typeof material_cost_actual, typeof tool_cost_plan, typeof tool_cost_actual, typeof human_cost_plan, typeof human_cost_actual, typeof activity_type, typeof phase_id);
+            console.log("TEMBAK GRAPHQL", typeof name, typeof description, typeof user_id, typeof start_time, typeof end_time, typeof parent_id, typeof gantt_id, typeof weight_percentage, typeof progress_percentage, typeof priority, typeof cost_plan, typeof cost_actual, typeof material_cost_plan, typeof material_cost_actual, typeof tool_cost_plan, typeof tool_cost_actual, typeof human_cost_plan, typeof human_cost_actual, typeof activity_type, typeof  phase_id);
 
             createActivity(
                 parseFloat(parent_id),
@@ -711,89 +711,6 @@ function AppGantt(props) {
         });
     }
 
-    // # TODO : mapping data lama
-    // // mapping data
-    // function MappingData() {
-    //     const dataActivity = dataGantt.map((activity) => {
-    //         // console.log("is activity data?", activity);
-    //         const startDate = subStringDate(activity.start_time);
-    //         const endDate = subStringDate(activity.end_time);
-
-    //         ganttTask.data.push({
-    //             id: activity.ID,
-    //             name: activity.name,
-    //             description: activity.description,
-    //             users: activity.user_id,
-    //             start_date: startDate,
-    //             end_date: endDate,
-    //             parent: String(activity.parent_id),
-    //             progress: activity.progress_percentage / 100,
-    //             material_cost_actual: activity.material_cost_actual,
-    //             ganttID: activity.gantt_id,
-    //             cost_actual: activity.cost_actual,
-    //             cost_plan: activity.cost_plan,
-    //             weight_percentage: activity.weight_percentage,
-    //             priority: activity.priority,
-    //             material_cost_plan: activity.material_cost_plan,
-    //             material_cost_actual: activity.material_cost_actual,
-    //             tool_cost_plan: activity.tool_cost_plan,
-    //             tool_cost_actual: activity.tool_cost_actual,
-    //             human_cost_plan: activity.human_cost_plan,
-    //             human_cost_actual: activity.human_cost_actual,
-    //             activity_type: activity.activity_type,
-    //             phase_id: activity.phase_id,
-    //         });
-    //     });
-
-
-    //     // // TODO : showgantt even gantt is empty
-    //     // // conditional show gantt (gantt empty? activity empty?)
-    //     // if (ganttID > 0) {
-    //     //     console.log("ganttID ada");
-
-    //     //     if (dataGantt.length > 0) {
-    //     //         console.log("data gantt ada");
-    //     //         return (
-    //     //             <div className="h-full">
-    //     //                 {MappingPhase()}
-    //     //                 {console.log("mapping data", ganttTask)}
-    //     //                 <Gantt tasks={ganttTask} />
-    //     //                 {/* {MappingData()} */}
-    //     //             </div>
-    //     //         );
-    //     //     } else {
-    //     //         console.log("data gantt tidak ada");
-    //     //         return (
-    //     //             <>
-    //     //             <p>No Activity</p>
-    //     //             </>
-    //     //             // <AddModalActivity />
-    //     //             // <div className="h-full">
-    //     //             //     {MappingPhase()}
-    //     //             //     {console.log("mapping data", ganttTask)}
-    //     //             //     <Gantt tasks={ganttTask} />
-    //     //             //     {/* {MappingData()} */}
-    //     //             // </div>
-    //     //         )
-    //     //     }
-    //     // } 
-    //     // else {
-    //     //     console.log("ganttID tidak ada");
-    //     //     return (
-    //     //         <>
-    //     //         <p>No Gantt</p>
-    //     //         </>
-    //     //         // <AddModalGantt />
-    //     //         // <div className="h-full">
-    //     //         //     {MappingPhase()}
-    //     //         //     {console.log("mapping data", ganttTask)}
-    //     //         //     <Gantt tasks={ganttTask} action={handler} />
-    //     //         // </div>
-    //     //     )
-    //     // }
-
-    // }
-
     // mapping data
     function MappingData() {
         const dataActivity = dataGantt.map((activity) => {
@@ -801,7 +718,7 @@ function AppGantt(props) {
             const startDate = subStringDate(activity.start_time);
             const endDate = subStringDate(activity.end_time);
 
-            gantt.addTask({
+            ganttTask.data.push({
                 id: activity.ID,
                 name: activity.name,
                 description: activity.description,
@@ -828,52 +745,50 @@ function AppGantt(props) {
         });
 
 
-        // // TODO : showgantt even gantt is empty
-        // // conditional show gantt (gantt empty? activity empty?)
-        // if (ganttID > 0) {
-        //     console.log("ganttID ada");
+        // conditional show gantt (gantt empty? activity empty?)
+        if (ganttID > 0) {
+            console.log("ganttID ada");
 
-        //     if (dataGantt.length > 0) {
-        //         console.log("data gantt ada");
-        //         return (
-        //             <div className="h-full">
-        //                 {MappingPhase()}
-        //                 {console.log("mapping data", ganttTask)}
-        //                 <Gantt tasks={ganttTask} />
-        //                 {/* {MappingData()} */}
-        //             </div>
-        //         );
-        //     } else {
-        //         console.log("data gantt tidak ada");
-        //         return (
-        //             <>
-        //             <p>No Activity</p>
-        //             </>
-        //             // <AddModalActivity />
-        //             // <div className="h-full">
-        //             //     {MappingPhase()}
-        //             //     {console.log("mapping data", ganttTask)}
-        //             //     <Gantt tasks={ganttTask} />
-        //             //     {/* {MappingData()} */}
-        //             // </div>
-        //         )
-        //     }
-        // } 
-        // else {
-        //     console.log("ganttID tidak ada");
-        //     return (
-        //         <>
-        //         <p>No Gantt</p>
-        //         </>
-        //         // <AddModalGantt />
-        //         // <div className="h-full">
-        //         //     {MappingPhase()}
-        //         //     {console.log("mapping data", ganttTask)}
-        //         //     <Gantt tasks={ganttTask} action={handler} />
-        //         // </div>
-        //     )
-        // }
-
+            if (dataGantt.length > 0) {
+                console.log("data gantt ada");
+                return (
+                    <div className="h-full">
+                        {MappingPhase()}
+                        {console.log("mapping data", ganttTask)}
+                        <Gantt tasks={ganttTask} />
+                        {/* {MappingData()} */}
+                    </div>
+                );
+            } else {
+                console.log("data gantt tidak ada");
+                return (
+                    <>
+                    <p>No Activity</p>
+                    </>
+                    // <AddModalActivity />
+                    // <div className="h-full">
+                    //     {MappingPhase()}
+                    //     {console.log("mapping data", ganttTask)}
+                    //     <Gantt tasks={ganttTask} />
+                    //     {/* {MappingData()} */}
+                    // </div>
+                )
+            }
+        } 
+        else {
+            console.log("ganttID tidak ada");
+            return (
+                <>
+                <p>No Gantt</p>
+                </>
+                // <AddModalGantt />
+                // <div className="h-full">
+                //     {MappingPhase()}
+                //     {console.log("mapping data", ganttTask)}
+                //     <Gantt tasks={ganttTask} action={handler} />
+                // </div>
+            )
+        }
     }
 
     const [isOpen, setIsOpen] = useState(false);
@@ -884,35 +799,12 @@ function AppGantt(props) {
         setIsOpen(false);
     }
 
-    const testAddTask = () => {
-        console.log("ADDDDDDD TASKKKKK")
-        gantt.addTask({
-            id:10,
-            name:"Project #1",
-            start_date:"2020-09-10",
-            end_date:"2020-09-20",
-            duration:28
-        });
-    }
-    const testAddTask2 = () => {
-        console.log("ADDDDDDD TASKKKKK")
-        gantt.addTask({
-            id:15,
-            name:"Project #2",
-            start_date:"2020-09-05",
-            end_date:"2020-09-10",
-            duration:28
-        });
-    }
-
     return (
         <div className="bg-white py-6 px-12 rounded-xl shadow-lg h-full">
             <div className="h-full">
                 <div className="py-5 px-4 flex justify-between items-center align-middle">
                     <p className="text-md">{title}</p>
                     <div className="py-5 px-4 flex items-center align-right">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={testAddTask}>ADD GANTT</button>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={testAddTask2}>ADD GANTT 2</button>
                         <AddModalGantt />
                         <EditModalGantt />
                         <DeleteModalGantt />
@@ -921,18 +813,13 @@ function AppGantt(props) {
                     </div>
                 </div>
                 {console.log("before mapping data should be called")}
-                {/* <div className="py-1 px-4 h-full">{MappingData()}</div> */}
-                <div className="py-1 px-4 h-full">
-                    <div className="h-full">
-                        {/* {MappingPhase()} */}
-                        {MappingData()}
-                        <Gantt tasks={ganttTask}/>
-                    </div>
-                </div>
+                <div className="py-1 px-4 h-full">{MappingData()}</div>
+                {/* <div className="py-1 px-4">{MappingPhase()}</div> */}
+                {/* {MappingPhase()} */}
                 {console.log("after mapping data should be called")}
             </div>
         </div>
     );
 }
 
-export default AppGantt;
+export default AppGantt_BACKUP;

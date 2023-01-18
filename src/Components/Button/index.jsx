@@ -2,10 +2,10 @@ import React from 'react';
 
 const Button = (props, buttontype, label) => {
     return (
-        <button 
-        type={buttontype} 
-        className="btn" 
-        {...props}>
+        <button
+            type={buttontype}
+            className="btn"
+            {...props}>
             {props.label}
         </button>
     )
@@ -13,7 +13,7 @@ const Button = (props, buttontype, label) => {
 
 export const LinkButton = (link, label, id) => {
     return (
-        <a href={link} key={id}>
+        <a href={link} key={id || 0}>
             <button className='btn'>
                 {label}
             </button>

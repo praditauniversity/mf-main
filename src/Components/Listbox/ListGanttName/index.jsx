@@ -6,23 +6,27 @@ import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 const ListGanttByProject = (props) => {
     const {ganttID, setGanttID, projectID, ganttName} = props;
 
+    console.log("GANTTTTTTTTTTT ID", ganttID);
+    console.log("GANTTTTTTTTTTT PRoject ID", projectID);
+    console.log("GANTTTTTTTTTTT ganttData", ganttName);
+
+    // TODO: Fix this
     function printListGanttName() {
 
-        var isData = false;
+        if(ganttName.length>0){
 
-        if (ganttName.length > 0){
-            isData = true;
-        }else{
-            isData = false;
+            return ganttName.map(({ ID, name }) => (
+                <>
+                    {/* {console.log("ID VALUE TYPE", typeof ID)} */}
+                    {/* {console.log("ID VALUE TYPE", typeof ID.toString())} */}
+                    <option value={ID}>{name}</option>
+                </>
+            ));
         }
+        // else{
+        //     return <option value="0">No Data Gantt</option>
+        // }
 
-        return ganttName.map(({ ID, name }) => (
-            <>
-                {/* {console.log("ID VALUE TYPE", typeof ID)} */}
-                {/* {console.log("ID VALUE TYPE", typeof ID.toString())} */}
-                {isData ? <option value={ID}>{name}</option> : <option value="0">No Gantt</option> }
-            </>
-        ));
     }
 
     const handleChange = (event) => {

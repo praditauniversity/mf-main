@@ -18,7 +18,7 @@ const EditModalGantt = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const profile = GetProfile();
-    const [projectID, setProjectID] = useLocalStorage('projectID', null);
+    const [projectID, setProjectID] = useLocalStorage('projectID');
 
     const [addGantt, { data: addGanttData, error: addGanttError }] = useMutation(ADD_GANTT);
 

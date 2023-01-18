@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { GET_ACTIVITY_GANTT_ID, GET_ACTIVITY_PHASE_DATA, GET_GANTT_PROJECT_ID } from "../../GraphQL/Queries";
+import { GET_ACTIVITY_GANTT_ID, GET_ACTIVITY_PHASE_DATA, GET_GANTT_PROJECT_ID, GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 import {
   ADD_GANTT,
   UPDATE_GANTT,
@@ -13,6 +13,7 @@ import TaskListCard from "../../Card/TaskList/TaskListCard";
 import VerticalTabs from "../../Tabs/verticalTabs";
 import ListGanttByProject from "../../Listbox/ListGanttName";
 import ListboxProjectName from "../../Listbox/ListProjectName";
+import GetProfile from "../../Auth/GetProfile";
 
 function useActivity() {
   // const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
@@ -43,45 +44,70 @@ function useGantt() {
   const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
   const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
 
-  const { data, loading, error } = useQuery(GET_GANTT_PROJECT_ID, {
+  const [projectData, setProjectData] = useState([]);
+  const [ganttName, setGanttName] = useState([]);
+  const profile = GetProfile();
+
+  const { loading: loadingProjectUser, error: errorProjectUser, data: dataProjectUser } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+    variables: { userId: profile.id },
+  });
+
+  const { data: dataGanttProject, loading: loadingGanttProject, error: errorGanttProject } = useQuery(GET_GANTT_PROJECT_ID, {
     variables: { project_id: projectID }
   });
-  const [ganttName, setGanttName] = useState([]);
+  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA", dataProjectUser);
+  console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBB", dataGanttProject);
 
   useEffect(() => {
-    if (data) {
+    console.log("INSIDE USEEFFECT USE GANTT");
+    if (dataGanttProject) {
       console.log("Data Ready list gantt");
-      setGanttName(data.ganttGetProjectID.data);
-      console.log("Data Ready", data.ganttGetProjectID.data);
-      ganttID == 0 ? localStorage.setItem('ganttID', data.ganttGetProjectID.data[0].ID) : localStorage.setItem('ganttID', ganttID);
+      console.log("Data Ready gantt get project", dataGanttProject.ganttGetProjectID.data);
+      setGanttName(dataGanttProject.ganttGetProjectID.data);
+      console.log("Data Ready", dataGanttProject.ganttGetProjectID.data);
+      ganttID === 0 ? localStorage.setItem('ganttID', dataGanttProject.ganttGetProjectID.data[0].ID) : localStorage.setItem('ganttID', ganttID);
       setGanttID(localStorage.getItem('ganttID'));
       console.log("gant id =? ", ganttID);
       // ganttID == 0 ? console.log("gantt id !==0 true: ", ganttID) : console.log("gantt id !==0 false: ", ganttID);
 
     } else {
-      console.log("No data list gantt");
+      console.log("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
       localStorage.setItem("ganttID", 0);
     }
-    console.log("USE EFFECT list gantt");
-  }, [data]);
 
-  return [ganttID, setGanttID, ganttName, projectID, setProjectID ]
+    if (dataProjectUser) {
+      console.log("Data Ready list gantt");
+      console.log("Data Ready gantt get project", dataProjectUser.projectByUserId.Data);
+      setProjectData(dataProjectUser.projectByUserId.Data);
+      console.log("Data Ready", dataProjectUser.projectByUserId.Data);
+      projectID === 0 ? localStorage.setItem('projectID', dataProjectUser.projectByUserId.Data[0].ID) : localStorage.setItem('projectID', projectID);
+      setProjectID(localStorage.getItem('projectID'));
+      console.log("projectID =? ", projectID);
+      // ganttID == 0 ? console.log("gantt id !==0 true: ", ganttID) : console.log("gantt id !==0 false: ", ganttID);
+
+    } else {
+      console.log("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+      localStorage.setItem("projectID", 0);
+    }
+  }, [dataGanttProject, dataProjectUser]);
+
+  return [ganttID, setGanttID, projectID, setProjectID, ganttName, setGanttName, projectData, setProjectData, dataGanttProject, dataProjectUser];
 }
 
 function useActivityPhase() {
-  const { data, loading, error } = useQuery(GET_ACTIVITY_PHASE_DATA);
+  const { data: dataActivityPhase, loading, error } = useQuery(GET_ACTIVITY_PHASE_DATA);
   const [activityPhaseData, setActivityPhaseData] = useState([]);
 
   useEffect(() => {
-    if (data) {
+    if (dataActivityPhase) {
       console.log("Data Ready Phase");
-      setActivityPhaseData(data.activityPhase.data);
-      console.log(data.activityPhase.data);
+      setActivityPhaseData(dataActivityPhase.activityPhase.data);
+      console.log(dataActivityPhase.activityPhase.data);
     } else {
       console.log("No data Phase");
     }
     console.log("USE EFFECT Phase");
-  }, [data]);
+  }, [dataActivityPhase]);
 
   return [activityPhaseData, setActivityPhaseData];
 }
@@ -106,10 +132,11 @@ export const PrintGantt = (props) => {
   const { title } = props;
   const [activityData, setActivity] = useActivity();
   const [activityPhaseData, setActivityPhaseData] = useActivityPhase();
-  const [ganttID] = useGantt();
+  const [ganttID, setGanttID, projectID, setProjectID, ganttName, setGanttName, projectData, setProjectData , dataGanttProject, dataProjectUser] = useGantt();
 
   return <>
-    <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID}/>
+    <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} />
+    {console.log("activityData", activityData)}
   </>
 }
 
@@ -124,18 +151,27 @@ export const TEST_TestFormGantt = (props) => {
 }
 
 export const PrintListGanttName = () => {
-  const [ganttID, setGanttID, projectID, ganttName ] = useGantt();
-
+  const [ganttID, setGanttID, projectID, setProjectID, ganttName, setGanttName, projectData, setProjectData, dataGanttProject, dataProjectUser] = useGantt();
+  console.log("this is custom activity. ganttname is ", ganttName);
+  console.log("CUSTOMMM ID", ganttID);
+  console.log("CUSTOMMM PRoject ID", projectID);
+  console.log("CUSTOMMM ganttData", ganttName);
+  
   return <>
     <ListGanttByProject ganttID={ganttID} setGanttID={setGanttID} projectID={projectID} ganttName={ganttName} />
   </>
 }
 
+// TODO : ERROR
 export const PrintListProjetcName = () => {
-  const [setGanttID, projectID, setProjectID  ] = useGantt();
+  const [ganttID, setGanttID, projectID, setProjectID, ganttName, setGanttName, projectData, setProjectData, dataGanttProject, dataProjectUser] = useGantt();
+  console.log("PrintListProjetcName ganttt ID ", ganttID);
+  console.log("PrintListProjetcName ProjectID", projectID);
+  console.log("PrintListProjetcName ganttname", ganttName);
+  console.log("PrintListProjetcName projectdata", projectData);
 
   return <>
-    <ListboxProjectName setGanttID={setGanttID} projectID={projectID} setProject={setProjectID} />
+    <ListboxProjectName setGanttID={setGanttID} projectID={projectID} setProjectID={setProjectID} projectData={projectData} />
   </>
 }
 
