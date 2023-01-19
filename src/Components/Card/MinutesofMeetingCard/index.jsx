@@ -1,10 +1,14 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
+import { useQuery } from '@apollo/client';
 import MinutesofMeetingList from "./MinutesofMeetingList";
 import { IconPlus, IconEdit, IconDelete, IconFilter, IconSearch } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
 import { InputField } from "../../Input/Input";
 import TableFooter from "./TableFooter";
 import AddModalMinutesOfMeeting from "../../Modal/MinutesOfMeetingModal/AddModal/AddModal";
+import GetProfile from "../../Auth/GetProfile";
+import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
+import { Client, ProjectManager } from "../../GraphQL/ProjectByIdQueries";
 
 const MinutesofMeetingCard = (props) => {
     const { icon } = props;
@@ -20,6 +24,37 @@ const MinutesofMeetingCard = (props) => {
     const handlePageChange = (page) => {
       setCurrentPage(page)
     }
+
+    const profile = GetProfile();
+    const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+        variables: { userId: profile.id},
+    });
+    const [projectData, setProject] = useState([]);
+    const [momProjectID, setMomProjectID] = useState(localStorage.getItem('momProjectID'));
+
+    useEffect(() => {
+        if (data) {
+            setProject(data.projectByUserId.Data);
+            momProjectID == 0 ? localStorage.setItem('momProjectID', data.projectByUserId.Data[0].ID) : localStorage.setItem('momProjectID', momProjectID);
+        } else {
+            console.log("No data found for project with user id : " + profile.id);
+            localStorage.setItem('momProjectID', 0)
+        }
+    }, [data]);
+
+    function printListProjectName() {
+        return projectData.map(({ ID, name }) => (
+            <>
+                <option value={ID}>{name}</option>               
+            </>
+        ));
+    }
+
+    const handleChange = (event) => {
+        setMomProjectID(event.target.value);
+        localStorage.setItem('momProjectID', event.target.value);
+        window.location.reload();
+    };
 
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
@@ -44,7 +79,10 @@ const MinutesofMeetingCard = (props) => {
                                 <p className="text-sm font-semibold opacity-70">Project Name</p>
                             </div>
                             <div>
-                                <p className="text-base font-semibold">Project Anomaly</p>
+                                {/* <p className="text-base font-semibold">Project Anomaly</p> */}
+                                <select value={momProjectID} onChange={handleChange} className="select select-ghost select-sm w-full max-w-xs">
+                                    {printListProjectName()}
+                                </select>
                             </div>
                         </div>
                         <div>
@@ -52,15 +90,15 @@ const MinutesofMeetingCard = (props) => {
                                 <p className="text-sm font-semibold opacity-70">Project Manager</p>
                             </div>
                             <div>
-                                <p className="text-base font-semibold">Jhon Doe</p>
+                                <p className="text-base font-semibold"><ProjectManager value={momProjectID}></ProjectManager></p>
                             </div>
                         </div>
                         <div>
                             <div className="pb-2">
-                                <p className="text-sm font-semibold opacity-70">Customer</p>
+                                <p className="text-sm font-semibold opacity-70">Client</p>
                             </div>
                             <div>
-                                <p className="text-base font-semibold">Jaya Gedung Group</p>
+                                <p className="text-base font-semibold"><Client value={momProjectID}/></p>
                             </div>
                         </div>
                     </div>

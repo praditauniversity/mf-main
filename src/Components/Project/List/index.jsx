@@ -72,10 +72,12 @@ const TableHeader = () => {
     )
 }
 
-const ActionsButton = () => {
+const ActionsButton = (props) => {
+    const {projectID_Table} = props;
+    
     const buttonName = [
         { id: 1, name: "Project Charter", icon: dailyReportIcon, link: "/#/projectcharter" },
-        { id: 2, name: "Gantt", icon: dailyReportIcon, link: "/#/projectdashboard" }, // TODO: Change this link to gantt
+        { id: 2, name: "Gantt", icon: dailyReportIcon, link: `/#/gantt/${projectID_Table}` }, // TODO: Change this link to gantt
         { id: 3, name: "Daily Report", icon: dailyReportIcon, link: "/#/dailyreport" },
     ]
 
@@ -116,7 +118,7 @@ const ProjectListPage = () => {
                     </thead>
                     <tbody>
                         {projectData.map((project) => (
-                            <tr key={project.id}>
+                            <tr key={project.ID}>
                                 <td>
                                     <div className="flex items-center space-x-3">
                                         <div>
@@ -169,7 +171,7 @@ const ProjectListPage = () => {
                                 </td>
                                 {/* maximum 48 pixel width, otherwise it will be on the next line */}
                                 <th className="space-x-2 w-48">
-                                    <ActionsButton />
+                                    <ActionsButton projectID_Table={project.ID} />
                                 </th>
                             </tr>
                         ))}

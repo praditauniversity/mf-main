@@ -461,10 +461,6 @@ export const GET_MILESTONE_DATA = gql`
     projectMilestone {
         Data {
             ID
-            project_id
-            Project {
-                name
-            }
             status
             due_date
         }
@@ -473,21 +469,161 @@ export const GET_MILESTONE_DATA = gql`
 `;
 
 export const GET_CHARTER_DATA = gql`
-  query projectCharter {
+  query ProjectCharter {
     projectCharter {
-        Data {
-            ID
-            project_id
-            milestone_id
-            Project{
-                ID
-                name
-                project_manager
-                client
-                start_project
-                end_project
-            }
+      Data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        user_id
+        name
+        description
+        start_project
+        end_project
+        stakeholder_ammount
+        work_area
+        office_location
+        cost_plan
+        cost_actual
+        client
+        client_contact
+        role_id
+        type_id
+        Type {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          name
+          description
+          user_id
+          updated_by
+          deleted_by
         }
+        progress_percentage
+        project_manager
+        project_duration
+        total_man_power
+        status
+        considered_success_when
+        currency_symbol
+        currency_code
+        currency_name
+        phase_id
+        Phase {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          name
+          color
+          order
+          user_id
+          updated_by
+          deleted_by
+        }
+        budget_health
+        budget
+        participants
+        milestone_id
+        Milestone {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          status
+          due_date
+          user_id
+          updated_by
+          deleted_by
+        }
+        project_objectives
+        available_resources
+        potential_risk
+        updated_by
+        deleted_by
+      }
+    }
+  }
+`;
+
+export const GET_CHARTER_DATA_BY_USER_ID = gql`
+  query projectCharterByUserId($userId: String!) {
+    projectCharterByUserId(userId: $userId) {
+      Data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        user_id
+        name
+        description
+        start_project
+        end_project
+        stakeholder_ammount
+        work_area
+        office_location
+        cost_plan
+        cost_actual
+        client
+        client_contact
+        role_id
+        type_id
+        Type {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          name
+          description
+          user_id
+          updated_by
+          deleted_by
+        }
+        progress_percentage
+        project_manager
+        project_duration
+        total_man_power
+        status
+        considered_success_when
+        currency_symbol
+        currency_code
+        currency_name
+        phase_id
+        Phase {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          name
+          color
+          order
+          user_id
+          updated_by
+          deleted_by
+        }
+        budget_health
+        budget
+        participants
+        milestone_id
+        Milestone {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          status
+          due_date
+          user_id
+          updated_by
+          deleted_by
+        }
+        project_objectives
+        available_resources
+        potential_risk
+        updated_by
+        deleted_by
+      }
     }
   }
 `;
@@ -500,59 +636,73 @@ export const GET_CHARTER_DATA_BY_ID = gql`
         CreatedAt
         UpdatedAt
         DeletedAt
-        project_id
-        milestone_id
-        participants
-        available_resources
         user_id
-        updated_by
-        deleted_by
-        Project {
+        name
+        description
+        start_project
+        end_project
+        stakeholder_ammount
+        work_area
+        office_location
+        cost_plan
+        cost_actual
+        client
+        client_contact
+        role_id
+        type_id
+        Type {
           ID
           CreatedAt
           UpdatedAt
           DeletedAt
-          user_id
-          stakeholder_ammount
           name
-          start_project
-          end_project
-          work_area
-          office_location
-          cost_plan
-          cost_actual
-          client
-          client_contact
-          role_id
-          type_id
-          progress_percentage
           description
-          project_manager
-          project_duration
-          total_man_power
-          UpdatedBy
-          DeletedBy
-          status
-          considered_success_when
-          currency_symbol
-          currency_code
-          currency_name
-          phase_id
-          budget_health
-          budget
+          user_id
+          updated_by
+          deleted_by
         }
+        progress_percentage
+        project_manager
+        project_duration
+        total_man_power
+        status
+        considered_success_when
+        currency_symbol
+        currency_code
+        currency_name
+        phase_id
+        Phase {
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          name
+          color
+          order
+          user_id
+          updated_by
+          deleted_by
+        }
+        budget_health
+        budget
+        participants
+        milestone_id
         Milestone {
           ID
           CreatedAt
           UpdatedAt
           DeletedAt
-          project_id
           status
           due_date
           user_id
           updated_by
           deleted_by
         }
+        project_objectives
+        available_resources
+        potential_risk
+        updated_by
+        deleted_by
       }
     }
   }
@@ -696,6 +846,30 @@ export const GET_DAILY_REPORT_DATA_BY_PROJECT_ID = gql`
         work_log_hour
         work_log_name
         work_log_status
+      }
+    }
+  }
+`;
+
+export const GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID = gql`
+  query minuteOfMeetingGetProjectID($projectId: String!) {
+    minuteOfMeetingGetProjectID(project_id: $projectId) {
+      data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        project_id
+        meeting_name
+        meeting_date
+        start_time_meeting
+        end_time_meeting
+        location
+        meeting_leader
+        meeting_objective
+        user_id
+        updated_by
+        deleted_by
       }
     }
   }

@@ -18,6 +18,7 @@ import EditModalActivity from "../Modal/Gantt/EditModalGantt";
 import DeleteModalActivity from "../Modal/Gantt/DeleteModalGantt";
 import EditModalGantt from "../Modal/Gantt/EditModalGantt";
 import DeleteModalGantt from "../Modal/Gantt/DeleteModalGantt";
+import Toolbar from "./Toolbar";
 
 // create custom column
 gantt.config.columns = [
@@ -334,6 +335,14 @@ gantt.config.columns = [
                     optionElement.className = "input input-bordered w-full'";
                     phaseSelector.appendChild(optionElement);
                 });
+            }
+            if (optionPhase.length < 1) {
+                // if phaseSelector.length empty
+                const optionElement = document.createElement('option');
+                    optionElement.value = "";
+                    optionElement.textContent = "Phase Empty";
+                    optionElement.className = "input input-bordered w-full'";
+                    phaseSelector.appendChild(optionElement);
             }
 
             prioritySelector.onchange = function () {
@@ -887,23 +896,29 @@ function AppGantt(props) {
     const testAddTask = () => {
         console.log("ADDDDDDD TASKKKKK")
         gantt.addTask({
-            id:10,
-            name:"Project #1",
-            start_date:"2020-09-10",
-            end_date:"2020-09-20",
-            duration:28
+            id: 10,
+            name: "Project #1",
+            start_date: "2020-09-10",
+            end_date: "2020-09-20",
+            duration: 28
         });
     }
     const testAddTask2 = () => {
         console.log("ADDDDDDD TASKKKKK")
         gantt.addTask({
-            id:15,
-            name:"Project #2",
-            start_date:"2020-09-05",
-            end_date:"2020-09-10",
-            duration:28
+            id: 15,
+            name: "Project #2",
+            start_date: "2020-09-05",
+            end_date: "2020-09-10",
+            duration: 28
         });
     }
+
+    const [currentZoom, setCurrentZoom] = useState('Days');
+
+    const handleZoomChange = (zoom) => {
+        setCurrentZoom(zoom);
+    };
 
     return (
         <div className="bg-white py-6 px-12 rounded-xl shadow-lg h-full">
@@ -922,11 +937,17 @@ function AppGantt(props) {
                 </div>
                 {console.log("before mapping data should be called")}
                 {/* <div className="py-1 px-4 h-full">{MappingData()}</div> */}
+                <div className="zoom-bar">
+                    <Toolbar
+                        zoom={currentZoom}
+                        onZoomChange={handleZoomChange}
+                    />
+                </div>
                 <div className="py-1 px-4 h-full">
                     <div className="h-full">
                         {/* {MappingPhase()} */}
                         {MappingData()}
-                        <Gantt tasks={ganttTask}/>
+                        <Gantt tasks={ganttTask} zoom={currentZoom} />
                     </div>
                 </div>
                 {console.log("after mapping data should be called")}

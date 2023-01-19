@@ -1,13 +1,4 @@
 import React, { useState } from "react";
-
-
-
-
-
-
-
-
-
 // import logo from "../Assets/Icons/svg/Logo.svg";
 import logo from "../Assets/Icons/png/Logo.png";
 import chat from "../Assets/Icons/svg/Chat.svg";
@@ -16,8 +7,8 @@ import addproject from "../Assets/Icons/svg/AddProject.svg";
 import maindashboard from "../Assets/Icons/svg/MainDashboard.svg";
 import profile from "../Assets/Icons/svg/Profile.svg";
 import chart from "../Assets/Icons/svg/Progress.svg";
-import projectcharter from "../Assets/Icons/svg/ProjectCharter.svg";
 import LogoutButton from "../Components/Auth/LogoutDialog";
+// import Settings from "../Assets/Icons/svg/"
 
 export const SideBar = () => {
     const [sideList, setSideList] = useState([
@@ -27,10 +18,10 @@ export const SideBar = () => {
         // { id: 3, name: "PMODashboard", link: "/#/pmodashboard", icon: dashboard },
         // { id: 4, name: "ProjectDashboard", link: "/#/projectdashboard", icon: dashboard },
         // { id: 5, name: "MemberDashboard", link: "/#/memberdashboard", icon: dashboard },
-        { id: 5, name: "ProjectCharter", link: "/#/projectcharter", icon: projectcharter, tooltip: "Project Charter" },
-        { id: 6, name: "DailyReport", link: "/#/dailyreport", icon: chart, tooltip: "Report" },
-        { id: 7, name: "MinuteofMeeting", link: "/#/minutesofmeeting", icon: chat, tooltip: "MoM" },
-        { id: 8, name: "UserAccount", link: "/#/useraccount", icon: profile, tooltip: "Account" },
+        { id: 5, name: "ProjectCharter", link: "/#/projectcharter", icon: addproject, tooltip: "Project Charter" },
+        { id: 6, name: "DailyReport", link: "/#/dailyreport", icon: chart, tooltip: "Daily Report" },
+        { id: 7, name: "MinuteofMeeting", link: "/#/minutesofmeeting", icon: chat, tooltip: "Minute of Meeting" },
+        { id: 8, name: "UserAccount", link: "/#/useraccount", icon: profile, tooltip: "User Account" },
         // { id: 9, name: "About", link: "/#/about", icon: compass },
         // { id: 10, name: "Contact", link: "/#/contact", icon: compass },
         // { id: 11, name: "ProjectDashboard", link: "/#/projectdashboard", icon: key },

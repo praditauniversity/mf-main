@@ -5,7 +5,7 @@ import '../../../Assets/svgbutton/svgbutton.css'
 import { Link, useHistory } from 'react-router-dom';
 import './table.css'
 import FetchCharter from "../../../Middleware/Fetchers/FetchCharter";
-import { GET_CHARTER_DATA } from "../../GraphQL/Queries";
+import { GET_CHARTER_DATA_BY_USER_ID, } from "../../GraphQL/Queries";
 
 
 const DELETE_PROJECTCHARTER = gql`
@@ -15,13 +15,11 @@ const DELETE_PROJECTCHARTER = gql`
 
 const PCList = () => {
   const charterData = FetchCharter();
-  // const [id, setId] = React.useState('');
-
 
   const [deleteCharter, { loading, error }] = useMutation(DELETE_PROJECTCHARTER ,
     {
     refetchQueries: [
-      { query: GET_CHARTER_DATA}
+      { query: GET_CHARTER_DATA_BY_USER_ID}
     ]
   }
   );
@@ -45,11 +43,12 @@ const PCList = () => {
             </tr>
           </thead>
           <tbody>
-            {charterData.map((item, index) => {
+            {/* ada masalah disini */}
+            {Array.isArray(charterData)? charterData.map((item) => {
               console.log("AAA", item.ID);
               const idMap = toString(item.ID);
-              const startProject = new Date(item.Project.start_project);
-              const endProject = new Date(item.Project.end_project);
+              const startProject = new Date(item.start_project);
+              const endProject = new Date(item.end_project);
 
               const startProjectYear = startProject.toLocaleDateString('en-US', { year: 'numeric' });
               const startProjectMonth = startProject.toLocaleDateString('en-US', { month: '2-digit' });
@@ -61,9 +60,9 @@ const PCList = () => {
               return (
                 <tr key={item.ID} onClick={localStorage.setItem('charterID', item.ID)}>
                   {/* className={`cursor-pointer ${isClicked ? 'bg-yellow-500 text-primary' : ''}`} */}
-                  <td align="center"><Link to={{ pathname: '/charterview', state: { value: item.ID } }}><button className="hover:text-primary">{item.Project.name}</button></Link></td>
-                  <td align="center">{item.Project.project_manager}</td>
-                  <td align="center">{item.Project.client}</td>
+                  <td align="center"><Link to={{ pathname: '/charterview', state: { value: item.ID } }}><button className="hover:text-primary">{item.name}</button></Link></td>
+                  <td align="center">{item.project_manager}</td>
+                  <td align="center">{item.client}</td>
                   <td align="center">{startProjectMonth}/{startProjectDay}/{startProjectYear}</td>
                   <td align="center">{endProjectMonth}/{endProjectDay}/{endProjectYear}</td>
                   <td align="center">
@@ -85,7 +84,11 @@ const PCList = () => {
                 </tr>
               )
             }
-            )}
+            ) : 
+              <tr>
+                <td align="center">No Data</td>  
+              </tr>
+            }
           </tbody>
         </table>
 

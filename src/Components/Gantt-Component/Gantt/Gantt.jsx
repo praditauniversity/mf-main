@@ -42,6 +42,14 @@ export default class Gantt extends Component {
     });
 }
 
+setZoom(value) {
+    gantt.ext.zoom.setLevel(value);
+}
+
+shouldComponentUpdate(nextProps) {
+    return this.props.zoom !== nextProps.zoom;
+  }
+
   componentDidMount() {
     gantt.config.date_format = "%Y-%m-%d %H:%i";
     const { tasks } = this.props;
@@ -50,6 +58,8 @@ export default class Gantt extends Component {
   }
 
   render() {
+    const { zoom } = this.props;
+    this.setZoom(zoom);
     return (
       <div
         ref={(input) => {

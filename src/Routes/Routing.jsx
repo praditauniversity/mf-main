@@ -7,6 +7,7 @@ import { default as Profile, default as UserAccount } from "../Pages/Account";
 import DailyReport from "../Pages/DailyReport";
 import DailyReportView from "../Pages/DailyReport/dailyreportview";
 import DashboardPage from "../Pages/Dashboard";
+import GanttPage from "../Pages/Gantt";
 import MainDashboard from "../Pages/MainDashboard";
 import MemberDashboardPage from "../Pages/MemberDashboard";
 import MinutesofMeeting from "../Pages/MinuteOfMeeting";
@@ -62,6 +63,7 @@ export default function Routing() {
         <Route path="/dailyreportview" element={<DailyReportView />}></Route>
         <Route path="/project-list" element={<ProjectList />}></Route>
         <Route path="/minutesofmeeting" element={<MinutesofMeeting />}></Route>
+        <Route path={`/gantt/:projectID`} element={<GanttPage />}></Route>
       </Routes>
     );
   }

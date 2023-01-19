@@ -1,4 +1,5 @@
 import React from "react";
+import { useMutation, gql } from '@apollo/client';
 import { IconEdit, IconDelete } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css';
 import FetchProject from "../../../Middleware/Fetchers/FetchProject";
@@ -13,7 +14,7 @@ const DELETE_DAILYREPORT = gql`
   mutation DeleteDailyReport($id: String!) {
     deleteDailyReport(id: $id) 
   }`;
- 
+
 
 const DRList = () => {
   const projectData = FetchProject();
@@ -22,17 +23,17 @@ const DRList = () => {
   // const dailyReportData = FetchDailyReport();
   const dailyReportData = FetchDailyReportByProjectId();
 
-  const [deleteReport, { loading, error }] = useMutation(DELETE_DAILYREPORT ,
+  const [deleteReport, { loading, error }] = useMutation(DELETE_DAILYREPORT,
     {
-    refetchQueries: [
-      { query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID}
-    ]
-  }
+      refetchQueries: [
+        { query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID }
+      ]
+    }
   );
 
   if (loading) return 'Submitting...';
   if (error) return `Submission error! ${error.message}`;
-  
+
 
   return (
     <div className="rounded-xl shadow-lg bg-white pt-6">
@@ -75,9 +76,9 @@ const DRList = () => {
                                 if (activity.ID === dailyReport.activity_id /*&& gantt.project_id === dailyReport.project_id*/) {
                                   // const listID = toString(dailyReport.ID);
                                   const reportDate = new Date(dailyReport.report_date);
-                                  const reportDateYear = reportDate.toLocaleDateString('en-US', {year: 'numeric'});
-                                  const reportDateMonth = reportDate.toLocaleDateString('en-US', {month: '2-digit'});
-                                  const reportDateDay = reportDate.toLocaleDateString('en-US', {day: '2-digit'});
+                                  const reportDateYear = reportDate.toLocaleDateString('en-US', { year: 'numeric' });
+                                  const reportDateMonth = reportDate.toLocaleDateString('en-US', { month: '2-digit' });
+                                  const reportDateDay = reportDate.toLocaleDateString('en-US', { day: '2-digit' });
                                   return (
                                     <tr key={dailyReport.ID}>
                                       <td align="center"><Link to="/dailyreportview"><button className="hover:text-primary">{dailyReport.name}</button></Link></td>
@@ -85,17 +86,18 @@ const DRList = () => {
                                       <td align="center">{reportDateYear}/{reportDateMonth}/{reportDateDay}</td>
                                       <td align="center">{activity.name}</td>
                                       <td align="center">
-                                        <button className="px-1" id="icon"
-                                        onClick={e => {
-                                          const listID = String(dailyReport.ID);
-                                          console.log(typeof listID, listID);
-                                          e.preventDefault();
-                                          deleteReport({ variables: { id: listID } });
-                                        }}
-                                        >
+                                        <button className="px-1" id="icon">
                                           <IconEdit />
                                         </button>
-                                        <button className="px-1" id="icon"><IconDelete /></button>
+                                        <button className="px-1" id="icon"
+                                          onClick={e => {
+                                            const listID = String(dailyReport.ID);
+                                            console.log(typeof listID, listID);
+                                            console.log(typeof dailyReport.ID, dailyReport.ID);
+                                            e.preventDefault();
+                                            deleteReport({ variables: { id: listID } });
+                                          }}
+                                        ><IconDelete /></button>
                                       </td>
                                     </tr>
                                   )
@@ -112,7 +114,7 @@ const DRList = () => {
             }
           </tbody>
         </table>
-        
+
       </div>
     </div>
   );
