@@ -193,6 +193,7 @@ const AddModalDailyReport = () => {
     let data = [...inputFields];
     data[index][event.target.name] = event.target.value;
     setInputFields(data);
+    console.log("DATADATADATA", data);
     
   };
 
@@ -225,6 +226,7 @@ const AddModalDailyReport = () => {
 
       
 
+      // setWorkLogName(inputFields.map((inputField) => inputField.name));
       setWorkLogName(inputFields.map((inputField) => inputField.name));
       setWorkLogDesc(inputFields.map((inputField) => inputField.description));
       setWorkLogStatus(inputFields.map((inputField) => inputField.status));
@@ -233,6 +235,11 @@ const AddModalDailyReport = () => {
       var gue2 = work_log_desc;
       var gue3 = work_log_status;
       var gue4 = work_log_hour;
+
+      console.log("work_log_name", work_log_name);
+      console.log("work_log_desc", work_log_desc);
+      console.log("work_log_status", work_log_status);
+      console.log("work_log_hour", work_log_hour);
 
       console.log("BABIBADASDA",inputFields.map((inputField) => inputField.name))
       console.log("fakkkkkkkkkkkkkkkkkkkkkkk", gue)
@@ -271,6 +278,8 @@ const AddModalDailyReport = () => {
     setActivityId(0);
     setProjectId(0);
     setReportDate("");
+
+    hideDialog();
   };
 
   return (

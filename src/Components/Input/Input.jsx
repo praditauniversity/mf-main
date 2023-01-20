@@ -10,7 +10,7 @@ export const InputField = ({ value, label, name, placeholder, type, onChange, di
             type={type}
             value={value}
             name={name}
-            className="form-control mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline "
+            className="form-control input input-bordered mb-4 shadow appearance-none border rounded w-full bg-table-dark border-primary-light rounded-lg py-3 px-4 "
             placeholder={placeholder}
             onChange={onChange}
             disabled={disabled}
@@ -63,7 +63,7 @@ export const SelectField = ({ value, label, name, placeholder, onChange, disable
                 disabled={disabled}
                 error={error}
                 ref={ref}
-                >
+            >
                 {options.map((option) => (
                     <option key={option.id} value={option.value} className="hover:bg-gray-400 rounded-none">
                         {option.name}
@@ -87,11 +87,11 @@ export const SelectorField = ({ options, label }) => {
                 >{selectedValue.name}</Listbox.Button>
                 <Listbox.Options
                     className="absolute mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none border-8 border-transparent"
-                    >
+                >
                     {options.map((value) => (
                         <Listbox.Option
-                        key={value.id}
-                        value={value}
+                            key={value.id}
+                            value={value}
                             disabled={value.unavailable}
                         >
                             <button className="ui-active:bg-indigo-50 text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm" >
@@ -105,17 +105,41 @@ export const SelectorField = ({ options, label }) => {
     )
 }
 
-export const DatePickerField = ({ label, selected, placeholder, onChange, disabled, error }) => {
+export const DatePickerField = ({ label, dateFormat, selected, placeholder, onChange, disabled, error }) => {
     return (
         <div className="form-group">
             <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
             <DatePicker
-            className="form-control mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline "
-            selected={selected}
-            onChange={onChange}
-            placeholder={placeholder}
-            disabled={disabled}
-            error={error}
+                dateFormat={dateFormat}
+                className="form-control input input-bordered mb-4 shadow appearance-none border rounded w-full bg-table-dark border-primary-light rounded-lg py-3 px-4"
+                selected={selected}
+                onChange={onChange}
+                placeholder={placeholder}
+                disabled={disabled}
+                error={error}
+
+            />
+        </div>
+    );
+}
+
+export const TimePickerField = ({ label, selected, placeholder, onChange, disabled, error }) => {
+    // const [startDate, setStartDate] = useState(
+    //     setHours(setMinutes(new Date(), 30), 16)
+    // );
+    return (
+        <div className="form-group">
+            <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
+            <DatePicker
+                className="form-control input input-bordered mb-4 shadow appearance-none border rounded w-full bg-table-dark border-primary-light rounded-lg py-3 px-4"
+                selected={selected}
+                onChange={onChange}
+                placeholder={placeholder}
+                disabled={disabled}
+                error={error}
+                timeInputLabel="Time:"
+                dateFormat="MM/dd/yyyy h:mm aa"
+                showTimeInput
 
             />
         </div>
@@ -123,7 +147,7 @@ export const DatePickerField = ({ label, selected, placeholder, onChange, disabl
 }
 
 
-export const InputProjectObj = ({ label, name, placeholder, onChange}) => {
+export const InputProjectObj = ({ label, name, placeholder, onChange }) => {
     const [project_objectives, setProjectObjectives] = useState([
         { objective: '' }
     ])

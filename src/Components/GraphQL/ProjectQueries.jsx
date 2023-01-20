@@ -1,32 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_PROJECT_DATA } from "./Queries";
+import { GET_PROJECT_DATA_BY_USER_ID } from "./Queries";
 import { functionalUpdate } from "react-table";
 import GetProfile from "../Auth/GetProfile";
+import FetchProjectByUserId from "../../Middleware/Fetchers/FetchProjectByUserId";
 
 export function SumActual() {
   const profile = GetProfile();
-  const { error, loading, data } = useQuery(GET_PROJECT_DATA);
-  const [projectdata, setProject] = useState([]);
-
-  useEffect(() => {
-    if (data) {
-      console.log("Data Ready");
-      console.log(data);
-      setProject(data.project.Data);
-    } else {
-      console.log("No data");
-    }
-  }, [data]);
+  const projectData = FetchProjectByUserId(); 
 
   function printSumActual() {
     var sumAct = 0;
     var projectCurrency = "";
-    projectdata.map((project) => {
-      if (profile.id === project.user_id) {
-        sumAct = sumAct + project.cost_actual;
-        projectCurrency = project.currency_symbol;
-      }
+    projectData.map((project) => {
+      sumAct = sumAct + project.cost_actual;
+      projectCurrency = project.currency_symbol;
     });
     return (
       <div>
@@ -42,27 +30,14 @@ export function SumActual() {
 
 export function SumCost() {
   const profile = GetProfile();
-  const { error, loading, data } = useQuery(GET_PROJECT_DATA);
-  const [projectdata, setProject] = useState([]);
-
-  useEffect(() => {
-    if (data) {
-      console.log("Data Ready");
-      console.log(data);
-      setProject(data.project.Data);
-    } else {
-      console.log("No data");
-    }
-  }, [data]);
+  const projectData = FetchProjectByUserId();
 
   function printSumCost() {
     var sumCost = 0;
     var projectCurrency = "";
-    projectdata.map((project) => {
-      if (profile.id === project.user_id) {
-        sumCost = sumCost + project.cost_plan;
-        projectCurrency = project.currency_symbol;
-      }
+    projectData.map((project) => {
+      sumCost = sumCost + project.cost_plan;
+      projectCurrency = project.currency_symbol;
     });
     return (
       <div>
@@ -78,27 +53,14 @@ export function SumCost() {
 
 export function SumBudget() {
   const profile = GetProfile();
-  const { error, loading, data } = useQuery(GET_PROJECT_DATA);
-  const [projectdata, setProject] = useState([]);
-
-  useEffect(() => {
-    if (data) {
-      console.log("Data Ready");
-      console.log(data);
-      setProject(data.project.Data);
-    } else {
-      console.log("No data");
-    }
-  }, [data]);
+  const projectData = FetchProjectByUserId();
 
   function printSumBudget() {
     var sumBudget = 0;
     var projectCurrency = "";
-    projectdata.map((project) => {
-      if (profile.id === project.user_id) {
-        sumBudget = sumBudget + project.budget;
-        projectCurrency = project.currency_symbol;
-      }
+    projectData.map((project) => {
+      sumBudget = sumBudget + project.budget;
+      projectCurrency = project.currency_symbol;
     });
     return (
       <div>
@@ -114,31 +76,18 @@ export function SumBudget() {
 
 export function SumDanger() {
   const profile = GetProfile();
-  const { error, loading, data } = useQuery(GET_PROJECT_DATA);
-  const [projectdata, setProject] = useState([]);
-
-  useEffect(() => {
-    if (data) {
-      console.log("Data Ready");
-      console.log(data);
-      setProject(data.project.Data);
-    } else {
-      console.log("No data");
-    }
-  }, [data]);
+  const projectData = FetchProjectByUserId();
 
   function printSumDanger() {
     var sumAct = 0;
     var sumCost = 0;
     var sumDanger = 0;
     var projectCurrency = "";
-    projectdata.map((project) => {
-      if (profile.id === project.user_id) {
-        sumAct = sumAct + project.cost_actual;
-        sumCost = sumCost + project.cost_plan;
-        sumDanger = sumAct - sumCost;
-        projectCurrency = project.currency_symbol;
-      }
+    projectData.map((project) => {
+      sumAct = sumAct + project.cost_actual;
+      sumCost = sumCost + project.cost_plan;
+      sumDanger = sumAct - sumCost;
+      projectCurrency = project.currency_symbol;
     });
     return (
       <div>
@@ -154,31 +103,18 @@ export function SumDanger() {
 
 export function SumVariance() {
   const profile = GetProfile();
-  const { error, loading, data } = useQuery(GET_PROJECT_DATA);
-  const [projectdata, setProject] = useState([]);
-
-  useEffect(() => {
-    if (data) {
-      console.log("Data Ready");
-      console.log(data);
-      setProject(data.project.Data);
-    } else {
-      console.log("No data");
-    }
-  }, [data]);
+  const projectData = FetchProjectByUserId();
 
   function printSumVariance() {
     var sumBudget = 0;
     var sumAct = 0;
     var variance = 0;
     var projectCurrency = "";
-    projectdata.map((project) => {
-      if (profile.id === project.user_id) {
-        sumBudget = sumBudget + project.budget;
-        sumAct = sumAct + project.cost_actual;
-        variance = sumBudget - sumAct;
-        projectCurrency = project.currency_symbol;
-      }
+    projectData.map((project) => {
+      sumBudget = sumBudget + project.budget;
+      sumAct = sumAct + project.cost_actual;
+      variance = sumBudget - sumAct;
+      projectCurrency = project.currency_symbol;
     });
     return (
       <div>

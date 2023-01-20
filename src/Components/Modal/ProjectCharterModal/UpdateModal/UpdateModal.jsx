@@ -1,18 +1,19 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { GET_MILESTONE_DATA, GET_PHASE_DATA, GET_TYPE_DATA } from '../../../GraphQL/Queries';
+import { GET_CHARTER_DATA_BY_USER_ID, GET_MILESTONE_DATA, GET_PHASE_DATA, GET_TYPE_DATA } from '../../../GraphQL/Queries';
 // import { GET_PROJECT_DATA_BY_ID } from "../../GraphQL/Queries";
 import '../../../../Assets/svgbutton/svgbutton.css';
 import FetchCharter from '../../../../Middleware/Fetchers/FetchCharter';
-import { IconDeleteForm, IconPlus, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
+import { IconDeleteForm, IconEdit, IconPlus, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
 import { DatePickerField, InputField } from '../../../Input/Input';
-import './AddModal.css';
+import './UpdateModal.css';
 
 
 //yang masih belom mutation dan querynya
-const ADD_CHARTER = gql`
-    mutation addProject(
+const UPDATE_CHARTER = gql`
+    mutation updateProject(
+        $id: String!
         $status: String!
         $work_area: String!
         $start_project: DateTime!
@@ -41,7 +42,7 @@ const ADD_CHARTER = gql`
         $available_resources:[String]!
         $milestone_id: Int!
     ) {
-    addProject(
+    updateProject( id: $id,
         input: {
             status: $status,
             work_area: $work_area,
@@ -73,7 +74,30 @@ const ADD_CHARTER = gql`
         }
     ) {
         Data {
-            ID
+            status
+            work_area
+            start_project
+            stakeholder_ammount
+            role_id
+            type_id
+            considered_success_when
+            cost_actual
+            cost_plan
+            client
+            client_contact
+            currency_name
+            currency_code
+            currency_symbol
+            description
+            end_project
+            name
+            office_location
+            phase_id
+            potential_risk
+            total_man_power
+            project_objectives
+            progress_percentage
+            budget
             participants
             available_resources
             milestone_id
@@ -82,88 +106,14 @@ const ADD_CHARTER = gql`
     }
 `;
 
-const GET_CHARTER_DATA_BY_USER_ID = gql`
-query projectCharterByUserId($userId: String!) {
-    projectCharterByUserId(userId: $userId) {
-      Data {
-        ID
-        CreatedAt
-        UpdatedAt
-        DeletedAt
-        user_id
-        name
-        description
-        start_project
-        end_project
-        stakeholder_ammount
-        work_area
-        office_location
-        cost_plan
-        cost_actual
-        client
-        client_contact
-        role_id
-        type_id
-        Type {
-          ID
-          CreatedAt
-          UpdatedAt
-          DeletedAt
-          name
-          description
-          user_id
-          updated_by
-          deleted_by
-        }
-        progress_percentage
-        project_manager
-        project_duration
-        total_man_power
-        status
-        considered_success_when
-        currency_symbol
-        currency_code
-        currency_name
-        phase_id
-        Phase {
-          ID
-          CreatedAt
-          UpdatedAt
-          DeletedAt
-          name
-          color
-          order
-          user_id
-          updated_by
-          deleted_by
-        }
-        budget_health
-        budget
-        participants
-        milestone_id
-        Milestone {
-          ID
-          CreatedAt
-          UpdatedAt
-          DeletedAt
-          status
-          due_date
-          user_id
-          updated_by
-          deleted_by
-        }
-        project_objectives
-        available_resources
-        potential_risk
-        updated_by
-        deleted_by
-      }
-    }
-  }
-`;
+const UpdateModalProject = (props) => {
+    const { projectID } = props;
+    // const charterData = FetchCharter();
+    const [pcData, setPcData] = useState('');
 
-const AddModalProjectCharter = () => {
-    const [status, setStatus] = useState("");
+
+    const [id, setId] = React.useState('');
+    const [status, setStatus] = useState('');
     const [work_area, setWorkArea] = useState("");
     const [start_project, setStartProject] = useState("");
     const [stakeholder_ammount, setStakeholderAmmount] = useState(0);
@@ -198,22 +148,22 @@ const AddModalProjectCharter = () => {
     const inputRefPhase = useRef(null);
     const inputRefMilestone = useRef(null);
 
-    const [addProjectCharter, { loading: addProjectLoading, error: addProjectError }] = useMutation(ADD_CHARTER,
+    const [updateProject, { loading: updateProjectLoading, error: updateProjectError }] = useMutation(UPDATE_CHARTER,
         {
             refetchQueries: [
                 // { query: GET_PROJECT_DATA_BY_USER_ID },
-                { query: GET_CHARTER_DATA_BY_USER_ID },
-                console.log("Berhasil Fetch")
+                {
+                    query: GET_CHARTER_DATA_BY_USER_ID,
+                    variables: { id: projectID }
+                },
             ]
         });
 
+    const { data: readPCData, error: readPCDataError } = useQuery(GET_CHARTER_DATA_BY_USER_ID, {
+        variables: { id: projectID },
+    });
 
-    // const profile = GetProfile();
-    // const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
-    //     variables: { userId: profile.id },
-    // });
     const { data: dataMilestone, loading: loadingMilestone, error: errorMilestone } = useQuery(GET_MILESTONE_DATA);
-    const [projectName, setProjectName] = useState([]);
     const [milestoneStatus, setMilestoneStatus] = useState([]);
 
     const { data, loading, error } = useQuery(GET_TYPE_DATA);
@@ -226,6 +176,10 @@ const AddModalProjectCharter = () => {
             setMilestoneStatus(dataMilestone.projectMilestone.Data);
             // console.log("Data Ready", data.project.Data);
             console.log("Data Ready", dataMilestone.projectMilestone.Data)
+        }
+        if(readPCData){
+            setPcData(readPCData.projectByUserId.Data);
+            console.log("xxxxxxxxxxxxxxx", readPCData.projectByUserId.Data);
         }
         if (data) {
             console.log("Data Ready list type and phase");
@@ -242,11 +196,19 @@ const AddModalProjectCharter = () => {
             console.log("No data list project and milestone");
         }
         console.log("USE EFFECT list project and milestone");
-    }, [data, dataPhase, dataMilestone]);
+    }, [data, dataPhase, dataMilestone, readPCData]);
     //should be up there
     // [data, dataPhase]
 
-    const charterData = FetchCharter();
+    // const { namePC, descriptionPC, clientPC, clientContactPC, officeLocationPC, workAreaPC, roleIDPC, stakeholderAmmountPC, totalManPowerPC, participantsPC, progressPercentagePC, currencyNamePC, currencyCodePC, currencySymbolPC, costActualPC, costPlanPC, budgetPC, statusPC, consideredSuccessWhenPC, availableResourcesPC, projectObjectivesPC, potentialRiskPC, startProjectPC, endProjectPC, milestoneStatusPC, typeNamePC, phaseNamePC } = pcData ? pcData.reduce((acc, data) => {
+    //     acc.namePC = data.name;
+    //     acc.descriptionPC = data.description;
+    //     acc.clientPC = data.client;
+    //     acc.clientContactPC = data.client_contact;
+    //     acc.officeLocationPC = data.office_location;
+    //     return acc;
+    // }, {}) : '';
+
 
     function printListTypeName() {
 
@@ -265,14 +227,6 @@ const AddModalProjectCharter = () => {
             </>
         ));
     }
-
-    // function printListProjectName() {
-    //     return projectName.map(({ ID, name }) => (
-    //         <>
-    //             <option value={ID}>{name}</option>
-    //         </>
-    //     ));
-    // }
 
     function printListMilestoneName() {
         return milestoneStatus.map(({ ID, status }) => (
@@ -366,7 +320,7 @@ const AddModalProjectCharter = () => {
     if (loadingPhase) return "submitting...";
     if (errorPhase) console.log(JSON.stringify(errorPhase));
 
-    if (addProjectError) console.log(JSON.stringify(addProjectError));
+    if (updateProjectError) console.log(JSON.stringify(updateProjectError));
 
 
 
@@ -384,8 +338,9 @@ const AddModalProjectCharter = () => {
         console.log("Berhasil submit")
 
         // e.preventDefault();
-        addProjectCharter({
+        updateProject({
             variables: {
+                id: projectID,
                 participants,
                 available_resources,
                 milestone_id,
@@ -416,6 +371,7 @@ const AddModalProjectCharter = () => {
             },
         });
 
+        setId('');
         setStatus("");
         setWorkArea("");
         setStartProject("");
@@ -588,7 +544,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Status",
             name: "status",
-            placeholder: "Status",
+            // placeholder: "Status",
             type: "text",
             value: status,
             onChange: (e) => setStatus(e.target.value),
@@ -605,10 +561,11 @@ const AddModalProjectCharter = () => {
     ];
 
     return (
+        console.log("Project id", typeof projectID, projectID),
         <>
             <div className="flex flex-row items-center justify-center">
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
-                    <IconPlus />
+                    <IconEdit />
                 </button>
             </div>
 
@@ -642,7 +599,7 @@ const AddModalProjectCharter = () => {
                                         as="h3"
                                         className="text-lg font-bold leading-6"
                                     >
-                                        Add Project Charter
+                                        Project Charter
                                     </Dialog.Title>
 
                                     {/* participants */}
@@ -778,6 +735,7 @@ const AddModalProjectCharter = () => {
                                         </div>
                                     </div>
 
+                                    <p className="label-text">Project ID: <span className="label-text font-bold">{projectID}</span></p>
 
                                     <div className="mt-10">
                                         <div className='flex justify-end'>
@@ -808,4 +766,4 @@ const AddModalProjectCharter = () => {
         </>
     )
 }
-export default AddModalProjectCharter;
+export default UpdateModalProject;

@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
-import { Dialog } from '@headlessui/react';
+import React, { Fragment, useState } from 'react';
+import { gql, useMutation } from '@apollo/client';
+import { Dialog, Transition } from '@headlessui/react';
 import '../../../../Assets/svgbutton/svgbutton.css'
-import { IconDelete } from '../../../Icons/icon';
+import { IconDelete, IconSaveForm } from '../../../Icons/icon';
+import { GET_CHARTER_DATA_BY_USER_ID } from '../../../GraphQL/Queries';
 
-const DeleteModal = () => {
+const DELETE_PROJECTCHARTER = gql`
+mutation DeleteProject($id: String!) {
+deleteProject(id: $id) 
+}`;
+
+const DeleteModalProject = (props) => {
+    const { projectID } = props;
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
@@ -12,42 +20,32 @@ const DeleteModal = () => {
         setIsOpen(false);
     }
 
-    const DeleteDialog = () => {
-        return (
-            <>
-                <Dialog open={isOpen} onClose={hideDialog} className="fixed z-10 inset-0 overflow-y-auto">
-                    <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                        <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-                        <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                            <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                <div className="sm:flex sm:items-start">
-                                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                        <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                                            Delete
-                                        </Dialog.Title>
-                                        <div className="mt-2">
-                                            <p className="text-sm text-gray-500">
-                                                Are you sure you want to delete?
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                <button type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-error text-base font-medium text-white hover:bg-error-dark focus:outline-none focus:bg-error-dark sm:ml-3 sm:w-auto sm:text-sm" onClick={hideDialog}>
-                                    Delete
-                                </button>
-                                <button type="button" className="mt-3 w-full inline-flex justify-center rounded-md px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-100 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={hideDialog}>
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </Dialog>
-            </>
-        )
+    const [deleteCharter, { data: deleteCharterData, error: deleteCharterError }] = useMutation(DELETE_PROJECTCHARTER, {
+        refetchQueries: [
+            {
+                query: GET_CHARTER_DATA_BY_USER_ID,
+                variables: { id: projectID }
+            },
+        ],
+        onCompleted: () => { console.log("Berhasil Fetch") }
     }
+    );
+
+    const handleDelete = () => {
+        // e.preventDefault();
+
+        deleteCharter({
+            variables: {
+                id: String(projectID),
+            },
+        });
+
+        if (deleteCharterError) {
+            console.log(JSON.stringify(deleteCharterError, null, 2));
+        }
+
+        hideDialog();
+    };
 
     return (
         <>
@@ -56,8 +54,81 @@ const DeleteModal = () => {
                     <IconDelete />
                 </button>
             </div>
-            <DeleteDialog />
+            <Transition appear show={isOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-40" onClose={hideDialog}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                    </Transition.Child>
+
+                    <div className="fixed inset-0 overflow-y-auto">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="px-24 py-16 w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-lg font-bold leading-6"
+                                    >
+                                        Delete Charter
+                                    </Dialog.Title>
+                                    <div className="mt-3">
+                                        <div className="form-control w-full max-w-5xl text-center">
+                                            <p className="label-text">Are you sure?</p>
+                                        </div>
+                                    </div>
+                                    <div className="mt-3">
+                                        <div className="form-control w-full max-w-5xl text-center item-center">
+                                            <p className="label-text">Delete Charter: <span className="label-text font-bold text-error">{projectID}</span></p>
+                                        </div>
+                                    </div>
+                                    <div className="mt-10">
+                                        <div className='flex justify-between px-56'>
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md border border-transparent bg-grey px-4 py-2 text-sm font-medium text-primary hover:bg-grey-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                onClick={hideDialog}
+                                            >
+                                                <IconSaveForm />
+                                                <p className='text-base text-white pt-0.5 px-1'>cancel</p>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-primary hover:bg-error-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                value={projectID}
+                                                onClick={e => {
+                                                    e.preventDefault();
+                                                    handleDelete();
+                                                    window.location.reload(true);
+                                                }}
+                                            >
+                                                <IconSaveForm />
+                                                <p className='text-base text-white pt-0.5 px-1'>delete</p>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition>
         </>
     )
 }
-export default DeleteModal;
+export default DeleteModalProject;

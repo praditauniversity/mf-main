@@ -1,8 +1,15 @@
-import React from 'react';
-import IconEdit from '../../Assets/Icons/svg/IconEdit.svg';
-import IconDelete from '../../Assets/Icons/svg/IconDelete.svg';
+import React, { useEffect, useState } from 'react';
+// import IconEdit from '../../Assets/Icons/svg/IconEdit.svg';
+// import IconDelete from '../../Assets/Icons/svg/IconDelete.svg';
+import { IconEdit } from '../../Components/Icons/icon';
 import { useParams } from 'react-router-dom';
 import FetchGanttByProjectId from '../../Middleware/Fetchers/FetchGanttByProjectId';
+import { IconPlus } from '../../Components/Icons/icon';
+import AddModalGantt from '../../Components/Modal/Gantt/AddModalGantt';
+import EditModalGantt from '../../Components/Modal/Gantt/EditModalGantt';
+import DeleteModalGantt from '../../Components/Modal/Gantt/DeleteModalGantt';
+import { GET_GANTT_DATA } from '../../Components/GraphQL/Queries';
+import { useQuery, gql, useMutation } from "@apollo/client";
 
 const GanttPage = () => {
 
@@ -64,6 +71,10 @@ const GanttPage = () => {
         }
     ]
 
+    function handleAddGantt() {
+        console.log("Add Gantt");
+    }
+
     const TableHeader = () => {
         return (
             <tr>
@@ -73,50 +84,31 @@ const GanttPage = () => {
                 <th>Duration</th>
                 <th>Version</th>
                 <th>Action Badge</th>
-                <th></th>
+                <th><AddModalGantt /></th>
             </tr>
         )
     }
 
-    const ActionsButton = (props) => {
-        const { projectID_Table } = props;
-
-        const buttonName = [
-            { id: 1, name: "Edit", icon: IconEdit, link: "/#/projectcharter" },
-            { id: 2, name: "Delete", icon: IconDelete, link: `/#/${projectID_Table}/gantt/` }, // TODO: Change this link to gantt
-        ]
-
-        return (
-            <>
-                {buttonName.map((button) => (
-                    <a
-                        key={button.id}
-                        className="badge badge-ghost badge-sm cursor-pointer"
-                        href={button.link}
-                    >
-                        <img
-                            src={button.icon}
-                            alt={button.name}
-                            className="w-4 h-4 opacity-75 hover:opacity-100"
-                        />
-                        <span className="ml-1 mr-1">
-                            {button.name}
-                        </span>
-                    </a>
-                ))}
-
-            </>
-        )
-    }
 
 
     const ganttData = FetchGanttByProjectId({ projectID });
 
     console.log("jjjjjjjjhjhjhjhjhjhjhjh", ganttData);
+    const [isOpen, setIsOpen] = useState(false);
+    const showDialog = () => {
+        setIsOpen(true);
+    }
+
+    function handleModalGantt() {
+        console.log("Edit Gantt");
+
+        <EditModalGantt ganttID="1" />
+    }
 
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4 flex min-full">
             <div className="overflow-y-auto overflow-x-auto w-full h-500">
+
                 <table className="table w-full h-full">
                     {/* <!-- head --> */}
                     <thead>
@@ -169,8 +161,9 @@ const GanttPage = () => {
                                     </div>
                                 </td>
                                 {/* maximum 48 pixel width, otherwise it will be on the next line */}
-                                <th className="space-x-2 w-48">
-                                    <ActionsButton projectID_Table={gantt.ID} />
+                                <th className="flex items-center space-x-2 w-48">
+                                    <EditModalGantt ganttID={gantt.ID} />
+                                    <DeleteModalGantt ganttID={gantt.ID} ganttName={gantt.name} />
                                 </th>
                             </tr>
                         ))}
@@ -185,4 +178,4 @@ const GanttPage = () => {
     );
 };
 
-export default GanttPage
+export default GanttPage;

@@ -387,6 +387,8 @@ gantt.locale.labels.section_priority = "Priority";
 gantt.locale.labels.section_phase = "Phase";
 gantt.locale.labels.section_custom = "";
 
+gantt.config.lightbox.width = 900;
+
 gantt.config.lightbox.sections = [
     {
         name: "activity",

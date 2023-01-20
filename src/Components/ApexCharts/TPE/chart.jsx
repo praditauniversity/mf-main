@@ -11,18 +11,18 @@ export default function BarChart() {
     var sumAct = 0;
     var sumCost = 0;
     var sumDanger = 0;
-    var variance = 0;
-    var projectCurrency = "";
+    var sumVariance = 0;
+    // var projectCurrency = "";
     projectData.map((project) => {
       sumBudget = sumBudget + project.budget;
       sumAct = sumAct + project.cost_actual;
       sumCost = sumCost + project.cost_plan;
-      sumDanger = sumAct - sumCost;
-      variance = sumBudget - sumAct;
-      projectCurrency = project.currency_symbol;
+      sumDanger = sumDanger + (sumAct - sumCost);
+      sumVariance = sumVariance + (sumBudget - sumAct);
+    //   projectCurrency = project.currency_symbol;
     });
     return (
-      [sumBudget.toFixed(2), sumAct.toFixed(2), sumCost.toFixed(2), sumDanger.toFixed(2), variance.toFixed(2)]
+      [sumBudget.toFixed(2), sumAct.toFixed(2), sumCost.toFixed(2), sumDanger.toFixed(2), sumVariance.toFixed(2)]
     );
   }
 

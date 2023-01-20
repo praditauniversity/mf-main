@@ -11,4 +11,12 @@ body {
     overflow: hidden;
 }
 
+.gantt_lightbox {
+    width: 900px;
+}
+
+.gantt_cal_light {
+    width: 900px;
+}
+
 /* </style> */

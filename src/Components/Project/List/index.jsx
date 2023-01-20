@@ -1,6 +1,6 @@
 import React from "react";
 import dailyReportIcon from "../../../Assets/Icons/svg/File_dock_duotone.svg";
-import FetchProject from "../../../Middleware/Fetchers/FetchProject";
+import FetchProjectCharter from "../../../Middleware/Fetchers/FetchProjectCharter";
 
 const ListProject = [
     {
@@ -106,7 +106,7 @@ const ActionsButton = (props) => {
 
 
 const ProjectListPage = () => {
-    const projectData = FetchProject();
+    const projectData = FetchProjectCharter();
 
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4 flex min-full">

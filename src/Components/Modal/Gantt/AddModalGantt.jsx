@@ -9,6 +9,7 @@ import { ADD_GANTT } from '../../../Middleware/GraphQL/mutations';
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { DatePickerField, InputField } from '../../Input/Input';
 import TableDatePicker from '../ModalDatePicker/DatePickerModal';
+import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 
 
 // note
@@ -16,18 +17,29 @@ import TableDatePicker from '../ModalDatePicker/DatePickerModal';
 //Kalo static, aman
 
 const AddModalGantt = () => {
+    let currentUrl = window.location.href;
+    let lastUrl = currentUrl.split('/').pop();
+    const project_id = parseInt(lastUrl);
+
     const [isOpen, setIsOpen] = useState(false);
 
     const profile = GetProfile();
-    const [projectID, setProjectID] = useLocalStorage('projectID');
+    // const [projectID, setProjectID] = useLocalStorage('projectID');
 
-    const [addGantt, { data: addGanttData, error: addGanttError }] = useMutation(ADD_GANTT);
+    const [addGantt, { data: addGanttData, error: addGanttError }] = useMutation(ADD_GANTT, {
+        refetchQueries: [
+            {
+                query: GET_GANTT_PROJECT_ID,
+                variables: { project_id: project_id }
+            },
+        ],
+        onCompleted: () => { console.log("Berhasil Fetch") }
+    });;
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [user_id, setUserId] = useState(profile.id);
     const [version, setVersion] = useState(0);
-    const [project_id, setProjectId] = useState(projectID);
     // const [project_id, setProjectId] = useState(1);
     const [start_time, setStartTime] = useState('');
     const [end_time, setEndTime] = useState('');
@@ -39,11 +51,12 @@ const AddModalGantt = () => {
         setIsOpen(false);
     }
 
-    const settingtUserProject = ({value}) =>{
+    const settingtUserProject = ({ value }) => {
         value(value);
     }
 
     const handleSave = (e) => {
+        console.log("Save", typeof start_time, start_time);
         e.preventDefault();
         // const idUser = setUserId(parseInt(user_id));
         // setUserId(parseInt(user_id));
@@ -70,7 +83,7 @@ const AddModalGantt = () => {
         console.log(typeof profile.id, profile.id);
         console.log(typeof version, version);
         console.log(typeof project_id, project_id);
-        console.log(typeof projectID, projectID);
+        // console.log(typeof projectID, projectID);
         console.log(typeof start_time, start_time);
         console.log(typeof end_time, end_time);
 
@@ -82,11 +95,11 @@ const AddModalGantt = () => {
         // setDescription('');
         setUserId(profile.id);
         // setVersion('');
-        setProjectId(1);
+        // setProjectId(1);
         // setStartTime('');
         // setEndTime('');
 
-        // hideDialog();
+        hideDialog();
     };
 
     const ganttList = [
@@ -119,9 +132,16 @@ const AddModalGantt = () => {
 
     return (
         <>
-            <div className="h-full px-5 align-right">
+            {/* <div className="h-full px-5 align-right">
                 <Button onClick={showDialog} label="ADD GANTT"></Button>
-            </div>
+            </div> */}
+            <button
+                onClick={showDialog}
+                className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
+                id="icon"
+            >
+                <IconPlus />
+            </button>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40" onClose={hideDialog}>
                     <Transition.Child
@@ -157,32 +177,47 @@ const AddModalGantt = () => {
                                     <>
                                         {ganttList.map((item, index) => {
                                             return (
-                                                <InputField
-                                                    key={index}
-                                                    label={item.label}
-                                                    name={item.name}
-                                                    placeholder={item.placeholder}
-                                                    type={item.type}
-                                                    value={item.value}
-                                                    onChange={item.onChange}
-                                                />
+                                                <div className="mt-3">
+                                                    <div className="form-control w-full max-w-5xl">
+                                                        <label className="label">
+                                                            <span className="label-text">{gantt.label}</span>
+                                                        </label>
+                                                        <InputField
+                                                            key={index}
+                                                            name={item.name}
+                                                            placeholder={item.placeholder}
+                                                            type={item.type}
+                                                            value={item.value}
+                                                            onChange={item.onChange}
+                                                        />
+                                                    </div>
+                                                </div>
                                             );
                                         })}
                                     </>
 
-                                    <DatePickerField
-                                        label="Start Date"
-                                        selected={start_time}
-                                        onChange={(date) => setStartTime(date)}
-                                        placeholder="DD/MM/YYYY"
-                                    />
+                                    <div className="pb-2 w-full min-w-5xl" id="buttonInside">
+                                        <div className="">
+                                            <DatePickerField
+                                                label="Start Date"
+                                                selected={start_time}
+                                                onChange={(date) => setStartTime(date)}
+                                                placeholder="DD/MM/YYYY"
+                                            />
+                                        </div>
+                                    </div>
 
-                                    <DatePickerField
-                                        label="End Date"
-                                        selected={end_time}
-                                        onChange={(date) => setEndTime(date)}
-                                        placeholder="DD/MM/YYYY"
-                                    />
+                                    <div className="pb-2 w-full min-w-5xl" id="buttonInside">
+                                        <div className="">
+                                            <DatePickerField
+                                                label="End Date"
+                                                selected={end_time}
+                                                onChange={(date) => setEndTime(date)}
+                                                placeholder="DD/MM/YYYY"
+                                            />
+                                        </div>
+                                    </div>
+
 
                                     {/* <settingtUserProject 
                                         value={user_id}

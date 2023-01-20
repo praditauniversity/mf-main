@@ -1,16 +1,35 @@
 import React from "react";
+import { useMutation, gql } from '@apollo/client';
 import { IconEdit, IconDelete } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
 import FetchProject from "../../../Middleware/Fetchers/FetchProject";
 import FetchGantt from "../../../Middleware/Fetchers/FetchGantt";
 import FetchActivity from "../../../Middleware/Fetchers/FetchActivity";
 import FetchMomByProjectId from "../../../Middleware/Fetchers/FetchMomByProjectId";
+import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../GraphQL/Queries";
+
+const DELETE_MINUTES_OF_MEETING = gql`
+  mutation deleteMinuteOfMeeting {
+    deleteMinuteOfMeeting(id: "1")
+  }
+`;	
 
 const MinutesofMeetingList = () => {
   const projectData = FetchProject();
   const ganttData = FetchGantt();
   const activityData = FetchActivity();
   const momData = FetchMomByProjectId();
+
+  const [deleteMom, { loading, error }] = useMutation(DELETE_MINUTES_OF_MEETING ,
+  {
+    refetchQueries: [
+      { query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID }
+    ]
+  }
+  );
+
+  if (loading) return 'Submitting...';
+  if (error) return `Submission error! ${error.message}`;
   // const data = [
   //   {
   //     id: 1,
@@ -141,9 +160,9 @@ const MinutesofMeetingList = () => {
                                       <td align="center">
                                         <button className="px-1" id="icon"
                                         onClick={e => {
-                                          const listID = String(mom.ID);
-                                          console.log(typeof listID, listID);
-                                          e.preventDefault();
+                                          // const listID = String(mom.ID);
+                                          // console.log(typeof listID, listID);
+                                          // e.preventDefault();
                                           // deleteReport({ variables: { id: listID } });
                                         }}
                                         >
@@ -151,7 +170,17 @@ const MinutesofMeetingList = () => {
                                         </button>
                                       </td>
                                       <td align="center">  
-                                        <button className="px-1" id="icon"><IconDelete /></button>
+                                        {/* <button className="px-1" id="icon"><IconDelete /></button> */}
+                                        <button className="px-1" id="icon" 
+                                          onClick = { e => {
+                                            const recordID = String(mom.ID);
+                                            console.log(typeof recordID, recordID);
+                                            e.preventDefault();
+                                            deleteMom({ variables: { id: recordID } });
+                                          }}
+                                        >
+                                          <IconDelete />
+                                        </button>
                                       </td>
                                     </tr>
                                   )
