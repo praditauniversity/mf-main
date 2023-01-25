@@ -1,9 +1,30 @@
-import React, { Profiler } from "react";
+import React from "react";
 import GetProfile from "../../Auth/GetProfile";
 import { IconEdit } from "../../Icons/icon";
 
 const AboutMeCard = () => {
     const profile = GetProfile();
+    const aboutMe = {
+        first_name: profile.first_name,
+        last_name: profile.last_name,
+        description: "Valeria Reina is a software developer with several years of experience in the field. She has a strong background in various programming languages such as Java, Python, and JavaScript. Reina has worked on several projects throughout her career, including developing web applications and contributing to open-source software. She is also proficient in Agile development methodologies and has experience with version control systems like Git. In addition to her technical skills, Reina is also a strong collaborator and is known for her ability to work well in a team environment.",
+        gender: profile.gender,
+        birthday: "November 12,1998",
+        zip_code: "11045",
+        phone_number: profile.phone_number,
+        email: profile.email,
+        website: "http://example.com/profile",
+    }
+
+    const aboutMeList = [
+        { label: "Full Name", value: aboutMe.first_name + " " + aboutMe.last_name, },
+        { label: "Gender", value: aboutMe.gender, },
+        { label: "Birthday", value: aboutMe.birthday, },
+        { label: "Zip Code", value: aboutMe.zip_code, },
+        { label: "Phone Number", value: aboutMe.phone_number, },
+        { label: "Email", value: aboutMe.email, },
+        { label: "Website", value: aboutMe.website, },
+    ]
     return (
         <div className="rounded-xl shadow-lg bg-white py-8 px-12">
 
@@ -19,8 +40,8 @@ const AboutMeCard = () => {
                     <p className="text-base font-semibold">Description</p>
                 </div>
                 <div className="">
-                    <p className="text-sm">
-                        Hello, I’m Valeria Reina a Creative Graphic Designer & User Experience Designer based in Website, I create digital Products a more Beautiful and usable place. Morbid accusant ipsum. Nam nec tellus at. Morbid accusant ipsum. Nam nec tellus at. Morbid accusant ipsum. Nam nec tellus at. Morbid accusant ipsum. Nam nec tellus at. Morbid accusant ipsum. Nam nec tellus at. Morbid accusant ipsum. Nam nec tellus at. Morbid accusant ipsum. Nam nec tellus at. Morbid accusant ipsum. Nam nec tellus at. Morbid accusant ipsum. Nam nec tellus at. Morbid accusant ipsum. Nam nec tellus at. Morbid accusant ipsum. Nam nec tellus at.
+                    <p className="text-sm italic text-typo-dark opacity-80">
+                        {aboutMe.description}
                     </p>
                 </div>
             </div>
@@ -32,62 +53,19 @@ const AboutMeCard = () => {
                 <div className="grid grid-cols-18">
                     <div className="col-span-18">
 
-                        <div className="grid grid-cols-15 py-1">
-                            <div className="col-span-3">
-                                <p className="text-sm opacity-70">Full Name</p>
+
+                        {aboutMeList.map((item, index) => (
+                            <div className="grid grid-cols-15 py-1" key={index}>
+                                <div className="col-span-3">
+                                    <p className="text-sm text-typo-dark opacity-80">{item.label}</p>
+                                </div>
+                                <div className="col-span-12">
+                                    <p className="text-sm text-typo-dark">{item.value}</p>
+                                </div>
                             </div>
-                            <div className="col-span-12">
-                                <p className="text-sm">{profile.first_name} {profile.last_name}</p>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-15 py-1">
-                            <div className="col-span-3">
-                                <p className="text-sm opacity-70">Gender</p>
-                            </div>
-                            <div className="col-span-12">
-                                <p className="text-sm">{profile.gender}</p>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-15 py-1">
-                            <div className="col-span-3">
-                                <p className="text-sm opacity-70">Birthday</p>
-                            </div>
-                            <div className="col-span-12">
-                                <p className="text-sm">November 12,1998</p>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-15 py-1">
-                            <div className="col-span-3">
-                                <p className="text-sm opacity-70">Zip Code</p>
-                            </div>
-                            <div className="col-span-12">
-                                <p className="text-sm">11045</p>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-15 py-1">
-                            <div className="col-span-3">
-                                <p className="text-sm opacity-70">Phone</p>
-                            </div>
-                            <div className="col-span-12">
-                                <p className="text-sm font-semibold">{profile.phone_number}</p>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-15 py-1">
-                            <div className="col-span-3">
-                                <p className="text-sm opacity-70">Email</p>
-                            </div>
-                            <div className="col-span-12">
-                                <p className="text-sm">{profile.email}</p>
-                            </div>
-                        </div>
-                        <div className="grid grid-cols-15 py-1">
-                            <div className="col-span-3">
-                                <p className="text-sm opacity-70">Website</p>
-                            </div>
-                            <div className="col-span-12">
-                                <p className="text-sm">http://example.com/profile</p>
-                            </div>
-                        </div>
+                        ))}
+
+
                     </div>
                 </div>
             </div>

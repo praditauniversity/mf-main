@@ -30,10 +30,12 @@ const SubmitHandler = async (e, login, email, password, setProfile, setError) =>
 }
 export const LoginHandler = () => {
     const [login] = useMutation(LOGIN);
-    const [email, setEmail] = useLocalStorage('email', 'coba@gmail.com');
-    const [password, setPassword] = useLocalStorage('password', '4dM1nSuPeR');
-    // const [email, setEmail] = useLocalStorage('email', 'stephen.winata@student.pradita.ac.id');
-    // const [password, setPassword] = useLocalStorage('password', 'testing123');
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const emailRef = React.useRef('');
+    const passwordRef = React.useRef('');
+    // const [email, setEmail] = useLocalStorage('email', 'coba@gmail.com');
+    // const [password, setPassword] = useLocalStorage('password', '4dM1nSuPeR');
     const [error, setError] = useState('');
     const [profile, setProfile] = useLocalStorage('profile', () => {
         return {
@@ -44,6 +46,9 @@ export const LoginHandler = () => {
     });
 
     const handleSubmitWrapper = (e) => {
+        e.preventDefault();
+        setEmail(emailRef.current.value);
+        setPassword(passwordRef.current.value);
         SubmitHandler(e, login, email, password, setProfile, setError);
     }
 
@@ -52,8 +57,8 @@ export const LoginHandler = () => {
     return (
         <div>
             <form onSubmit={handleSubmitWrapper}>
-                <InputField label="Email" type="email" placeholder="Enter your email" defaultValue={email} required />
-                <InputField label="Password" type="password" placeholder="Enter your password" defaultValue={password} required />
+                <InputField label="Email" type="email" placeholder="JohnDoe@mail.com" defaultValue={email} onChange={(e) => setEmail(e.target.value)} ref={emailRef} />
+                <InputField label="Password" type="password" placeholder="Enter your password" defaultValue={password} onChange={(e) => setPassword(e.target.value)} ref={passwordRef} />
                 <div className="py-4 mx-auto flex items-center justify-between space-x-4">
                     <button type="submit"
                         className={rainbow}>
@@ -68,10 +73,6 @@ export const LoginHandler = () => {
         </div>
     );
 }
-
-const LoginForm = () => {
-}
-
 
 const Login = () => {
     return (

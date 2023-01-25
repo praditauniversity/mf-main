@@ -136,9 +136,11 @@ export const GET_GANTT_PROJECT_ID = gql`
 export const GET_ACTIVITY_GANTT_ID = gql`
   query activityGetGanttID(
     $gantt_id: String!
-    $sort: String!
+    $page: String
+    $limit: String
+    $sort: String
     ) {
-      activityGetGanttID(gantt_id: $gantt_id, sort: $sort) {
+      activityGetGanttID(gantt_id: $gantt_id, page: $page, limit: $limit, sort: $sort) {
         data {
           ID
           CreatedAt
@@ -482,8 +484,13 @@ export const GET_PROJECT_DATA_BY_ID = gql`
 `;
 
 export const GET_PROJECT_DATA_BY_USER_ID = gql`
-  query getProjectByUserId($userId: String!) {
-    projectByUserId(userId: $userId) {
+  query getProjectByUserId(
+    $userId: String!
+    $page: String
+    $limit: String
+    $sort: String
+    ) {
+    projectByUserId(userId: $userId, page: $page, limit: $limit, sort: $sort) {
       Data {
         ID
         CreatedAt
@@ -931,8 +938,13 @@ export const GET_DAILY_REPORT_DATA = gql`
 `;
 
 export const GET_DAILY_REPORT_DATA_BY_PROJECT_ID = gql`
-  query dailyReportByProjectId($projectId: String!) {
-    dailyReportGetProjectID(project_id: $projectId) {
+  query dailyReportByProjectId(
+    $projectId: String!
+    $page: String
+    $limit: String
+    $sort: String
+    ) {
+    dailyReportGetProjectID(project_id: $projectId, page: $page, limit: $limit, sort: $sort) {
       data {
         ID
         CreatedAt

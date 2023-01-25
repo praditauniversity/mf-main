@@ -14,12 +14,17 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 import { DatePickerField } from '../../Input/Input';
 import TableDatePicker from '../ModalDatePicker/DatePickerModal';
 import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
+import { useParams } from 'react-router-dom';
 
 const DeleteModalGantt = (props) => {
     const { ganttID, ganttName } = props;
-    let currentUrl = window.location.href;
-    let lastUrl = currentUrl.split('/').pop();
-    const project_id = parseInt(lastUrl);
+
+    let { projectID } = useParams();
+
+    // let currentUrl = window.location.href;
+    // let lastUrl = currentUrl.split('/').pop();
+    // const project_id = parseInt(lastUrl);
+
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -30,7 +35,7 @@ const DeleteModalGantt = (props) => {
         refetchQueries: [
             {
                 query: GET_GANTT_PROJECT_ID,
-                variables: { project_id: project_id }
+                variables: { project_id: projectID }
             },
         ],
         onCompleted: () => { console.log("Berhasil Fetch") }

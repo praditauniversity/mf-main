@@ -10,8 +10,8 @@ export function SumActual() {
   const projectData = FetchProjectByUserId(); 
 
   function printSumActual() {
-    var sumAct = 0;
-    var projectCurrency = "";
+    let sumAct = 0;
+    let projectCurrency = "";
     projectData.map((project) => {
       sumAct = sumAct + project.cost_actual;
       projectCurrency = project.currency_symbol;
@@ -33,8 +33,8 @@ export function SumCost() {
   const projectData = FetchProjectByUserId();
 
   function printSumCost() {
-    var sumCost = 0;
-    var projectCurrency = "";
+    let sumCost = 0;
+    let projectCurrency = "";
     projectData.map((project) => {
       sumCost = sumCost + project.cost_plan;
       projectCurrency = project.currency_symbol;
@@ -56,8 +56,8 @@ export function SumBudget() {
   const projectData = FetchProjectByUserId();
 
   function printSumBudget() {
-    var sumBudget = 0;
-    var projectCurrency = "";
+    let sumBudget = 0;
+    let projectCurrency = "";
     projectData.map((project) => {
       sumBudget = sumBudget + project.budget;
       projectCurrency = project.currency_symbol;
@@ -79,14 +79,15 @@ export function SumDanger() {
   const projectData = FetchProjectByUserId();
 
   function printSumDanger() {
-    var sumAct = 0;
-    var sumCost = 0;
-    var sumDanger = 0;
-    var projectCurrency = "";
+    let sumAct = 0;
+    let sumCost = 0;
+    let sumDanger = 0;
+    let projectCurrency = "";
     projectData.map((project) => {
       sumAct = sumAct + project.cost_actual;
       sumCost = sumCost + project.cost_plan;
-      sumDanger = sumAct - sumCost;
+      const tempDanger = sumCost - sumAct;
+                sumDanger = tempDanger <= 0 ? tempDanger * -1 : 0;
       projectCurrency = project.currency_symbol;
     });
     return (
@@ -106,10 +107,10 @@ export function SumVariance() {
   const projectData = FetchProjectByUserId();
 
   function printSumVariance() {
-    var sumBudget = 0;
-    var sumAct = 0;
-    var variance = 0;
-    var projectCurrency = "";
+    let sumBudget = 0;
+    let sumAct = 0;
+    let variance = 0;
+    let projectCurrency = "";
     projectData.map((project) => {
       sumBudget = sumBudget + project.budget;
       sumAct = sumAct + project.cost_actual;

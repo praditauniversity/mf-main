@@ -220,7 +220,7 @@ export const ADD_ACTIVITY = gql`
 
 export const UPDATE_ACTIVITY = gql`
   mutation updateActivity(
-    $id: String!
+    $id : String!
     $parent_id: Int!
     $gantt_id: Int!
     $name: String!
@@ -250,7 +250,6 @@ export const UPDATE_ACTIVITY = gql`
         description: $description
         start_time: $start_time
         end_time: $end_time
-        user_id: $user_id
         weight_percentage: $weight_percentage
         progress_percentage: $progress_percentage
         priority: $priority

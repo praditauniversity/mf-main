@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ListboxProject from "../../Listbox/ListboxProject/index.jsx";
 import BarChart from "./chart.jsx";
 
-export default class TPECard extends React.Component {
-    render() {
+const TPECard = () => {
+    const [savedOption, setSavedOption] = useState(localStorage.getItem('TPEID')); 
+    useEffect(() => {
+        savedOption !=0? setSavedOption(savedOption) : setSavedOption(0);
+        console.log("BABI",savedOption);
+    }, []);
         return (
             <div className="rounded-xl shadow-lg bg-white py-6 px-12">
                 <div>
@@ -25,7 +29,7 @@ export default class TPECard extends React.Component {
                     </div>
                 </div>
                 <div className="py-4">
-                    <BarChart />
+                    <BarChart value={savedOption} />
                 </div>
                 <div className="py-4 flex justify-end">
                     <button className="font-semibold text-sm text-primary">
@@ -34,5 +38,6 @@ export default class TPECard extends React.Component {
                 </div>
             </div>
         );
-    }
 }
+
+export default TPECard;

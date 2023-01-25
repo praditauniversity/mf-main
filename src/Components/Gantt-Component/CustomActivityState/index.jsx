@@ -21,7 +21,7 @@ function useActivity() {
   // const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
 
   const { data, loading, error } = useQuery(GET_ACTIVITY_GANTT_ID, {
-    variables: { gantt_id: ganttID, sort: "start_time asc" }
+    variables: { gantt_id: ganttID, sort: "ID asc" }
   });
   const [activityData, setActivity] = useState([]);
   const [testData, settestData] = useState([]);
@@ -134,19 +134,82 @@ export const PrintGantt = (props) => {
   const [activityPhaseData, setActivityPhaseData] = useActivityPhase();
   const [ganttID, setGanttID, projectID, setProjectID, ganttName, setGanttName, projectData, setProjectData , dataGanttProject, dataProjectUser] = useGantt();
 
+  const addButtonColumns = { name: "add", width: 44 }
+
   return <>
-    <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} />
+    {/* <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} /> */}
+    <TestFormGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} isReadOnly={true} isShowAddColumn={true} />
     {console.log("activityData", activityData)}
   </>
 }
 
+
+function useGanttTest() {
+  const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
+  const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
+
+  const [projectData, setProjectData] = useState([]);
+  const [ganttName, setGanttName] = useState([]);
+  const profile = GetProfile();
+
+  const { loading: loadingProjectUser, error: errorProjectUser, data: dataProjectUser } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+    variables: { userId: profile.id },
+  });
+
+  const { data: dataGanttProject, loading: loadingGanttProject, error: errorGanttProject } = useQuery(GET_GANTT_PROJECT_ID, {
+    variables: { project_id: projectID }
+  });
+  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA", dataProjectUser);
+  console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBB", dataGanttProject);
+
+  useEffect(() => {
+    console.log("INSIDE USEEFFECT USE GANTT");
+    if (dataGanttProject) {
+      console.log("Data Ready list gantt");
+      console.log("Data Ready gantt get project", dataGanttProject.ganttGetProjectID.data);
+      setGanttName(dataGanttProject.ganttGetProjectID.data);
+      console.log("Data Ready", dataGanttProject.ganttGetProjectID.data);
+      ganttID === 0 ? localStorage.setItem('ganttID', dataGanttProject.ganttGetProjectID.data[0].ID) : localStorage.setItem('ganttID', ganttID);
+      setGanttID(localStorage.getItem('ganttID'));
+      console.log("gantt id =? ", ganttID);
+      // ganttID == 0 ? console.log("gantt id !==0 true: ", ganttID) : console.log("gantt id !==0 false: ", ganttID);
+
+    } else {
+      console.log("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+      localStorage.setItem("ganttID", 0);
+    }
+
+    if (dataProjectUser) {
+      console.log("Data Ready list gantt");
+      console.log("Data Ready gantt get project", dataProjectUser.projectByUserId.Data);
+      setProjectData(dataProjectUser.projectByUserId.Data);
+      console.log("Data Ready", dataProjectUser.projectByUserId.Data);
+      projectID === 0 ? localStorage.setItem('projectID', dataProjectUser.projectByUserId.Data[0].ID) : localStorage.setItem('projectID', projectID);
+      setProjectID(localStorage.getItem('projectID'));
+      console.log("projectID =? ", projectID);
+      // ganttID == 0 ? console.log("gantt id !==0 true: ", ganttID) : console.log("gantt id !==0 false: ", ganttID);
+
+    } else {
+      console.log("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+      localStorage.setItem("projectID", 0);
+    }
+  }, [dataGanttProject, dataProjectUser]);
+
+  return [setGanttID, setProjectID, ganttName, setGanttName, projectData, setProjectData, dataGanttProject, dataProjectUser];
+}
+
 export const TEST_TestFormGantt = (props) => {
-  const { title } = props;
+  const { title, ganttID, projectID } = props;
+  localStorage.setItem('ganttID', ganttID);
+  localStorage.setItem('projectID', projectID);
   const [activityData, setActivity] = useActivity();
   const [activityPhaseData, setActivityPhaseData] = useActivityPhase();
+  const [setGanttID, setProjectID, ganttName, setGanttName, projectData, setProjectData , dataGanttProject, dataProjectUser] = useGanttTest();
+  // const addButtonColumns = { };
 
   return <>
-    <TestFormGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} />
+    <TestFormGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={false} />
+    {console.log("activityData", activityData)}
   </>
 }
 

@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from "react";
-import GetProfile from '../../Components/Auth/GetProfile';
-import { GET_CHARTER_DATA, GET_CHARTER_DATA_BY_USER_ID } from '../../Components/GraphQL/Queries';
+import { GET_CHARTER_DATA } from '../../Components/GraphQL/Queries';
 
 const FetchCharter = (props) => {
     // const profile = GetProfile();
@@ -19,7 +18,7 @@ const FetchCharter = (props) => {
         } else {
             console.log("No data found for charter");
         }
-        console.log("UseEffect Charterrrrrrrrrrrr")
+        // console.log("UseEffect Charterrrrrrrrrrrr")
     }, [data]);
 
     return charter;

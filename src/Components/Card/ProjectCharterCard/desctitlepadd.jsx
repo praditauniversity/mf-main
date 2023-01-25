@@ -4,7 +4,7 @@ const DescTitlePadding = (props) => {
     const { title, description } = props;
     return (
         <div>
-            <div className="pb-2 pr-96">
+            <div className="pb-2 pr-20">
                 <p className="text-sm font-semibold opacity-70">{title}</p>
             </div>
             <div>

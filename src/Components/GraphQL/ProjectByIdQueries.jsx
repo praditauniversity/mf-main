@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_PROJECT_DATA_BY_ID } from "./Queries";
-import { functionalUpdate } from "react-table";
+import React, { useEffect, useState } from "react";
 import GetProfile from "../Auth/GetProfile";
+import { GET_PROJECT_DATA_BY_ID } from "./Queries";
 
 export function Actual(props) {
     const profile = GetProfile();
@@ -23,8 +22,8 @@ export function Actual(props) {
     }, [data]);
 
     function printActual() {
-        var act = 0;
-        var projectCurrency = "";
+        let act = 0;
+        let projectCurrency = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 act = project.cost_actual;
@@ -62,8 +61,8 @@ export function Cost(props) {
     }, [data]);
 
     function printCost() {
-        var cost = 0;
-        var projectCurrency = "";
+        let cost = 0;
+        let projectCurrency = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 cost = project.cost_plan;
@@ -101,8 +100,8 @@ export function Budget(props) {
     }, [data]);
 
     function printBudget() {
-        var budget = 0;
-        var projectCurrency = "";
+        let budget = 0;
+        let projectCurrency = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 budget = project.budget;
@@ -140,11 +139,12 @@ export function Danger(props) {
     }, [data]);
 
     function printDanger() {
-        var danger = 0;
-        var projectCurrency = "";
+        let danger = 0;
+        let projectCurrency = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                danger = project.cost_actual - project.cost_plan;
+                const tempDanger = project.cost_plan - project.cost_actual;
+                danger = tempDanger <= 0 ? tempDanger * -1 : 0;
                 projectCurrency = project.currency_symbol;
             }
         });
@@ -179,8 +179,8 @@ export function Variance(props) {
     }, [data]);
 
     function printVariance() {
-        var variance = 0;
-        var projectCurrency = "";
+        let variance = 0;
+        let projectCurrency = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 variance = project.budget - project.cost_actual;
@@ -217,7 +217,7 @@ export function CostHealth(props) {
     }, [data]);
 
     function printCostHealth() {
-        var costHealth = "";
+        let costHealth = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 // costHealth = project.cost_actual / project.cost_plan;
@@ -255,7 +255,7 @@ export function ScheduleHealth(props) {
     }, [data]);
 
     function printScheduleHealth() {
-        var scheduleHealth = "";
+        let scheduleHealth = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 const dateNow = new Date();
@@ -284,7 +284,7 @@ export function ScheduleHealth(props) {
 
 export function ProgressPercentage(props) {
     const profile = GetProfile();
-    const {value} = props;
+    const { value } = props;
     const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
@@ -299,21 +299,21 @@ export function ProgressPercentage(props) {
         }
     }, [data]);
     function printProgressPercentage() {
-        var projectPercentage = 0;
+        let projectPercentage = 0;
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 projectPercentage = project.progress_percentage;
-            } 
+            }
         });
         return (
             <div>
-            <p>
-                {Math.Round(projectPercentage)}
-            </p>
+                <p>
+                    {Math.Round(projectPercentage)}
+                </p>
             </div>
         );
     }
-    
+
     return <div>{printProgressPercentage()}</div>;
 }
 
@@ -335,7 +335,7 @@ export function ProjectManager(props) {
     }, [data]);
 
     function printProjectManager() {
-        var projectManager = "";
+        let projectManager = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 projectManager = project.project_manager;
@@ -371,7 +371,7 @@ export function Client(props) {
     }, [data]);
 
     function printClient() {
-        var client = "";
+        let client = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 client = project.client;
@@ -407,7 +407,7 @@ export function ClientContact(props) {
     }, [data]);
 
     function printClientContact() {
-        var clientContact = "";
+        let clientContact = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 clientContact = project.client_contact;
@@ -443,7 +443,7 @@ export function ProjectStatus(props) {
     }, [data]);
 
     function printProjectStatus() {
-        var projectStatus = "";
+        let projectStatus = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 projectStatus = project.status;
@@ -479,7 +479,7 @@ export function Location(props) {
     }, [data]);
 
     function printLocation() {
-        var location = "";
+        let location = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 location = project.office_location;
@@ -493,6 +493,6 @@ export function Location(props) {
             </div>
         );
     }
-    
+
     return <div>{printLocation()}</div>;
 }

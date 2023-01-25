@@ -52,13 +52,13 @@ const ProjectListCard = () => {
                             // const durationInDays = Math.round(duration / (1000 * 3600 * 24));
                             const durationInDays = item.project_duration;
 
-                            const startProjectYear = startProject.toLocaleDateString('en-US', {year: 'numeric'});
-                            const startProjectMonth = startProject.toLocaleDateString('en-US', {month: '2-digit'});
-                            const startProjectDay = startProject.toLocaleDateString('en-US', {day: '2-digit'});
-                            
-                            const endProjectYear = endProject.toLocaleDateString('en-US', {year: 'numeric'});
-                            const endProjectMonth = endProject.toLocaleDateString('en-US', {month: '2-digit'});
-                            const endProjectDay = endProject.toLocaleDateString('en-US', {day: '2-digit'});
+                            const startProjectYear = startProject.toLocaleDateString('en-US', { year: 'numeric' });
+                            const startProjectMonth = startProject.toLocaleDateString('en-US', { month: '2-digit' });
+                            const startProjectDay = startProject.toLocaleDateString('en-US', { day: '2-digit' });
+
+                            const endProjectYear = endProject.toLocaleDateString('en-US', { year: 'numeric' });
+                            const endProjectMonth = endProject.toLocaleDateString('en-US', { month: '2-digit' });
+                            const endProjectDay = endProject.toLocaleDateString('en-US', { day: '2-digit' });
 
                             const variance = item.budget - item.cost_actual;
 

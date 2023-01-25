@@ -73,11 +73,11 @@ const TableHeader = () => {
 }
 
 const ActionsButton = (props) => {
-    const {projectID_Table} = props;
-    
+    const { projectID_Table } = props;
+
     const buttonName = [
         { id: 1, name: "Project Charter", icon: dailyReportIcon, link: "/#/projectcharter" },
-        { id: 2, name: "Gantt", icon: dailyReportIcon, link: `/#/gantt/${projectID_Table}` }, // TODO: Change this link to gantt
+        { id: 2, name: "Gantt", icon: dailyReportIcon, link: `/#/project-list/${projectID_Table}/gantt` }, // TODO: Change this link to gantt
         { id: 3, name: "Daily Report", icon: dailyReportIcon, link: "/#/dailyreport" },
     ]
 
@@ -108,14 +108,46 @@ const ActionsButton = (props) => {
 const ProjectListPage = () => {
     const projectData = FetchProjectCharter();
 
+    const filler = () => {
+        if (projectData.length > 0) {
+            // fill the table with white space
+            return (
+                <tr className="h-full" >
+                    <td colSpan="7" className="text-center ">
+                        <div className="text-gray-400 opacity-10 hover:opacity-40 hover:cursor-pointer">
+                            <div className="text-4xl font-bold">Other Project</div>
+                            <div className="text-md">Add another project?</div>
+                        </div>
+                    </td>
+                </tr>
+            )
+        }
+    }
+    const ifProjectDataEmpty = () => {
+        if (projectData.length === 0) {
+            // fill the table with white space
+            return (
+                <tr className="h-full" >
+                    <td colSpan="7" className="text-center ">
+                        <div className="text-gray-400">
+                            <div className="text-5xl font-bold">No Project</div>
+                            <div className="text-xl">Please add a project</div>
+                        </div>
+                    </td>
+                </tr>
+            )
+        }
+    }
+
     return (
-        <div className="rounded-xl shadow-lg bg-white py-4 px-4 flex min-full">
-            <div className="overflow-y-auto overflow-x-auto w-full h-500">
+        <div className="rounded-xl shadow-lg bg-white py-4 px-4 flex h-full">
+            <div className="overflow-y-auto overflow-x-auto w-full h-full">
                 <table className="table w-full h-full">
                     {/* <!-- head --> */}
                     <thead>
                         <TableHeader />
                     </thead>
+                    {/* <!-- body --> */}
                     <tbody>
                         {projectData.map((project) => (
                             <tr key={project.ID}>
@@ -145,9 +177,12 @@ const ProjectListPage = () => {
                                                 <span className="text-xs uppercase">{project.project_manager[0]}</span>
                                             </div>
                                         </div>
-                                        <span className="ml-2">
+                                        <a
+                                            onClick={() => { console.log("click") }}
+                                            href="#/useraccount"
+                                            className="ml-2 ">
                                             {project.project_manager}
-                                        </span>
+                                        </a>
                                     </div>
                                 </td>
                                 <td>
@@ -175,6 +210,8 @@ const ProjectListPage = () => {
                                 </th>
                             </tr>
                         ))}
+                        {ifProjectDataEmpty()}
+                        {filler()}
                     </tbody>
                     {/* <!-- foot --> */}
                     <tfoot>

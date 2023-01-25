@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import IconEdit from '../../Assets/Icons/svg/IconEdit.svg';
 // import IconDelete from '../../Assets/Icons/svg/IconDelete.svg';
-import { IconEdit } from '../../Components/Icons/icon';
+import { IconEdit, IconList } from '../../Components/Icons/icon';
 import { useParams } from 'react-router-dom';
 import FetchGanttByProjectId from '../../Middleware/Fetchers/FetchGanttByProjectId';
 import { IconPlus } from '../../Components/Icons/icon';
@@ -10,70 +10,12 @@ import EditModalGantt from '../../Components/Modal/Gantt/EditModalGantt';
 import DeleteModalGantt from '../../Components/Modal/Gantt/DeleteModalGantt';
 import { GET_GANTT_DATA } from '../../Components/GraphQL/Queries';
 import { useQuery, gql, useMutation } from "@apollo/client";
+import ViewGanttChart from '../../Components/Modal/Gantt/ViewGanttChart';
+import dailyReportIcon from "../../Assets/Icons/svg/File_dock_duotone.svg";
 
 const GanttPage = () => {
 
     let { projectID } = useParams();
-
-    const ListProject = [
-        {
-            id: 1,
-            name: "Project 1",
-            description: "Description 1",
-            location: "Location 1",
-            jobs: [
-                {
-                    id: 11,
-                    name: "Job 1",
-                },
-                {
-                    id: 12,
-                    name: "Job 2",
-                }
-            ],
-            company: "Company 1",
-            link: "/#/projectdashboard/1",
-            favoriteColor: "Red",
-        },
-        {
-            id: 2,
-            name: "Project 2",
-            description: "Description 1",
-            location: "Location 2",
-            jobs: [
-                {
-                    id: 21,
-                    name: "Job 1",
-                },
-                {
-                    id: 22,
-                    name: "Job 2",
-                }
-            ],
-            company: "Company 2",
-            link: "/#/projectdashboard/2",
-            favoriteColor: "Blue",
-        },
-        {
-            id: 3,
-            name: "Project 3",
-            description: "Description 1",
-            location: "Location 3",
-            jobs: [
-                {
-                    id: 31,
-                    name: "Job 1",
-                }
-            ],
-            company: "Company 3",
-            link: "/#/projectdashboard/3",
-            favoriteColor: "Green",
-        }
-    ]
-
-    function handleAddGantt() {
-        console.log("Add Gantt");
-    }
 
     const TableHeader = () => {
         return (
@@ -97,12 +39,6 @@ const GanttPage = () => {
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
-    }
-
-    function handleModalGantt() {
-        console.log("Edit Gantt");
-
-        <EditModalGantt ganttID="1" />
     }
 
     return (
@@ -164,6 +100,16 @@ const GanttPage = () => {
                                 <th className="flex items-center space-x-2 w-48">
                                     <EditModalGantt ganttID={gantt.ID} />
                                     <DeleteModalGantt ganttID={gantt.ID} ganttName={gantt.name} />
+                                    <a
+                                        // className="rounded-full bg-primary-light cursor-pointer"
+                                        href={`/#/project-list/${projectID}/gantt/${gantt.ID}/gantt-chart`}
+                                    >
+                                        <img
+                                            src={dailyReportIcon}
+                                            alt="view gantt"
+                                            className="w-5 h-5 opacity-75 hover:opacity "
+                                        />
+                                    </a>
                                 </th>
                             </tr>
                         ))}

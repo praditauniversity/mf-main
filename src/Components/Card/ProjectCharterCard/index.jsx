@@ -23,22 +23,36 @@ import FetchCharter from "../../../Middleware/Fetchers/FetchCharter";
 
 const ProjectCharterCard = (props) => {
     const { projectID } = props;
-    const [pcView, setPcView] = useState('');
+    const [pcData, setPcData] = useState('');
+    const [reportCharterID, setReportCharterID] = useState(localStorage.getItem('charterID'));
 
-    const { data: readPCView, error: readPCViewError } = useQuery(GET_CHARTER_DATA_BY_USER_ID, {
+    const { data, error } = useQuery(GET_CHARTER_DATA_BY_USER_ID, {
         variables: { id: projectID },
     });
+    const [itemID, setItemID] = useState([]);
 
     useEffect(() => {
-        if(readPCView){
-            setPcData(readPCView.projectByUserId.Data);
+        const itemID = JSON.parse(localStorage.getItem('charterID'));
+        if(itemID){
+            setItemID(itemID);
+        }
+        if (data) {
+            setPcData(data.projectByUserId.Data);
+            reportCharterID == 0 ? localStorage.setItem('charterID', data.projectByUserId.Data[0].ID) : localStorage.setItem('charterID', reportCharterID);
             console.log("xxxxxxxxxxxxxxx", readPCData.projectByUserId.Data);
         }
         else {
             console.log("No data list project and milestone");
         }
         console.log("USE EFFECT list project and milestone");
-    }, [readPCView]);
+    }, [data, itemID]);
+
+    // const handleChange = (event) => {
+    //     setReportProjectID(event.target.value);
+    //     localStorage.setItem('reportProjectID', event.target.value);
+    //     window.location.reload();
+    // };
+
     // const value = props.location.state.value;
     // console.log("VALCHARTER", value);
 
@@ -71,18 +85,31 @@ const ProjectCharterCard = (props) => {
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
             <div>
+                {/* Disini rencananya make localstorage yang charterID nya nampilin data sesuai charterID, tapi makai mapping gabsia kayaknya */}
                 {charterData.map((charter) => {
+                    // const identify = charter.ID;
+                    if (charter.ID !== localStorage.getItem('charterID')) {
+                        console.log("Sebelum - CharterID", charter.ID)
+                        console.log("Sebelum - Local CharterID", localStorage.getItem('charterID'))
+                        // charter.ID == localStorage.getItem('charterID');
+                        // localStorage.setItem('charterID', charter.ID)
+                        // localStorage.setItem(charter.ID, 'charterID')
+                        
+                        console.log("Sesudah - CharterID", charter.ID)
+                        console.log("Sesudah - Local CharterID", localStorage.getItem('charterID'))
+                        console.log("====================================");
+                    }
+                    else {
+                        console.log("ID NYA SAMA");
+                    }
                     return (
-                        <div key={charter.ID}>
+                        <div key={charter.item}>
                             <div className="pt-4 pb-0 flex justify-between">
                                 <div className="flex justify-start">
                                     <p className="text-xl font-semibold px-2">Project Charter</p>
                                 </div>
                                 <div className="flex justify-end">
                                     <div className="flex justify-between">
-                                        {/* <AddModalProjectCharter/>
-                            <button className="px-1" id="icon"><IconEdit /></button>
-                            <DeleteModal/> */}
                                     </div>
                                 </div>
                             </div>

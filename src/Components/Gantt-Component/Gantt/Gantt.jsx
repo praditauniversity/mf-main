@@ -76,9 +76,16 @@ export default class Gantt extends Component {
   componentDidMount() {
     gantt.config.date_format = "%Y-%m-%d %H:%i";
     const { tasks } = this.props;
+    gantt.config.open_tree_initially = true;
     gantt.init(this.ganttContainer);
+    gantt.config.readonly = this.props.isReadOnly;
+    console.log("IIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSSRRRRRRRRRRRRRRRREEEEEEEEEEEEEEEAAAAAAAAAAAAAAADDDDDDDDDDDDDDDDDDd", this.props.isReadOnly)
     gantt.config.lightbox.width = 900;
     gantt.parse(tasks);
+  }
+
+  componentWillUnmount() {
+    gantt.clearAll();
   }
 
   render() {

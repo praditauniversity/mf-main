@@ -128,23 +128,27 @@ const AddModalMinutesOfMeeting = () => {
   const hideDialog = () => {
     setIsOpen(false);
   };
-
+  
   const handleFormChangeNotes = (value, index) => {
     const dataNotes = notes.map((notesItem, notesIndex) => {
       return notesIndex === index ? value : notesItem;
     });
     setNotes(dataNotes);
-
+    
     console.log("DATA", dataNotes);
     console.log("DAILYREPORTEQUP", notes);
   };
 
-
+  
 const handleFormChange = (index, event) => {
   let data = [...inputFields];
   data[index][event.target.name] = event.target.value;
   setInputFields(data);
   console.log("DATAAAAAA", data);
+  setAction_item(inputFields.map((inputField) => inputField.action_item));
+  setOwner(inputFields.map((inputField) => inputField.owner));
+  setDeadline(inputFields.map((inputField) => inputField.deadline));
+  setStatus(inputFields.map((inputField) => inputField.status));
 };
 
   const handleFormChangeAtendees = (value, index) => {
@@ -156,11 +160,7 @@ const handleFormChange = (index, event) => {
     console.log("DAILYREPORTEQUP", atendees);
     
   };
-  function setActionItem(inputFields){
-    let inputField= inputFields.map((inputField) => inputField.action_item);
-    setAction_item=inputField;
-  }
-  
+
 
   // setWorkLogName(inputFields.map((inputField) => inputField.name));
   const addFields = () => {
@@ -195,16 +195,13 @@ const handleFormChange = (index, event) => {
     console.log(JSON.stringify(addMinutesOfMeetingError));
 
   const handleSubmit = (e) => {
+    
 
     const project_id = parseInt(inputRefProject.current.value);
     project_id === 0 ? setProject_id(parseInt(inputRefProject.current.value)): project_id
     
 
 
-    setAction_item(inputFields.map((inputField) => inputField.action_item));
-    setOwner(inputFields.map((inputField) => inputField.owner));
-    setDeadline(inputFields.map((inputField) => inputField.deadline));
-    setStatus(inputFields.map((inputField) => inputField.status));
 
     var gue3= action_item;
     console.log("gue3", gue3);

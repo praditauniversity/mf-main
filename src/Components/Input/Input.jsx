@@ -1,9 +1,8 @@
-import React, { Fragment, useState } from "react";
-import { Listbox, Menu, Transition } from '@headlessui/react'
+import { Listbox } from '@headlessui/react';
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import { Link } from "react-router-dom";
 
-export const InputField = ({ value, label, name, placeholder, type, onChange, disabled, error, minlength, maxlength, pattern }) => (
+export const InputField = ({ value, label, name, placeholder, type, onChange, disabled, error, minLength, maxLength, pattern }) => (
     <div className="form-group">
         <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
         <input
@@ -15,8 +14,8 @@ export const InputField = ({ value, label, name, placeholder, type, onChange, di
             onChange={onChange}
             disabled={disabled}
             error={error}
-            minlength={minlength}
-            maxlength={maxlength}
+            minLength={minLength}
+            maxLength={maxLength}
             pattern={pattern}
         />
     </div>

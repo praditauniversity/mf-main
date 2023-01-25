@@ -194,7 +194,12 @@ const AddModalDailyReport = () => {
     data[index][event.target.name] = event.target.value;
     setInputFields(data);
     console.log("DATADATADATA", data);
-    
+
+    setWorkLogName(inputFields.map((inputField) => inputField.name));
+    setWorkLogDesc(inputFields.map((inputField) => inputField.description));
+    setWorkLogStatus(inputFields.map((inputField) => inputField.status));
+    setWorkLogHour(inputFields.map((inputField) => parseInt(inputField.hour)));
+
   };
 
   // setWorkLogName(inputFields.map((inputField) => inputField.name));
@@ -217,43 +222,43 @@ const AddModalDailyReport = () => {
     console.log("removefields", dataEquip);
     setProjectObjectives(dataEquip);
   };
-  
+
   const handleSubmit = (e) => {
     const activity_id = parseInt(inputRefActivity.current.value);
     const project_id = parseInt(inputRefProject.current.value);
-    activity_id === 0 ?setActivityId(parseInt(inputRefActivity.current.value)): activity_id
-    project_id === 0 ? setProjectId(parseInt(inputRefProject.current.value)): project_id
+    activity_id === 0 ? setActivityId(parseInt(inputRefActivity.current.value)) : activity_id
+    project_id === 0 ? setProjectId(parseInt(inputRefProject.current.value)) : project_id
 
-      
 
-      // setWorkLogName(inputFields.map((inputField) => inputField.name));
-      setWorkLogName(inputFields.map((inputField) => inputField.name));
-      setWorkLogDesc(inputFields.map((inputField) => inputField.description));
-      setWorkLogStatus(inputFields.map((inputField) => inputField.status));
-      setWorkLogHour(inputFields.map((inputField) => parseInt(inputField.hour)));
-      var gue = work_log_name;
-      var gue2 = work_log_desc;
-      var gue3 = work_log_status;
-      var gue4 = work_log_hour;
 
-      console.log("work_log_name", work_log_name);
-      console.log("work_log_desc", work_log_desc);
-      console.log("work_log_status", work_log_status);
-      console.log("work_log_hour", work_log_hour);
+    // setWorkLogName(inputFields.map((inputField) => inputField.name));
+    setWorkLogName(inputFields.map((inputField) => inputField.name));
+    setWorkLogDesc(inputFields.map((inputField) => inputField.description));
+    setWorkLogStatus(inputFields.map((inputField) => inputField.status));
+    setWorkLogHour(inputFields.map((inputField) => parseInt(inputField.hour)));
+    var gue = work_log_name;
+    var gue2 = work_log_desc;
+    var gue3 = work_log_status;
+    var gue4 = work_log_hour;
 
-      console.log("BABIBADASDA",inputFields.map((inputField) => inputField.name))
-      console.log("fakkkkkkkkkkkkkkkkkkkkkkk", gue)
-      console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue2)
-      
-      console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue3)
-      console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue4)
-      console.log("equipmentt",equipment)
-      console.log("namee",name)
-      console.log("description",description)
-      console.log("Status",status)
-      console.log("activity_id",activityidtest)
-      console.log("project_id",projectidtest)
-      
+    console.log("work_log_name aaa", work_log_name);
+    console.log("work_log_desc", work_log_desc);
+    console.log("work_log_status", work_log_status);
+    console.log("work_log_hour", work_log_hour);
+
+    console.log("BABIBADASDA", inputFields.map((inputField) => inputField.name))
+    console.log("fakkkkkkkkkkkkkkkkkkkkkkk", gue)
+    console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue2)
+
+    console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue3)
+    console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue4)
+    console.log("equipmentt", equipment)
+    console.log("namee", name)
+    console.log("description", description)
+    console.log("Status", status)
+    console.log("activity_id", activityidtest)
+    console.log("project_id", projectidtest)
+
     e.preventDefault();
 
     addDailyReport({

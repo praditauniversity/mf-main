@@ -1,24 +1,46 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { useQuery } from "@apollo/client";
-import { GET_PROJECT_DATA } from "../../GraphQL/Queries";
 import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
+import { SumActual } from "../../GraphQL/ProjectQueries";
+import GetProfile from "../../Auth/GetProfile";
+import { GET_PROJECT_DATA_BY_ID } from "../../GraphQL/Queries";
 
-export default function BarChart() {
-  const projectData = FetchProjectByUserId();
+export default function BarChart(props) {
+    
+    const profile = GetProfile();
+    const { value } = props;
+    console.log("Value: " + value);
+    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+        variables: { id: value },
+    });
+    const [projectData, setProject] = useState([]);
+    useEffect(() => {
+        if (data) {
+            console.log("Data Ready");
+            setProject(data.project.Data);
+            console.log(projectData);
+        } else {
+            console.log("No data");
+        }
+    }, [data]);
   function printDataFinance() {
-    var sumBudget = 0;
-    var sumAct = 0;
-    var sumCost = 0;
-    var sumDanger = 0;
-    var sumVariance = 0;
+    let sumBudget = 0;
+    let sumAct = 0;
+    let sumCost = 0;
+    let sumDanger = 0;
+    let sumVariance = 0;
     // var projectCurrency = "";
+
     projectData.map((project) => {
+        if(profile.id === project.user_id){
       sumBudget = sumBudget + project.budget;
       sumAct = sumAct + project.cost_actual;
       sumCost = sumCost + project.cost_plan;
-      sumDanger = sumDanger + (sumAct - sumCost);
+      const tempDanger = sumDanger + (sumCost - sumAct);
+                sumDanger = tempDanger <= 0 ? tempDanger * -1 : 0;
       sumVariance = sumVariance + (sumBudget - sumAct);
+        }
     //   projectCurrency = project.currency_symbol;
     });
     return (

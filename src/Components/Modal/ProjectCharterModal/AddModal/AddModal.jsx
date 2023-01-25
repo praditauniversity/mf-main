@@ -788,7 +788,7 @@ const AddModalProjectCharter = () => {
                                                 onClick={e => {
                                                     e.preventDefault();
                                                     handleSubmit();
-                                                    window.location.reload(true);
+                                                    // window.location.reload(true);
                                                 }}
                                             >
                                                 <IconSaveForm />
