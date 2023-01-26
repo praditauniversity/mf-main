@@ -109,7 +109,7 @@ const PCList = () => {
                                             charterID={item.ID}
                                             charterName={item.name}
                                             charterManager={item.project_manager}
-                                            charterCustomer={item.client}
+                                            charterClient={item.client}
                                             charterDesc={item.description}
                                             charterObj={item.project_objectives}
                                             charterTeam={item.total_man_power}

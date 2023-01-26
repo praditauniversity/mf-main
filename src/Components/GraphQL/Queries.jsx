@@ -180,6 +180,18 @@ export const GET_ACTIVITY_GANTT_ID = gql`
             updated_by
             deleted_by
           }
+          unitofmeasurement_id
+          unitofmeasurement { 
+            ID
+            CreatedAt
+            UpdatedAt
+            DeletedAt
+            name
+            description
+            user_id
+            updated_by
+            deleted_by
+          }
         }
     }
   }
@@ -822,7 +834,7 @@ export const GET_CHARTER_DATA_BY_ID = gql`
 
 export const GET_GANTT_DATA = gql`
 query gantt(
-  $id: String!
+  $id: String
   ) {
   gantt(id: $id) {
     data {
@@ -885,6 +897,18 @@ export const GET_ACTIVITY_DATA = gql`
           updated_by
           deleted_by
         }
+        unitofmeasurement_id
+        unitofmeasurement { 
+          ID
+          CreatedAt
+          UpdatedAt
+          DeletedAt
+          name
+          description
+          user_id
+          updated_by
+          deleted_by
+        }
       }
     }
   }
@@ -902,6 +926,24 @@ export const GET_ACTIVITY_PHASE_DATA = gql`
         name
         color
         order
+        user_id
+        updated_by
+        deleted_by
+      }
+    }
+  }
+`;
+
+export const GET_UNIT_OF_MEASUREMENT_DATA = gql`
+  query {
+    activityUnitOfMeasurement {
+      data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        name
+        description
         user_id
         updated_by
         deleted_by

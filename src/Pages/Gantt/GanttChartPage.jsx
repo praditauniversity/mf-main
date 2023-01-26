@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { PrintGantt, TEST_TestFormGantt } from '../../Components/Gantt-Component/CustomActivityState';
+import { PrintGantt, PrintGanttPage } from '../../Components/Gantt-Component/CustomActivityState';
 import { useMutation } from '@apollo/client';
 
 const GanttChartPage = () => {
@@ -12,7 +12,7 @@ const GanttChartPage = () => {
 
     return (
         <>
-        <TEST_TestFormGantt title="Gantt Chart" ganttID={ganttID} projectID={projectID} />
+        <PrintGanttPage title="Gantt Chart" ganttID={ganttID} projectID={projectID} />
         </>
     )
 }

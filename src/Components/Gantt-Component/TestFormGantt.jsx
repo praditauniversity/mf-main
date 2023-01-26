@@ -433,10 +433,14 @@ function handler({ action, obj, id }) {
 
 function TestFormGantt(props) {
     console.log("RENDER");
-    const { title, dataGantt, dataPhase, ganttID, isReadOnly, isShowAddColumn } = props;
+    const { title, dataGantt, dataPhase, ganttID, isReadOnly, isShowAddColumn, isShowListGantt } = props;
 
-    isShowAddColumn ? (!gantt.config.columns.some(col => col.name === 'add')) ? gantt.config.columns.push({ name: "add", width: 44, grid: true }) : null : null;
+    // isShowAddColumn ? (!gantt.config.columns.some(col => col.name === 'add')) ? gantt.config.columns.push({ name: "add", width: 44, grid: true }) : null : null;
     
+    isShowAddColumn
+        ? !gantt.config.columns.some(col => col.name === 'add') && gantt.config.columns.push({ name: "add", width: 44, grid: true }) && gantt.render()
+        : gantt.config.columns.some(col => col.name === 'add') && gantt.config.columns.splice(gantt.config.columns.findIndex(col => col.name === 'add'), 1) && gantt.render()
+
     // gantt.config.columns.push(addButtonColumns);
     // const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
     // const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
@@ -788,32 +792,35 @@ function TestFormGantt(props) {
     };
 
     return (
-        <div className="bg-white py-6 px-12 rounded-xl shadow-lg h-full">
+        <div className="py-6 bg-white px-12 rounded-xl shadow-lg h-full">
             {/* fill the height */}
             {/* <div className="h-50%"> */}
-            <div className="h-4/5">
+            <div className="h-full">
             {/* <div className="h-4/5"> */}
-                <div className="py-5 px-4 flex justify-between items-center align-middle">
+            {
+                isShowListGantt ? (
+                <div className="py-2 px-4 flex justify-between items-center align-middle">
                     <p className="text-md">{title}</p>
-                    <div className="py-5 px-4 flex items-center align-right">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={testAddTask}>ADD GANTT</button>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={testAddTask2}>ADD GANTT 2</button>
-                        <AddModalGantt />
-                        <EditModalGantt />
-                        <DeleteModalGantt />
+                    <div className="px-4 flex items-center align-right">
+                        {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={testAddTask}>ADD GANTT</button>
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={testAddTask2}>ADD GANTT 2</button> */}
                         {console.log("before printlistganttname should be called")}
                         <PrintListGanttName />
+                        {/* <PrintListGanttName /> */}
                     </div>
                 </div>
+                ) : null
+
+            }
                 {console.log("before mapping data should be called")}
                 {/* <div className="py-1 px-4 h-full">{MappingData()}</div> */}
-                <div className="zoom-bar">
+                <div className="zoom-bar px-3">
                     <Toolbar
                         zoom={currentZoom}
                         onZoomChange={handleZoomChange}
                     />
                 </div>
-                <div className="py-1 px-4 h-full">
+                <div className="py-1 px-4 h-5/6">
                     <div className="h-full">
                         {MappingData()}
                         {MappingPhase()}

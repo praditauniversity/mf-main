@@ -7,25 +7,26 @@ import FetchGantt from "../../../Middleware/Fetchers/FetchGantt";
 import FetchActivity from "../../../Middleware/Fetchers/FetchActivity";
 import FetchMomByProjectId from "../../../Middleware/Fetchers/FetchMomByProjectId";
 import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../GraphQL/Queries";
+import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 
 const DELETE_MINUTES_OF_MEETING = gql`
   mutation deleteMinuteOfMeeting {
     deleteMinuteOfMeeting(id: "1")
   }
-`;	
+`;
 
 const MinutesofMeetingList = () => {
-  const projectData = FetchProject();
+  const projectData = FetchProjectByUserId();
   // const ganttData = FetchGantt();
   // const activityData = FetchActivity();
   const momData = FetchMomByProjectId();
 
-  const [deleteMom, { loading, error }] = useMutation(DELETE_MINUTES_OF_MEETING ,
-  {
-    refetchQueries: [
-      { query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID }
-    ]
-  }
+  const [deleteMom, { loading, error }] = useMutation(DELETE_MINUTES_OF_MEETING,
+    {
+      refetchQueries: [
+        { query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID }
+      ]
+    }
   );
 
   if (loading) return 'Submitting...';
@@ -100,8 +101,8 @@ const MinutesofMeetingList = () => {
               <th align="center">Time</th>
               <th align="center">Location</th>
               <th align="center">Meeting Leader</th>
-              <th align="center">Edit</th>
-              <th align="center">Delete</th>
+              <th align="center">Action</th>
+              {/* <th align="center">Delete</th> */}
             </tr>
           </thead>
           <tbody>
@@ -127,9 +128,9 @@ const MinutesofMeetingList = () => {
                   momData.map((mom) => {
                     if (project.ID === mom.project_id /*&& gantt.project_id === mom.project_id*/) {
                       const meetingDate = new Date(mom.meeting_date);
-                      const meetingDateYear = meetingDate.toLocaleDateString('en-US', {year: 'numeric'});
-                      const meetingDateMonth = meetingDate.toLocaleDateString('en-US', {month: '2-digit'});
-                      const meetingDateDay = meetingDate.toLocaleDateString('en-US', {day: '2-digit'});
+                      const meetingDateYear = meetingDate.toLocaleDateString('en-US', { year: 'numeric' });
+                      const meetingDateMonth = meetingDate.toLocaleDateString('en-US', { month: '2-digit' });
+                      const meetingDateDay = meetingDate.toLocaleDateString('en-US', { day: '2-digit' });
 
                       const startDate = new Date(mom.start_time_meeting);
                       const startHour = typeof startDate.getHours() === 'number' ? startDate.getHours().toString().padStart(2, '0') : "00";
@@ -138,7 +139,7 @@ const MinutesofMeetingList = () => {
                       const startTime = `${startHour}:${startMinute}`;
                       // console.log("TIMEEEEEE", startTime);
 
-                      const endDate = new Date(mom.end_time_meeting);  
+                      const endDate = new Date(mom.end_time_meeting);
                       const endHour = typeof endDate.getHours() === 'number' ? endDate.getHours().toString().padStart(2, '0') : "00";
                       const endMinute = typeof endDate.getMinutes() === 'number' ? endDate.getMinutes().toString().padStart(2, '0') : "00";
                       // const second = typeof startDate.getSeconds() === 'number' ? startDate.getSeconds() : 0;
@@ -153,20 +154,17 @@ const MinutesofMeetingList = () => {
                           <td align="center">{mom.meeting_leader}</td>
                           <td align="center">
                             <button className="px-1" id="icon"
-                            onClick={e => {
-                              // const listID = String(mom.ID);
-                              // console.log(typeof listID, listID);
-                              // e.preventDefault();
-                              // deleteReport({ variables: { id: listID } });
-                            }}
+                              onClick={e => {
+                                // const listID = String(mom.ID);
+                                // console.log(typeof listID, listID);
+                                // e.preventDefault();
+                                // deleteReport({ variables: { id: listID } });
+                              }}
                             >
                               <IconEdit />
                             </button>
-                          </td>
-                          <td align="center">  
-                            {/* <button className="px-1" id="icon"><IconDelete /></button> */}
-                            <button className="px-1" id="icon" 
-                              onClick = { e => {
+                            <button className="px-1" id="icon"
+                              onClick={e => {
                                 const recordID = String(mom.ID);
                                 console.log(typeof recordID, recordID);
                                 e.preventDefault();
@@ -183,10 +181,10 @@ const MinutesofMeetingList = () => {
                 )
               })
             }
-                        
+
           </tbody>
         </table>
-        
+
       </div>
     </div>
   );

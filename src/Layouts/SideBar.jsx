@@ -14,7 +14,7 @@ export const SideBar = () => {
     const [sideList, setSideList] = useState([
         { id: 0, name: "MainDashboard", link: "/#/maindashboard", icon: maindashboard, tooltip: "Main" },
         // { id: 1, name: "Dashboard", link: "/#/dashboard", icon: chat },
-        { id: 2, name: "Project", link: "/#/project", icon: addproject, tooltip: "Project" },
+        // { id: 2, name: "Project", link: "/#/project", icon: addproject, tooltip: "Project" },
         // { id: 3, name: "PMODashboard", link: "/#/pmodashboard", icon: dashboard },
         // { id: 4, name: "ProjectDashboard", link: "/#/projectdashboard", icon: dashboard },
         // { id: 5, name: "MemberDashboard", link: "/#/memberdashboard", icon: dashboard },

@@ -10,7 +10,7 @@ import {
   IconSaveForm,
 } from "../../../Icons/icon";
 import { DatePickerField } from "../../../Input/Input";
-import "./AddModal.css";
+import "./UpdateModal.css";
 import Addnewequipment, { useEquipment } from "./Addnewequipment";
 import Addnewworklog, { useWorkLog } from "./Addnewworklog";
 
@@ -67,7 +67,7 @@ const ADD_DAILY_REPORT = gql`
   }
 `;
 
-const AddModalDailyReport = () => {
+const UpdateModalDailyReport = () => {
   const [inputFields, setInputFields] = useState([
     { name: "", description: "", status: "", hour: 0 },
   ]);
@@ -592,4 +592,4 @@ const AddModalDailyReport = () => {
     </>
   );
 };
-export default AddModalDailyReport;
+export default UpdateModalDailyReport;

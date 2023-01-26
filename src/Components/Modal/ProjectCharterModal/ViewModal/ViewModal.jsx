@@ -16,7 +16,7 @@ import { IconView } from '../../../Icons/icon';
 
 
 const ViewModalCharter = (props) => {
-    const { charterID, charterName, charterManager, charterCustomer, charterDesc, charterObj, charterTeam, charterStakeholder, charterParticipant, charterPlanned, charterActual, charterSymbol, charterResource, charterStart, charterEnd, charterRisk } = props;
+    const { charterID, charterName, charterManager, charterClient, charterDesc, charterObj, charterTeam, charterStakeholder, charterParticipant, charterPlanned, charterActual, charterSymbol, charterResource, charterStart, charterEnd, charterRisk } = props;
     let { projectID } = useParams();
     const charterData = FetchCharter();
     // const [getCharterID, { data, error }] = useQuery(GET_CHARTER_DATA,
@@ -85,7 +85,7 @@ const ViewModalCharter = (props) => {
                                                             <DescTitle title="Project Manager" description={charterManager} />
                                                         </div>
                                                         <div className="col-span-2">
-                                                            <DescTitle title="Customer" description={charterCustomer} />
+                                                            <DescTitle title="Client" description={charterClient} />
                                                         </div>
                                                     </div>
                                                 </div>

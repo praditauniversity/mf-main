@@ -79,9 +79,11 @@ export default class Gantt extends Component {
     gantt.config.open_tree_initially = true;
     gantt.init(this.ganttContainer);
     gantt.config.readonly = this.props.isReadOnly;
-    console.log("IIIIIIIIIIIIIIIISSSSSSSSSSSSSSSSSSSSSRRRRRRRRRRRRRRRREEEEEEEEEEEEEEEAAAAAAAAAAAAAAADDDDDDDDDDDDDDDDDDd", this.props.isReadOnly)
+    gantt.config.height = "full";
+    gantt.render();
     gantt.config.lightbox.width = 900;
     gantt.parse(tasks);
+    gantt.config.lightbox.css = "max-height: 600px; overflow-y: auto;";
   }
 
   componentWillUnmount() {
@@ -96,7 +98,7 @@ export default class Gantt extends Component {
         ref={(input) => {
           this.ganttContainer = input;
         }}
-        className="h-5/6"
+        className="h-full"
       />
     );
   }

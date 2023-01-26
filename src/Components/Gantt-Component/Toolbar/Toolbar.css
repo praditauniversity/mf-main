@@ -1,8 +1,16 @@
 .zoom-bar {
-    background: #ededed;
+    /* background: #EDE7F6;
     height: 40px;
-    line-height: 40px;
-    padding: 5px 10px;
+    line-height: 40px; */
+    /* padding: 5px 10px; */
+  }
+
+  .tool-bar{
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    /* padding: 5px 10px; */
+    /* background: #EDE7F6; */
   }
   
   .radio-label {
@@ -16,7 +24,7 @@
     width: 70px;
   
     border: 1px solid #D9D9D9;
-    border-radius: 2px;
+    border-radius: 8px;
     background: #fff;
     color: rgba(0,0,0,0.7);
   }
@@ -29,7 +37,7 @@
   }
   
   .radio-label-active {
-    background: #a0a0a0;
+    background: #B39DDB;
     color: white;
     border-color: #707070;
   }

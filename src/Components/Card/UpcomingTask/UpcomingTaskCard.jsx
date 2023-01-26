@@ -19,7 +19,8 @@ const UpcomingTaskCard = (props) => {
                 {dataTask.map((task) => {
                     const todayDate = new Date();
                     const date = new Date(task.start_time);
-                    if (date > todayDate) {
+                    const status = task.phase.name;
+                    if (date > todayDate && status === "Todo") {
                         const dateMonth = date.toLocaleDateString('en-US', {month: 'long'});
                         const dateDay = date.toLocaleDateString('en-US', {day: 'numeric'});
 

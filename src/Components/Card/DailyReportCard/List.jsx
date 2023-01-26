@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, gql } from '@apollo/client';
+import { useMutation, gql, useQuery } from '@apollo/client';
 import { IconEdit, IconDelete } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css';
 import FetchProject from "../../../Middleware/Fetchers/FetchProject";
@@ -8,7 +8,7 @@ import FetchActivity from "../../../Middleware/Fetchers/FetchActivity";
 import FetchDailyReport from "../../../Middleware/Fetchers/FetchDailyReport";
 import { Link } from "react-router-dom";
 import FetchDailyReportByProjectId from "../../../Middleware/Fetchers/FetchDailyReportByProjectId";
-import { GET_DAILY_REPORT_DATA_BY_PROJECT_ID } from "../../GraphQL/Queries";
+import { GET_DAILY_REPORT_DATA_BY_PROJECT_ID, GET_GANTT_PROJECT_ID, GET_PROJECT_DATA_BY_ID } from "../../GraphQL/Queries";
 
 const DELETE_DAILYREPORT = gql`
   mutation DeleteDailyReport($id: String!) {
@@ -17,6 +17,28 @@ const DELETE_DAILYREPORT = gql`
 
 
 const DRList = () => {
+  // const { data } = useQuery(GET_PROJECT_DATA_BY_ID, {
+  //   variables: { id: localStorage.getItem('reportProjectID') }
+  // });
+  // const [projectData, setProjectData] = React.useState([]);
+
+  // const { data: data2 } = useQuery(GET_GANTT_PROJECT_ID, {
+  //   variables: { id: localStorage.getItem('reportProjectID') }
+  // });
+  // const [ganttData, setGanttData] = React.useState([]);
+
+  // React.useEffect(() => {
+  //   if (data) {
+  //     setProjectData(data.project.Data);
+  //   } 
+  //   if (data2) {
+  //     setGanttData(data2.ganttGetProjectID.data);
+  //   } 
+  //   else {
+  //     console.log("No data found for project and gantt with user id : " + localStorage.getItem('reportProjectID'));
+  //   }
+  // }, [data, data2]);
+
   const projectData = FetchProject();
   const ganttData = FetchGantt();
   const activityData = FetchActivity();
@@ -75,6 +97,11 @@ const DRList = () => {
                               dailyReportData.map((dailyReport) => {
                                 if (activity.ID === dailyReport.activity_id /*&& gantt.project_id === dailyReport.project_id*/) {
                                   // const listID = toString(dailyReport.ID);
+                                  console.log(typeof dailyReport.ID, dailyReport.ID);
+                                  console.log(typeof dailyReport.report_date, dailyReport.report_date);
+                                  console.log(typeof dailyReport.report_number, dailyReport.report_number);
+                                  console.log(typeof dailyReport.name, dailyReport.name);
+                                  console.log(typeof activity.name, activity.name);
                                   const reportDate = new Date(dailyReport.report_date);
                                   const reportDateYear = reportDate.toLocaleDateString('en-US', { year: 'numeric' });
                                   const reportDateMonth = reportDate.toLocaleDateString('en-US', { month: '2-digit' });

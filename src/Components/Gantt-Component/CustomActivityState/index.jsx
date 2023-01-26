@@ -128,30 +128,16 @@ export const PrintTaskList = () => {
   </>
 }
 
-export const PrintGantt = (props) => {
-  const { title } = props;
-  const [activityData, setActivity] = useActivity();
-  const [activityPhaseData, setActivityPhaseData] = useActivityPhase();
-  const [ganttID, setGanttID, projectID, setProjectID, ganttName, setGanttName, projectData, setProjectData , dataGanttProject, dataProjectUser] = useGantt();
-
-  const addButtonColumns = { name: "add", width: 44 }
-
-  return <>
-    {/* <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} /> */}
-    <TestFormGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} isReadOnly={true} isShowAddColumn={true} />
-    {console.log("activityData", activityData)}
-  </>
-}
 
 
 function useGanttTest() {
   const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
   const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
-
+  
   const [projectData, setProjectData] = useState([]);
   const [ganttName, setGanttName] = useState([]);
   const profile = GetProfile();
-
+  
   const { loading: loadingProjectUser, error: errorProjectUser, data: dataProjectUser } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
     variables: { userId: profile.id },
   });
@@ -173,7 +159,7 @@ function useGanttTest() {
       setGanttID(localStorage.getItem('ganttID'));
       console.log("gantt id =? ", ganttID);
       // ganttID == 0 ? console.log("gantt id !==0 true: ", ganttID) : console.log("gantt id !==0 false: ", ganttID);
-
+      
     } else {
       console.log("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
       localStorage.setItem("ganttID", 0);
@@ -188,7 +174,7 @@ function useGanttTest() {
       setProjectID(localStorage.getItem('projectID'));
       console.log("projectID =? ", projectID);
       // ganttID == 0 ? console.log("gantt id !==0 true: ", ganttID) : console.log("gantt id !==0 false: ", ganttID);
-
+      
     } else {
       console.log("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
       localStorage.setItem("projectID", 0);
@@ -198,7 +184,24 @@ function useGanttTest() {
   return [setGanttID, setProjectID, ganttName, setGanttName, projectData, setProjectData, dataGanttProject, dataProjectUser];
 }
 
-export const TEST_TestFormGantt = (props) => {
+export const PrintGantt = (props) => {
+  const { title } = props;
+  const [activityData, setActivity] = useActivity();
+  const [activityPhaseData, setActivityPhaseData] = useActivityPhase();
+  // const [activityUnitMeasureData, setActivityUnitMeasureData] = useActivityUnitMeasure();
+  
+  const [ganttID, setGanttID, projectID, setProjectID, ganttName, setGanttName, projectData, setProjectData , dataGanttProject, dataProjectUser] = useGantt();
+
+  const addButtonColumns = { name: "add", width: 44 }
+
+  return <>
+    {/* <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} /> */}
+    <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} isReadOnly={true} isShowAddColumn={false} isShowListGantt={true} />
+    {console.log("activityData", activityData)}
+  </>
+}
+
+export const PrintGanttPage = (props) => {
   const { title, ganttID, projectID } = props;
   localStorage.setItem('ganttID', ganttID);
   localStorage.setItem('projectID', projectID);
@@ -208,7 +211,7 @@ export const TEST_TestFormGantt = (props) => {
   // const addButtonColumns = { };
 
   return <>
-    <TestFormGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={false} />
+    <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={true} isShowListGantt={false} />
     {console.log("activityData", activityData)}
   </>
 }
