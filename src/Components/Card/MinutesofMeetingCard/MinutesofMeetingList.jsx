@@ -8,10 +8,12 @@ import FetchActivity from "../../../Middleware/Fetchers/FetchActivity";
 import FetchMomByProjectId from "../../../Middleware/Fetchers/FetchMomByProjectId";
 import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../GraphQL/Queries";
 import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
+import DeleteModalMinuteOfMeeting from "../../Modal/MinutesOfMeetingModal/DeleteModal/DeleteModal";
+import UpdateModalMinutesOfMeeting from "../../Modal/MinutesOfMeetingModal/UpdateModal/UpdateModal";
 
 const DELETE_MINUTES_OF_MEETING = gql`
-  mutation deleteMinuteOfMeeting {
-    deleteMinuteOfMeeting(id: "1")
+  mutation deleteMinuteOfMeeting($id: String!) {
+    deleteMinuteOfMeeting(id: $id)
   }
 `;
 
@@ -21,74 +23,17 @@ const MinutesofMeetingList = () => {
   // const activityData = FetchActivity();
   const momData = FetchMomByProjectId();
 
-  const [deleteMom, { loading, error }] = useMutation(DELETE_MINUTES_OF_MEETING,
-    {
-      refetchQueries: [
-        { query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID }
-      ]
-    }
-  );
+  // const [deleteMom, { loading, error }] = useMutation(DELETE_MINUTES_OF_MEETING,
+  //   {
+  //     refetchQueries: [
+  //       { query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID }
+  //     ]
+  //   }
+  // );
 
-  if (loading) return 'Submitting...';
-  if (error) return `Submission error! ${error.message}`;
-  // const data = [
-  //   {
-  //     id: 1,
-  //     meetingname: "Initiation Project 1 Meeting",
-  //     datemeeting: "08/14/2022",
-  //     time: "12.00 - 14.00",
-  //     location: "Serpong, Tangerang",
-  //     meetingleader: "Jhon Doe",
-  //   },
-  //   {
-  //     id: 2,
-  //     meetingname: "Initiation Project 2 Meeting",
-  //     datemeeting: "08/15/2022",
-  //     time: "12.00 - 14.00",
-  //     location: "Serpong, Tangerang",
-  //     meetingleader: "Jhon Doe",
-  //   },
-  //   {
-  //     id: 3,
-  //     meetingname: "Initiation Project 3 Meeting",
-  //     datemeeting: "08/16/2022",
-  //     time: "12.30 - 14.00",
-  //     location: "Serpong, Tangerang",
-  //     meetingleader: "Jhon Doe",
-  //   },
-  //   {
-  //     id: 4,
-  //     meetingname: "Initiation Project 4 Meeting",
-  //     datemeeting: "08/17/2022",
-  //     time: "12.00 - 14.00",
-  //     location: "Serpong, Tangerang",
-  //     meetingleader: "Jhon Doe",
-  //   },
-  //   {
-  //     id: 5,
-  //     meetingname: "Initiation Project 5 Meeting",
-  //     datemeeting: "08/18/2022",
-  //     time: "13.00 - 15.30",
-  //     location: "Serpong, Tangerang",
-  //     meetingleader: "Jhon Doe",
-  //   },
-  //   {
-  //     id: 6,
-  //     meetingname: "Initiation Project 6 Meeting",
-  //     datemeeting: "08/21/2022",
-  //     time: "12.00 - 14.30",
-  //     location: "Serpong, Tangerang",
-  //     meetingleader: "Jhon Doe",
-  //   },
-  //   {
-  //     id: 7,
-  //     meetingname: "Initiation Project 7 Meeting",
-  //     datemeeting: "08/22/2022",
-  //     time: "12.00 - 14.00",
-  //     location: "Serpong, Tangerang",
-  //     meetingleader: "Jhon Doe",
-  //   },
-  // ];
+  // if (loading) return 'Submitting...';
+  // if (error) return `Submission error! ${error.message}`;
+  
 
   return (
     <div className="rounded-xl shadow-lg bg-white pt-6">
@@ -101,27 +46,10 @@ const MinutesofMeetingList = () => {
               <th align="center">Time</th>
               <th align="center">Location</th>
               <th align="center">Meeting Leader</th>
-              <th align="center">Action</th>
-              {/* <th align="center">Delete</th> */}
+              <th align="center">Action</th>\
             </tr>
           </thead>
           <tbody>
-            {/* {data.map((item, index) => (
-              <tr key={index}>
-                <td align="center">{item.meetingname}</td>
-                <td align="center">{item.datemeeting}</td>
-                <td align="center">{item.time}</td>
-                <td align="center">{item.location}</td>
-                <td align="center">{item.meetingleader}</td>
-                <td align="center">
-                  <button className="px-1" id="icon">
-                    <IconEdit />
-                  </button>
-                </td>
-                <td align="center">
-                  <button className="px-1" id="icon"><IconDelete /></button></td>
-              </tr>
-            ))} */}
             {
               projectData.map((project) => {
                 return (
@@ -153,7 +81,7 @@ const MinutesofMeetingList = () => {
                           <td align="center">{mom.location}</td>
                           <td align="center">{mom.meeting_leader}</td>
                           <td align="center">
-                            <button className="px-1" id="icon"
+                            {/* <button className="px-1" id="icon"
                               onClick={e => {
                                 // const listID = String(mom.ID);
                                 // console.log(typeof listID, listID);
@@ -162,8 +90,8 @@ const MinutesofMeetingList = () => {
                               }}
                             >
                               <IconEdit />
-                            </button>
-                            <button className="px-1" id="icon"
+                            </button> */}
+                            {/* <button className="px-1" id="icon"
                               onClick={e => {
                                 const recordID = String(mom.ID);
                                 console.log(typeof recordID, recordID);
@@ -172,6 +100,16 @@ const MinutesofMeetingList = () => {
                               }}
                             >
                               <IconDelete />
+                            </button> */}
+                            <button className="px-1" id="icon">
+                              <UpdateModalMinutesOfMeeting 
+                              momID = {String(mom.ID)}
+                              />
+                            </button>
+                            <button className="px-1" id="icon">
+                              <DeleteModalMinuteOfMeeting 
+                              momID = {String(mom.ID)}
+                              />
                             </button>
                           </td>
                         </tr>

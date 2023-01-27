@@ -184,6 +184,7 @@ export const ADD_ACTIVITY = gql`
     $human_cost_actual: Float!
     $activity_type: String!
     $phase_id: Int!
+    $unitofmeasurement_id: Int!
   ) {
     addActivity(
       input: {
@@ -206,6 +207,7 @@ export const ADD_ACTIVITY = gql`
         human_cost_actual: $human_cost_actual
         activity_type: $activity_type
         phase_id: $phase_id
+        unitofmeasurement_id: $unitofmeasurement_id
       }
     ) {
       data {
@@ -240,6 +242,7 @@ export const UPDATE_ACTIVITY = gql`
     $human_cost_actual: Float!
     $activity_type: String!
     $phase_id: Int!
+    $unitofmeasurement_id: Int!
   ) {
     updateActivity(
       id: $id
@@ -263,6 +266,7 @@ export const UPDATE_ACTIVITY = gql`
         human_cost_actual: $human_cost_actual
         activity_type: $activity_type
         phase_id: $phase_id
+        unitofmeasurement_id: $unitofmeasurement_id
       }
     ) {
       data {

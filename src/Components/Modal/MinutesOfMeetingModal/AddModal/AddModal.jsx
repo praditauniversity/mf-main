@@ -180,15 +180,15 @@ const handleFormChange = (index, event) => {
     dataNotes.splice(index, 1);
     console.log("removefields", notes);
     console.log("removefields", dataNotes);
-    setProjectObjectives(dataNotes);
+    setNotes(dataNotes);
   };
 
   const removeFieldsAtendees = (index) => {
-    let dataAtendees = [...notes];
+    let dataAtendees = [...atendees];
     dataAtendees.splice(index, 1);
     console.log("removefields", notes);
     console.log("removefields", dataAtendees);
-    setProjectObjectives(dataAtendees);
+    setAtendees(dataAtendees);
   };
 
   if (addMinutesOfMeetingError)
@@ -413,7 +413,7 @@ const handleFormChange = (index, event) => {
                       </div>
                     </div> */}
                     {/* Atendees */}
-                    <div className="pb-2">
+                    <div className="mt-3">
                       <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
                         Atendees
                       </label>

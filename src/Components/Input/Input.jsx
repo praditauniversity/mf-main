@@ -139,6 +139,9 @@ export const TimePickerField = ({ label, selected, placeholder, onChange, disabl
                 timeInputLabel="Time:"
                 dateFormat="MM/dd/yyyy h:mm aa"
                 showTimeInput
+                // dateFormat="h:mm aa"
+                // showTimeSelect
+                // showTimeSelectOnly
 
             />
         </div>

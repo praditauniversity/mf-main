@@ -305,13 +305,22 @@ gantt.config.columns = [
                 "<select class='editor_phase input input-bordered w-full'>" +
                 "</select>" +
                 "</div>" +
+
+                "<div class='form-control w-3/4'>" +
+                "<label class='label'>" +
+                "<span class='label-text'>Unit of Measurement</span>" +
+                "</label>" +
+                "<select class='editor_unitmeasure input input-bordered w-full'>" +
+                "</select>" +
+                "</div>" +
                 "</div>"
             );
         },
         set_value: function (node, value, task) {
             const prioritySelector = node.querySelector(".editor_priority");
             const phaseSelector = node.querySelector(".editor_phase");
-            console.log("OPTIONSSSSSSSSSSSSS", optionPriority, optionPhase)
+            const unitMeasureSelector = node.querySelector(".editor_unitmeasure");
+            console.log("OPTIONSSSSSSSSSSSSS", optionPriority, optionPhase, optionUnitMeasurement)
 
             if (prioritySelector.length < 1) {
                 optionPriority.forEach(option => {
@@ -331,14 +340,17 @@ gantt.config.columns = [
                     phaseSelector.appendChild(optionElement);
                 });
             }
-            // if (optionPhase.length < 1) {
-            //     // if phaseSelector.length empty
-            //     const optionElement = document.createElement('option');
-            //     optionElement.value = "";
-            //     optionElement.textContent = "Phase Empty";
-            //     optionElement.className = "input input-bordered w-full'";
-            //     phaseSelector.appendChild(optionElement);
-            // }
+            console.log("UNIT MEASURE SELECTOR", unitMeasureSelector);
+            if (unitMeasureSelector.length < 1) {
+                optionUnitMeasurement.forEach(option => {
+                    console.log("lllllllllllllllllllllllllll", option.label, option.value);
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option.value;
+                    optionElement.textContent = option.label;
+                    optionElement.className = "input input-bordered w-full'";
+                    unitMeasureSelector.appendChild(optionElement);
+                });
+            }
 
             prioritySelector.onchange = function () {
                 const selectedPriority = this.options[this.selectedIndex];
@@ -351,13 +363,21 @@ gantt.config.columns = [
                 selectedPhaseValue = selectedPhase.value;
                 selectedPhaseText = selectedPhase.textContent;
             };
+
+            unitMeasureSelector.onchange = function () {
+                const selectedUnitMeasure = this.options[this.selectedIndex];
+                selectedUnitMeasureValue = selectedUnitMeasure.value;
+                selectedUnitMeasureText = selectedUnitMeasure.textContent;
+            };
         },
         get_value: function (node, task, options) {
             const prioritySelector = node.querySelector(".editor_priority");
             const phaseSelector = node.querySelector(".editor_phase");
+            const unitMeasureSelector = node.querySelector(".editor_phase");
 
             task.priority = selectedPriorityText ? selectedPriorityText : task.priority ? task.priority : prioritySelector.options[0].textContent;
             task.phase_id = selectedPhaseValue ? selectedPhaseValue : task.phase_id ? task.phase_id : phaseSelector.options[0].value;
+            task.unitofmeasurement_id = selectedUnitMeasureValue ? selectedUnitMeasureValue : task.unitofmeasurement_id ? task.unitofmeasurement_id : unitMeasureSelector.options[0].value;
         },
     };
 })();
@@ -366,6 +386,8 @@ let selectedPriorityValue;
 let selectedPriorityText;
 let selectedPhaseValue;
 let selectedPhaseText;
+let selectedUnitMeasureText;
+let selectedUnitMeasureValue;
 
 // static data
 let optionPriority = [
@@ -376,6 +398,8 @@ let optionPriority = [
 
 // add by mappingPhase()
 let optionPhase = [];
+// add by mappingUnitofMeasurement()
+let optionUnitMeasurement = [];
 
 gantt.locale.labels.section_activity = "Activity Form";
 gantt.locale.labels.section_priority = "Priority";
@@ -392,7 +416,7 @@ gantt.config.lightbox.sections = [
     },
     { name: "time", height: 40, type: "datepicker", map_to: "auto" },
     { name: "custom", height: 30, map_to: "auto", type: "percentage_editor" },
-    { name: "custom", height: 30, map_to: "auto", type: "dropDownCustom", optionPriority: optionPriority, optionPhase: optionPhase },
+    { name: "custom", height: 30, map_to: "auto", type: "dropDownCustom", optionPriority: optionPriority, optionPhase: optionPhase, optionUnitMeasurement: optionUnitMeasurement },
     { name: "custom", height: 30, map_to: "auto", type: "costplan_editor" },
 ];
 
@@ -433,10 +457,10 @@ function handler({ action, obj, id }) {
 
 function AppGantt(props) {
     console.log("RENDER");
-    const { title, dataGantt, dataPhase, ganttID, isReadOnly, isShowAddColumn, isShowListGantt } = props;
+    const { title, dataGantt, dataPhase, dataUnitMeasure, ganttID, isReadOnly, isShowAddColumn, isShowListGantt } = props;
 
     // isShowAddColumn ? (!gantt.config.columns.some(col => col.name === 'add')) ? gantt.config.columns.push({ name: "add", width: 44, grid: true }) : null : null;
-    
+
     isShowAddColumn
         ? !gantt.config.columns.some(col => col.name === 'add') && gantt.config.columns.push({ name: "add", width: 44, grid: true }) && gantt.render()
         : gantt.config.columns.some(col => col.name === 'add') && gantt.config.columns.splice(gantt.config.columns.findIndex(col => col.name === 'add'), 1) && gantt.render()
@@ -459,7 +483,7 @@ function AppGantt(props) {
     const [deleteActivity, { data: deleteActivityData, error: deleteActiityError }] =
         useMutation(DELETE_ACTIVITY);
 
-    const createActivity = (parent_id, gantt_id, name, description, start_time, end_time, weight_percentage, progress_percentage, priority, cost_plan, cost_actual, material_cost_plan, material_cost_actual, tool_cost_plan, tool_cost_actual, human_cost_plan, human_cost_actual, activity_type, phase_id) => {
+    const createActivity = (parent_id, gantt_id, name, description, start_time, end_time, weight_percentage, progress_percentage, priority, cost_plan, cost_actual, material_cost_plan, material_cost_actual, tool_cost_plan, tool_cost_actual, human_cost_plan, human_cost_actual, activity_type, phase_id, unitofmeasurement_id) => {
         addActivity({
             variables: {
                 parent_id: parent_id,
@@ -481,6 +505,7 @@ function AppGantt(props) {
                 human_cost_actual: human_cost_actual,
                 activity_type: activity_type,
                 phase_id: phase_id,
+                unitofmeasurement_id: unitofmeasurement_id,
             },
         });
         if (addActivityError) {
@@ -508,7 +533,8 @@ function AppGantt(props) {
         human_cost_plan,
         human_cost_actual,
         activity_type,
-        phase_id
+        phase_id,
+        unitofmeasurement_id
     ) => {
         updateActivity({
             variables: {
@@ -532,6 +558,7 @@ function AppGantt(props) {
                 human_cost_actual: human_cost_actual,
                 activity_type: activity_type,
                 phase_id: phase_id,
+                unitofmeasurement_id: unitofmeasurement_id,
             },
         });
 
@@ -576,6 +603,7 @@ function AppGantt(props) {
             const human_cost_actual = item.human_cost_actual;
             const activity_type = item.activity_type;
             const phase_id = item.phase_id;
+            const unitofmeasurement_id = item.unitofmeasurement_id;
 
             console.log("TEMBAK GRAPHQL", item.name, item.description, item.users, item.start_date, item.end_date, item.parent, ganttID, item.weight_percentage, item.progress, item.priority, item.cost_plan, item.cost_actual, item.material_cost_plan, item.material_cost_actual, item.tool_cost_plan, item.tool_cost_actual, item.human_cost_plan, item.human_cost_actual, item.activity_type, item.phase_id);
 
@@ -601,7 +629,8 @@ function AppGantt(props) {
                 parseFloat(human_cost_plan),
                 parseFloat(human_cost_actual),
                 activity_type,
-                parseFloat(phase_id)
+                parseFloat(phase_id),
+                parseInt(unitofmeasurement_id)
             );
 
             console.log("TEMBAK GRAPHQL end");
@@ -660,6 +689,7 @@ function AppGantt(props) {
             const human_cost_actual = item.human_cost_actual;
             const activity_type = item.activity_type;
             const phase_id = item.phase_id;
+            const unitofmeasurement_id = item.unitofmeasurement_id;
 
             console.log("TEMBAK GRAPHQL", name, description, start_time, end_time, parent_id, gantt_id, weight_percentage, progress_percentage, priority, cost_plan, cost_actual, material_cost_plan, material_cost_actual, tool_cost_plan, tool_cost_actual, human_cost_plan, human_cost_actual, activity_type, phase_id);
             console.log("TEMBAK GRAPHQL data", id, item.name, item.description, item.users, item.start_date, item.end_date, item.parent, ganttID, item.weight_percentage, item.progress, item.priority, item.cost_plan, item.cost_actual, item.material_cost_plan, item.material_cost_actual, item.tool_cost_plan, item.tool_cost_actual, item.human_cost_plan, item.human_cost_actual, item.activity_type, item.phase_id);
@@ -685,7 +715,8 @@ function AppGantt(props) {
                 parseFloat(human_cost_plan),
                 parseFloat(human_cost_actual),
                 activity_type,
-                parseInt(phase_id)
+                parseInt(phase_id),
+                parseInt(unitofmeasurement_id)
             );
 
             console.log("TEMBAK GRAPHQL");
@@ -710,14 +741,29 @@ function AppGantt(props) {
 
     function MappingPhase() {
         // if optionPhase.length < 0 {
-        console.log("masuk mapping phase", dataPhase);
-        const arrayPhase = dataPhase.map((phase) => {
+        if (optionPhase.length === 0 && dataPhase.length > 0) {
+            console.log("masuk mapping phase", dataPhase);
+            const arrayPhase = dataPhase.map((phase) => {
+                // console.log("is activity data?", activity);
+                optionPhase.push({
+                    value: phase.ID,
+                    label: phase.name,
+                });
+            });
+        }
+    }
+
+    function MappingUnitofMeasurement() {
+        if (optionUnitMeasurement.length === 0 && dataUnitMeasure.length > 0) {
+        console.log("masuk mapping uom", dataUnitMeasure);
+        const arrayUOM = dataUnitMeasure.map((uom) => {
             // console.log("is activity data?", activity);
-            optionPhase.push({
-                value: phase.ID,
-                label: phase.name,
+            optionUnitMeasurement.push({
+                value: uom.ID,
+                label: uom.name,
             });
         });
+    }
     }
 
     // mapping data
@@ -750,6 +796,7 @@ function AppGantt(props) {
                 human_cost_actual: activity.human_cost_actual,
                 activity_type: activity.activity_type,
                 phase_id: activity.phase_id,
+                unitofmeasurement_id: activity.unitofmeasurement_id,
             });
         });
     }
@@ -793,25 +840,26 @@ function AppGantt(props) {
 
     return (
         <div className="py-6 bg-white px-12 rounded-xl shadow-lg h-full">
+            {console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPP", dataUnitMeasure)}
             {/* fill the height */}
             {/* <div className="h-50%"> */}
             <div className="h-full">
-            {/* <div className="h-4/5"> */}
-            {
-                isShowListGantt ? (
-                <div className="py-2 px-4 flex justify-between items-center align-middle">
-                    <p className="text-md">{title}</p>
-                    <div className="px-4 flex items-center align-right">
-                        {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={testAddTask}>ADD GANTT</button>
+                {/* <div className="h-4/5"> */}
+                {
+                    isShowListGantt ? (
+                        <div className="py-2 px-4 flex justify-between items-center align-middle">
+                            <p className="text-md">{title}</p>
+                            <div className="px-4 flex items-center align-right">
+                                {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={testAddTask}>ADD GANTT</button>
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={testAddTask2}>ADD GANTT 2</button> */}
-                        {console.log("before printlistganttname should be called")}
-                        <PrintListGanttName />
-                        {/* <PrintListGanttName /> */}
-                    </div>
-                </div>
-                ) : null
+                                {console.log("before printlistganttname should be called")}
+                                <PrintListGanttName />
+                                {/* <PrintListGanttName /> */}
+                            </div>
+                        </div>
+                    ) : null
 
-            }
+                }
                 {console.log("before mapping data should be called")}
                 {/* <div className="py-1 px-4 h-full">{MappingData()}</div> */}
                 <div className="zoom-bar px-3">
@@ -824,6 +872,7 @@ function AppGantt(props) {
                     <div className="h-full">
                         {MappingData()}
                         {MappingPhase()}
+                        {MappingUnitofMeasurement()}
                         {console.log("phase data local", optionPhase)}
                         <Gantt tasks={ganttTask} zoom={currentZoom} isReadOnly={isReadOnly} />
                     </div>

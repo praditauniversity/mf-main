@@ -111,8 +111,11 @@ export const GET_GANTT_DATA_LAMA2 = gql`
 export const GET_GANTT_PROJECT_ID = gql`
   query ganttGetProjectID(
     $project_id: String!
+    $page: String
+    $limit: String
+    $sort: String
     ) {
-    ganttGetProjectID(project_id: $project_id) {
+    ganttGetProjectID(project_id: $project_id, page: $page, limit: $limit, sort: $sort) {
       data {
         ID
         CreatedAt

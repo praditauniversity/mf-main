@@ -5,14 +5,13 @@ import "../../../../Assets/svgbutton/svgbutton.css";
 import { GET_ACTIVITY_DATA, GET_PROJECT_DATA } from "../../../GraphQL/Queries";
 import {
   IconDeleteForm,
+  IconEdit,
   IconPlus,
   IconPlusForm,
   IconSaveForm,
 } from "../../../Icons/icon";
 import { DatePickerField } from "../../../Input/Input";
 import "./UpdateModal.css";
-import Addnewequipment, { useEquipment } from "./Addnewequipment";
-import Addnewworklog, { useWorkLog } from "./Addnewworklog";
 
 
 //note
@@ -29,45 +28,44 @@ const GET_DAILY_REPORT = gql`
   }
 `;
 
-const ADD_DAILY_REPORT = gql`
-  mutation addDailyReport(
-    $name: String!
-    $description: String!
-    $status: String!
-    $equipment: [String]!
-    $activity_id: Int!
-    $project_id: Int!
-    $report_date: DateTime!
-    $work_log_name: [String]!
-    $work_log_desc: [String]!
-    $work_log_status: [String]!
-    $work_log_hour: [Int]!
-  ) {
-    addDailyReport(
-      input: {
-        name: $name
-        description: $description
-        status: $status
-        equipment: $equipment
-        activity_id: $activity_id
-        project_id: $project_id
-        report_date: $report_date
-        work_log_name: $work_log_name
-        work_log_desc: $work_log_desc
-        work_log_status: $work_log_status
-        work_log_hour: $work_log_hour
-      }
-    ) {
-      data {
-        ID
-        name
-        description
-      }
-    }
+const UPDATE_DAILY_REPORT = gql`
+mutation updateDailyreports(
+  $id: String!,
+  $name: String!,
+  $description: String!,
+  $status: String!,
+  $equipment: [String]!,
+  $report_date: DateTime!,
+  $work_log_name: [String]!,
+  $work_log_desc: [String]!,
+  $work_log_status: [String]!,
+  $work_log_hour: [Int]!
+) {
+updateDailyReport( id:$id
+input:{
+    name: $name,
+      description: $description,
+    status: $status,
+      equipment: $equipment,
+      report_date: $report_date,
+      work_log_name: $work_log_name,
+      work_log_desc: $work_log_desc,
+      work_log_status: $work_log_status,
+      work_log_hour: $work_log_hour 
+}
+) {
+  data {
+      ID
+      name
+      description
   }
+}
+}
 `;
 
-const UpdateModalDailyReport = () => {
+const UpdateModalDailyReport = (props) => {
+  const { reportID } = props;
+
   const [inputFields, setInputFields] = useState([
     { name: "", description: "", status: "", hour: 0 },
   ]);
@@ -75,34 +73,37 @@ const UpdateModalDailyReport = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
-  const [activity_id, setActivityId] = useState(0);
-  const [project_id, setProjectId] = useState(0);
+  // const [activity_id, setActivityId] = useState(0);
+  // const [project_id, setProjectId] = useState(0);
   const [report_date, setReportDate] = useState("");
   const [work_log_name, setWorkLogName] = useState([""]);
   const [work_log_desc, setWorkLogDesc] = useState([""]);
   const [work_log_status, setWorkLogStatus] = useState([""]);
   const [work_log_hour, setWorkLogHour] = useState([0]);
-  const [projectidtest, setProjectIdTest] = useState(0);
-  const [activityidtest, setActivityIdTest] = useState(0);
+  // const [projectidtest, setProjectIdTest] = useState(0);
+  // const [activityidtest, setActivityIdTest] = useState(0);
   console.log("work_log_name", setEquipment);
+
   const [
-    addDailyReport,
-    { loading: addDailyReportLoading, error: addDailyReportError },
-  ] = useMutation(ADD_DAILY_REPORT, {
+    updateDailyReport,
+    { loading: updateDailyReportloading, error: updateDailyReportError },
+  ] = useMutation(UPDATE_DAILY_REPORT, {
     refetchQueries: [{ query: GET_DAILY_REPORT }],
   });
 
-  const inputRefActivity = useRef(null);
-  const inputRefProject = useRef(null);
+  // const inputRefActivity = useRef(null);
+  // const inputRefProject = useRef(null);
 
-  const { data, loading, error } = useQuery(GET_ACTIVITY_DATA);
-  const {
-    data: getproject,
-    loading: loadingproject,
-    error: errorproject,
-  } = useQuery(GET_PROJECT_DATA);
-  const [projectName, setProjectName] = useState([]);
-  const [activityName, setActivityName] = useState([]);
+  // const { data, loading, error } = useQuery(GET_ACTIVITY_DATA);
+  // const {
+  //   data: getproject,
+  //   loading: loadingproject,
+  //   error: errorproject,
+  // } = useQuery(GET_PROJECT_DATA);
+  // const [projectName, setProjectName] = useState([]);
+  // const [activityName, setActivityName] = useState([]);
+
+
   const [isOpen, setIsOpen] = useState(false);
   const showDialog = () => {
     setIsOpen(true);
@@ -111,54 +112,54 @@ const UpdateModalDailyReport = () => {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    if (data) {
-      console.log("data Ready List Activity");
-      setActivityName(data.activity.data);
-      console.log("data found", data.activity.data);
-    } else {
-      console.log("data not found");
-    }
-    if (getproject) {
-      console.log("data Ready List Project");
-      setProjectName(getproject.project.Data);
-      console.log("data found", getproject.project.Data);
-    }
-    console.log("USE EFFECT list daily report");
-  }, [data, getproject]);
+  // useEffect(() => {
+  //   if (data) {
+  //     console.log("data Ready List Activity");
+  //     setActivityName(data.activity.data);
+  //     console.log("data found", data.activity.data);
+  //   } else {
+  //     console.log("data not found");
+  //   }
+  //   if (getproject) {
+  //     console.log("data Ready List Project");
+  //     setProjectName(getproject.project.Data);
+  //     console.log("data found", getproject.project.Data);
+  //   }
+  //   console.log("USE EFFECT list daily report");
+  // }, [data, getproject]);
 
-  function printListsetActivityName() {
-    return activityName.map(({ ID, name }) => (
-      <>
-        <option value={ID}>{name}</option>
-      </>
-    ));
-  }
+  // // function printListsetActivityName() {
+  // //   return activityName.map(({ ID, name }) => (
+  // //     <>
+  // //       <option value={ID}>{name}</option>
+  // //     </>
+  // //   ));
+  // // }
 
-  function printListsetProjectName() {
-    return projectName.map(({ ID, name }) => (
-      <>
-        <option value={ID}>{name}</option>
-      </>
-    ));
-  }
-  const handleChangeActivity = (event) => {
-    setActivityId(parseInt(event.target.value));
-    console.log(
-      "Activity ID",
-      typeof parseInt(event.target.value),
-      event.target.value
-    );
-  };
+  // // function printListsetProjectName() {
+  // //   return projectName.map(({ ID, name }) => (
+  // //     <>
+  // //       <option value={ID}>{name}</option>
+  // //     </>
+  // //   ));
+  // // }
+  // const handleChangeActivity = (event) => {
+  //   setActivityId(parseInt(event.target.value));
+  //   console.log(
+  //     "Activity ID",
+  //     typeof parseInt(event.target.value),
+  //     event.target.value
+  //   );
+  // };
 
-  const handleChangeProject = (event) => {
-    setProjectId(parseInt(event.target.value));
-    console.log(
-      "Project ID",
-      typeof parseInt(event.target.value),
-      event.target.value
-    );
-  };
+  // const handleChangeProject = (event) => {
+  //   setProjectId(parseInt(event.target.value));
+  //   console.log(
+  //     "Project ID",
+  //     typeof parseInt(event.target.value),
+  //     event.target.value
+  //   );
+  // };
 
   const handleName = (event) => {
     setName(event.target.value);
@@ -193,7 +194,7 @@ const UpdateModalDailyReport = () => {
     let data = [...inputFields];
     data[index][event.target.name] = event.target.value;
     setInputFields(data);
-    
+
   };
 
   // setWorkLogName(inputFields.map((inputField) => inputField.name));
@@ -214,49 +215,48 @@ const UpdateModalDailyReport = () => {
     dataEquip.splice(index, 1);
     console.log("removefields", equipment);
     console.log("removefields", dataEquip);
-    setProjectObjectives(dataEquip);
+    setEquipment(dataEquip);
   };
-  
+
   const handleSubmit = (e) => {
-    const activity_id = parseInt(inputRefActivity.current.value);
-    const project_id = parseInt(inputRefProject.current.value);
-    activity_id === 0 ?setActivityId(parseInt(inputRefActivity.current.value)): activity_id
-    project_id === 0 ? setProjectId(parseInt(inputRefProject.current.value)): project_id
+    //   const activity_id = parseInt(inputRefActivity.current.value);
+    //   const project_id = parseInt(inputRefProject.current.value);
+    //   activity_id === 0 ?setActivityId(parseInt(inputRefActivity.current.value)): activity_id
+    //   project_id === 0 ? setProjectId(parseInt(inputRefProject.current.value)): project_id
 
-      
 
-      setWorkLogName(inputFields.map((inputField) => inputField.name));
-      setWorkLogDesc(inputFields.map((inputField) => inputField.description));
-      setWorkLogStatus(inputFields.map((inputField) => inputField.status));
-      setWorkLogHour(inputFields.map((inputField) => parseInt(inputField.hour)));
-      var gue = work_log_name;
-      var gue2 = work_log_desc;
-      var gue3 = work_log_status;
-      var gue4 = work_log_hour;
 
-      console.log("BABIBADASDA",inputFields.map((inputField) => inputField.name))
-      console.log("fakkkkkkkkkkkkkkkkkkkkkkk", gue)
-      console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue2)
-      
-      console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue3)
-      console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue4)
-      console.log("equipmentt",equipment)
-      console.log("namee",name)
-      console.log("description",description)
-      console.log("Status",status)
-      console.log("activity_id",activityidtest)
-      console.log("project_id",projectidtest)
-      
+    setWorkLogName(inputFields.map((inputField) => inputField.name));
+    setWorkLogDesc(inputFields.map((inputField) => inputField.description));
+    setWorkLogStatus(inputFields.map((inputField) => inputField.status));
+    setWorkLogHour(inputFields.map((inputField) => parseInt(inputField.hour)));
+    var gue = work_log_name;
+    var gue2 = work_log_desc;
+    var gue3 = work_log_status;
+    var gue4 = work_log_hour;
+
+    console.log("BABIBADASDA", inputFields.map((inputField) => inputField.name))
+    console.log("fakkkkkkkkkkkkkkkkkkkkkkk", gue)
+    console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue2)
+
+    console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue3)
+    console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue4)
+    console.log("equipmentt", equipment)
+    console.log("namee", name)
+    console.log("description", description)
+    console.log("Status", status)
+    // console.log("activity_id", activityidtest)
+    // console.log("project_id", projectidtest)
+
     e.preventDefault();
 
-    addDailyReport({
+    updateDailyReport({
       variables: {
+        id: reportID,
         name,
         description,
         status,
         equipment,
-        activity_id,
-        project_id,
         report_date,
         work_log_name,
         work_log_desc,
@@ -281,7 +281,7 @@ const UpdateModalDailyReport = () => {
           className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
           id="icon"
         >
-          <IconPlus />
+          <IconEdit />
         </button>
       </div>
       <>
@@ -367,48 +367,7 @@ const UpdateModalDailyReport = () => {
                         placeholder="DD/MM/YYYY"
                       />
                     </div>
-                    {/* activity */}
-                    <div className="mt-3">
-                      <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
-                        Activity Name
-                      </label>
-                      <div className="flex flex-col items-center">
-                        <select
-                          ref={inputRefActivity}
-                          value={activity_id}
-                          onChange={handleChangeActivity}
-                          className="editor_type select select-bordered w-full max-w-5xl"
-                        >
-                          {printListsetActivityName()}
-                        </select>
-                      </div>
-                    </div>
-                    {/* project */}
-                    <div className="mt-3">
-                      <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
-                        Project Name
-                      </label>
-                      <div className="flex flex-col items-center">
-                        <select
-                          ref={inputRefProject}
-                          value={project_id}
-                          onChange={handleChangeProject}
-                          className="editor_type select select-bordered w-full max-w-5xl"
-                        >
-                          {printListsetProjectName()}
-                        </select>
-                      </div>
-                    </div>
-                    {/* <div className="mt-6">
-                      <div className="form-control w-full max-w-5xl">
-                        <div className="border-2 border-grey-border rounded-lg px-4 py-2">
-                          <div className="">
-                            <p className="text-lg font-semibold">Work Log</p>
-                          </div>
-                          <Addnewworklog />
-                        </div>
-                      </div>
-                    </div> */}
+
                     <div>
                       <div className="">
                         <div className="pt-2 w-full max-w-5xl">
@@ -511,15 +470,8 @@ const UpdateModalDailyReport = () => {
                         })}
                       </div>
                     </div>
-                    {/* <div className="mt-3">
-                      <div className="form-control w-full max-w-5xl">
-                        <label className="label">
-                          <span className="label-text">Equipments</span>
-                        </label>
-                        <Addnewequipment />
-                      </div>
-                    </div> */}
-                    {/* project objectives */}
+
+                    {/* equipment */}
                     <div className="pb-2">
                       <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
                         Equipment
@@ -568,6 +520,11 @@ const UpdateModalDailyReport = () => {
                         );
                       })}
                     </div>
+
+                    <div>
+                      <p className="label-text">Daily Report ID: <span className="label-text font-bold">{reportID}</span></p>
+                    </div>
+
                     <div className="mt-10">
                       <div className="flex justify-end">
                         <button

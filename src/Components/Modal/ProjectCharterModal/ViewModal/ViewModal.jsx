@@ -150,9 +150,9 @@ const ViewModalCharter = (props) => {
                                                     </div>
                                                 </div>
 
-                                                <div className="py-6">
+                                                <div className="">
                                                     <TitleMilestone title="Milestone" />
-                                                    <div className="grid grid-cols-12 py-6 flex justify-between">
+                                                    <div className="grid grid-cols-12 pb-6 flex justify-between">
                                                         <div className='col-span-5'>
                                                             <DescTitle title="Start Date" description={charterStart} />
                                                         </div>

@@ -8,12 +8,8 @@ import FetchActivity from "../../../Middleware/Fetchers/FetchActivity";
 import FetchDailyReport from "../../../Middleware/Fetchers/FetchDailyReport";
 import { Link } from "react-router-dom";
 import FetchDailyReportByProjectId from "../../../Middleware/Fetchers/FetchDailyReportByProjectId";
-import { GET_DAILY_REPORT_DATA_BY_PROJECT_ID, GET_GANTT_PROJECT_ID, GET_PROJECT_DATA_BY_ID } from "../../GraphQL/Queries";
-
-const DELETE_DAILYREPORT = gql`
-  mutation DeleteDailyReport($id: String!) {
-    deleteDailyReport(id: $id) 
-  }`;
+import UpdateModalDailyReport from "../../Modal/DailyReportModal/UpdateModal/UpdateModal";
+import DeleteModalReport from "../../Modal/DailyReportModal/DeleteModal/DeleteModal";
 
 
 const DRList = () => {
@@ -44,18 +40,6 @@ const DRList = () => {
   const activityData = FetchActivity();
   // const dailyReportData = FetchDailyReport();
   const dailyReportData = FetchDailyReportByProjectId();
-
-  const [deleteReport, { loading, error }] = useMutation(DELETE_DAILYREPORT,
-    {
-      refetchQueries: [
-        { query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID }
-      ]
-    }
-  );
-
-  if (loading) return 'Submitting...';
-  if (error) return `Submission error! ${error.message}`;
-
 
   return (
     <div className="rounded-xl shadow-lg bg-white pt-6">
@@ -114,9 +98,11 @@ const DRList = () => {
                                       <td align="center">{activity.name}</td>
                                       <td align="center">
                                         <button className="px-1" id="icon">
-                                          <IconEdit />
+                                          <UpdateModalDailyReport
+                                            reportID={String(dailyReport.ID)}
+                                          />
                                         </button>
-                                        <button className="px-1" id="icon"
+                                        {/* <button className="px-1" id="icon"
                                           onClick={e => {
                                             const listID = String(dailyReport.ID);
                                             console.log(typeof listID, listID);
@@ -124,7 +110,13 @@ const DRList = () => {
                                             e.preventDefault();
                                             deleteReport({ variables: { id: listID } });
                                           }}
-                                        ><IconDelete /></button>
+                                        ><IconDelete /></button> */}
+                                        <button className="px-1" id="icon">
+                                          <DeleteModalReport
+                                            reportID={String(dailyReport.ID)}
+                                          />
+                                        </button>
+
                                       </td>
                                     </tr>
                                   )
