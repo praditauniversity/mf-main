@@ -8,15 +8,21 @@ body {
     margin: 0px;
     padding: 0px;
     height: 100%;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 .gantt_lightbox {
-    width: 900px;
+    width: 1200px;
 }
 
 .gantt_cal_light {
-    width: 900px;
+    width: 1200px;
+}
+
+#gantt_cal_light{
+    width: 1200px;
+    height: 600px;
+    overflow-y: auto;
 }
 
 /* </style> */

@@ -27,7 +27,7 @@ const Accordion = ({ data }) => {
                             <div className="collapse-content">
                                 <h5 className="text-lg font-bold text-gray-500">Description</h5>
                                 <p className="text-md text-gray-500 mt-2">
-                                    {item.description}
+                                    {item.description ? item.description : 'N/A'}
                                 </p>
                                 <br></br>
                                 <h5 className="text-lg font-bold text-gray-500">Interval</h5>

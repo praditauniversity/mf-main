@@ -62,7 +62,7 @@ const GanttPage = () => {
                                 </td>
                                 <td>
                                     <p className="truncate w-56 whitespace-nowrap text-ellipsis overflow-hidden">
-                                        {gantt.description}
+                                        {gantt.description ? gantt.description : "N/A"}
                                     </p>
                                     {/* <span className="badge badge-ghost badge-sm">
                                         gantt

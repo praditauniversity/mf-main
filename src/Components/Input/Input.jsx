@@ -122,6 +122,42 @@ export const DatePickerField = ({ label, dateFormat, selected, placeholder, onCh
     );
 }
 
+export const DatePickerFieldStart = ({ label, dateFormat, selected, placeholder, onChange, disabled, error }) => {
+    return (
+        <div className="form-group">
+            <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
+            <DatePicker
+                dateFormat={dateFormat}
+                className="form-control input input-bordered mb-4 shadow appearance-none border rounded w-full bg-table-dark border-primary-light rounded-lg py-3 px-4"
+                selected={selected}
+                onChange={onChange}
+                placeholder={placeholder}
+                disabled={disabled}
+                error={error}
+                selectsStart
+            />
+        </div>
+    );
+}
+
+export const DatePickerFieldEnd = ({ label, dateFormat, selected, placeholder, onChange, disabled, error }) => {
+    return (
+        <div className="form-group">
+            <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
+            <DatePicker
+                dateFormat={dateFormat}
+                className="form-control input input-bordered mb-4 shadow appearance-none border rounded w-full bg-table-dark border-primary-light rounded-lg py-3 px-4"
+                selected={selected}
+                onChange={onChange}
+                placeholder={placeholder}
+                disabled={disabled}
+                error={error}
+                selectsEnd
+            />
+        </div>
+    );
+}
+
 export const TimePickerField = ({ label, selected, placeholder, onChange, disabled, error }) => {
     // const [startDate, setStartDate] = useState(
     //     setHours(setMinutes(new Date(), 30), 16)

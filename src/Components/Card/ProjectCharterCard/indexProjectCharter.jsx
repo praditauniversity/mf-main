@@ -29,16 +29,16 @@ const ProjectCharterPage = (props) => {
                     <div className="flex justify-start">
                         <p className="text-xl font-semibold px-2">Project Charter</p>
                     </div>
-                    <div className="flex justify-end">
+                    {/* <div className="flex justify-end">
                         <div className="flex justify-between">
                             <AddModalProjectCharter />
-                            {/* <button className="px-1" id="icon"><IconEdit /></button>
-                            <button className="px-1" id="icon"><IconDelete /></button> */}
+                            <button className="px-1" id="icon"><IconEdit /></button>
+                            <button className="px-1" id="icon"><IconDelete /></button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
-                <div className="px-36">
+                <div className="px-8">
                     <div className="py-10">
                         <div>
                             <div className="py-2 w-full bg-grey-light text-center">

@@ -1,6 +1,53 @@
 import React, { Component } from "react";
 import { gantt } from "dhtmlx-gantt";
+import "./Gantt.css";
 import "dhtmlx-gantt/codebase/dhtmlxgantt.css";
+
+// gantt plugins
+gantt.plugins({
+  marker: true,
+  // drag_timeline: true,
+  // critical_path: true,
+  auto_scheduling: true,
+  fullscreen: true
+});
+
+var dateToStr = gantt.date.date_to_str(gantt.config.task_date);
+var markerId = gantt.addMarker({
+  start_date: new Date(), //a Date object that sets the marker's date
+  css: "today", //a CSS class applied to the marker
+  text: "Today", //the marker title
+  title: dateToStr(new Date()) // the marker's tooltip
+});
+
+gantt.config.reorder_grid_columns = true;
+gantt.config.resize_rows = true;
+gantt.config.grid_resize = true;
+gantt.config.grid_width = 500;
+
+gantt.config.autoscroll = true;
+gantt.config.scroll_size = 30;
+gantt.config.layout = {
+	css: "gantt_container",
+	cols: [
+		{
+			width: 400,
+			min_width: 300,
+			rows: [
+				{ view: "grid", scrollX: "gridScroll", scrollable: true, scrollY: "scrollVer" },
+				{ view: "scrollbar", id: "gridScroll", group: "horizontal" }
+			]
+		},
+		{ resizer: true, width: 3 },
+		{
+			rows: [
+				{ view: "timeline", scrollX: "scrollHor", scrollY: "scrollVer", scrollable: true},
+				{ view: "scrollbar", id: "scrollHor", group: "horizontal" }
+			]
+		},
+		{ view: "scrollbar", id: "scrollVer" }
+	]
+};
 
 export default class Gantt extends Component {
   constructor(props) {
@@ -73,17 +120,35 @@ export default class Gantt extends Component {
     return this.props.zoom !== nextProps.zoom;
   }
 
+  // componentDidMount() {
+  //   gantt.config.date_format = "%Y-%m-%d %H:%i";
+  //   const { tasks } = this.props;
+  //   gantt.config.open_tree_initially = true;
+  //   gantt.config.lightbox.height = 670;
+  //   // gantt.config.lightbox_additional_height = 6000;
+  //   gantt.init(this.ganttContainer);
+  //   gantt.config.readonly = this.props.isReadOnly;
+  //   // gantt.config.height = "full";
+  //   gantt.render();
+  //   gantt.config.lightbox.width = 900;
+  //   gantt.parse(tasks);
+  //   // gantt.config.lightbox.css = "max-height: 600px; overflow-y: auto;";
+  //   gantt.config.lightbox.css = "height: 700px;";
+  //   // gantt.cal.area.css = "height: 600px; overflow-y: auto;";
+  //   gantt.config.lightbox.height = 670;
+  // }
+
   componentDidMount() {
     gantt.config.date_format = "%Y-%m-%d %H:%i";
     const { tasks } = this.props;
     gantt.config.open_tree_initially = true;
     gantt.init(this.ganttContainer);
     gantt.config.readonly = this.props.isReadOnly;
-    gantt.config.height = "full";
     gantt.render();
     gantt.config.lightbox.width = 900;
+    gantt.config.lightbox.height = 6700;
     gantt.parse(tasks);
-    gantt.config.lightbox.css = "max-height: 600px; overflow-y: auto;";
+    gantt.config.lightbox.height = 6700;
   }
 
   componentWillUnmount() {

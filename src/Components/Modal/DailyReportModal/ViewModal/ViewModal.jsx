@@ -103,7 +103,7 @@ const ViewModalCharter = (props) => {
                                                             {charterObj.map((item, index) => {
                                                                 return (
                                                                     <div key={index}>
-                                                                        <List description={item ? item : "N/A"} />
+                                                                        <List description={item} />
                                                                     </div>
                                                                 )
                                                             })
@@ -141,7 +141,7 @@ const ViewModalCharter = (props) => {
                                                             {charterResource.map((item, index) => {
                                                                 return (
                                                                     <div key={index}>
-                                                                        <List description={item ? item : "N/A"} />
+                                                                        <List description={item} />
                                                                     </div>
                                                                 )
                                                             })
@@ -169,7 +169,7 @@ const ViewModalCharter = (props) => {
                                                             {charterRisk.map((item, index) => {
                                                                 return (
                                                                     <div key={index}>
-                                                                        <List description={item ? item : "N/A"} />
+                                                                        <List description={item} />
                                                                     </div>
                                                                 )
                                                             })

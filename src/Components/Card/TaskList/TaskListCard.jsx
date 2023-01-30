@@ -11,6 +11,21 @@ const TaskListCard = (props) => {
     //     { taskname: "Evaluation", startdate: "11/10/2021", enddate: "11/10/2021", duration: "100 Days", status: "In Progress", priority: "Normal", assignee: "Rendha Vateria", progress: "40%" },
     //     { taskname: "Closing", startdate: "11/10/2021", enddate: "11/10/2021", duration: "100 Days", status: "In Progress", priority: "Normal", assignee: "Rendha Vateria", progress: "20%" },
     // ]
+    const ifTaskDataEmpty = () => {
+        if (dataTask.length === 0) {
+            // fill the table with white space
+            return (
+                <tr className="h-full" >
+                    <td colSpan="7" className="text-center ">
+                        <div className="text-gray-400">
+                            <div className="text-5xl font-bold">No Task</div>
+                            <div className="text-xl">Please add a task</div>
+                        </div>
+                    </td>
+                </tr>
+            )
+        }
+    }
     return (
         <div className="rounded-xl shadow-lg bg-white pt-6 h-[575px]">
             <div className="flex justify-start pl-8 pb-6">
@@ -63,6 +78,7 @@ const TaskListCard = (props) => {
                                 )
                             })
                         }
+                        {ifTaskDataEmpty()}
                     </tbody>
                 </table>
             </div>

@@ -27,7 +27,7 @@ export function Actual(props) {
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 act = project.cost_actual;
-                projectCurrency = project.currency_symbol;
+                projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
             }
         });
         return (
@@ -66,7 +66,7 @@ export function Cost(props) {
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 cost = project.cost_plan;
-                projectCurrency = project.currency_symbol;
+                projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
             }
         });
         return (
@@ -105,7 +105,7 @@ export function Budget(props) {
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 budget = project.budget;
-                projectCurrency = project.currency_symbol;
+                projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
             }
         });
         return (
@@ -145,7 +145,7 @@ export function Danger(props) {
             if (profile.id === project.user_id) {
                 const tempDanger = project.cost_plan - project.cost_actual;
                 danger = tempDanger <= 0 ? tempDanger * -1 : 0;
-                projectCurrency = project.currency_symbol;
+                projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
             }
         });
         return (
@@ -184,7 +184,7 @@ export function Variance(props) {
         projectData.map((project) => {
             if (profile.id === project.user_id) {
                 variance = project.budget - project.cost_actual;
-                projectCurrency = project.currency_symbol;
+                projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
             }
         });
         return (
@@ -338,7 +338,7 @@ export function ProjectManager(props) {
         let projectManager = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                projectManager = project.project_manager;
+                projectManager = project.project_manager ? project.project_manager : "N/A";
             }
         });
         return (
@@ -374,7 +374,7 @@ export function Client(props) {
         let client = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                client = project.client;
+                client = project.client ? project.client : "N/A";
             }
         });
         return (
@@ -410,7 +410,7 @@ export function ClientContact(props) {
         let clientContact = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                clientContact = project.client_contact;
+                clientContact = project.client_contact ? project.client_contact : "N/A";
             }
         });
         return (
@@ -446,7 +446,7 @@ export function ProjectStatus(props) {
         let projectStatus = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                projectStatus = project.status;
+                projectStatus = project.status ? project.status : "N/A";
             }
         });
         return (
@@ -482,7 +482,7 @@ export function Location(props) {
         let location = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                location = project.office_location;
+                location = project.office_location ? project.office_location : "N/A";
             }
         });
         return (

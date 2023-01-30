@@ -1,14 +1,25 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
+import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 
 export default function DualColumnChart() {
+  const projectData = FetchProjectByUserId();
+  // const series = [
+  //   {
+  //     name: 'Planning',
+  //     data: [44, 55, 57, 56, 61, 58, 63, 60, 80]
+  //   }, {
+  //     name: 'Actual',
+  //     data: [76, 85, 101, 98, 87, 105, 91, 114, 120]
+  //   }
+  // ]
   const series = [
     {
       name: 'Planning',
-      data: [44, 55, 57, 56, 61, 58, 63, 60, 80]
+      data: projectData.map((project) => project.cost_plan)
     }, {
       name: 'Actual',
-      data: [76, 85, 101, 98, 87, 105, 91, 114, 120]
+      data: projectData.map((project) => project.cost_actual)
     }
   ]
   const options = {
@@ -43,7 +54,8 @@ export default function DualColumnChart() {
           cssClass: 'apexcharts-xaxis-label',
       },
       },
-      categories: ['Gedung Tenanga Panel Surya', 'Pembangunan Gedung Tower ABC', 'Tower Jaringan Jawa Barat', 'Tower Jaringan Jawa Timur', 'Tower Jaringan Jawa Tengah', 'Tower Jaringan Bali', 'Project Tower ABC', 'Tower Jaringan DKI Jakarta', 'Tower Jaringan NTT'],
+      // categories: ['Gedung Tenanga Panel Surya', 'Pembangunan Gedung Tower ABC', 'Tower Jaringan Jawa Barat', 'Tower Jaringan Jawa Timur', 'Tower Jaringan Jawa Tengah', 'Tower Jaringan Bali', 'Project Tower ABC', 'Tower Jaringan DKI Jakarta', 'Tower Jaringan NTT'],
+      categories: projectData.map((project) => project.name),
     },
     yaxis: {
       show: false
@@ -57,7 +69,8 @@ export default function DualColumnChart() {
     tooltip: {
       y: {
         formatter: function (val) {
-          return "$ " + val + " thousands"
+          // return "$ " + val + " thousands"
+          return "$ " + val
         }
       }
     }

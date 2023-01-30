@@ -12,6 +12,30 @@ const UpcomingTaskCard = (props) => {
     const classes = useStyles();
     const { dataTask } = props;
 
+    const upcomingTaskLength = dataTask.filter((item) => {
+        const todayDate = new Date();
+        const startDate = new Date(item.start_time);
+        const endDate = new Date(item.end_time);
+        const status = item.phase.name;
+        return startDate > todayDate && endDate > todayDate && status === "Todo";
+    }).length;
+
+    const ifUpcomingTaskEmpty = () => {
+        if (upcomingTaskLength === 0) {
+            // fill the table with white space
+            return (
+                <tr className="h-full" >
+                    <td colSpan="7" className="text-center ">
+                        <div className="text-gray-400">
+                            <div className="text-5xl font-bold">No Upcoming Task</div>
+                            <div className="text-xl">Please take your time</div>
+                        </div>
+                    </td>
+                </tr>
+            )
+        }
+    }
+
     function MappingData() {
 
         return (
@@ -55,6 +79,7 @@ const UpcomingTaskCard = (props) => {
                         )
                     }
                 })}
+                {ifUpcomingTaskEmpty()}
             </>
         );
     }

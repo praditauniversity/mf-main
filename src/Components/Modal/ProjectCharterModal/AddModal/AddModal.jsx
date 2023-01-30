@@ -8,38 +8,39 @@ import FetchCharter from '../../../../Middleware/Fetchers/FetchCharter';
 import { IconDeleteForm, IconPlus, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
 import { DatePickerField, InputField } from '../../../Input/Input';
 import './AddModal.css';
+import Button from "../../../Button";
 
 
 //yang masih belom mutation dan querynya
 const ADD_CHARTER = gql`
     mutation addProject(
-        $status: String!
-        $work_area: String!
-        $start_project: DateTime!
-        $stakeholder_ammount: Int!
-        $role_id: Int!
-        $type_id: Int!
-        $considered_success_when: String!
-        $cost_actual: Float!
-        $cost_plan: Float!
-        $client: String!
-        $client_contact: String!
-        $currency_name: String!
-        $currency_code: String!
-        $currency_symbol: String!
-        $description: String!
-        $end_project: DateTime!
+        $status: String
+        $work_area: String
+        $start_project: DateTime
+        $stakeholder_ammount: Int
+        $role_id: Int
+        $type_id: Int
+        $considered_success_when: String
+        $cost_actual: Float
+        $cost_plan: Float
+        $client: String
+        $client_contact: String
+        $currency_name: String
+        $currency_code: String
+        $currency_symbol: String
+        $description: String
+        $end_project: DateTime
         $name: String!
-        $office_location: String!
-        $phase_id: Int!
-        $potential_risk: [String]!
-        $total_man_power: Int!
-        $project_objectives: [String]!
-        $progress_percentage: Float!
-        $budget: Int!
-        $participants: Int!
-        $available_resources:[String]!
-        $milestone_id: Int!
+        $office_location: String
+        $phase_id: Int
+        $potential_risk: [String]
+        $total_man_power: Int
+        $project_objectives: [String]
+        $progress_percentage: Float
+        $budget: Int
+        $participants: Int
+        $available_resources:[String]
+        $milestone_id: Int
     ) {
     addProject(
         input: {
@@ -165,7 +166,7 @@ query projectCharterByUserId($userId: String!) {
 const AddModalProjectCharter = () => {
     const [status, setStatus] = useState("");
     const [work_area, setWorkArea] = useState("");
-    const [start_project, setStartProject] = useState("");
+    const [start_project, setStartProject] = useState(new Date());
     const [stakeholder_ammount, setStakeholderAmmount] = useState(0);
     const [role_id, setRoleId] = useState(0);
     const [considered_success_when, setConsideredSuccessWhen] = useState("");
@@ -177,7 +178,7 @@ const AddModalProjectCharter = () => {
     const [currency_code, setCurrencyCode] = useState("");
     const [currency_symbol, setCurrencySymbol] = useState("");
     const [description, setDescription] = useState("");
-    const [end_project, setEndProject] = useState("");
+    const [end_project, setEndProject] = useState(new Date());
     const [name, setName] = useState("");
     const [office_location, setOfficeLocation] = useState("");
     const [total_man_power, setTotalManPower] = useState(0);
@@ -418,7 +419,7 @@ const AddModalProjectCharter = () => {
 
         setStatus("");
         setWorkArea("");
-        setStartProject("");
+        setStartProject(new Date());
         setStakeholderAmmount(0);
         setRoleId(0);
         setTypeId(0);
@@ -431,7 +432,7 @@ const AddModalProjectCharter = () => {
         setCurrencyCode("");
         setCurrencySymbol("");
         setDescription("");
-        setEndProject("");
+        setEndProject(new Date());
         setName("");
         setOfficeLocation("");
         setPhaseId(0);
@@ -606,10 +607,14 @@ const AddModalProjectCharter = () => {
 
     return (
         <>
-            <div className="flex flex-row items-center justify-center">
+            {/* <div className="flex flex-row items-center justify-center">
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
                     <IconPlus />
                 </button>
+            </div> */}
+
+            <div className="add-button">
+                <Button label="+ Add Meeting" onClick={showDialog}/>
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>
@@ -735,14 +740,14 @@ const AddModalProjectCharter = () => {
                                     <DatePickerField
                                         label="Start Project"
                                         selected={start_project}
-                                        onChange={(date) => setStartProject(date)}
+                                        onChange={(date) => {setStartProject(date), console.log("Start Project", typeof setStartProject(date), setStartProject(date))}}
                                         placeholder="DD/MM/YYYY"
 
                                     />
                                     <DatePickerField
                                         label="End Project"
                                         selected={end_project}
-                                        onChange={(date) => setEndProject(date)}
+                                        onChange={(date) => {setEndProject(date) , console.log("End Project", typeof end_project, end_project)}}
                                         placeholder="DD/MM/YYYY"
                                     />
 
@@ -788,7 +793,7 @@ const AddModalProjectCharter = () => {
                                                 onClick={e => {
                                                     e.preventDefault();
                                                     handleSubmit();
-                                                    window.location.reload(true);
+                                                    // window.location.reload(true);
                                                 }}
                                             >
                                                 <IconSaveForm />

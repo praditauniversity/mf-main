@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import UserImage from "../../Assets/Images/png/User.png";
 import GetProfile from "../Auth/GetProfile";
 import Button from "../Button";
@@ -19,7 +20,9 @@ const UserCard = () => {
         </center>
       </div>
 
-      <Button label="Edit Profile" />
+      <Link to="/profile">
+        <Button label="Edit Profile" />
+      </Link>
     </div>
   )
 }

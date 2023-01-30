@@ -13,33 +13,35 @@ import DeleteModalReport from "../../Modal/DailyReportModal/DeleteModal/DeleteMo
 
 
 const DRList = () => {
-  // const { data } = useQuery(GET_PROJECT_DATA_BY_ID, {
-  //   variables: { id: localStorage.getItem('reportProjectID') }
-  // });
-  // const [projectData, setProjectData] = React.useState([]);
-
-  // const { data: data2 } = useQuery(GET_GANTT_PROJECT_ID, {
-  //   variables: { id: localStorage.getItem('reportProjectID') }
-  // });
-  // const [ganttData, setGanttData] = React.useState([]);
-
-  // React.useEffect(() => {
-  //   if (data) {
-  //     setProjectData(data.project.Data);
-  //   } 
-  //   if (data2) {
-  //     setGanttData(data2.ganttGetProjectID.data);
-  //   } 
-  //   else {
-  //     console.log("No data found for project and gantt with user id : " + localStorage.getItem('reportProjectID'));
-  //   }
-  // }, [data, data2]);
-
   const projectData = FetchProject();
   const ganttData = FetchGantt();
   const activityData = FetchActivity();
   // const dailyReportData = FetchDailyReport();
   const dailyReportData = FetchDailyReportByProjectId();
+
+  const dataLength = dailyReportData.filter((dailyReport) => {
+    return activityData.filter((activity) => {
+      return activity.ID === dailyReport.activity_id;
+    }).filter((activity) => {
+      return ganttData.filter((gantt) => {
+        return gantt.ID === activity.gantt_id;
+      }).filter((gantt) => {
+        return projectData.filter((project) => {
+          return project.ID === gantt.project_id;
+        }).length > 0;
+      }).length > 0;
+    }).length > 0;
+  }).length;
+
+  const ifDRListDataEmpty = () => {
+    if (dataLength === 0) {
+      return (
+        <tr>
+          <td colSpan="5" align="center">No Data</td>
+        </tr>
+      );
+    }
+  }
 
   return (
     <div className="rounded-xl shadow-lg bg-white pt-6">
@@ -131,6 +133,7 @@ const DRList = () => {
                 )
               })
             }
+            {ifDRListDataEmpty()}
           </tbody>
         </table>
 

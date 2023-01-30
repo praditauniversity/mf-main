@@ -12,6 +12,7 @@ import GanttPage from "../Pages/Gantt/GanttPage";
 import MainDashboard from "../Pages/MainDashboard";
 import MemberDashboardPage from "../Pages/MemberDashboard";
 import MinutesofMeeting from "../Pages/MinuteOfMeeting";
+import MinutesofMeetingView from "../Pages/MinuteOfMeeting/momview";
 import PMODashboardPage from "../Pages/PMODashboard";
 import Project from "../Pages/Project";
 import ProjectCharter from "../Pages/ProjectCharter";
@@ -64,6 +65,7 @@ export default function Routing() {
         <Route path="/dailyreportview" element={<DailyReportView />}></Route>
         <Route path="/project-list" element={<ProjectList />}></Route>
         <Route path="/minutesofmeeting" element={<MinutesofMeeting />}></Route>
+        <Route path="/minutesofmeetingview" element={<MinutesofMeetingView />}></Route>
         <Route path={`/project-list/:projectID/gantt`} element={<GanttPage />}></Route>
         <Route path={`/project-list/:projectID/gantt/:ganttID/gantt-chart`} element={<GanttChartPage />}></Route>
       </Routes>

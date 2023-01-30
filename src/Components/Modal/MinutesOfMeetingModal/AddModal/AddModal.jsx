@@ -18,6 +18,7 @@ import "./AddModal.css";
 import { DatePickerField, TimePickerField } from "../../../Input/Input";
 import { GET_PROJECT_DATA } from "../../../GraphQL/Queries";
 import FetchProjectByUserId from "../../../../Middleware/Fetchers/FetchProjectByUserId";
+import Button from "../../../Button";
 
 const GET_MINUTES_OF_MEETING_DATA = gql`
   query minuteOfMeeting {
@@ -79,7 +80,7 @@ const ADD_MINUTES_OF_MEETING = gql`
 
 const AddModalMinutesOfMeeting = () => {
   const [inputFields, setInputFields] = useState([
-    {action_item: "", owner: "", deadline: "", status: "" },
+    { action_item: "", owner: "", deadline: "", status: "" },
   ]);
   const [project_id, setProject_id] = useState(0);
   const [meeting_name, setMeeting_name] = useState("");
@@ -108,7 +109,7 @@ const AddModalMinutesOfMeeting = () => {
   const projectName = FetchProjectByUserId();
 
   function printListProjectName() {
-    return projectName.map(({ID, name}) => (
+    return projectName.map(({ ID, name }) => (
       <>
         <option value={ID}>{name}</option>
       </>
@@ -117,8 +118,8 @@ const AddModalMinutesOfMeeting = () => {
 
   const handleChangeProject = (event) => {
     setProject_id(parseInt(event.target.value));
-    console.log("project_id",typeof parseInt(event.target.value), event.target.value);
-    };
+    console.log("project_id", typeof parseInt(event.target.value), event.target.value);
+  };
 
 
   const [isOpen, setIsOpen] = useState(false);
@@ -128,28 +129,28 @@ const AddModalMinutesOfMeeting = () => {
   const hideDialog = () => {
     setIsOpen(false);
   };
-  
+
   const handleFormChangeNotes = (value, index) => {
     const dataNotes = notes.map((notesItem, notesIndex) => {
       return notesIndex === index ? value : notesItem;
     });
     setNotes(dataNotes);
-    
+
     console.log("DATA", dataNotes);
     console.log("DAILYREPORTEQUP", notes);
   };
 
-  
-const handleFormChange = (index, event) => {
-  let data = [...inputFields];
-  data[index][event.target.name] = event.target.value;
-  setInputFields(data);
-  console.log("DATAAAAAA", data);
-  setAction_item(inputFields.map((inputField) => inputField.action_item));
-  setOwner(inputFields.map((inputField) => inputField.owner));
-  setDeadline(inputFields.map((inputField) => inputField.deadline));
-  setStatus(inputFields.map((inputField) => inputField.status));
-};
+
+  const handleFormChange = (index, event) => {
+    let data = [...inputFields];
+    data[index][event.target.name] = event.target.value;
+    setInputFields(data);
+    console.log("DATAAAAAA", data);
+    setAction_item(inputFields.map((inputField) => inputField.action_item));
+    setOwner(inputFields.map((inputField) => inputField.owner));
+    setDeadline(inputFields.map((inputField) => inputField.deadline));
+    setStatus(inputFields.map((inputField) => inputField.status));
+  };
 
   const handleFormChangeAtendees = (value, index) => {
     const dataAtendees = atendees.map((atendeesItem, atendeesIndex) => {
@@ -158,7 +159,7 @@ const handleFormChange = (index, event) => {
     setAtendees(dataAtendees);
     console.log("DATA", dataAtendees);
     console.log("DAILYREPORTEQUP", atendees);
-    
+
   };
 
 
@@ -195,18 +196,18 @@ const handleFormChange = (index, event) => {
     console.log(JSON.stringify(addMinutesOfMeetingError));
 
   const handleSubmit = (e) => {
-    
+
 
     const project_id = parseInt(inputRefProject.current.value);
-    project_id === 0 ? setProject_id(parseInt(inputRefProject.current.value)): project_id
-    
+    project_id === 0 ? setProject_id(parseInt(inputRefProject.current.value)) : project_id
 
 
 
-    var gue3= action_item;
+
+    var gue3 = action_item;
     console.log("gue3", gue3);
 
-    console.log ("BAIBBIBIIBIB", inputFields.map((inputField) => inputField.action_item))
+    console.log("BAIBBIBIIBIB", inputFields.map((inputField) => inputField.action_item))
 
 
     console.log("Action_item", action_item);
@@ -251,7 +252,7 @@ const handleFormChange = (index, event) => {
   };
   return (
     <>
-      <div className="flex flex-row items-center justify-center">
+      {/* <div className="flex flex-row items-center justify-center">
         <button
           onClick={showDialog}
           className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
@@ -259,8 +260,14 @@ const handleFormChange = (index, event) => {
         >
           <IconPlus />
         </button>
-      </div>
 
+        
+
+      </div> */}
+      <div className="add-button">
+        <Button label="+ Add Meeting" onClick={showDialog} />
+      </div>
+      
       <>
         <Transition appear show={isOpen} as={Fragment}>
           <Dialog as="div" className="relative z-40" onClose={hideDialog}>

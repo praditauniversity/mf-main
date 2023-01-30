@@ -155,13 +155,13 @@ const ProjectListPage = () => {
                                     <div className="flex items-center space-x-3">
                                         <div>
                                             <div className="font-bold">{project.name}</div>
-                                            <div className="text-sm opacity-50">{project.work_area}</div>
+                                            <div className="text-sm opacity-50">{project.work_area ? project.work_area : "N/A"}</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     <p className="truncate w-56 whitespace-nowrap text-ellipsis overflow-hidden">
-                                        {project.description}
+                                        {project.description ? project.description : "N/A"}
                                     </p>
                                     <span className="badge badge-ghost badge-sm">
                                         project
@@ -198,7 +198,8 @@ const ProjectListPage = () => {
                                     <div className="flex items-center space-x-3">
                                         <div>
                                             {/* calculate duration */}
-                                            <div className="font-bold">{Math.round((new Date(project.end_project) - new Date(project.start_project)) / (1000 * 60 * 60 * 24))} days</div>
+                                            {/* <div className="font-bold">{Math.round((new Date(project.end_project) - new Date(project.start_project)) / (1000 * 60 * 60 * 24))} days</div> */}
+                                            <div className="font-bold">{project.project_duration} days</div>
                                             <div className="text-sm opacity-50">Duration Project</div>
 
                                         </div>

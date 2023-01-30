@@ -1,6 +1,6 @@
 import React from "react";
 
-const DescTitlePadding = (props) => {
+const DescTitleMOM = (props) => {
     const { title, description } = props;
     return (
         <div>
@@ -14,4 +14,4 @@ const DescTitlePadding = (props) => {
     );
 };
 
-export default DescTitlePadding;
+export default DescTitleMOM;

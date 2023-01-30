@@ -13,10 +13,32 @@ const MemberTaskCard = () => {
     //     { taskname: "Review the Project", projectname: "John Winter Wonderland Singapore", projectmanager: "Richard", deadline: " 09/03/2022", progress: "80%" },
     //     { taskname: "Create moodboard", projectname: "Reverie Product Management Application", projectmanager: "Linda", deadline: " 09/03/2022", progress: "20%" },
     // ]
+
+    const dataLength = activityData.filter((activity) => {
+        return ganttData.filter((gantt) => {
+            return gantt.ID === activity.gantt_id
+        }).filter((gantt) => {
+            return projectData.filter((project) => {
+                return project.ID === gantt.project_id
+            }).length > 0
+        }).length > 0
+    }).length
+
+    const ifMemberTaskEmpty = () => {
+        if (dataLength === 0) {
+            return (
+                <div className="flex justify-center items-center h-full">
+                    <p className="text-lg font-semibold">No task assigned</p>
+                </div>
+            )
+        }
+    }
+
     return (
         <div className="rounded-xl shadow-lg bg-white pt-6 h-[300px]">
             <div className="flex justify-start pl-8 pb-6">
                 {/* <p className="text-lg font-semibold">Task List</p> */}
+                {console.log("DATAAA LENGTHHHHH DASHBOARDDDDDD TABLEEE", dataLength)}
             </div>
             <div className="overflow-x-auto">
                 <table className="table table-zebra w-full table-hover">
@@ -62,6 +84,7 @@ const MemberTaskCard = () => {
                                 })
                             })
                         }
+                        {ifMemberTaskEmpty()}
                     </tbody>
                 </table>
             </div>

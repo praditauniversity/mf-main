@@ -26,6 +26,22 @@ const MainDashboard = () => {
         return startDate <= todayDate && endDate > todayDate;
     }).length;
 
+    const ifOnGoingProjectEmpty = () => {
+        if (projectLength === 0) {
+            // fill the table with white space
+            return (
+                <tr className="h-full" >
+                    <td colSpan="7" className="text-center ">
+                        <div className="text-gray-400">
+                            <div className="text-5xl font-bold">No On-going Project</div>
+                            <div className="text-xl">Please take your time</div>
+                        </div>
+                    </td>
+                </tr>
+            )
+        }
+    }
+
     const MainHeader = (label) => {
         return (
             <>
@@ -45,6 +61,7 @@ const MainDashboard = () => {
 
                     <div className="mt-2 border border-none rounded-lg bg-base-100 bg-background-snow p-5 overflow-y-scroll h-[320px] scrollbar">
                         <Accordion data={project} />
+                        {ifOnGoingProjectEmpty()}
                     </div>
 
                 </div>

@@ -14,7 +14,8 @@ export function SumActual() {
     let projectCurrency = "";
     projectData.map((project) => {
       sumAct = sumAct + project.cost_actual;
-      projectCurrency = project.currency_symbol;
+      // projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
+      projectCurrency = projectData[0].currency_symbol ? projectData[0].currency_symbol : "N/A";
     });
     return (
       <div>
@@ -37,7 +38,8 @@ export function SumCost() {
     let projectCurrency = "";
     projectData.map((project) => {
       sumCost = sumCost + project.cost_plan;
-      projectCurrency = project.currency_symbol;
+      // projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
+      projectCurrency = projectData[0].currency_symbol ? projectData[0].currency_symbol : "N/A";
     });
     return (
       <div>
@@ -60,7 +62,8 @@ export function SumBudget() {
     let projectCurrency = "";
     projectData.map((project) => {
       sumBudget = sumBudget + project.budget;
-      projectCurrency = project.currency_symbol;
+      // projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
+      projectCurrency = projectData[0].currency_symbol ? projectData[0].currency_symbol : "N/A";
     });
     return (
       <div>
@@ -88,7 +91,8 @@ export function SumDanger() {
       sumCost = sumCost + project.cost_plan;
       const tempDanger = sumCost - sumAct;
                 sumDanger = tempDanger <= 0 ? tempDanger * -1 : 0;
-      projectCurrency = project.currency_symbol;
+      // projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
+      projectCurrency = projectData[0].currency_symbol ? projectData[0].currency_symbol : "N/A";
     });
     return (
       <div>
@@ -115,7 +119,8 @@ export function SumVariance() {
       sumBudget = sumBudget + project.budget;
       sumAct = sumAct + project.cost_actual;
       variance = sumBudget - sumAct;
-      projectCurrency = project.currency_symbol;
+      // projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
+      projectCurrency = projectData[0].currency_symbol ? projectData[0].currency_symbol : "N/A";
     });
     return (
       <div>

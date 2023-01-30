@@ -15,6 +15,29 @@ const ActiveProjectCard = () => {
     // const project = FetchProject();
     const project = FetchProjectPage();
 
+    const projectLength = project.filter((item) => {
+        const todayDate = new Date();
+        const startDate = new Date(item.start_project);
+        const endDate = new Date(item.end_project);
+        return startDate <= todayDate && endDate > todayDate;
+    }).length;
+
+    const ifActiveProjectEmpty = () => {
+        if (projectLength === 0) {
+            // fill the table with white space
+            return (
+                <tr className="h-full" >
+                    <td colSpan="7" className="text-center ">
+                        <div className="text-gray-400">
+                            <div className="text-5xl font-bold">No Active Project</div>
+                            <div className="text-xl">Please take your time</div>
+                        </div>
+                    </td>
+                </tr>
+            )
+        }
+    }
+
     return (
         <div className="rounded-xl shadow-lg bg-white">
             <div>
@@ -50,17 +73,18 @@ const ActiveProjectCard = () => {
                                     </div>
                                 </div>
                                 <div className="flex justify-start">
-                                    <p className="text-xs opacity-70 align-text-bottom">{item.work_area}</p>
+                                    <p className="text-xs opacity-70 align-text-bottom">{item.work_area ? item.work_area : "N/A"}</p>
                                 </div>
                             </div>
                         )
                     }
                 })}  
+                {ifActiveProjectEmpty()}
                 </div>
             </div>
             <div className="pt-8 pb-8 pl-12 pr-12 flex justify-end">
                 <button className="font-semibold text-sm text-primary">
-                    View All Projects
+                    <a href="/#/project-list">View All Projects</a>
                 </button>
             </div>
         </div>

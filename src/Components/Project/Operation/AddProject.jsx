@@ -20,30 +20,30 @@ const GET_PROJECT = gql`
 `;
 const ADD_PROJECT = gql`
   mutation addProject(
-    $status: String!
-    $work_area: String!
-    $start_project: DateTime!
-    $stakeholder_ammount: Int!
-    $role_id: Int!
-    $type_id: Int!
-    $considered_success_when: String!
-    $cost_actual: Float!
-    $cost_plan: Float!
-    $client: String!
-    $client_contact: String!
-    $currency_name: String!
-    $currency_code: String!
-    $currency_symbol: String!
-    $description: String!
-    $end_project: DateTime!
-    $name: String!
-    $office_location: String!
-    $phase_id: Int!
-    $potential_risk: [String]!
-    $total_man_power: Int!
-    $project_objectives: [String]!
-    $progress_percentage: Float!
-    $budget: Int!
+    $status: String
+    $work_area: String
+    $start_project: DateTime
+    $stakeholder_ammount: Int
+    $role_id: Int
+    $type_id: Int
+    $considered_success_when: String
+    $cost_actual: Float
+    $cost_plan: Float
+    $client: String
+    $client_contact: String
+    $currency_name: String
+    $currency_code: String
+    $currency_symbol: String
+    $description: String
+    $end_project: DateTime
+    $name: String
+    $office_location: String
+    $phase_id: Int
+    $potential_risk: [String]
+    $total_man_power: Int
+    $project_objectives: [String]
+    $progress_percentage: Float
+    $budget: Int
   ) {
     addProject(
       input: {

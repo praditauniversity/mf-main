@@ -207,7 +207,7 @@ export const PrintGantt = (props) => {
   const { title } = props;
   const [activityData, setActivity] = useActivity();
   const [activityPhaseData, setActivityPhaseData] = useActivityPhase();
-  // const [activityUnitMeasureData, setActivityUnitMeasureData] = useActivityUnitMeasure();
+  const [unitMeasureData, setUnitMeasureData] = useUnitMeasure();
 
   const [ganttID, setGanttID, projectID, setProjectID, ganttName, setGanttName, projectData, setProjectData, dataGanttProject, dataProjectUser] = useGantt();
 
@@ -232,7 +232,8 @@ export const PrintGanttPage = (props) => {
   // const addButtonColumns = { };
 
   return <>
-    <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={true} isShowListGantt={false} />
+    {/* <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={true} isShowListGantt={false} /> */}
+    <TestFormGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={true} isShowListGantt={false} />
     {console.log("activityData", activityData)}
   </>
 }

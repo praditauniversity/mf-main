@@ -1,39 +1,32 @@
 import React from "react";
 import { useMutation, gql } from '@apollo/client';
-import { IconEdit, IconDelete } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
-import FetchProject from "../../../Middleware/Fetchers/FetchProject";
-import FetchGantt from "../../../Middleware/Fetchers/FetchGantt";
-import FetchActivity from "../../../Middleware/Fetchers/FetchActivity";
 import FetchMomByProjectId from "../../../Middleware/Fetchers/FetchMomByProjectId";
-import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../GraphQL/Queries";
 import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 import DeleteModalMinuteOfMeeting from "../../Modal/MinutesOfMeetingModal/DeleteModal/DeleteModal";
 import UpdateModalMinutesOfMeeting from "../../Modal/MinutesOfMeetingModal/UpdateModal/UpdateModal";
+import ViewModalMOM from "../../Modal/MinutesOfMeetingModal/ViewModal/ViewModal";
 
-const DELETE_MINUTES_OF_MEETING = gql`
-  mutation deleteMinuteOfMeeting($id: String!) {
-    deleteMinuteOfMeeting(id: $id)
-  }
-`;
 
 const MinutesofMeetingList = () => {
   const projectData = FetchProjectByUserId();
-  // const ganttData = FetchGantt();
-  // const activityData = FetchActivity();
   const momData = FetchMomByProjectId();
 
-  // const [deleteMom, { loading, error }] = useMutation(DELETE_MINUTES_OF_MEETING,
-  //   {
-  //     refetchQueries: [
-  //       { query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID }
-  //     ]
-  //   }
-  // );
+  const dataLength = momData.filter((mom) => {
+    return projectData.filter((project) => {
+      return project.ID === mom.project_id;
+    }).length > 0;
+  }).length;
 
-  // if (loading) return 'Submitting...';
-  // if (error) return `Submission error! ${error.message}`;
-  
+  const ifMomListEmpty = () => {
+    if (dataLength === 0) {
+      return (
+        <tr>
+          <td colSpan="6" align="center">No Minutes of Meeting</td>
+        </tr>
+      );
+    }
+  }
 
   return (
     <div className="rounded-xl shadow-lg bg-white pt-6">
@@ -46,7 +39,7 @@ const MinutesofMeetingList = () => {
               <th align="center">Time</th>
               <th align="center">Location</th>
               <th align="center">Meeting Leader</th>
-              <th align="center">Action</th>\
+              <th align="center">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -59,6 +52,8 @@ const MinutesofMeetingList = () => {
                       const meetingDateYear = meetingDate.toLocaleDateString('en-US', { year: 'numeric' });
                       const meetingDateMonth = meetingDate.toLocaleDateString('en-US', { month: '2-digit' });
                       const meetingDateDay = meetingDate.toLocaleDateString('en-US', { day: '2-digit' });
+
+                      const dateOfMeeting = meetingDateMonth + "/" + meetingDateDay + "/" + meetingDateYear;
 
                       const startDate = new Date(mom.start_time_meeting);
                       const startHour = typeof startDate.getHours() === 'number' ? startDate.getHours().toString().padStart(2, '0') : "00";
@@ -73,6 +68,8 @@ const MinutesofMeetingList = () => {
                       // const second = typeof startDate.getSeconds() === 'number' ? startDate.getSeconds() : 0;
                       const endTime = `${endHour}:${endMinute}`;
 
+                      const meetingTime = startTime + " - " + endTime;
+
                       return (
                         <tr key={mom.ID}>
                           <td align="center">{mom.meeting_name}</td>
@@ -81,34 +78,32 @@ const MinutesofMeetingList = () => {
                           <td align="center">{mom.location}</td>
                           <td align="center">{mom.meeting_leader}</td>
                           <td align="center">
-                            {/* <button className="px-1" id="icon"
-                              onClick={e => {
-                                // const listID = String(mom.ID);
-                                // console.log(typeof listID, listID);
-                                // e.preventDefault();
-                                // deleteReport({ variables: { id: listID } });
-                              }}
-                            >
-                              <IconEdit />
-                            </button> */}
-                            {/* <button className="px-1" id="icon"
-                              onClick={e => {
-                                const recordID = String(mom.ID);
-                                console.log(typeof recordID, recordID);
-                                e.preventDefault();
-                                deleteMom({ variables: { id: recordID } });
-                              }}
-                            >
-                              <IconDelete />
-                            </button> */}
                             <button className="px-1" id="icon">
-                              <UpdateModalMinutesOfMeeting 
-                              momID = {String(mom.ID)}
+                              <UpdateModalMinutesOfMeeting
+                                momID={String(mom.ID)}
                               />
                             </button>
                             <button className="px-1" id="icon">
-                              <DeleteModalMinuteOfMeeting 
-                              momID = {String(mom.ID)}
+                              <DeleteModalMinuteOfMeeting
+                                momID={String(mom.ID)}
+                              />
+                            </button>
+                            <button className="px-1" id="icon">
+                              <ViewModalMOM
+                                meetingName={mom.meeting_name}
+                                meetingDate={dateOfMeeting}
+                                meetingTime={meetingTime}
+                                meetingEndTime={mom.end_time_meeting}
+                                meetingLocation={mom.location}
+                                meetingLeader={mom.meeting_leader}
+                                meetingObj={mom.meeting_objective}
+                                meetingAtendees={mom.atendees}
+                                meetingNotes={mom.notes}
+                                meetingActionItem={mom.action_item}
+                                meetingOwner={mom.owner}
+                                meetingDeadline={mom.deadline}
+                                meetingStatus={mom.status}
+
                               />
                             </button>
                           </td>
@@ -119,7 +114,7 @@ const MinutesofMeetingList = () => {
                 )
               })
             }
-
+            {ifMomListEmpty()}
           </tbody>
         </table>
 

@@ -165,26 +165,26 @@ export const DELETE_GANTT = gql`
 
 export const ADD_ACTIVITY = gql`
   mutation addActivity(
-    $parent_id: Int!
-    $gantt_id: Int!
+    $parent_id: Int
+    $gantt_id: Int
     $name: String!
-    $description: String!
-    $start_time: DateTime!
-    $end_time: DateTime!
-    $weight_percentage: Float!
-    $progress_percentage: Float!
-    $priority: String!
-    $cost_plan: Float!
-    $cost_actual: Float!
-    $material_cost_plan: Float!
-    $material_cost_actual: Float!
-    $tool_cost_plan: Float!
-    $tool_cost_actual: Float!
-    $human_cost_plan: Float!
-    $human_cost_actual: Float!
-    $activity_type: String!
-    $phase_id: Int!
-    $unitofmeasurement_id: Int!
+    $description: String
+    $start_time: DateTime
+    $end_time: DateTime
+    $weight_percentage: Float
+    $progress_percentage: Float
+    $priority: String
+    $cost_plan: Float
+    $cost_actual: Float
+    $material_cost_plan: Float
+    $material_cost_actual: Float
+    $tool_cost_plan: Float
+    $tool_cost_actual: Float
+    $human_cost_plan: Float
+    $human_cost_actual: Float
+    $activity_type: String
+    $phase_id: Int
+    $unitofmeasurement_id: Int
   ) {
     addActivity(
       input: {

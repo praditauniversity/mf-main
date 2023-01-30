@@ -2,6 +2,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import "../../../../Assets/svgbutton/svgbutton.css";
+import Button from "../../../Button";
 import { GET_ACTIVITY_DATA, GET_PROJECT_DATA } from "../../../GraphQL/Queries";
 import {
   IconDeleteForm,
@@ -275,7 +276,7 @@ const AddModalDailyReport = () => {
 
   return (
     <>
-      <div className="flex flex-row items-center justify-center">
+      {/* <div className="flex flex-row items-center justify-center">
         <button
           onClick={showDialog}
           className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
@@ -283,6 +284,10 @@ const AddModalDailyReport = () => {
         >
           <IconPlus />
         </button>
+      </div> */}
+
+      <div className="add-button">
+        <Button label="+ Add Report" onClick={showDialog}/>
       </div>
       <>
         <Transition appear show={isOpen} as={Fragment}>

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ChevronLeft from "../../../Assets/Icons/svg/ChevronLeft.svg";
 import ChevronRight from "../../../Assets/Icons/svg/Chevron.svg";
 import Button from "../../Button";
+import AddModalMinutesOfMeeting from "../../Modal/MinutesOfMeetingModal/AddModal/AddModal";
 
 const TableFooter = ({ totalPages, currentPage, onPageChange }) => {
   return (
@@ -30,9 +31,13 @@ const TableFooter = ({ totalPages, currentPage, onPageChange }) => {
         </button>
       </div>
 
-      <div className="add-button">
+      {/* <div className="add-button">
         <Button label="+ Add Meeting"/>
-      </div>
+      </div> */}
+
+      <AddModalMinutesOfMeeting />
+
+
     </div>
   )
 }

@@ -34,6 +34,21 @@ const PCList = () => {
     if (loading) return 'Submitting...';
     if (error) return `Submission error! ${error.message}`;
 
+    const ifCharterDataEmpty = () => {
+        if (charterData2.length === 0) {
+            // fill the table with white space
+            return (
+                <tr className="h-full" >
+                    <td colSpan="7" className="text-center ">
+                        <div className="text-gray-400">
+                            <div className="text-5xl font-bold">No Project Charter</div>
+                            <div className="text-xl">Please add a project charter</div>
+                        </div>
+                    </td>
+                </tr>
+            )
+        }
+    }
 
     return (
         <div className="rounded-xl shadow-lg bg-white pt-6">
@@ -86,8 +101,8 @@ const PCList = () => {
                                     </button>
                                     </td> */}
                                     <td align="center">{item.name}</td>
-                                    <td align="center">{item.project_manager}</td>
-                                    <td align="center">{item.client}</td>
+                                    <td align="center">{item.project_manager ? item.project_manager : "N/A"}</td>
+                                    <td align="center">{item.client ? item.client : "N/A"}</td>
                                     <td align="center">{startProjectMonth}/{startProjectDay}/{startProjectYear}</td>
                                     <td align="center">{endProjectMonth}/{endProjectDay}/{endProjectYear}</td>
                                     <td align="center">
@@ -108,16 +123,16 @@ const PCList = () => {
                                             <ViewModalCharter
                                             charterID={item.ID}
                                             charterName={item.name}
-                                            charterManager={item.project_manager}
-                                            charterClient={item.client}
-                                            charterDesc={item.description}
+                                            charterManager={item.project_manager ? item.project_manager : "N/A"}
+                                            charterClient={item.client ? item.client : "N/A"}
+                                            charterDesc={item.description ? item.description : "N/A"}
                                             charterObj={item.project_objectives}
                                             charterTeam={item.total_man_power}
                                             charterStakeholder={item.stakeholder_ammount}
                                             charterParticipant={item.participants}
                                             charterPlanned={item.cost_plan}
                                             charterActual={item.cost_actual}
-                                            charterSymbol={item.currency_symbol}
+                                            charterSymbol={item.currency_symbol ? item.currency_symbol : "N/A"}
                                             charterResource={item.available_resources}
                                             charterStart={StartingProject}
                                             charterEnd={EndingProject}
@@ -150,6 +165,7 @@ const PCList = () => {
                                 <td align="center">No Data</td>
                             </tr>
                         }
+                        {ifCharterDataEmpty()}
                     </tbody>
                 </table>
 

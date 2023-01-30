@@ -1021,16 +1021,22 @@ export const GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID = gql`
       data {
         ID
         CreatedAt
-        UpdatedAt
         DeletedAt
+        UpdatedAt
         project_id
         meeting_name
+        meeting_objective
+        meeting_leader
         meeting_date
+        location
         start_time_meeting
         end_time_meeting
-        location
-        meeting_leader
-        meeting_objective
+        status
+        action_item
+        atendees
+        deadline
+        owner
+        notes
         user_id
         updated_by
         deleted_by
@@ -1045,16 +1051,22 @@ export const GET_MINUTES_OF_MEETING_DATA_BY_ID = gql`
       data {
         ID
         CreatedAt
-        UpdatedAt
         DeletedAt
+        UpdatedAt
         project_id
         meeting_name
+        meeting_objective
+        meeting_leader
         meeting_date
+        location
         start_time_meeting
         end_time_meeting
-        location
-        meeting_leader
-        meeting_objective
+        status
+        action_item
+        atendees
+        deadline
+        owner
+        notes
         user_id
         updated_by
         deleted_by

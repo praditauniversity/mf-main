@@ -9,6 +9,21 @@ const ProjectListCard = () => {
     //     { projectname: "Reverie Product Management Application", projectmanager: "Gerald Revalin", plannedinterval: "11/10/2021 - 09/03/2022", duration: "365 Days", manpower: "2/5", projectbudget:"IDR 84.000.000.000", invoice:"IDR 40.000.000.000", cashin:"IDR 44.000.000.000", outstandingbalance:"IDR 40.000.000", progress: "20%" },
     // ]
     const project = FetchProject();
+    const ifProjectEmpty = () => {
+        if (project.length === 0) {
+            // fill the table with white space
+            return (
+                <tr className="h-full" >
+                    <td colSpan="7" className="text-center ">
+                        <div className="text-gray-400">
+                            <div className="text-5xl font-bold">No Project</div>
+                            <div className="text-xl">Please add a project</div>
+                        </div>
+                    </td>
+                </tr>
+            )
+        }
+    }
     return (
         <div className="rounded-xl shadow-lg bg-white pt-6 overflow-x-auto">
             <div className="flex justify-start pl-8 pb-6">
@@ -65,19 +80,20 @@ const ProjectListCard = () => {
                             return (
                                 <tr key={i}>
                                     <td align="center">{item.name}</td>
-                                    <td align="center">{item.project_manager}</td>
+                                    <td align="center">{item.project_manager ? item.project_manager : "N/A"}</td>
                                     <td align="center">{startProjectYear}/{startProjectMonth}/{startProjectDay} - {endProjectYear}/{endProjectMonth}/{endProjectDay}</td>
                                     <td align="center">{durationInDays} Days</td>
                                     <td align="center">{item.total_man_power}</td>
-                                    <td align="center">{item.currency_symbol} {item.budget}</td>
-                                    <td align="center">{item.currency_symbol} {item.cost_actual}</td> {/*Invoice */}
-                                    <td align="center">{item.currency_symbol} {variance}</td> {/*Cash In */}
-                                    <td align="center">{item.currency_symbol} {item.cost_plan}</td> {/*Outstanding Balance */}
+                                    <td align="center">{item.currency_symbol ? item.currency_symbol : "N/A"} {item.budget}</td>
+                                    <td align="center">{item.currency_symbol ? item.currency_symbol : "N/A"} {item.cost_actual}</td> {/*Invoice */}
+                                    <td align="center">{item.currency_symbol ? item.currency_symbol : "N/A"} {variance}</td> {/*Cash In */}
+                                    <td align="center">{item.currency_symbol ? item.currency_symbol : "N/A"} {item.cost_plan}</td> {/*Outstanding Balance */}
                                     <td align="center">{item.progress_percentage}%</td>
                                 </tr>
                             )
                         })
                     }
+                    {ifProjectEmpty()}
                 </tbody>
             </table>
         </div>
