@@ -24,12 +24,12 @@ const EmploymentCard = () => {
                     <div className="col-span-18">
 
                         {employmentList.map((item, index) => (
-                            <div className="grid grid-cols-15 py-2" key={index}>
-                                <div className="col-span-3">
+                            <div className="grid grid-cols-16 py-2" key={index}>
+                                <div className="xl:col-span-4 col-span-8">
                                     <p className="text-sm font-semibold">{item.label}</p>
                                     <p className="text-xs opacity-70">{item.level}</p>
                                 </div>
-                                <div className="col-span-12">
+                                <div className="xl:col-span-12 col-span-8">
                                     <p className="text-sm">{item.jobdesk}</p>
                                     <p className="text-xs opacity-70">{item.company}</p>
                                 </div>

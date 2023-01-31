@@ -73,8 +73,8 @@ const MinutesofMeetingCard = (props) => {
                 </div>
 
                 <div className="px-8">
-                    <div className="py-6 flex justify-between">
-                        <div>
+                    <div className="py-6 grid grid-cols-18">
+                        <div className="md:col-span-7 col-span-6">
                             <div className="pb-2">
                                 <p className="text-sm font-semibold opacity-70">Project Name</p>
                             </div>
@@ -85,7 +85,7 @@ const MinutesofMeetingCard = (props) => {
                                 </select>
                             </div>
                         </div>
-                        <div>
+                        <div className="md:col-span-7 col-span-6">
                             <div className="pb-2">
                                 <p className="text-sm font-semibold opacity-70">Project Manager</p>
                             </div>
@@ -93,7 +93,7 @@ const MinutesofMeetingCard = (props) => {
                                 <p className="text-base font-semibold"><ProjectManager value={momProjectID}></ProjectManager></p>
                             </div>
                         </div>
-                        <div>
+                        <div className="md:col-span-4 col-span-6">
                             <div className="pb-2">
                                 <p className="text-sm font-semibold opacity-70">Client</p>
                             </div>

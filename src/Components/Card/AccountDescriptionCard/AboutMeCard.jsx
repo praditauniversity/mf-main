@@ -55,11 +55,11 @@ const AboutMeCard = () => {
 
 
                         {aboutMeList.map((item, index) => (
-                            <div className="grid grid-cols-15 py-1" key={index}>
-                                <div className="col-span-3">
+                            <div className="grid grid-cols-16 py-1" key={index}>
+                                <div className="xl:col-span-4 col-span-8">
                                     <p className="text-sm text-typo-dark opacity-80">{item.label}</p>
                                 </div>
-                                <div className="col-span-12">
+                                <div className="xl:col-span-12 col-span-8">
                                     <p className="text-sm text-typo-dark">{item.value}</p>
                                 </div>
                             </div>

@@ -4,6 +4,7 @@ import ProjectProgressCard from "../../Components/ApexCharts/ProjectProgress";
 import TaskOverviewCard from "../../Components/ApexCharts/TaskOverview";
 import BudgetCard from "../../Components/Card/BudgetCard";
 import CalendarCard from "../../Components/Card/Calendar/CalendarCard";
+import CalendarTailwind from "../../Components/Card/CalendarTailwind/Calendar";
 import HealthCard from "../../Components/Card/HealthCard";
 import IssuesCard from "../../Components/Card/Issues/IssuesCard";
 import ProjectOverviewCard from "../../Components/Card/ProjectOverviewCard";
@@ -32,10 +33,10 @@ const ProjectDashboardPage = () => {
     return (
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 2xl:grid-cols-18 lg:mt-0 mt-4 no-scrollbar">
             {/* Main Activities */}
-            <div className="col-span-15 row-span-1">
+            <div className="2xl:col-span-15 col-span-12 row-span-1">
                 <div className="grid grid-cols-15 gap-2">
                     {/* Top row */}
-                    <div className="col-span-9">
+                    <div className="md:col-span-9 col-span-15">
                         <ProjectOverviewCard
                             title1="Project Name"
                             description1="Project Anomaly"
@@ -45,21 +46,21 @@ const ProjectDashboardPage = () => {
                             description3={savedOption != 0 ? <Client value={savedOption} /> : "N/A"}
                         />
                     </div>
-                    <div className="col-span-3 row-span-1"> <HealthCard title="Health by Cost" description={<CostHealth value={savedOption} />} colorIcon="text-error-dark" /> </div>
-                    <div className="col-span-3 row-span-1"> <HealthCard title="Health by Schedule" description={<ScheduleHealth value={savedOption} />} colorIcon="text-tertiary-dark" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <HealthCard title="Health by Cost" description={<CostHealth value={savedOption} />} colorIcon="text-error-dark" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <HealthCard title="Health by Schedule" description={<ScheduleHealth value={savedOption} />} colorIcon="text-tertiary-dark" /> </div>
 
-                    <div className="col-span-3 row-span-1"> <BudgetCard title="Budget" description={<Budget value={savedOption} />} colorIcon="text-secondary-800" /> </div>
-                    <div className="col-span-3 row-span-1"> <BudgetCard title="Cost" description={<Cost value={savedOption} />} colorIcon="text-orange-dark" /> </div>
-                    <div className="col-span-3 row-span-1"> <BudgetCard title="Actual" description={<Actual value={savedOption} />} colorIcon="text-primary-800" /> </div>
-                    <div className="col-span-3 row-span-1"> <BudgetCard title="Danger" description={<Danger value={savedOption} />} colorIcon="text-error-dark" /> </div>
-                    <div className="col-span-3 row-span-1"> <BudgetCard title="Variance" description={<Variance value={savedOption} />} colorIcon="text-tertiary-800" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Budget" description={<Budget value={savedOption} />} colorIcon="text-secondary-800" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Cost" description={<Cost value={savedOption} />} colorIcon="text-orange-dark" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Actual" description={<Actual value={savedOption} />} colorIcon="text-primary-800" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Danger" description={<Danger value={savedOption} />} colorIcon="text-error-dark" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Variance" description={<Variance value={savedOption} />} colorIcon="text-tertiary-800" /> </div>
 
 
                     {/* Main row */}
-                    <div className="col-span-5 row-span-1"> <ProjectProgressCard /> </div>
-                    <div className="col-span-10 row-span-3"> <PrintGantt title="Gantt Chart" /> </div>
-                    <div className="col-span-5 row-span-1"> <TaskOverviewCard /> </div>
-                    <div className="col-span-full">
+                    <div className="md:col-span-5 col-span-15 row-span-1"> <ProjectProgressCard /> </div>
+                    <div className="md:col-span-10 col-span-15 row-span-3"> <PrintGantt title="Gantt Chart" /> </div>
+                    <div className="md:col-span-5 col-span-15 row-span-1"> <TaskOverviewCard /> </div>
+                    <div className="col-span-15">
                         {/* <TaskListCard />  */}
                         {<PrintTaskList />}
                     </div>
@@ -67,16 +68,16 @@ const ProjectDashboardPage = () => {
             </div>
 
             {/* Side Activities */}
-            <div className="col-span-3 row-span-1">
-                <div className="grid gap-2">
-                    <div>
-                        <CalendarCard />
+            <div className="2xl:col-span-3 col-span-12">
+                <div className="grid grid-cols-12 gap-2">
+                    <div className="col-span-12">
+                        <CalendarTailwind />
                     </div>
-                    <div>
+                    <div className="col-span-12">
                         {/* <UpcomingTaskCard /> */}
                         <PrintTask />
                     </div>
-                    <div>
+                    <div className="col-span-12">
                         <IssuesCard />
                     </div>
                 </div>

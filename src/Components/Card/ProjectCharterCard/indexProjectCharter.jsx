@@ -65,7 +65,7 @@ const ProjectCharterPage = (props) => {
                     </div>
 
                     <div className="py-2">
-                        <div className="col-span-15">
+                        <div className="2xl:col-span-15 col-span-12">
                             <PCList />
                         </div>
                     </div>

@@ -60,33 +60,33 @@ const ViewModalReport = (props) => {
                                 <Dialog.Panel className="py-16 w-full max-w-6xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg font-bold leading-6 px-24 pb-8"
+                                        className="text-lg font-bold leading-6 lg:px-36 md:px-20 pb-8"
                                     >
                                         Daily Report
                                     </Dialog.Title>
                                     <div>
                                         <div>
-                                            <div className="px-36">
+                                            <div className="lg:px-36 md:px-20">
                                                 <div className="grid grid-cols-12 py-6 flex justify-between">
-                                                    <div className="col-span-5">
+                                                    <div className="lg:col-span-5 lg:py-0 md:col-span-6 col-span-12 py-6">
                                                         <DescTitleReport title="Report Name" description={reportName} />
                                                     </div>
-                                                    <div className="col-span-5">
+                                                    <div className="lg:col-span-5 lg:py-0 md:col-span-6 col-span-12 py-6">
                                                         <DescTitleReport title="Report Number" description={reportNumber} />
                                                     </div>
-                                                    <div className="col-span-2">
+                                                    <div className="lg:col-span-2 lg:py-0 md:col-span-6 col-span-12 pt-6">
                                                         <DescTitleReport title="Report Date" description={reportDate} />
                                                     </div>
                                                 </div>
 
                                                 <div className="grid grid-cols-12 py-6 flex justify-between">
-                                                    <div className='col-span-5'>
+                                                    <div className='col-span-12'>
                                                         <DescTitleReport title="Report Description" description={reportDesc} />
                                                     </div>
                                                 </div>
 
                                                 <div className="grid grid-cols-12 py-6 flex justify-between">
-                                                    <div className='col-span-5'>
+                                                    <div className='col-span-12'>
                                                         <DescTitleReport title="Activity Name" description={reportActivity} />
                                                     </div>
                                                 </div>

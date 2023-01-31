@@ -58,13 +58,13 @@ const ViewModalMOM = (props) => {
                                 <Dialog.Panel className="py-16 w-full max-w-6xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg font-bold leading-6 px-24 pb-8"
+                                        className="text-lg font-bold leading-6 lg:px-36 md:px-20 pb-8"
                                     >
                                         Minutes of Meeting
                                     </Dialog.Title>
                                     <div>
                                         <div>
-                                            <div className="px-36">
+                                            <div className="lg:px-36 md:px-20">
                                                 <div className="grid grid-cols-12 py-6 flex justify-between">
                                                     <div className="col-span-5">
                                                         <DescTitleMOM title="Meeting Name" description={meetingName} />

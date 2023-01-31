@@ -23,22 +23,22 @@ const PMODashboardPage = () => {
     return (
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 2xl:grid-cols-18 lg:mt-0 mt-4">
             {/* Main Activities */}
-            <div className="col-span-15">
+            <div className="2xl:col-span-15 col-span-12">
                 <div className="grid grid-cols-15 gap-2">
                     {/* Top row */}
-                    <div className="col-span-3"> <BudgetCard title="Budget" description={<SumBudget />} colorIcon="text-secondary-800" /> </div>
-                    <div className="col-span-3"> <BudgetCard title="Actual" description={<SumActual />} colorIcon="text-primary-800" /> </div>
-                    <div className="col-span-3"> <BudgetCard title="Cost" description={<SumCost />} colorIcon="text-orange-dark" /> </div>
-                    <div className="col-span-3"> <BudgetCard title="Danger" description={<SumDanger />} colorIcon="text-error-dark" /> </div>
-                    <div className="col-span-3"> <BudgetCard title="Variance" description={<SumVariance />} colorIcon="text-tertiary-800" /> </div>
+                    <div className="md:col-span-3 col-span-15"> <BudgetCard title="Budget" description={<SumBudget />} colorIcon="text-secondary-800" /> </div>
+                    <div className="md:col-span-3 col-span-15"> <BudgetCard title="Actual" description={<SumActual />} colorIcon="text-primary-800" /> </div>
+                    <div className="md:col-span-3 col-span-15"> <BudgetCard title="Cost" description={<SumCost />} colorIcon="text-orange-dark" /> </div>
+                    <div className="md:col-span-3 col-span-15"> <BudgetCard title="Danger" description={<SumDanger />} colorIcon="text-error-dark" /> </div>
+                    <div className="md:col-span-3 col-span-15"> <BudgetCard title="Variance" description={<SumVariance />} colorIcon="text-tertiary-800" /> </div>
 
                     {/* Main row */}
                     {/* Chart */}
-                    <div className="col-span-15 grid grid-cols-16 gap-2">
-                        <div className="col-span-8"> <SCurveCard /> </div>
-                        <div className="col-span-8"> <TPECard /> </div>
-                        <div className="col-span-8"> <ManpowerCard /> </div>
-                        <div className="col-span-8"> <ProjectByCard /> </div>
+                    <div className="col-span-15 grid grid-cols-12 gap-2">
+                        <div className="md:col-span-6 col-span-12"> <SCurveCard /> </div>
+                        <div className="md:col-span-6 col-span-12"> <TPECard /> </div>
+                        <div className="md:col-span-6 col-span-12"> <ManpowerCard /> </div>
+                        <div className="md:col-span-6 col-span-12"> <ProjectByCard /> </div>
                     </div>
 
                     {/* Project List */}
@@ -48,17 +48,20 @@ const PMODashboardPage = () => {
             </div>
 
             {/* Side Activities */}
-            <div className="col-span-3 row-span-1">
-                <div className="grid gap-2">
-                    <div>
+            <div className="2xl:col-span-3 col-span-12">
+                <div className="grid grid-cols-12 gap-2">
+                    <div className="col-span-12">
                         <UserCard />
                     </div>
-                    <div>
+                    <div className="col-span-12">
                         <ActiveProjectCard />
                     </div>
                 </div>
             </div>
-            <div className="col-span-full"> <ProjectListCard /> </div>
+
+            <div className="2xl:col-span-18 col-span-12"> 
+                <ProjectListCard /> 
+            </div>
 
 
             {/* can be delete later - testing for gantt */}
