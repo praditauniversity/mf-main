@@ -3,27 +3,18 @@ import { useParams, withRouter } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { Dialog, Transition } from "@headlessui/react";
 import { GET_CHARTER_DATA } from '../../../GraphQL/Queries';
-import DescTitle from '../../../Card/ProjectCharterCard/desctitle';
-import Title from '../../../Card/ProjectCharterCard/title';
-import List from '../../../Card/ProjectCharterCard/list';
-import DescTitlePadding from '../../../Card/ProjectCharterCard/desctitlepadd';
-import DescTitleBudget from '../../../Card/ProjectCharterCard/desctitlebudget';
-import DescTitleBudgetPadding from '../../../Card/ProjectCharterCard/desctitlebudgetpadd';
 import TitleMilestone from '../../../Card/ProjectCharterCard/titlemilestone';
-import FetchCharter from '../../../../Middleware/Fetchers/FetchCharter';
 import '../../../../Assets/svgbutton/svgbutton.css';
 import { IconView } from '../../../Icons/icon';
+import DescTitleReport from '../../../Card/DailyReportCard/desctitlereport';
+import TitleReport from '../../../Card/DailyReportCard/titleReport';
+import ListReport from '../../../Card/DailyReportCard/listreport';
+import ListReportNoDot from '../../../Card/DailyReportCard/listreportnodot';
 
 
-const ViewModalCharter = (props) => {
-    const { charterID, charterName, charterManager, charterClient, charterDesc, charterObj, charterTeam, charterStakeholder, charterParticipant, charterPlanned, charterActual, charterSymbol, charterResource, charterStart, charterEnd, charterRisk } = props;
-    let { projectID } = useParams();
-    const charterData = FetchCharter();
-    // const [getCharterID, { data, error }] = useQuery(GET_CHARTER_DATA,
-    //     {
-    //         variables: { id: projectID },
-    //     }
-    // );
+
+const ViewModalReport = (props) => {
+    const { reportID, reportName, reportDesc, reportDate, reportNumber, reportActivity, reportWLName, reportWLDesc, reportWLStatus, reportWLHour, reportEq } = props;
 
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
@@ -37,7 +28,7 @@ const ViewModalCharter = (props) => {
         <>
             <div className="flex flex-row items-center justify-center">
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
-                    <IconView/>
+                    <IconView />
                 </button>
             </div>
 
@@ -71,77 +62,128 @@ const ViewModalCharter = (props) => {
                                         as="h3"
                                         className="text-lg font-bold leading-6 px-24 pb-8"
                                     >
-                                        Project Charter
+                                        Daily Report
                                     </Dialog.Title>
                                     <div>
                                         <div>
                                             <div className="px-36">
-                                                <div>
-                                                    <div className="grid grid-cols-12 py-6 flex justify-between">
-                                                        <div className="col-span-5">
-                                                            <DescTitle title="Project Name" description={charterName} />
-                                                        </div>
-                                                        <div className="col-span-5">
-                                                            <DescTitle title="Project Manager" description={charterManager} />
-                                                        </div>
-                                                        <div className="col-span-2">
-                                                            <DescTitle title="Client" description={charterClient} />
-                                                        </div>
+                                                <div className="grid grid-cols-12 py-6 flex justify-between">
+                                                    <div className="col-span-5">
+                                                        <DescTitleReport title="Report Name" description={reportName} />
                                                     </div>
-                                                </div>
-
-                                                <div className="py-6 flex justify-start">
-                                                    <div>
-                                                        <DescTitle title="Project Description" description={charterDesc} />
+                                                    <div className="col-span-5">
+                                                        <DescTitleReport title="Report Number" description={reportNumber} />
                                                     </div>
-                                                </div>
-
-                                                <div className="py-6 flex justify-start">
-                                                    <div>
-                                                        <div><Title title="Project Objective" /></div>
-                                                        <div>
-                                                            {charterObj.map((item, index) => {
-                                                                return (
-                                                                    <div key={index}>
-                                                                        <List description={item} />
-                                                                    </div>
-                                                                )
-                                                            })
-                                                            }
-                                                        </div>
+                                                    <div className="col-span-2">
+                                                        <DescTitleReport title="Report Date" description={reportDate} />
                                                     </div>
                                                 </div>
 
                                                 <div className="grid grid-cols-12 py-6 flex justify-between">
                                                     <div className='col-span-5'>
-                                                        <DescTitle title="Project Team Members" description={charterTeam} />
+                                                        <DescTitleReport title="Report Description" description={reportDesc} />
                                                     </div>
-                                                    <div className='col-span-5'>
-                                                        <DescTitlePadding title="Stakeholders" description={charterStakeholder} />
-                                                    </div>
-                                                </div>
-
-                                                <div className="py-6 flex justify-between">
-                                                    <DescTitle title="Participants" description={charterParticipant} />
                                                 </div>
 
                                                 <div className="grid grid-cols-12 py-6 flex justify-between">
                                                     <div className='col-span-5'>
-                                                        <DescTitleBudget title="Planned Budget" symbol={charterSymbol} description={charterPlanned} />
-                                                    </div>
-                                                    <div className='col-span-5'>
-                                                        <DescTitleBudgetPadding title="Actual Budget" symbol={charterSymbol} description={charterActual} />
+                                                        <DescTitleReport title="Activity Name" description={reportActivity} />
                                                     </div>
                                                 </div>
 
-                                                <div className="py-6 flex justify-start">
+                                                <div className="py-6">
+                                                    <div className="py-2 w-full bg-grey-light text-center">
+                                                        <p className="text-sm font-semibold opacity-70">Work Log</p>
+                                                    </div>
+
+                                                    <div className="rounded-xl shadow-lg bg-white pt-6">
+                                                        <div className="overflow-x-auto">
+                                                            <table className="table table-zebra w-full table-hover h-1/3">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th align="center">Name</th>
+                                                                        <th align="center">Description</th>
+                                                                        <th align="center">Status</th>
+                                                                        <th align="center">Hour</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td align="center">
+                                                                            <div>
+                                                                                <div>
+                                                                                    {reportWLName.map((item, index) => {
+                                                                                        return (
+                                                                                            <div key={index} className="py-2">
+                                                                                                <ListReportNoDot description={item} />
+                                                                                            </div>
+                                                                                        )
+                                                                                    })
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td align="center">
+                                                                            <div>
+                                                                                <div>
+                                                                                    {reportWLDesc.map((item, index) => {
+                                                                                        return (
+                                                                                            <div key={index} className="py-2">
+                                                                                                <ListReportNoDot description={item} />
+                                                                                            </div>
+                                                                                        )
+                                                                                    })
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td align="center">
+                                                                            <div>
+                                                                                <div>
+                                                                                    {reportWLStatus.map((item, index) => {
+                                                                                        return (
+                                                                                            <div key={index} className="py-2">
+                                                                                                <ListReportNoDot description={item} />
+                                                                                            </div>
+                                                                                        )
+                                                                                    })
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td align="center">
+                                                                            <div>
+                                                                                <div>
+                                                                                    {reportWLHour.map((item, index) => {
+                                                                                        return (
+                                                                                            <div key={index} className="py-2">
+                                                                                                <ListReportNoDot description={item} />
+                                                                                            </div>
+                                                                                        )
+                                                                                    })
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="py-6">
                                                     <div>
-                                                        <Title title="Resources" />
-                                                        <div>
-                                                            {charterResource.map((item, index) => {
+                                                        <div className="py-2 w-full bg-grey-light text-center">
+                                                            <p className="text-sm font-semibold opacity-70">Equipment</p>
+                                                        </div>
+
+                                                        <div className='py-2'>
+                                                            {reportEq.map((item, index) => {
                                                                 return (
-                                                                    <div key={index}>
-                                                                        <List description={item} />
+                                                                    <div key={index} className="py-1">
+                                                                        <ListReport description={item} />
                                                                     </div>
                                                                 )
                                                             })
@@ -150,33 +192,7 @@ const ViewModalCharter = (props) => {
                                                     </div>
                                                 </div>
 
-                                                <div className="">
-                                                    <TitleMilestone title="Milestone" />
-                                                    <div className="grid grid-cols-12 pb-6 flex justify-between">
-                                                        <div className='col-span-5'>
-                                                            <DescTitle title="Start Date" description={charterStart} />
-                                                        </div>
-                                                        <div className='col-span-5'>
-                                                            <DescTitlePadding title="End Date" description={charterEnd} />
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                <div className="py-6 flex justify-start">
-                                                    <div>
-                                                        <Title title="Potential Risks" />
-                                                        <div>
-                                                            {charterRisk.map((item, index) => {
-                                                                return (
-                                                                    <div key={index}>
-                                                                        <List description={item} />
-                                                                    </div>
-                                                                )
-                                                            })
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
 
                                             </div>
                                         </div>
@@ -194,4 +210,4 @@ const ViewModalCharter = (props) => {
     );
 };
 
-export default ViewModalCharter;
+export default ViewModalReport;

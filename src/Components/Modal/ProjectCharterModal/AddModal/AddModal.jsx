@@ -614,7 +614,7 @@ const AddModalProjectCharter = () => {
             </div> */}
 
             <div className="add-button">
-                <Button label="+ Add Meeting" onClick={showDialog}/>
+                <Button label="+ Add Charter" onClick={showDialog}/>
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>

@@ -3,6 +3,7 @@ import { IconPlus, IconEdit, IconDelete, IconList } from "../../Icons/icon";
 import DailyReportList from "./DailyReportList";
 import '../../../Assets/svgbutton/svgbutton.css'
 import AddModalDailyReport from "../../Modal/DailyReportModal/AddModal/AddModal";
+import DRComponentDesc from "./DRComponentDesc";
 
 const DailyReportCard = (props) => {
     const { icon } = props;
@@ -27,12 +28,7 @@ const DailyReportCard = (props) => {
                         <div className="pt-6 pb-4 col-span-18">
                             <div className="grid grid-cols-15">
                                 <div className="col-span-6">
-                                    <div className="pb-2">
-                                        <p className="text-sm font-semibold opacity-70">Project Name</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-base font-semibold">Project Anomaly</p>
-                                    </div>
+                                    <DRComponentDesc title="Daily Report Name" description="Report 1"/>
                                 </div>
                                 <div className="col-span-6">
                                     <div className="pb-2">

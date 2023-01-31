@@ -2,9 +2,11 @@ import React from "react";
 import FetchActivity from "../../../Middleware/Fetchers/FetchActivity";
 import FetchGantt from "../../../Middleware/Fetchers/FetchGantt";
 import FetchProject from "../../../Middleware/Fetchers/FetchProject";
+import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 
 const MemberTaskCard = () => {
-    const projectData = FetchProject();
+    // const projectData = FetchProject();
+    const projectData = FetchProjectByUserId();
     const ganttData = FetchGantt();
     const activityData = FetchActivity();
     // const data = [

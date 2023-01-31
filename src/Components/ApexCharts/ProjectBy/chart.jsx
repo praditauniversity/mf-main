@@ -1,29 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import { useQuery } from "@apollo/client";
-import { ProjectHealth } from "../../GraphQL/ProjectQueries";
-import { GET_PROJECT_DATA } from "../../GraphQL/Queries";
+import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 
 export default function DonutChart2() {
-  const { error, loading, data } = useQuery(GET_PROJECT_DATA);
-  const [projectdata, setProject] = useState([]);
-
-  useEffect(() => {
-    if (data) {
-      console.log("Data Ready");
-      console.log(data);
-      setProject(data.project.Data);
-    } else {
-      console.log("No data");
-    }
-  }, [data]);
+  const projectData = FetchProjectByUserId();
 
   function printProjectHealth() {
     let projectbudgetonbudget = 0;
     let projectbudgetwarning = 0;
     let projectbudgetoverbudget = 0;
 
-    projectdata.map((projectHealth) => {
+    projectData.map((projectHealth) => {
       // count budget health by status
       if (projectHealth["budget_health"] === "On Budget") {
         projectbudgetonbudget += 1;

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import FetchDailyReportByProjectId from "../../../Middleware/Fetchers/FetchDailyReportByProjectId";
 import UpdateModalDailyReport from "../../Modal/DailyReportModal/UpdateModal/UpdateModal";
 import DeleteModalReport from "../../Modal/DailyReportModal/DeleteModal/DeleteModal";
+import ViewModalReport from "../../Modal/DailyReportModal/ViewModal/ViewModal";
 
 
 const DRList = () => {
@@ -57,20 +58,6 @@ const DRList = () => {
             </tr>
           </thead>
           <tbody>
-            {/* {data.map((item, index) => (
-              <tr key={index}>
-                <td align="center"><Link to="/dailyreportview"><button className="hover:text-primary">{item.reportname}</button></Link></td>
-                <td align="center">{item.reportnumber}</td>
-                <td align="center">{item.reportdate}</td>
-                <td align="center">{item.activity}</td>
-                <td align="center">
-                  <button className="px-1" id="icon">
-                    <IconEdit />
-                  </button>
-                  <button className="px-1" id="icon"><IconDelete /></button>
-                </td>
-              </tr>
-            ))} */}
             {
               projectData.map((project) => {
                 return (
@@ -116,6 +103,21 @@ const DRList = () => {
                                         <button className="px-1" id="icon">
                                           <DeleteModalReport
                                             reportID={String(dailyReport.ID)}
+                                          />
+                                        </button>
+
+                                        <button className="px-1" id="icon">
+                                          <ViewModalReport
+                                            reportName={dailyReport.name}
+                                            reportDesc={dailyReport.description}
+                                            reportDate={reportDateMonth + "/" + reportDateDay + "/" + reportDateYear}
+                                            reportNumber={dailyReport.report_number}
+                                            reportActivity={activity.name}
+                                            reportWLName={dailyReport.work_log_name}
+                                            reportWLDesc={dailyReport.work_log_desc}
+                                            reportWLStatus={dailyReport.work_log_status}
+                                            reportWLHour={dailyReport.work_log_hour}
+                                            reportEq={dailyReport.equipment}
                                           />
                                         </button>
 

@@ -1,8 +1,43 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
+import FetchActivity from "../../../Middleware/Fetchers/FetchActivity";
+import FetchGantt from "../../../Middleware/Fetchers/FetchGantt";
+import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 
 export default function DonutChart() {
-    const series = [50, 25, 25];
+    //dashboard
+    const projectData = FetchProjectByUserId();
+    const ganttData = FetchGantt();
+    const activityData = FetchActivity();
+
+    function printTaskOverview() {
+        let todo = 0;
+        let inprogress = 0;
+        let done = 0;
+
+        projectData.map((project) => {
+            ganttData.map((gantt) => {
+                activityData.map((activity) => {
+                    if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id) {
+                        if (activity.phase.name === "Todo") {
+                            todo++;
+                        } else if (activity.phase.name === "In Progress") {
+                            inprogress++;
+                        } else if (activity.phase.name === "Done") {
+                            done++;
+                        }
+                    }
+                });
+            });
+        });
+
+        return (
+            [todo, inprogress, done]
+        );
+    }
+
+    // const series = [50, 25, 25];
+    const series = printTaskOverview();
     const options = {
         chart: {
             id: 'task-overview-chart'
