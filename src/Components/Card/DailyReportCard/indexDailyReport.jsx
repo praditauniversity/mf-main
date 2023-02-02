@@ -38,10 +38,12 @@ const DailyReportPage = (props) => {
     useEffect(() => {
         if (data) {
             setProject(data.projectByUserId.Data);
-            reportProjectID == 0 ? localStorage.setItem('reportProjectID', data.projectByUserId.Data[0].ID) : localStorage.setItem('reportProjectID', reportProjectID);
+            //if local storage is empty, set to first project id
+            localStorage.getItem('reportProjectID') === null ? localStorage.setItem('reportProjectID', projectData[0].ID) : console.log("reportProjectID is not null");
+            reportProjectID === null ? setReportProjectID(data.projectByUserId.Data[0].ID) : setReportProjectID(localStorage.getItem('reportProjectID'));
         } else {
             console.log("No data found for project with user id : " + profile.id);
-            localStorage.setItem('reportProjectID', 0)
+            // localStorage.setItem('reportProjectID', 0)
         }
     }, [data]);
 

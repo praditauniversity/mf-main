@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import ProjectProgressCard from "../../Components/ApexCharts/ProjectProgress";
 import TaskOverviewCard from "../../Components/ApexCharts/TaskOverview";
+import TaskOverviewCardProject from "../../Components/ApexCharts/TaskOverviewProject";
+import DonutTaskOverviewProject from "../../Components/ApexCharts/TaskOverviewProject/chart";
+import TaskOverviewProject from "../../Components/ApexCharts/TaskOverviewProject/chart";
 import BudgetCard from "../../Components/Card/BudgetCard";
 import CalendarCard from "../../Components/Card/Calendar/CalendarCard";
 import CalendarTailwind from "../../Components/Card/CalendarTailwind/Calendar";
@@ -59,7 +62,8 @@ const ProjectDashboardPage = () => {
                     {/* Main row */}
                     <div className="md:col-span-5 col-span-15 row-span-1"> <ProjectProgressCard /> </div>
                     <div className="md:col-span-10 col-span-15 row-span-3"> <PrintGantt title="Gantt Chart" /> </div>
-                    <div className="md:col-span-5 col-span-15 row-span-1"> <TaskOverviewCard /> </div>
+                    {/* <div className="md:col-span-5 col-span-15 row-span-1"> <TaskOverviewCardProject /> </div> */}
+                    <div className="md:col-span-5 col-span-15 row-span-1"> <DonutTaskOverviewProject value={savedOption} /> </div>
                     <div className="col-span-15">
                         {/* <TaskListCard />  */}
                         {<PrintTaskList />}

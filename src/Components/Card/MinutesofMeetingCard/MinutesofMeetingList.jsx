@@ -75,17 +75,19 @@ const MinutesofMeetingList = () => {
                           <td align="center">{mom.meeting_name}</td>
                           <td align="center">{meetingDateYear}/{meetingDateMonth}/{meetingDateDay}</td>
                           <td align="center">{startTime} - {endTime}</td>
-                          <td align="center">{mom.location}</td>
-                          <td align="center">{mom.meeting_leader}</td>
+                          <td align="center">{mom.location ? mom.location : "N/A"}</td>
+                          <td align="center">{mom.meeting_leader ? mom.meeting_leader : "N/A"}</td>
                           <td align="center">
                             <button className="px-1" id="icon">
                               <UpdateModalMinutesOfMeeting
                                 momID={String(mom.ID)}
+                                momData={mom}
                               />
                             </button>
                             <button className="px-1" id="icon">
                               <DeleteModalMinuteOfMeeting
                                 momID={String(mom.ID)}
+                                momName={mom.meeting_name}
                               />
                             </button>
                             <button className="px-1" id="icon">

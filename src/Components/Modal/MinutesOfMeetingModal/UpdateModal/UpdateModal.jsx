@@ -68,24 +68,37 @@ mutation updateMinuteOfMeeting (
 }`;
 
 const UpdateModalMinutesOfMeeting = (props) => {
-    const { momID } = props;
+    const { momID, momData } = props;
 
-    const [inputFields, setInputFields] = useState([
-        { action_item: "", owner: "", deadline: "", status: "" },
-    ]);
-    const [meeting_name, setMeeting_name] = useState("");
-    const [meeting_date, setMeeting_date] = useState("");
-    const [start_time_meeting, setStart_time_meeting] = useState("");
-    const [end_time_meeting, setEnd_time_meeting] = useState("");
-    const [location, setLocation] = useState("");
-    const [meeting_leader, setMeeting_leader] = useState("");
-    const [meeting_objective, setMeeting_objective] = useState("");
-    const [atendees, setAtendees] = useState([""]);
-    const [notes, setNotes] = useState([""]);
-    const [action_item, setAction_item] = useState([""]);
-    const [owner, setOwner] = useState([""]);
-    const [deadline, setDeadline] = useState([""]);
-    const [status, setStatus] = useState([""]);
+    // const [inputFields, setInputFields] = useState([
+    //     { action_item: "", owner: "", deadline: "", status: "" },
+    // ]);
+    const [inputFields, setInputFields] = useState(() => {
+        const inputFieldsData = [];
+        for (let i = 0; i < momData.action_item.length; i++) {
+            inputFieldsData.push({
+                action_item: momData.action_item[i],
+                owner: momData.owner[i],
+                deadline: momData.deadline[i],
+                status: momData.status[i],
+            });
+        }
+        return inputFieldsData;
+    });
+        
+    const [meeting_name, setMeeting_name] = useState(momData.meeting_name);
+    const [meeting_date, setMeeting_date] = useState(new Date(momData.meeting_date));
+    const [start_time_meeting, setStart_time_meeting] = useState(new Date(momData.start_time_meeting));
+    const [end_time_meeting, setEnd_time_meeting] = useState(new Date(momData.end_time_meeting));
+    const [location, setLocation] = useState(momData.location);
+    const [meeting_leader, setMeeting_leader] = useState(momData.meeting_leader);
+    const [meeting_objective, setMeeting_objective] = useState(momData.meeting_objective);
+    const [atendees, setAtendees] = useState(momData.atendees);
+    const [notes, setNotes] = useState(momData.notes);
+    const [action_item, setAction_item] = useState(momData.action_item);
+    const [owner, setOwner] = useState(momData.owner);
+    const [deadline, setDeadline] = useState(momData.deadline);
+    const [status, setStatus] = useState(momData.status);
 
     const [updateMinutesOfMeeting,{ loading, error },] = useMutation(UPDATE_MINUTES_OF_MEETING, 
         {

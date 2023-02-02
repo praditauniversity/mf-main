@@ -110,13 +110,14 @@ const PCList = () => {
                                             {/* <IconEdit /> */}
                                             <UpdateModalProject
                                                 projectID={String(item.ID)}
-
+                                                projectData={item}
                                             />
                                         </button>
                                         <button className="" id="icon">
                                             {/* <IconEdit /> */}
                                             <DeleteModalProject
                                                 projectID={String(item.ID)}
+                                                projectName={item.name}
                                             />
                                         </button>
                                         <button className="" id="icon">

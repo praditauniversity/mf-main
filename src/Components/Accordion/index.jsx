@@ -36,7 +36,7 @@ const Accordion = ({ data }) => {
                                 </p>
                                 <div className='mt-5'>
                                     {/* <LinkButton link={item.link} id={item.ID} label="View Details" /> */}
-                                    <a href="/#/projectdashboard" >
+                                    <a href="/#/projectdashboard" onClick={() => localStorage.setItem('projectID', item.ID)}>
                                         <button className='btn'>
                                             View Details
                                         </button>

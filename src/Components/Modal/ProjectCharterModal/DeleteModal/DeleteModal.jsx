@@ -11,7 +11,7 @@ deleteProject(id: $id)
 }`;
 
 const DeleteModalProject = (props) => {
-    const { projectID } = props;
+    const { projectID, projectName } = props;
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
@@ -93,7 +93,7 @@ const DeleteModalProject = (props) => {
                                     </div>
                                     <div className="mt-3">
                                         <div className="form-control w-full max-w-5xl text-center item-center">
-                                            <p className="label-text">Delete Charter: <span className="label-text font-bold text-error">{projectID}</span></p>
+                                            <p className="label-text">Delete Charter: <span className="label-text font-bold text-error">{projectName}</span></p>
                                         </div>
                                     </div>
                                     <div className="mt-10">
@@ -104,7 +104,7 @@ const DeleteModalProject = (props) => {
                                                 onClick={hideDialog}
                                             >
                                                 <IconSaveForm />
-                                                <p className='text-base text-white pt-0.5 px-1'>cancel</p>
+                                                <p className='text-base text-white pt-0.5 px-1'>Cancel</p>
                                             </button>
                                             <button
                                                 type="button"
@@ -117,7 +117,7 @@ const DeleteModalProject = (props) => {
                                                 }}
                                             >
                                                 <IconSaveForm />
-                                                <p className='text-base text-white pt-0.5 px-1'>delete</p>
+                                                <p className='text-base text-white pt-0.5 px-1'>Delete</p>
                                             </button>
                                         </div>
 

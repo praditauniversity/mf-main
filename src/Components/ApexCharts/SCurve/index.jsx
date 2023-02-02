@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ListboxBy from "../../Listbox/ListboxBy/index.jsx";
 import ListboxTime from "../../Listbox/ListboxTime/index.jsx";
+import FutureUpdateModal from "../../Modal/FutureUpdateModal/FutureUpdateModal.jsx";
 import DualLineChart from "./chart.jsx";
 
 export default class SCurveCard extends React.Component {
@@ -34,6 +35,7 @@ export default class SCurveCard extends React.Component {
                 <div className="py-4 flex justify-end">
                     <button className="font-semibold text-sm text-primary">
                         Revenue Details
+                        <FutureUpdateModal/>
                     </button>
                 </div>
             </div>

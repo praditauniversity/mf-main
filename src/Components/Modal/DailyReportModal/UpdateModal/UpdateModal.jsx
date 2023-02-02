@@ -64,22 +64,34 @@ input:{
 `;
 
 const UpdateModalDailyReport = (props) => {
-  const { reportID } = props;
+  const { reportID, reportData } = props;
 
-  const [inputFields, setInputFields] = useState([
-    { name: "", description: "", status: "", hour: 0 },
-  ]);
-  const [equipment, setEquipment] = useState([""]);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("");
+  // const [inputFields, setInputFields] = useState([
+  //   { name: reportData, description: "", status: "", hour: 0 },
+  // ]);
+  const [inputFields, setInputFields] = useState(() => {
+    const inputFieldsData = [];
+    for (let i = 0; i < reportData.work_log_name.length; i++) {
+      inputFieldsData.push({
+        name: reportData.work_log_name[i],
+        description: reportData.work_log_desc[i],
+        status: reportData.work_log_status[i],
+        hour: reportData.work_log_hour[i],
+      });
+    }
+    return inputFieldsData;
+  });
+  const [equipment, setEquipment] = useState(reportData.equipment);
+  const [name, setName] = useState(reportData.name);
+  const [description, setDescription] = useState(reportData.description);
+  const [status, setStatus] = useState(reportData.status);
   // const [activity_id, setActivityId] = useState(0);
   // const [project_id, setProjectId] = useState(0);
-  const [report_date, setReportDate] = useState("");
-  const [work_log_name, setWorkLogName] = useState([""]);
-  const [work_log_desc, setWorkLogDesc] = useState([""]);
-  const [work_log_status, setWorkLogStatus] = useState([""]);
-  const [work_log_hour, setWorkLogHour] = useState([0]);
+  const [report_date, setReportDate] = useState(new Date(reportData.report_date));
+  const [work_log_name, setWorkLogName] = useState(reportData.work_log_name);
+  const [work_log_desc, setWorkLogDesc] = useState(reportData.work_log_desc);
+  const [work_log_status, setWorkLogStatus] = useState(reportData.work_log_status);
+  const [work_log_hour, setWorkLogHour] = useState(reportData.work_log_hour);
   // const [projectidtest, setProjectIdTest] = useState(0);
   // const [activityidtest, setActivityIdTest] = useState(0);
   console.log("work_log_name", setEquipment);
@@ -268,8 +280,8 @@ const UpdateModalDailyReport = (props) => {
     setEquipment([''])
     setDescription("");
     setStatus("");
-    setActivityId(0);
-    setProjectId(0);
+    // setActivityId(0);
+    // setProjectId(0);
     setReportDate("");
   };
 

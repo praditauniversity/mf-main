@@ -3,11 +3,11 @@ import { gantt } from "dhtmlx-gantt";
 import "./Gantt.css";
 import "dhtmlx-gantt/codebase/dhtmlxgantt.css";
 
-// gantt plugins
+// Gantt Plugins
 gantt.plugins({
   marker: true,
-  // drag_timeline: true,
-  // critical_path: true,
+  drag_timeline: true,
+  critical_path: true,
   auto_scheduling: true,
   fullscreen: true
 });
@@ -20,33 +20,43 @@ var markerId = gantt.addMarker({
   title: dateToStr(new Date()) // the marker's tooltip
 });
 
+
+// Gantt Config
+
 gantt.config.reorder_grid_columns = true;
+gantt.config.keep_grid_width = true;
 gantt.config.resize_rows = true;
 gantt.config.grid_resize = true;
 gantt.config.grid_width = 500;
+// gantt.config.drag_progress = false;
 
 gantt.config.autoscroll = true;
 gantt.config.scroll_size = 30;
+gantt.config.autowidth = false;
+gantt.config.sort = true;
+
+gantt.config.min_grid_column_width = 100;
+
 gantt.config.layout = {
-	css: "gantt_container",
-	cols: [
-		{
-			width: 400,
-			min_width: 300,
-			rows: [
-				{ view: "grid", scrollX: "gridScroll", scrollable: true, scrollY: "scrollVer" },
-				{ view: "scrollbar", id: "gridScroll", group: "horizontal" }
-			]
-		},
-		{ resizer: true, width: 3 },
-		{
-			rows: [
-				{ view: "timeline", scrollX: "scrollHor", scrollY: "scrollVer", scrollable: true},
-				{ view: "scrollbar", id: "scrollHor", group: "horizontal" }
-			]
-		},
-		{ view: "scrollbar", id: "scrollVer" }
-	]
+css: "gantt_container",
+cols: [
+  {
+    width: 400,
+    min_width: 300,
+    rows: [
+      { view: "grid", scrollX: "gridScroll", scrollable: true, scrollY: "scrollVer" },
+      { view: "scrollbar", id: "gridScroll", group: "horizontal" }
+    ]
+  },
+  { resizer: true, width: 3 },
+  {
+    rows: [
+      { view: "timeline", scrollX: "scrollHor", scrollY: "scrollVer", scrollable: true},
+      { view: "scrollbar", id: "scrollHor", group: "horizontal" }
+    ]
+  },
+  { view: "scrollbar", id: "scrollVer" }
+]
 };
 
 export default class Gantt extends Component {
@@ -140,14 +150,14 @@ export default class Gantt extends Component {
 
   componentDidMount() {
     gantt.config.date_format = "%Y-%m-%d %H:%i";
-    const { tasks } = this.props;
+    // const { tasks } = this.props;
     gantt.config.open_tree_initially = true;
     gantt.init(this.ganttContainer);
     gantt.config.readonly = this.props.isReadOnly;
     gantt.render();
     gantt.config.lightbox.width = 900;
     gantt.config.lightbox.height = 6700;
-    gantt.parse(tasks);
+    // gantt.parse(tasks);
     gantt.config.lightbox.height = 6700;
   }
 

@@ -185,7 +185,7 @@ const VerticalTabs = ({ color }) => {
                         const status = activity.phase.name;
                         if (startDate == todayDate && endDate > todayDate && status === "Todo") {
                           return (
-                            <Tasks id={activity.ID} icon={Done} projectName={project.name} taskName={activity.name} startDate={activity.start_time} endDate={activity.end_time} />  
+                            <Tasks data={activity} icon={Done} projectName={project.name} />  
                           )
                         }
                       }
@@ -208,7 +208,7 @@ const VerticalTabs = ({ color }) => {
                         const status = activity.phase.name;
                         if (startDate < todayDate && endDate < todayDate && status === "Todo") {
                           return (
-                            <Tasks id={activity.ID} icon={Done} projectName={project.name} taskName={activity.name} startDate={activity.start_time} endDate={activity.end_time} />  
+                            <Tasks data={activity} icon={Done} projectName={project.name} />  
                           )
                         }
                       }
@@ -231,7 +231,7 @@ const VerticalTabs = ({ color }) => {
                         const status = activity.phase.name;
                         if (startDate > todayDate && endDate > todayDate && status === "Todo") {
                           return (
-                            <Tasks id={activity.ID} icon={Done} projectName={project.name} taskName={activity.name} startDate={activity.start_time} endDate={activity.end_time} />  
+                            <Tasks data={activity} icon={Done} projectName={project.name} />  
                           )
                         }
                       }

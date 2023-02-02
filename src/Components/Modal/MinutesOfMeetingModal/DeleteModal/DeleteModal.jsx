@@ -12,7 +12,7 @@ const DELETE_MINUTES_OF_MEETING = gql`
 `;
 
 const DeleteModalMinuteOfMeeting = (props) => {
-    const { momID } = props;
+    const { momID, momName } = props;
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
@@ -85,7 +85,7 @@ const DeleteModalMinuteOfMeeting = (props) => {
                                         as="h3"
                                         className="text-lg font-bold leading-6"
                                     >
-                                        Delete Charter
+                                        Delete Meeting
                                     </Dialog.Title>
                                     <div className="mt-3">
                                         <div className="form-control w-full max-w-5xl text-center">
@@ -94,7 +94,7 @@ const DeleteModalMinuteOfMeeting = (props) => {
                                     </div>
                                     <div className="mt-3">
                                         <div className="form-control w-full max-w-5xl text-center item-center">
-                                            <p className="label-text">Delete Minutes of Meeting ID: <span className="label-text font-bold text-error">{momID}</span></p>
+                                            <p className="label-text">Delete Minutes of Meeting: <span className="label-text font-bold text-error">{momName}</span></p>
                                         </div>
                                     </div>
                                     <div className="mt-10">
@@ -105,7 +105,7 @@ const DeleteModalMinuteOfMeeting = (props) => {
                                                 onClick={hideDialog}
                                             >
                                                 <IconSaveForm />
-                                                <p className='text-base text-white pt-0.5 px-1'>cancel</p>
+                                                <p className='text-base text-white pt-0.5 px-1'>Cancel</p>
                                             </button>
                                             <button
                                                 type="button"
@@ -118,7 +118,7 @@ const DeleteModalMinuteOfMeeting = (props) => {
                                                 }}
                                             >
                                                 <IconSaveForm />
-                                                <p className='text-base text-white pt-0.5 px-1'>delete</p>
+                                                <p className='text-base text-white pt-0.5 px-1'>Delete</p>
                                             </button>
                                         </div>
 

@@ -89,7 +89,7 @@ const Tabs = ({ color }) => {
                     return activityData.map((activity) => {
                       if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id && activity.phase.name === "Done") {
                         return (
-                          <Tasks id={activity.ID} icon={Trash} projectName={project.name} taskName={activity.name} startDate={activity.start_time} endDate={activity.end_time} />
+                          <Tasks data={activity} icon={Trash} projectName={project.name} />
                         );
                       }
                     });

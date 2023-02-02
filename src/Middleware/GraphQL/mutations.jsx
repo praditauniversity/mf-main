@@ -223,26 +223,26 @@ export const ADD_ACTIVITY = gql`
 export const UPDATE_ACTIVITY = gql`
   mutation updateActivity(
     $id : String!
-    $parent_id: Int!
-    $gantt_id: Int!
+    $parent_id: Int
+    $gantt_id: Int
     $name: String!
-    $description: String!
-    $start_time: DateTime!
-    $end_time: DateTime!
-    $weight_percentage: Float!
-    $progress_percentage: Float!
-    $priority: String!
-    $cost_plan: Float!
-    $cost_actual: Float!
-    $material_cost_plan: Float!
-    $material_cost_actual: Float!
-    $tool_cost_plan: Float!
-    $tool_cost_actual: Float!
-    $human_cost_plan: Float!
-    $human_cost_actual: Float!
-    $activity_type: String!
-    $phase_id: Int!
-    $unitofmeasurement_id: Int!
+    $description: String
+    $start_time: DateTime
+    $end_time: DateTime
+    $weight_percentage: Float
+    $progress_percentage: Float
+    $priority: String
+    $cost_plan: Float
+    $cost_actual: Float
+    $material_cost_plan: Float
+    $material_cost_actual: Float
+    $tool_cost_plan: Float
+    $tool_cost_actual: Float
+    $human_cost_plan: Float
+    $human_cost_actual: Float
+    $activity_type: String
+    $phase_id: Int
+    $unitofmeasurement_id: Int
   ) {
     updateActivity(
       id: $id
@@ -281,5 +281,63 @@ export const UPDATE_ACTIVITY = gql`
 export const DELETE_ACTIVITY = gql`
   mutation deleteActivity($id: String!) {
     deleteActivity(id: $id)
+  }
+`;
+
+export const ADD_ACTIVITY_LINK = gql`
+mutation addActivityLink (
+  $source : String,
+  $target: String,
+  $type: String,
+  $gantt_id: Int
+){
+addActivityLink(
+  input: {
+      source:$source,
+      target:$target,
+      type:$type,
+      gantt_id:$gantt_id
+  }
+) {
+  data {
+      ID
+      source
+      target
+      type
+  }
+}
+}
+`;
+
+export const UPDATE_ACTIVITY_LINK = gql`
+mutation updateActivityLink(
+  $id : String!,
+  $source : String,
+  $target: String,
+  $type: String,
+  $gantt_id:Int
+) {
+updateActivityLink( id:$id
+input:{
+    source:$source,
+    target:$target,
+    type:$type,
+    gantt_id:$gantt_id
+
+}
+) {
+  data {
+      ID
+      source
+      target
+      type
+  }
+}
+}
+`;
+
+export const DELETE_ACTIVITY_LINK = gql`
+  mutation deleteActivityLink($id: String!) {
+    deleteActivityLink(id: $id)
   }
 `;

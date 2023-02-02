@@ -97,7 +97,7 @@ const TabsDailyReminder = ({ color }) => {
                       const endDate = new Date(activity.end_time);
                       if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id && endDate > todayDate && activity.phase.name === "In Progress") {
                         return (
-                          <Tasks id={activity.ID} icon={Done} projectName={project.name} taskName={activity.name} startDate={activity.start_time} endDate={activity.end_time} />
+                          <Tasks data={activity} icon={Done} projectName={project.name} />
                         );
                       }
                     });
@@ -109,7 +109,7 @@ const TabsDailyReminder = ({ color }) => {
                 {someTask1Length === 0 
                 ? <NoTasks height="100"/> 
                 : someTask1.map((item) => (
-                  <Tasks id={item.id} icon={item.icon} projectName={item.projectName} taskName={item.taskName} startDate={item.date} endDate={item.date} />
+                  <Tasks data={activity} icon={item.icon} projectName={item.projectName} />
                 ))
                 }
                 </div>

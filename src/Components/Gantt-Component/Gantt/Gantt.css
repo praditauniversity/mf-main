@@ -1,28 +1,54 @@
 /* Full screen mode */
 /* To correctly display a Gantt chart in the full-screen mode in different browsers, define the following style on the page: */
 
-
 /* <style type="text/css" media="screen"> */
 html,
 body {
-    margin: 0px;
-    padding: 0px;
-    height: 100%;
-    overflow-y: auto;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .gantt_lightbox {
-    width: 1200px;
+  width: 1200px;
 }
 
 .gantt_cal_light {
-    width: 1200px;
+  width: 700px !important;
+  height: 800px !important;
+  overflow: scroll !important;
+}
+.gantt_cal_light .gantt_btn_set {
+
+  /* background-color: #fff; */
 }
 
-#gantt_cal_light{
-    width: 1200px;
-    height: 600px;
-    overflow-y: auto;
+.gantt_btn_set.gantt_delete_btn_set {
+  /* position: fixed;
+  bottom: 3%;
+  right: 22.5%; */
+}
+
+/* .gantt.config.buttons_left{
+  position: fixed;
+} */
+
+.gantt_cal_ltitle {
+  width: 676px !important;
+  border-radius: 0 !important;
+  position: fixed;
+  background-color: #fff;
+}
+
+.gantt_cal_light.my-custom-class {
+  width: 1200px !important;
+}
+
+#gantt_cal_light {
+  width: 1200px;
+  height: 600px;
+  overflow-y: auto;
 }
 
 /* </style> */

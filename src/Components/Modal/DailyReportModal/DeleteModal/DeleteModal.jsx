@@ -11,7 +11,7 @@ const DELETE_DAILYREPORT = gql`
   }`;
 
 const DeleteModalReport = (props) => {
-    const { reportID } = props;
+    const { reportID, reportName } = props;
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
@@ -84,7 +84,7 @@ const DeleteModalReport = (props) => {
                                         as="h3"
                                         className="text-lg font-bold leading-6"
                                     >
-                                        Delete Charter
+                                        Delete Report
                                     </Dialog.Title>
                                     <div className="mt-3">
                                         <div className="form-control w-full max-w-5xl text-center">
@@ -93,7 +93,7 @@ const DeleteModalReport = (props) => {
                                     </div>
                                     <div className="mt-3">
                                         <div className="form-control w-full max-w-5xl text-center item-center">
-                                            <p className="label-text">Delete Daily Report: <span className="label-text font-bold text-error">{reportID}</span></p>
+                                            <p className="label-text">Delete Daily Report: <span className="label-text font-bold text-error">{reportName}</span></p>
                                         </div>
                                     </div>
                                     <div className="mt-10">
@@ -104,7 +104,7 @@ const DeleteModalReport = (props) => {
                                                 onClick={hideDialog}
                                             >
                                                 <IconSaveForm />
-                                                <p className='text-base text-white pt-0.5 px-1'>cancel</p>
+                                                <p className='text-base text-white pt-0.5 px-1'>Cancel</p>
                                             </button>
                                             <button
                                                 type="button"
@@ -117,7 +117,7 @@ const DeleteModalReport = (props) => {
                                                 }}
                                             >
                                                 <IconSaveForm />
-                                                <p className='text-base text-white pt-0.5 px-1'>delete</p>
+                                                <p className='text-base text-white pt-0.5 px-1'>Delete</p>
                                             </button>
                                         </div>
 

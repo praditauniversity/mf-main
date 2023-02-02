@@ -867,6 +867,7 @@ export const GET_ACTIVITY_DATA = gql`
         CreatedAt
         UpdatedAt
         DeletedAt
+        parent_id
         name
         description
         gantt_id
@@ -1067,6 +1068,26 @@ export const GET_MINUTES_OF_MEETING_DATA_BY_ID = gql`
         deadline
         owner
         notes
+        user_id
+        updated_by
+        deleted_by
+      }
+    }
+  }
+`;
+
+export const GET_LINK_DATA = gql`
+  query activityLink {
+    activityLink {
+      data {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        source
+        target
+        type
+        gantt_id
         user_id
         updated_by
         deleted_by

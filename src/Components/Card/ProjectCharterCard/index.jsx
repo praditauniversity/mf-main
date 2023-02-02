@@ -20,9 +20,13 @@ import { useQuery } from '@apollo/client';
 import { useEffect, useState } from "react";
 import { GET_CHARTER_DATA_BY_ID, GET_CHARTER_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 import FetchCharter from "../../../Middleware/Fetchers/FetchCharter";
+import FetchProjectById from "../../../Middleware/Fetchers/FetchProjectById";
 
 const ProjectCharterCard = (props) => {
     const { projectID } = props;
+    console.log("PROPS", projectID);
+    const projectcharterdata = FetchProjectById({projectID});
+    console.log("PROJECTCHARTERDATA", projectcharterdata);
     const [pcData, setPcData] = useState('');
     const [reportCharterID, setReportCharterID] = useState(localStorage.getItem('charterID'));
 

@@ -8,11 +8,12 @@ const FetchDailyReportByProjectId = () => {
         // variables: { projectId: localStorage.getItem('reportProjectID') == null ? localStorage.setItem('reportProjectID', data.dailyReportGetProjectID.data[0].ID) : localStorage.getItem('reportProjectID') },
     });
     const [dailyReport, setDailyReport] = useState([]);
+    // const [projectID, setProjectID] = useState(localStorage.getItem('reportProjectID'));
 
     useEffect(() => {
         if (data) {
             setDailyReport(data.dailyReportGetProjectID.data);
-            localStorage.getItem('reportProjectID') === 0 ? localStorage.setItem('reportProjectID', data.dailyReportGetProjectID.data[0].ID) : localStorage.getItem('reportProjectID');
+            // projectID === 0 ? localStorage.setItem('reportProjectID', data.dailyReportGetProjectID.data[0].ID) : localStorage.setItem('reportProjectID', projectID);
             console.log("Daily Report data with project id " + localStorage.getItem('reportProjectID') + " found");
         } else {
             console.log("No data found for daily report with project id " + localStorage.getItem('reportProjectID'));

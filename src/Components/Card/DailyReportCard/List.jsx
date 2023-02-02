@@ -89,6 +89,7 @@ const DRList = () => {
                                         <button className="px-1" id="icon">
                                           <UpdateModalDailyReport
                                             reportID={String(dailyReport.ID)}
+                                            reportData={dailyReport}
                                           />
                                         </button>
                                         {/* <button className="px-1" id="icon"
@@ -103,6 +104,7 @@ const DRList = () => {
                                         <button className="px-1" id="icon">
                                           <DeleteModalReport
                                             reportID={String(dailyReport.ID)}
+                                            reportName={dailyReport.name}
                                           />
                                         </button>
 

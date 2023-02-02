@@ -107,42 +107,42 @@ const UPDATE_CHARTER = gql`
 `;
 
 const UpdateModalProject = (props) => {
-    const { projectID } = props;
+    const { projectID, projectData } = props;
     // const charterData = FetchCharter();
     const [pcData, setPcData] = useState('');
 
 
     const [id, setId] = React.useState('');
-    const [status, setStatus] = useState('');
-    const [work_area, setWorkArea] = useState("");
-    const [start_project, setStartProject] = useState("");
-    const [stakeholder_ammount, setStakeholderAmmount] = useState(0);
-    const [role_id, setRoleId] = useState(0);
-    const [considered_success_when, setConsideredSuccessWhen] = useState("");
-    const [cost_actual, setCostActual] = useState(0);
-    const [cost_plan, setCostPlan] = useState(0);
-    const [client, setClient] = useState("");
-    const [client_contact, setClientContact] = useState("");
-    const [currency_name, setCurrencyName] = useState("");
-    const [currency_code, setCurrencyCode] = useState("");
-    const [currency_symbol, setCurrencySymbol] = useState("");
-    const [description, setDescription] = useState("");
-    const [end_project, setEndProject] = useState("");
-    const [name, setName] = useState("");
-    const [office_location, setOfficeLocation] = useState("");
-    const [total_man_power, setTotalManPower] = useState(0);
-    const [progress_percentage, setProgressPercentage] = useState(0);
-    const [budget, setBudget] = useState(0);
+    const [status, setStatus] = useState(projectData.status);
+    const [work_area, setWorkArea] = useState(projectData.work_area);
+    const [start_project, setStartProject] = useState(new Date(projectData.start_project));
+    const [stakeholder_ammount, setStakeholderAmmount] = useState(projectData.stakeholder_ammount);
+    const [role_id, setRoleId] = useState(projectData.role_id);
+    const [considered_success_when, setConsideredSuccessWhen] = useState(projectData.considered_success_when);
+    const [cost_actual, setCostActual] = useState(projectData.cost_actual);
+    const [cost_plan, setCostPlan] = useState(projectData.cost_plan);
+    const [client, setClient] = useState(projectData.client);
+    const [client_contact, setClientContact] = useState(projectData.client_contact);
+    const [currency_name, setCurrencyName] = useState(projectData.currency_name);
+    const [currency_code, setCurrencyCode] = useState(projectData.currency_code);
+    const [currency_symbol, setCurrencySymbol] = useState(projectData.currency_symbol);
+    const [description, setDescription] = useState(projectData.description);
+    const [end_project, setEndProject] = useState(new Date(projectData.end_project));
+    const [name, setName] = useState(projectData.name);
+    const [office_location, setOfficeLocation] = useState(projectData.office_location);
+    const [total_man_power, setTotalManPower] = useState(projectData.total_man_power);
+    const [progress_percentage, setProgressPercentage] = useState(projectData.progress_percentage);
+    const [budget, setBudget] = useState(projectData.budget);
 
-    const [participants, setParticipants] = useState(0);
-    const [milestone_id, setMilestoneId] = useState(1);
+    const [participants, setParticipants] = useState(projectData.participants);
+    const [milestone_id, setMilestoneId] = useState(projectData.milestone_id);
 
-    const [potential_risk, setPotentialRisk] = useState(['']);
-    const [project_objectives, setProjectObjectives] = useState(['']);
-    const [type_id, setTypeId] = useState(1);
-    const [phase_id, setPhaseId] = useState(1);
+    const [potential_risk, setPotentialRisk] = useState(projectData.potential_risk);
+    const [project_objectives, setProjectObjectives] = useState(projectData.project_objectives);
+    const [type_id, setTypeId] = useState(projectData.type_id);
+    const [phase_id, setPhaseId] = useState(projectData.phase_id);
 
-    const [available_resources, setAvailableResources] = useState(['']);
+    const [available_resources, setAvailableResources] = useState(projectData.available_resources);
 
     const inputRefType = useRef(null);
     const inputRefPhase = useRef(null);
@@ -404,7 +404,7 @@ const UpdateModalProject = (props) => {
 
     }
 
-    const dataDailyReport = [
+    const dataProjectCharter = [
         {
             label: "Name",
             name: "name",
@@ -474,7 +474,7 @@ const UpdateModalProject = (props) => {
             name: "total_man_power",
             placeholder: "Total Man Power",
             type: "number",
-            valueL: total_man_power,
+            value: total_man_power,
             onChange: (e) => setTotalManPower(parseInt(e.target.value)),
         },
         {
@@ -603,7 +603,7 @@ const UpdateModalProject = (props) => {
                                     </Dialog.Title>
 
                                     {/* participants */}
-                                    {dataDailyReport.map((data, index) => {
+                                    {dataProjectCharter.map((data, index) => {
                                         return (
                                             <InputField
                                                 key={index}

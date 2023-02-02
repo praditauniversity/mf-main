@@ -76,7 +76,7 @@ const ActionsButton = (props) => {
     const { projectID_Table } = props;
 
     const buttonName = [
-        { id: 1, name: "Project Charter", icon: dailyReportIcon, link: "/#/projectcharter" },
+        { id: 1, name: "Project Charter", icon: dailyReportIcon, link: `/#/project-list/${projectID_Table}/view` },
         { id: 2, name: "Gantt", icon: dailyReportIcon, link: `/#/project-list/${projectID_Table}/gantt` }, // TODO: Change this link to gantt
         { id: 3, name: "Daily Report", icon: dailyReportIcon, link: "/#/dailyreport" },
     ]
@@ -88,6 +88,8 @@ const ActionsButton = (props) => {
                     key={button.id}
                     className="badge badge-ghost badge-sm cursor-pointer"
                     href={button.link}
+                    //if key is 3, then set the local storage of dailyreport's projectId to the projectID_Table
+                    onClick={() => button.id === 3 ? localStorage.setItem('reportProjectID', projectID_Table) : null}
                 >
                     <img
                         src={button.icon}

@@ -56,16 +56,12 @@ const ListboxProjectName = (props) => {
         setProjectID(event.target.value);
         localStorage.setItem('projectID', event.target.value);
         localStorage.setItem('ganttID', "0");
-        window.location.reload();
+        // window.location.reload();
     };
 
     return (
         <div className="flex flex-col items-center">
             <select value={projectID} onChange={handleChange} className="select select-ghost select-sm w-full max-w-lg">
-                {/* <option value="1">Project Anomaly</option>
-                <option value="2">Project Alpha</option>
-                <option value="3">Project Beta</option>
-                <option value="4">Project Gamma</option> */}
                 {printListProjectName()}
             </select>
             {/* {<Actual value={selectedOption} />} */}

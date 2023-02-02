@@ -20,7 +20,7 @@ export default class Toolbar extends Component {
     });
 
     return (
-      <div className="tool-bar">
+      <div className="tool-bar flex">
         {/* <b>Zoom: </b> */}
           { zoomRadios }
       </div>

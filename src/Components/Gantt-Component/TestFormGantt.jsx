@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
-import { ADD_ACTIVITY, DELETE_ACTIVITY, UPDATE_ACTIVITY } from "../../Middleware/GraphQL/mutations";
+import { ADD_ACTIVITY, ADD_ACTIVITY_LINK, DELETE_ACTIVITY, UPDATE_ACTIVITY, UPDATE_ACTIVITY_LINK, DELETE_ACTIVITY_LINK } from "../../Middleware/GraphQL/mutations";
 import Gantt from "./Gantt";
 
 // import gantt module
@@ -8,16 +8,16 @@ import { gantt } from "dhtmlx-gantt";
 
 // import data
 import { useRef } from "react";
-import GetProfile from "../Auth/GetProfile";
 import AddModalGantt from "../Modal/Gantt/AddModalGantt";
 import DeleteModalGantt from "../Modal/Gantt/DeleteModalGantt";
 import EditModalGantt from "../Modal/Gantt/EditModalGantt";
 import { PrintListGanttName } from "./CustomActivityState";
 import Toolbar from "./Toolbar";
+import { GET_ACTIVITY_DATA, GET_ACTIVITY_GANTT_ID, GET_LINK_DATA } from "../GraphQL/Queries";
 
 // create custom column
 gantt.config.columns = [
-    { name: "name", label: "Activity", tree: true, width:"*",resize:true },
+    { name: "name", label: "Activity", tree: true, width: "*", resize: true },
     {
         name: "start_date",
         label: "Start Time",
@@ -36,22 +36,34 @@ gantt.config.columns = [
         name: "progress",
         label: "Progress(%)",
         template(obj) {
-            // return Math.round(obj.progress * 100);
             return Math.round(obj.progress * 100);
         },
+        resize: true,
     },
     // { name: "add", width: 44 },
 ];
 
-gantt.config.autowidth = false;
+const handleRefresh = () => {
+    // Refresh the Gantt chart
+    // ganttRef.current.render();
+    gantt.render();
+};
 
 // Create custom add task editor
-(function () {
-    $(".gantt_cal_light").css("height", "800px");
+-(function () {
+    $(".gantt_cal_light.my-custom-class").css("height", "800px");
     // eslint-disable-next-line no-undef
     const startDatepicker = (node) => $(node).find("input[name='start']");
     // eslint-disable-next-line no-undef
     const endDateInput = (node) => $(node).find("input[name='end']");
+
+    gantt.config.buttons_left = ["gantt_save_btn", "gantt_cancel_btn", "gantt_delete_btn"];
+    // gantt.config.buttons_right = [null];
+
+    gantt.config.buttons_right = gantt.config.buttons_right.filter(function(button) {
+        return button != "gantt_delete_btn";
+      });
+      
 
     gantt.form_blocks.datepicker = {
         render: (sns) => {
@@ -416,6 +428,7 @@ gantt.locale.labels.section_custom = "";
 
 gantt.config.grid_resize = true;
 
+
 gantt.config.lightbox.sections = [
     {
         name: "activity",
@@ -429,6 +442,25 @@ gantt.config.lightbox.sections = [
     { name: "custom", height: 30, map_to: "auto", type: "dropDownCustom", optionPriority: optionPriority, optionPhase: optionPhase, optionUnitMeasurement: optionUnitMeasurement },
     { name: "custom", height: 30, map_to: "auto", type: "costplan_editor" },
 ];
+
+// Gantt Events
+
+// gantt.attachEvent("onAfterTaskDrag", function(id, mode, e){
+//     //any custom logic here
+//     console.log("onAfterTaskDrag", id, mode, e);
+// });
+
+// gantt.attachEvent("onBeforeTaskChanged", function(id, mode, task){
+//     //any custom logic here
+//     console.log("onBeforeTaskChanged", id, mode, task);
+//     // isAdd = false;
+//     return true;
+// });
+
+// gantt.attachEvent("onAfterLinkAdd", function (id, item) {
+//     //any custom logic here
+//     console.log("onAfterLinkAdd", id, item);
+// });
 
 // dhtmlx cancel button
 gantt.attachEvent("onLightboxCancel", function (id) {
@@ -452,22 +484,15 @@ gantt.attachEvent("onBeforeTaskDisplay", (id, task) => {
 const ganttTask = {
     data: [],
     links: [
-        { id: 1, source: 1, target: 2, type: "1" },
+        { id: 1, source: 1, target: 3, type: "1" },
         { id: 2, source: 2, target: 3, type: "0" },
+        { id: 3, source: 1, target: 4, type: "1" },
     ],
 };
 
-function handler({ action, obj, id }) {
-    if (action === "select-task") console.log(`Task ${id} was selected`);
-}
-
-// gantt.config.readonly = false;
-// gantt.expandAll();
-// gantt.expand();
-
 function TestFormGantt(props) {
     console.log("RENDER");
-    const { title, dataGantt, dataPhase, dataUnitMeasure, ganttID, isReadOnly, isShowAddColumn, isShowListGantt } = props;
+    const { title, dataGantt, dataPhase, dataLink, dataUnitMeasure, ganttID, isReadOnly, isShowAddColumn, isShowListGantt } = props;
 
     // isShowAddColumn ? (!gantt.config.columns.some(col => col.name === 'add')) ? gantt.config.columns.push({ name: "add", width: 44, grid: true }) : null : null;
 
@@ -475,23 +500,41 @@ function TestFormGantt(props) {
         ? !gantt.config.columns.some(col => col.name === 'add') && gantt.config.columns.push({ name: "add", width: 44, grid: true }) && gantt.render()
         : gantt.config.columns.some(col => col.name === 'add') && gantt.config.columns.splice(gantt.config.columns.findIndex(col => col.name === 'add'), 1) && gantt.render()
 
-    // gantt.config.columns.push(addButtonColumns);
-    // const [ganttID, setGanttID] = React.useState(localStorage.getItem('ganttID') ? localStorage.getItem('ganttID') : "1");
-    // const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
-    // const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
-    const profile = GetProfile();
-    const [phaseID, setPhaseID] = useState();
-
     const isUpdated = useRef(false);
     const isAdd = useRef(false);
     const isDelete = useRef(false);
+    const isLinkDelete = useRef(false);
+    const isLinkAdd = useRef(false);
+    const isDrag = useRef(false);
 
     const [addActivity, { data: addActivityData, error: addActivityError }] =
-        useMutation(ADD_ACTIVITY);
+        useMutation(ADD_ACTIVITY, {
+            refetchQueries: [
+                {
+                    query: GET_ACTIVITY_GANTT_ID,
+                    variables: { gantt_id: ganttID, sort: "ID asc" }
+                }, console.log("Berhasil Fetch")
+            ]
+        }
+        );
     const [updateActivity, { data: updateActivityData, error: updateActivityError }] =
-        useMutation(UPDATE_ACTIVITY);
+        useMutation(UPDATE_ACTIVITY, {
+            refetchQueries: [
+                {
+                    query: GET_ACTIVITY_GANTT_ID,
+                    variables: { gantt_id: ganttID, sort: "ID asc" }
+                }, console.log("Berhasil Fetch")
+            ]
+        });
     const [deleteActivity, { data: deleteActivityData, error: deleteActiityError }] =
-        useMutation(DELETE_ACTIVITY);
+        useMutation(DELETE_ACTIVITY, {
+            refetchQueries: [
+                {
+                    query: GET_ACTIVITY_GANTT_ID,
+                    variables: { gantt_id: ganttID, sort: "ID asc" }
+                }, console.log("Berhasil Fetch")
+            ]
+        });
 
     const createActivity = (parent_id, gantt_id, name, description, start_time, end_time, weight_percentage, progress_percentage, priority, cost_plan, cost_actual, material_cost_plan, material_cost_actual, tool_cost_plan, tool_cost_actual, human_cost_plan, human_cost_actual, activity_type, phase_id, unitofmeasurement_id) => {
         addActivity({
@@ -573,7 +616,7 @@ function TestFormGantt(props) {
         });
 
         if (updateActivityError) {
-            console.log(JSON.stringify("Error", updateActivityError, null, 2));
+            console.log("Error update activity", JSON.stringify(updateActivityError));
         }
     };
 
@@ -585,9 +628,145 @@ function TestFormGantt(props) {
         });
 
         if (deleteActiityError) {
-            console.log(JSON.stringify("Error", deleteActiityError, null, 2));
+            console.log(JSON.stringify("Error delete activity", deleteActiityError));
         }
     };
+
+    const [addActivityLink, { data: addActivityLinkData, error: addActivityLinkError }] =
+        useMutation(ADD_ACTIVITY_LINK, {
+            refetchQueries: [
+                {
+                    query: GET_LINK_DATA,
+                }, console.log("Berhasil Fetch")
+            ]
+        }
+        );
+    const [updateActivityLink, { data: updateActivityLinkData, error: updateActivityLinkError }] =
+        useMutation(UPDATE_ACTIVITY_LINK, {
+            refetchQueries: [
+                {
+                    query: GET_LINK_DATA,
+                }, console.log("Berhasil Fetch")
+            ]
+        });
+    const [deleteActivityLink, { data: deleteActivityLinkData, error: deleteActivityLinkError }] =
+        useMutation(DELETE_ACTIVITY_LINK, {
+            refetchQueries: [
+                {
+                    query: GET_LINK_DATA,
+                }, console.log("Berhasil Fetch")
+            ]
+        });
+
+    const createLink = (source, target, type) => {
+        addActivityLink({
+            variables: {
+                source: source,
+                target: target,
+                type: type,
+                gantt_id: parseInt(ganttID),
+            },
+        });
+
+        if (addActivityLinkError) {
+            console.log("Error add link", JSON.stringify(addActivityLinkError));
+        }
+    };
+
+    const changeLink = (id, source, target, type) => {
+        updateActivityLink({
+            variables: {
+                id: id,
+                source: source,
+                target: target,
+                type: type,
+                gantt_id: parseInt(ganttID),
+            },
+        });
+
+        if (updateActivityLinkError) {
+            console.log("Error update link", JSON.stringify(updateActivityLinkError));
+        }
+    };
+
+    const removeLink = (id) => {
+        deleteActivityLink({
+            variables: {
+                id: id,
+            },
+        });
+
+        if (deleteActivityLinkError) {
+            console.log("Error delete link", JSON.stringify(deleteActivityLinkError));
+        }
+    };
+
+
+    gantt.attachEvent("onBeforeTaskChanged", function (id, mode, task) {
+        // fires after the user has pressed the mouse button and started dragging, but before dhtmlxGantt starts the drag-and-drop operation
+
+        //any custom logic here
+        console.log("onBeforeTaskChanged", id, mode, task);
+        // isAdd = false;
+        isDrag.current = true;
+        return true;
+    });
+
+    gantt.attachEvent("onAfterTaskDrag", function (id, mode, e) {
+        //any custom logic here
+        if (isDrag.current === true) {
+            isDrag.current = false;
+            console.log("onAfterTaskDrag YESSSSSSS", id, mode, e);
+            const item = gantt.getTask(id);
+            const name = item.name;
+            const description = item.description;
+            const start_time = item.start_date;
+            const end_time = item.end_date;
+            const parent_id = item.parent;
+            const gantt_id = ganttID;
+            const weight_percentage = item.weight_percentage;
+            const progress_percentage = item.progress * 100;
+            const priority = item.priority;
+            const cost_plan = item.cost_plan;
+            const cost_actual = item.cost_actual;
+            const material_cost_plan = item.material_cost_plan;
+            const material_cost_actual = item.material_cost_actual;
+            const tool_cost_plan = item.tool_cost_plan;
+            const tool_cost_actual = item.tool_cost_actual;
+            const human_cost_plan = item.human_cost_plan;
+            const human_cost_actual = item.human_cost_actual;
+            const activity_type = item.activity_type;
+            const phase_id = item.phase_id;
+            const unitofmeasurement_id = item.unitofmeasurement_id;
+
+            changeActivity(
+                String(id),
+                parseInt(parent_id),
+                parseInt(gantt_id),
+                name,
+                description,
+                start_time,
+                end_time,
+                parseFloat(weight_percentage),
+                parseFloat(progress_percentage),
+                priority,
+                parseFloat(cost_plan),
+                parseFloat(cost_actual),
+                parseFloat(material_cost_plan),
+                parseFloat(material_cost_actual),
+                parseFloat(tool_cost_plan),
+                parseFloat(tool_cost_actual),
+                parseFloat(human_cost_plan),
+                parseFloat(human_cost_actual),
+                activity_type,
+                parseInt(phase_id),
+                parseInt(unitofmeasurement_id)
+            );
+        } else {
+            console.log("onAfterTaskDrag NOTTTTTT", id, mode, e, "NOT ENTERED IF");
+        }
+        console.log("CALLED", id, mode, e, "NOT ETNERED IF");
+    });
 
     // dhtmlx save button add
     gantt.attachEvent("onAfterTaskAdd", (id, item) => {
@@ -745,6 +924,78 @@ function TestFormGantt(props) {
         }
     });
 
+    // gantt.attachEvent("onBeforeLinkAdd", function(id,link){
+    //     //any custom logic here
+    //     isLinkAdd.current = true;
+    //     return true;
+    // });
+    gantt.attachEvent("onAfterLinkAdd", function (id, item) {
+        //any custom logic here
+        console.log("onAfterLinkAdd", id, item);
+        if (isLinkAdd.current === true) {
+            isLinkAdd.current = false;
+            const source = item.source;
+            const target = item.target;
+            const type = item.type;
+
+            createLink(
+                source,
+                target,
+                type,
+            );
+
+            console.log("TEMBAK GRAPHQL end");
+        }
+    });
+
+    gantt.attachEvent("onLinkContextMenu", function (id, link, e) {
+        // Your code here
+        console.log("onLinkContextMenu", id, link, e);
+    });
+
+    gantt.attachEvent("onLinkDblClick", function (id, e) {
+        // Your code here
+        console.log("onLinkDblClick", id, e);
+        return true;
+    });
+    gantt.attachEvent("onLinkValidation", function (link) {
+        //any custom logic here
+        console.log("onLinkValidation", link);
+        isLinkAdd.current = true;
+        return true
+    });
+    gantt.attachEvent("onLinkClick", function (id, e) {
+        // Your code here
+        console.log("onLinkClick", id, e);
+    });
+
+    // link can update (?)
+    // gantt.attachEvent("onBeforeLinkUpdate", function(id,new_item){
+    //     //any custom logic here
+    //     return true;
+    // });
+    // gantt.attachEvent("onAfterLinkUpdate", function (id, item) {
+    //     //any custom logic here
+    //     console.log("onAfterLinkUpdate", id, item);
+    // });
+
+    // gantt.attachEvent("onBeforeLinkDelete", function(id,item){
+    //     //any custom logic here
+    //     isLinkDelete.current = true
+    //     console.log("onBeforeLinkDelete", id, item);
+    //     return true;
+    // });
+
+    gantt.attachEvent("onAfterLinkDelete", function (id, item) {
+        //any custom logic here
+        console.log("onAfterLinkDelete", id, item);
+        // console.log("onAfterLinkDelete", gantt.isLinkExists(1));
+
+        // if (gantt.isLinkExists(id)) {
+        //     removeLink(String(id));
+        // }
+    });
+
     function subStringDate(str) {
         return str.substring(0, 10);
     }
@@ -774,6 +1025,32 @@ function TestFormGantt(props) {
                 });
             });
         }
+    }
+
+    function testLINK() {
+        // const link = gantt.getLink("1");
+        // console.log("link", link);
+        console.log("link TEST");
+        gantt.addLink({
+            id: "1",
+            source: "1",
+            target: "9",
+            type: "0",
+        });
+    }
+
+    function MappingLink() {
+        const dataLinkMap = dataLink.map((link) => {
+            console.log("is link data?", link);
+
+            gantt.addLink({
+                id: link.ID,
+                source: link.source,
+                target: link.target,
+                type: link.type,
+            });
+        }
+        );
     }
 
     // mapping data
@@ -808,7 +1085,12 @@ function TestFormGantt(props) {
                 phase_id: activity.phase_id,
                 unitofmeasurement_id: activity.unitofmeasurement_id,
             });
+
         });
+        if (dataActivity.length === dataGantt.length) {
+            console.log("masuk render");
+            gantt.render();
+        }
     }
 
     const [isOpen, setIsOpen] = useState(false);
@@ -872,20 +1154,24 @@ function TestFormGantt(props) {
                 }
                 {console.log("before mapping data should be called")}
                 {/* <div className="py-1 px-4 h-full">{MappingData()}</div> */}
-                <div className="zoom-bar px-3">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={testAddTask2}>ADD GANTT 2</button>
+                <div className="zoom-bar px-3 flex justify-between">
+                    {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={testAddTask2}>ADD GANTT 2</button> */}
                     <Toolbar
                         zoom={currentZoom}
                         onZoomChange={handleZoomChange}
                     />
+                    <button className="border-[#D9D9D9] border-solid rounded border-2 px-3 hover:bg-[#B39DDB]" onClick={testLINK}>Refresh</button>
                 </div>
                 <div className="py-1 px-4 h-5/6">
                     <div className="h-full">
+                        {console.log("gantt version", gantt.version)}
                         {MappingData()}
+                        {MappingLink()}
                         {MappingPhase()}
                         {MappingUnitofMeasurement()}
                         {console.log("phase data local", optionPhase)}
-                        <Gantt tasks={ganttTask} zoom={currentZoom} isReadOnly={isReadOnly} />
+                        {/* <div ref={ganttRef}></div> */}
+                        <Gantt zoom={currentZoom} isReadOnly={isReadOnly} />
                     </div>
                 </div>
                 {console.log("after mapping data should be called")}
