@@ -90,7 +90,7 @@ export function SumDanger() {
       sumAct = sumAct + project.cost_actual;
       sumCost = sumCost + project.cost_plan;
       const tempDanger = sumCost - sumAct;
-                sumDanger = tempDanger <= 0 ? tempDanger * -1 : 0;
+      sumDanger = tempDanger <= 0 ? tempDanger * -1 : 0;
       // projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
       projectCurrency = projectData[0].currency_symbol ? projectData[0].currency_symbol : "N/A";
     });
@@ -113,19 +113,20 @@ export function SumVariance() {
   function printSumVariance() {
     let sumBudget = 0;
     let sumAct = 0;
-    let variance = 0;
+    let sumVariance = 0;
     let projectCurrency = "";
     projectData.map((project) => {
       sumBudget = sumBudget + project.budget;
       sumAct = sumAct + project.cost_actual;
-      variance = sumBudget - sumAct;
+      const tempVariance = sumBudget - sumAct;
+      sumVariance = tempVariance <= 0 ? tempVariance * -1 : 0;
       // projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
       projectCurrency = projectData[0].currency_symbol ? projectData[0].currency_symbol : "N/A";
     });
     return (
       <div>
         <p>
-          {projectCurrency} {variance.toFixed(2)}
+          {projectCurrency} {sumVariance.toFixed(2)}
         </p>
       </div>
     );

@@ -183,7 +183,8 @@ export function Variance(props) {
         let projectCurrency = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                variance = project.budget - project.cost_actual;
+                const tempVariance = project.budget - project.cost_actual;
+                variance = tempVariance <= 0 ? tempVariance * -1 : 0;
                 projectCurrency = project.currency_symbol ? project.currency_symbol : "N/A";
             }
         });

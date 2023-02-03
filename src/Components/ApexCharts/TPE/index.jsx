@@ -6,7 +6,6 @@ const TPECard = () => {
     const [savedOption, setSavedOption] = useState(localStorage.getItem('TPEID')); 
     useEffect(() => {
         savedOption !=0? setSavedOption(savedOption) : setSavedOption(0);
-        console.log("BABI",savedOption);
     }, []);
         return (
             <div className="rounded-xl shadow-lg bg-white py-6 px-12">
