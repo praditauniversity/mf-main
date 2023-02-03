@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import "../../../../Assets/svgbutton/svgbutton.css";
 import Button from "../../../Button";
-import { GET_ACTIVITY_DATA, GET_PROJECT_DATA } from "../../../GraphQL/Queries";
+import { GET_ACTIVITY_DATA, GET_GANTT_PROJECT_ID, GET_PROJECT_DATA_BY_ID } from "../../../GraphQL/Queries";
 import {
   IconDeleteForm,
   IconPlus,
@@ -15,9 +15,6 @@ import "./AddModal.css";
 import Addnewequipment, { useEquipment } from "./Addnewequipment";
 import Addnewworklog, { useWorkLog } from "./Addnewworklog";
 
-
-//note
-//activity dan project name 0 (masalah di yang awal submit)
 const GET_DAILY_REPORT = gql`
   query DailyReport {
     dailyReport {
@@ -83,8 +80,6 @@ const AddModalDailyReport = () => {
   const [work_log_desc, setWorkLogDesc] = useState([""]);
   const [work_log_status, setWorkLogStatus] = useState([""]);
   const [work_log_hour, setWorkLogHour] = useState([0]);
-  const [projectidtest, setProjectIdTest] = useState(0);
-  const [activityidtest, setActivityIdTest] = useState(0);
   console.log("work_log_name", setEquipment);
   const [
     addDailyReport,
@@ -96,14 +91,19 @@ const AddModalDailyReport = () => {
   const inputRefActivity = useRef(null);
   const inputRefProject = useRef(null);
 
-  const { data, loading, error } = useQuery(GET_ACTIVITY_DATA);
-  const {
-    data: getproject,
-    loading: loadingproject,
-    error: errorproject,
-  } = useQuery(GET_PROJECT_DATA);
+  const { data: dataProject } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    variables: { id: String(localStorage.getItem("reportProjectID")) },
+  });
   const [projectName, setProjectName] = useState([]);
+
+  const { data: dataGantt } = useQuery(GET_GANTT_PROJECT_ID, {
+    variables: { project_id: String(localStorage.getItem("reportProjectID")) },
+  });
+  const [ganttName, setGanttName] = useState([]);
+
+  const { data, loading, error } = useQuery(GET_ACTIVITY_DATA);
   const [activityName, setActivityName] = useState([]);
+
   const [isOpen, setIsOpen] = useState(false);
   const showDialog = () => {
     setIsOpen(true);
@@ -112,7 +112,12 @@ const AddModalDailyReport = () => {
     setIsOpen(false);
   };
 
-  useEffect(() => {
+  const idProject = parseInt(localStorage.getItem('reportProjectID'));
+
+  useEffect(() => {  
+    if(idProject){
+      setProjectId(parseInt('reportProjectID'));
+    }
     if (data) {
       console.log("data Ready List Activity");
       setActivityName(data.activity.data);
@@ -120,20 +125,35 @@ const AddModalDailyReport = () => {
     } else {
       console.log("data not found");
     }
-    if (getproject) {
+    if (dataProject) {
       console.log("data Ready List Project");
-      setProjectName(getproject.project.Data);
-      console.log("data found", getproject.project.Data);
+      setProjectName(dataProject.project.Data);
+      console.log("data found", dataProject.project.Data);
+    }
+    if (dataGantt) {
+      console.log("data Ready List Gantt");
+      setGanttName(dataGantt.ganttGetProjectID.data);
+      console.log("data found", dataGantt.ganttGetProjectID.data);
     }
     console.log("USE EFFECT list daily report");
-  }, [data, getproject]);
+  }, [data, idProject, dataProject, dataGantt]);
 
   function printListsetActivityName() {
-    return activityName.map(({ ID, name }) => (
-      <>
-        <option value={ID}>{name}</option>
-      </>
-    ));
+    return projectName.map((project) => {
+      return ganttName.map((gantt) => {
+        if (gantt.project_id === project.ID) {
+          return activityName.map((activity) => {
+            if (gantt.ID === activity.gantt_id) {
+              return (
+                <>
+                  <option value={activity.ID}>{activity.name}</option>
+                </>
+              );
+            } 
+          });
+        }
+      });
+    });
   }
 
   function printListsetProjectName() {
@@ -223,33 +243,14 @@ const AddModalDailyReport = () => {
 
   const handleSubmit = (e) => {
     const activity_id = parseInt(inputRefActivity.current.value);
-    const project_id = parseInt(inputRefProject.current.value);
+    // const project_id = parseInt(inputRefProject.current.value);
     activity_id === 0 ? setActivityId(parseInt(inputRefActivity.current.value)) : activity_id
     project_id === 0 ? setProjectId(parseInt(inputRefProject.current.value)) : project_id
-
-
-
+    
     setWorkLogName(inputFields.map((inputField) => inputField.name));
     setWorkLogDesc(inputFields.map((inputField) => inputField.description));
     setWorkLogStatus(inputFields.map((inputField) => inputField.status));
     setWorkLogHour(inputFields.map((inputField) => parseInt(inputField.hour)));
-    var gue = work_log_name;
-    var gue2 = work_log_desc;
-    var gue3 = work_log_status;
-    var gue4 = work_log_hour;
-
-    console.log("BABIBADASDA", inputFields.map((inputField) => inputField.name))
-    console.log("fakkkkkkkkkkkkkkkkkkkkkkk", gue)
-    console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue2)
-
-    console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue3)
-    console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue4)
-    console.log("equipmentt", equipment)
-    console.log("namee", name)
-    console.log("description", description)
-    console.log("Status", status)
-    console.log("activity_id", activityidtest)
-    console.log("project_id", projectidtest)
 
     e.preventDefault();
 
@@ -260,7 +261,7 @@ const AddModalDailyReport = () => {
         status,
         equipment,
         activity_id,
-        project_id,
+        project_id : idProject,
         report_date,
         work_log_name,
         work_log_desc,
@@ -356,12 +357,12 @@ const AddModalDailyReport = () => {
                     <div className="mt-3">
                       <div className="form-control w-full max-w-5xl">
                         <label className="label">
-                          <span className="label-text">Status Project</span>
+                          <span className="label-text">Status</span>
                         </label>
                         <input
                           value={status}
                           type="text"
-                          placeholder="Enter your project location"
+                          placeholder="Enter your report status"
                           onChange={handleStatus}
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                         />
@@ -392,7 +393,7 @@ const AddModalDailyReport = () => {
                       </div>
                     </div>
                     {/* project */}
-                    <div className="mt-3">
+                    {/* <div className="mt-3">
                       <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
                         Project Name
                       </label>
@@ -406,7 +407,7 @@ const AddModalDailyReport = () => {
                           {printListsetProjectName()}
                         </select>
                       </div>
-                    </div>
+                    </div> */}
                     {/* <div className="mt-6">
                       <div className="form-control w-full max-w-5xl">
                         <div className="border-2 border-grey-border rounded-lg px-4 py-2">

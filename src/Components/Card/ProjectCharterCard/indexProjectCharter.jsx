@@ -8,6 +8,7 @@ import PCList from "./ListProjectCharterPage";
 import AddModalProjectCharter from "../../Modal/ProjectCharterModal/AddModal/AddModal";
 import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
+import { useEffect } from "react";
 
 const ProjectCharterPage = (props) => {
     const { icon } = props;
@@ -18,8 +19,17 @@ const ProjectCharterPage = (props) => {
     const projectData = FetchProjectByUserId();
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage] = useState(5)
-    const [totalItems, setTotalItems] = useState(5)
+    const [itemsPerPage] = useState(5) // hardcode
+    const [totalItems, setTotalItems] = useState(1)
+
+    useEffect (() => {
+        if (projectData) {
+            setTotalItems(projectData.length)
+        } else {
+            console.log("projectData null");
+        }
+    }, [projectData])
+
     const totalPages = Math.ceil(totalItems / itemsPerPage)
 
     const handlePageChange = (currentPage) => {
@@ -28,7 +38,8 @@ const ProjectCharterPage = (props) => {
 
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
-            {console.log("totallllllllllll", projectData.length)}
+            {console.log("totallllllllllll", projectData.length, typeof projectData.length)}
+            {console.log("limitttttt", itemsPerPage, typeof itemsPerPage)}
             <div>
                 <div className="pt-4 pb-0 flex justify-between">
                     <div className="flex justify-start">
@@ -71,7 +82,7 @@ const ProjectCharterPage = (props) => {
 
                     <div className="py-2">
                         <div className="2xl:col-span-15 col-span-12">
-                            <PCList page={currentPage} limit={itemsPerPage} sort={"start_project asc"} />
+                            <PCList page={currentPage} limit={itemsPerPage} sort="start_project asc" />
                         </div>
                     </div>
 

@@ -2,7 +2,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import "../../../../Assets/svgbutton/svgbutton.css";
-import { GET_ACTIVITY_DATA, GET_PROJECT_DATA } from "../../../GraphQL/Queries";
+import { GET_ACTIVITY_DATA } from "../../../GraphQL/Queries";
 import {
   IconDeleteForm,
   IconEdit,
@@ -13,9 +13,6 @@ import {
 import { DatePickerField } from "../../../Input/Input";
 import "./UpdateModal.css";
 
-
-//note
-//activity dan project name 0 (masalah di yang awal submit)
 const GET_DAILY_REPORT = gql`
   query DailyReport {
     dailyReport {
@@ -66,9 +63,6 @@ input:{
 const UpdateModalDailyReport = (props) => {
   const { reportID, reportData } = props;
 
-  // const [inputFields, setInputFields] = useState([
-  //   { name: reportData.work_log_name, description: reportData.work_log_desc, status: reportData.work_log_status, hour: reportData.work_log_hour },
-  // ]);
   const [inputFields, setInputFields] = useState(() => {
     const inputFieldsData = [];
     for (let i = 0; i < reportData.work_log_name.length; i++) {
@@ -81,36 +75,21 @@ const UpdateModalDailyReport = (props) => {
     }
     return inputFieldsData;
   });
+
   const [equipment, setEquipment] = useState(reportData.equipment);
   const [name, setName] = useState(reportData.name);
   const [description, setDescription] = useState(reportData.description);
   const [status, setStatus] = useState(reportData.status);
-  // const [activity_id, setActivityId] = useState(0);
-  // const [project_id, setProjectId] = useState(0);
   const [report_date, setReportDate] = useState(new Date(reportData.report_date));
   const [work_log_name, setWorkLogName] = useState(reportData.work_log_name);
   const [work_log_desc, setWorkLogDesc] = useState(reportData.work_log_desc);
   const [work_log_status, setWorkLogStatus] = useState(reportData.work_log_status);
   const [work_log_hour, setWorkLogHour] = useState(reportData.work_log_hour);
-  console.log("work_log_name", setEquipment);
 
   const [ updateDailyReport, { loading: updateDailyReportloading, error: updateDailyReportError },] = useMutation(UPDATE_DAILY_REPORT, 
     {
     refetchQueries: [{ query: GET_DAILY_REPORT }],
   });
-
-  // const inputRefActivity = useRef(null);
-  // const inputRefProject = useRef(null);
-
-  // const { data, loading, error } = useQuery(GET_ACTIVITY_DATA);
-  // const {
-  //   data: getproject,
-  //   loading: loadingproject,
-  //   error: errorproject,
-  // } = useQuery(GET_PROJECT_DATA);
-  // const [projectName, setProjectName] = useState([]);
-  // const [activityName, setActivityName] = useState([]);
-
 
   const [isOpen, setIsOpen] = useState(false);
   const showDialog = () => {
@@ -119,55 +98,6 @@ const UpdateModalDailyReport = (props) => {
   const hideDialog = () => {
     setIsOpen(false);
   };
-
-  // useEffect(() => {
-  //   if (data) {
-  //     console.log("data Ready List Activity");
-  //     setActivityName(data.activity.data);
-  //     console.log("data found", data.activity.data);
-  //   } else {
-  //     console.log("data not found");
-  //   }
-  //   if (getproject) {
-  //     console.log("data Ready List Project");
-  //     setProjectName(getproject.project.Data);
-  //     console.log("data found", getproject.project.Data);
-  //   }
-  //   console.log("USE EFFECT list daily report");
-  // }, [data, getproject]);
-
-  // // function printListsetActivityName() {
-  // //   return activityName.map(({ ID, name }) => (
-  // //     <>
-  // //       <option value={ID}>{name}</option>
-  // //     </>
-  // //   ));
-  // // }
-
-  // // function printListsetProjectName() {
-  // //   return projectName.map(({ ID, name }) => (
-  // //     <>
-  // //       <option value={ID}>{name}</option>
-  // //     </>
-  // //   ));
-  // // }
-  // const handleChangeActivity = (event) => {
-  //   setActivityId(parseInt(event.target.value));
-  //   console.log(
-  //     "Activity ID",
-  //     typeof parseInt(event.target.value),
-  //     event.target.value
-  //   );
-  // };
-
-  // const handleChangeProject = (event) => {
-  //   setProjectId(parseInt(event.target.value));
-  //   console.log(
-  //     "Project ID",
-  //     typeof parseInt(event.target.value),
-  //     event.target.value
-  //   );
-  // };
 
   const handleName = (event) => {
     setName(event.target.value);
@@ -208,7 +138,6 @@ const UpdateModalDailyReport = (props) => {
     setWorkLogHour(inputFields.map((inputField) => parseInt(inputField.hour)));
   };
 
-  // setWorkLogName(inputFields.map((inputField) => inputField.name));
   const addFields = () => {
     let newfield = { equipment: "" };
 
@@ -230,28 +159,6 @@ const UpdateModalDailyReport = (props) => {
   };
 
   const handleSubmit = (e) => {
-    //   const activity_id = parseInt(inputRefActivity.current.value);
-    //   const project_id = parseInt(inputRefProject.current.value);
-    //   activity_id === 0 ?setActivityId(parseInt(inputRefActivity.current.value)): activity_id
-    //   project_id === 0 ? setProjectId(parseInt(inputRefProject.current.value)): project_id
-    var gue = work_log_name;
-    var gue2 = work_log_desc;
-    var gue3 = work_log_status;
-    var gue4 = work_log_hour;
-
-    console.log("BABIBADASDA", inputFields.map((inputField) => inputField.name))
-    console.log("fakkkkkkkkkkkkkkkkkkkkkkk", gue)
-    console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue2)
-
-    console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue3)
-    console.log("work_log_houraaaaaaaaaaaaaaaaaaaaaaaaaaaa", gue4)
-    console.log("equipmentt", equipment)
-    console.log("namee", name)
-    console.log("description", description)
-    console.log("Status", status)
-    // console.log("activity_id", activityidtest)
-    // console.log("project_id", projectidtest)
-
     e.preventDefault();
 
     updateDailyReport({
@@ -272,8 +179,6 @@ const UpdateModalDailyReport = (props) => {
     setEquipment([''])
     setDescription("");
     setStatus("");
-    // setActivityId(0);
-    // setProjectId(0);
     setReportDate("");
   };
 

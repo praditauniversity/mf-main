@@ -22,29 +22,29 @@ const DELETE_PROJECTCHARTER = gql`
 
 const PCList = (props) => {
     // let { projectID } = useParams();
-    // const { page, limit, sort } = props;
-    const charterData = FetchProjectByUserId();
-    // const profile = GetProfile();
-    // const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
-    //     variables: { userId: profile.id, page: page, limit: limit, sort: sort },
-    // });
-    // const [charterData, setCharter] = useState([]);
+    const { page, limit, sort } = props;
+    // const charterData = FetchProjectByUserId();
+    const profile = GetProfile();
+    const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+        variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) },
+    });
+    const [charterData, setCharter] = useState([]);
 
-    // useEffect(() => {
-    //     if (data) {
-    //         setCharter(data.projectByUserId.Data);
-    //         console.log("Data found for project with user id : " + profile.id);
-    //     } else {
-    //         console.log("No data found for project with user id : " + profile.id);
-    //     }
-    // }, [data]);
+    useEffect(() => {
+        if (data) {
+            setCharter(data.projectByUserId.Data);
+            console.log("Data found for project with user id : " + profile.id);
+        } else {
+            console.log("No data found for project with user id : " + profile.id);
+        }
+    }, [data]);
 
     const [deleteCharter, { loading, error }] = useMutation(DELETE_PROJECTCHARTER,
         {
             refetchQueries: [
-                { query: GET_CHARTER_DATA }, console.log("Berhasil Fetch")
-                // { query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: profile.id, page: page, limit: limit, sort: sort } },
-                // console.log("Berhasil Fetch")
+                // { query: GET_CHARTER_DATA }, console.log("Berhasil Fetch")
+                { query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: profile.id, page: page, limit: limit, sort: sort } },
+                console.log("Berhasil Fetch")
             ]
         }
     );

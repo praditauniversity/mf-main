@@ -37,7 +37,7 @@ const MemberTaskCard = () => {
     }
 
     return (
-        <div className="rounded-xl shadow-lg bg-white pt-6 h-[300px]">
+        <div className="rounded-xl shadow-lg bg-white pt-6">
             <div className="flex justify-start pl-8 pb-6">
                 {/* <p className="text-lg font-semibold">Task List</p> */}
                 {console.log("DATAAA LENGTHHHHH DASHBOARDDDDDD TABLEEE", dataLength)}

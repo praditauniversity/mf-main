@@ -1017,8 +1017,13 @@ export const GET_DAILY_REPORT_DATA_BY_PROJECT_ID = gql`
 `;
 
 export const GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID = gql`
-  query minuteOfMeetingGetProjectID($projectId: String!) {
-    minuteOfMeetingGetProjectID(project_id: $projectId) {
+  query minuteOfMeetingGetProjectID(
+    $projectId: String!
+    $page: String
+    $limit: String
+    $sort: String
+    ) {
+    minuteOfMeetingGetProjectID(project_id: $projectId, page: $page, limit: $limit, sort: $sort) {
       data {
         ID
         CreatedAt

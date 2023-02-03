@@ -9,6 +9,7 @@ import AddModalMinutesOfMeeting from "../../Modal/MinutesOfMeetingModal/AddModal
 import GetProfile from "../../Auth/GetProfile";
 import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 import { Client, ProjectManager } from "../../GraphQL/ProjectByIdQueries";
+import FetchMomByProjectId from "../../../Middleware/Fetchers/FetchMomByProjectId";
 
 const MinutesofMeetingCard = (props) => {
     const { icon } = props;
@@ -16,13 +17,15 @@ const MinutesofMeetingCard = (props) => {
 
     const [page, setPage] = useState(1);
 
+    const momData = FetchMomByProjectId();
+
     const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage] = useState(10)
-    const [totalItems, setTotalItems] = useState(10)
+    const [itemsPerPage] = useState(5)
+    const [totalItems, setTotalItems] = useState(1)
     const totalPages = Math.ceil(totalItems / itemsPerPage)
 
-    const handlePageChange = (page) => {
-      setCurrentPage(page)
+    const handlePageChange = (currentPage) => {
+      setCurrentPage(currentPage)
     }
 
     const profile = GetProfile();
@@ -35,12 +38,18 @@ const MinutesofMeetingCard = (props) => {
     useEffect(() => {
         if (data) {
             setProject(data.projectByUserId.Data);
-            momProjectID == 0 ? localStorage.setItem('momProjectID', data.projectByUserId.Data[0].ID) : localStorage.setItem('momProjectID', momProjectID);
-        } else {
+            localStorage.getItem("momProjectID") === null ? localStorage.setItem('momProjectID', data.projectByUserId.Data[0].ID) : console.log("momProjectID is not null");
+            momProjectID === null ? setMomProjectID(data.projectByUserId.Data[0].ID) : setMomProjectID(localStorage.getItem('momProjectID'));
+            // momProjectID === null ? localStorage.setItem('momProjectID', data.projectByUserId.Data[0].ID) : localStorage.setItem('momProjectID', momProjectID);
+        }
+        if (momData) {
+            setTotalItems(momData.length)
+        }
+         else {
             console.log("No data found for project with user id : " + profile.id);
             localStorage.setItem('momProjectID', 0)
         }
-    }, [data]);
+    }, [data, momData]);
 
     function printListProjectName() {
         return projectData.map(({ ID, name }) => (
@@ -130,7 +139,7 @@ const MinutesofMeetingCard = (props) => {
 
                     <div className="py-2">
                         <div className="col-span-15">
-                            <MinutesofMeetingList />
+                            <MinutesofMeetingList page={currentPage} limit={itemsPerPage} sort="meeting_date asc" />
                         </div>
                     </div>
 

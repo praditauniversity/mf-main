@@ -10,21 +10,14 @@ import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUse
 import GetProfile from "../../Auth/GetProfile";
 import { Client, ClientContact, Location, ProjectManager, ProjectStatus } from "../../GraphQL/ProjectByIdQueries";
 import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
+import FetchDailyReportByProjectId from "../../../Middleware/Fetchers/FetchDailyReportByProjectId";
 
 const DailyReportPage = (props) => {
     const { icon } = props;
     const iconA = <IconSearch />;
 
     const [page, setPage] = useState(1);
-
-    const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage] = useState(10)
-    const [totalItems, setTotalItems] = useState(10)
-    const totalPages = Math.ceil(totalItems / itemsPerPage)
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page)
-    }
+    const DRDataList = FetchDailyReportByProjectId();
 
     // const projectData = FetchProjectByUserId();
 
@@ -35,17 +28,27 @@ const DailyReportPage = (props) => {
     const [projectData, setProject] = useState([]);
     const [reportProjectID, setReportProjectID] = useState(localStorage.getItem('reportProjectID'));
 
+    const [currentPage, setCurrentPage] = useState(1)
+    const [itemsPerPage] = useState(5) // hardcode
+    const [totalItems, setTotalItems] = useState(1)
+
     useEffect(() => {
         if (data) {
             setProject(data.projectByUserId.Data);
             //if local storage is empty, set to first project id
-            localStorage.getItem('reportProjectID') === null ? localStorage.setItem('reportProjectID', projectData[0].ID) : console.log("reportProjectID is not null");
+            localStorage.getItem('reportProjectID') === null ? localStorage.setItem('reportProjectID', data.projectByUserId.Data[0].ID) : console.log("reportProjectID is not null");
             reportProjectID === null ? setReportProjectID(data.projectByUserId.Data[0].ID) : setReportProjectID(localStorage.getItem('reportProjectID'));
-        } else {
-            console.log("No data found for project with user id : " + profile.id);
-            // localStorage.setItem('reportProjectID', 0)
         }
-    }, [data]);
+        if(DRDataList){
+            setTotalItems(DRDataList.length);
+        }
+    }, [data, DRDataList]);
+
+    const totalPages = Math.ceil(totalItems / itemsPerPage)
+
+    const handlePageChange = (currentPage) => {
+        setCurrentPage(currentPage)
+    }
 
     function printListProjectName() {
         return projectData.map(({ ID, name }) => (
@@ -63,6 +66,7 @@ const DailyReportPage = (props) => {
 
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
+            {console.log("BANYAKNYA DATA: " + totalItems)}
             <div>
                 <div className="pt-4 pb-0 flex justify-between">
                     <div className="flex justify-start">
@@ -166,7 +170,7 @@ const DailyReportPage = (props) => {
 
                     <div className="py-2">
                         <div className="col-span-15">
-                            <DRList />
+                            <DRList page={currentPage} limit={itemsPerPage} sort="report_number asc" />
                         </div>
                     </div>
 

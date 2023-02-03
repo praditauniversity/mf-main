@@ -43,14 +43,26 @@ gantt.config.columns = [
     // { name: "add", width: 44 },
 ];
 
-const handleRefresh = () => {
+const handleRender = () => {
     // Refresh the Gantt chart
-    // ganttRef.current.render();
+    // if there is an error this handle will not refresh and broken instead
     gantt.render();
 };
+const handleClearAll = () => {
+    // Clear data and links Gantt chart
+    gantt.clearAll();
+};
+
+function handledelete() {
+    // const link = gantt.getLink("1");
+    // console.log("link", link);
+    console.log("link TEST");
+    gantt.deleteLink("55");
+    console.log("link TEST after");
+}
 
 // Create custom add task editor
--(function () {
+(function () {
     $(".gantt_cal_light.my-custom-class").css("height", "800px");
     // eslint-disable-next-line no-undef
     const startDatepicker = (node) => $(node).find("input[name='start']");
@@ -211,8 +223,8 @@ const handleRefresh = () => {
             node.querySelector(".editor_progress").value = task.progress * 100 || "";
         },
         get_value: function (node, task) {
-            task.weight_percentage = node.querySelector(".editor_progress").value;
-            task.progress = node.querySelector(".editor_weight").value;
+            task.progress = node.querySelector(".editor_progress").value / 100;
+            task.weight_percentage = node.querySelector(".editor_weight").value;
         },
     };
 
@@ -421,11 +433,6 @@ gantt.locale.labels.section_priority = "Priority";
 gantt.locale.labels.section_phase = "Phase";
 gantt.locale.labels.section_custom = "";
 
-// const ganttCalLight = document.getElementsByClassName("gantt_cal_light")[0];
-// ganttCalLight.style.height = "500px";
-
-// document.querySelector(".gantt_cal_light").style.height = "6000px";
-
 gantt.config.grid_resize = true;
 
 
@@ -442,25 +449,6 @@ gantt.config.lightbox.sections = [
     { name: "custom", height: 30, map_to: "auto", type: "dropDownCustom", optionPriority: optionPriority, optionPhase: optionPhase, optionUnitMeasurement: optionUnitMeasurement },
     { name: "custom", height: 30, map_to: "auto", type: "costplan_editor" },
 ];
-
-// Gantt Events
-
-// gantt.attachEvent("onAfterTaskDrag", function(id, mode, e){
-//     //any custom logic here
-//     console.log("onAfterTaskDrag", id, mode, e);
-// });
-
-// gantt.attachEvent("onBeforeTaskChanged", function(id, mode, task){
-//     //any custom logic here
-//     console.log("onBeforeTaskChanged", id, mode, task);
-//     // isAdd = false;
-//     return true;
-// });
-
-// gantt.attachEvent("onAfterLinkAdd", function (id, item) {
-//     //any custom logic here
-//     console.log("onAfterLinkAdd", id, item);
-// });
 
 // dhtmlx cancel button
 gantt.attachEvent("onLightboxCancel", function (id) {
@@ -480,21 +468,77 @@ gantt.attachEvent("onBeforeTaskDisplay", (id, task) => {
     return true;
 });
 
-// Create Data Static
-const ganttTask = {
-    data: [],
-    links: [
-        { id: 1, source: 1, target: 3, type: "1" },
-        { id: 2, source: 2, target: 3, type: "0" },
-        { id: 3, source: 1, target: 4, type: "1" },
-    ],
-};
+let isLinkDelete;
+
+// dhtmlx handle link delete
+(function () {
+    let modal;
+    let editLinkId;
+
+    function endPopup() {
+        modal = null;
+        editLinkId = null;
+    }
+
+    function cancelEditLink() {
+        endPopup();
+    }
+
+    function deleteLinkHandle() {
+        console.log("deleteLink", typeof editLinkId, editLinkId);
+        let changeID = parseInt(editLinkId);
+        let getLINK = gantt.getLink(editLinkId);
+        console.log("cek tipe data", typeof changeID)
+        console.log("getLINK", typeof getLINK.id, getLINK.id)
+        isLinkDelete = true;
+        console.log("isLinkDelete", isLinkDelete)
+        // gantt.deleteLink(`${editLinkId}`);
+        gantt.deleteLink(`${getLINK.id}`);
+        endPopup();
+    }
+
+    gantt.attachEvent("onLinkDblClick", function (id, e) {
+        editLinkId = id;
+        let link = gantt.getLink(id);
+        let linkTitle = gantt.getTask(link.source).text + " -> " +
+            gantt.getTask(link.target).text;
+
+        console.log("MODAL KEPANGGIL")
+
+        modal = gantt.modalbox({
+            // title: linkTitle,
+            text: "<div>" +
+                "<label>Do you want to delete Link : " +
+                `<span class='font-bold'>${linkTitle}</span>` +
+                "? </label>" +
+                "</div>",
+            buttons: [
+                { label: "Cancel", value: "cancel" },
+                { label: "Delete", value: "delete" }
+            ],
+            width: "500px",
+            callback: function (result) {
+                switch (result) {
+                    case "cancel":
+                        cancelEditLink();
+                        break;
+
+                    case "delete":
+                        deleteLinkHandle();
+                        break;
+                }
+            }
+        });
+        return false;
+    });
+})();
+
+let previousDataGanttLength;
 
 function TestFormGantt(props) {
     console.log("RENDER");
     const { title, dataGantt, dataPhase, dataLink, dataUnitMeasure, ganttID, isReadOnly, isShowAddColumn, isShowListGantt } = props;
 
-    let previousDataGanttLength;
     let previousDataLinkLength;
 
     // isShowAddColumn ? (!gantt.config.columns.some(col => col.name === 'add')) ? gantt.config.columns.push({ name: "add", width: 44, grid: true }) : null : null;
@@ -506,7 +550,7 @@ function TestFormGantt(props) {
     const isUpdated = useRef(false);
     const isAdd = useRef(false);
     const isDelete = useRef(false);
-    const isLinkDelete = useRef(false);
+    // const isLinkDelete = useRef(false);
     const isLinkAdd = useRef(false);
     const isDrag = useRef(false);
 
@@ -657,7 +701,7 @@ function TestFormGantt(props) {
             refetchQueries: [
                 {
                     query: GET_LINK_DATA,
-                }, console.log("Berhasil Fetch")
+                }, console.log("Berhasil Fetch delete link")
             ]
         });
 
@@ -870,7 +914,7 @@ function TestFormGantt(props) {
             const parent_id = item.parent;
             const gantt_id = ganttID;
             const weight_percentage = item.weight_percentage;
-            const progress_percentage = item.progress;
+            const progress_percentage = item.progress * 100;
             const priority = item.priority;
             const cost_plan = item.cost_plan;
             const cost_actual = item.cost_actual;
@@ -928,11 +972,12 @@ function TestFormGantt(props) {
         }
     });
 
-    // gantt.attachEvent("onBeforeLinkAdd", function(id,link){
-    //     //any custom logic here
-    //     isLinkAdd.current = true;
-    //     return true;
-    // });
+    gantt.attachEvent("onLinkValidation", function (link) {
+        //any custom logic here
+        console.log("onLinkValidation", link);
+        isLinkAdd.current = true;
+        return true
+    });
     gantt.attachEvent("onAfterLinkAdd", function (id, item) {
         //any custom logic here
         if (isLinkAdd.current === true) {
@@ -952,59 +997,23 @@ function TestFormGantt(props) {
         }
     });
 
-    gantt.attachEvent("onLinkContextMenu", function (id, link, e) {
-        // Your code here
-        console.log("onLinkContextMenu", id, link, e);
-    });
 
-    gantt.attachEvent("onLinkDblClick", function (id, e) {
-        // Your code here
-        console.log("onLinkDblClick", id, e);
-        return true;
-    });
-    gantt.attachEvent("onLinkValidation", function (link) {
-        //any custom logic here
-        console.log("onLinkValidation", link);
-        isLinkAdd.current = true;
-        return true
-    });
+
     gantt.attachEvent("onLinkClick", function (id, e) {
         // Your code here
         console.log("onLinkClick", id, e);
+        let link = gantt.getLink(id);
+        console.log("when link clicked", link);
     });
-
-    gantt.attachEvent("onTaskClick", function (id, e) {
-        //any custom logic here
-        console.log("onTASKCLICK", id, e);
-        return true;
-    });
-
-    // link can update (?)
-    // gantt.attachEvent("onBeforeLinkUpdate", function(id,new_item){
-    //     //any custom logic here
-    //     return true;
-    // });
-    // gantt.attachEvent("onAfterLinkUpdate", function (id, item) {
-    //     //any custom logic here
-    //     console.log("onAfterLinkUpdate", id, item);
-    // });
-
-    // gantt.attachEvent("onBeforeLinkDelete", function(id,item){
-    //     //any custom logic here
-    //     isLinkDelete.current = true
-    //     console.log("onBeforeLinkDelete", id, item);
-    //     return true;
-    // });
 
     gantt.attachEvent("onAfterLinkDelete", function (id, item) {
         //any custom logic here
-        // console.log("onAfterLinkDelete", id, item);
-        // removeLink(String(id));
-        // console.log("onAfterLinkDelete", gantt.isLinkExists(1));
-
-        // if (gantt.isLinkExists(id)) {
-        //     removeLink(String(id));
-        // }
+        console.log("uslinkdelete", isLinkDelete)
+        if (isLinkDelete === true) {
+            isLinkDelete = false
+            console.log("onAfterLinkDelete", typeof id, id, typeof item.id, item.id);
+            removeLink(id);
+        }
     });
 
     function subStringDate(str) {
@@ -1049,23 +1058,35 @@ function TestFormGantt(props) {
             type: "0",
         });
     }
+    function deleteLinkHandleButton() {
+        // const link = gantt.getLink("1");
+        // console.log("link", link);
+        console.log("link TEST");
+        gantt.deleteLink(100);
+        console.log("link TEST after");
+    }
 
     function MappingLink() {
+        console.log("is link data?", dataLink.length);
         if (dataLink.length !== previousDataLinkLength) {
             previousDataLinkLength = dataLink.length;
             const dataLinkMap = dataLink.map((link) => {
-                console.log("is link data?", link);
 
-                console.log("is link data?", typeof link.type, link.type);
+                // console.log("is link data?", typeof link.type, link.type);
 
-                gantt.addLink({
-                    id: link.ID,
-                    source: link.source,
-                    target: link.target,
-                    type: link.type,
-                });
+                if (!gantt.isLinkExists(link.ID)) {
+                    gantt.addLink({
+                        id: String(link.ID),
+                        source: link.source,
+                        target: link.target,
+                        type: link.type,
+                    });
+                }
+            });
+            if (dataLinkMap.length === dataLink.length) {
+                console.log("masuk render");
+                gantt.render();
             }
-            );
         }
     }
 
@@ -1180,7 +1201,9 @@ function TestFormGantt(props) {
                         zoom={currentZoom}
                         onZoomChange={handleZoomChange}
                     />
-                    <button className="border-[#D9D9D9] border-solid rounded border-2 px-3 hover:bg-[#B39DDB]" onClick={testLINK}>Refresh</button>
+                    {/* <button className="border-[#D9D9D9] border-solid rounded border-2 px-3 hover:bg-[#B39DDB]" onClick={handleRender}>Render Gantt</button> */}
+                    {/* <button className="border-[#D9D9D9] border-solid rounded border-2 px-3 hover:bg-[#B39DDB]" onClick={handleClearAll}>Clear Gantt</button> */}
+                    <button className="border-[#D9D9D9] border-solid rounded border-2 px-3 hover:bg-[#B39DDB]" onClick={handledelete}>Delete Gantt</button>
                 </div>
                 <div className="py-1 px-4 h-5/6">
                     <div className="h-full">

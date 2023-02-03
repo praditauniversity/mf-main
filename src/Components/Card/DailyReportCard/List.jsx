@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation, gql, useQuery } from '@apollo/client';
 import { IconEdit, IconDelete } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css';
@@ -11,14 +11,32 @@ import FetchDailyReportByProjectId from "../../../Middleware/Fetchers/FetchDaily
 import UpdateModalDailyReport from "../../Modal/DailyReportModal/UpdateModal/UpdateModal";
 import DeleteModalReport from "../../Modal/DailyReportModal/DeleteModal/DeleteModal";
 import ViewModalReport from "../../Modal/DailyReportModal/ViewModal/ViewModal";
+import { GET_DAILY_REPORT_DATA_BY_PROJECT_ID } from "../../GraphQL/Queries";
 
 
-const DRList = () => {
+const DRList = (props) => {
+  const { page, limit, sort } = props;
   const projectData = FetchProject();
   const ganttData = FetchGantt();
   const activityData = FetchActivity();
   // const dailyReportData = FetchDailyReport();
-  const dailyReportData = FetchDailyReportByProjectId();
+  // const dailyReportData = FetchDailyReportByProjectId();
+  const { data } = useQuery(GET_DAILY_REPORT_DATA_BY_PROJECT_ID, {
+    variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) },
+    // variables: { projectId: localStorage.getItem('reportProjectID') == null ? localStorage.setItem('reportProjectID', data.dailyReportGetProjectID.data[0].ID) : localStorage.getItem('reportProjectID') },
+  });
+  const [dailyReportData, setDailyReport] = useState([]);
+  // const [projectID, setProjectID] = useState(localStorage.getItem('reportProjectID'));
+
+  useEffect(() => {
+      if (data) {
+          setDailyReport(data.dailyReportGetProjectID.data);
+          // projectID === 0 ? localStorage.setItem('reportProjectID', data.dailyReportGetProjectID.data[0].ID) : localStorage.setItem('reportProjectID', projectID);
+          console.log("Daily Report data with project id " + localStorage.getItem('reportProjectID') + " found");
+      } else {
+          console.log("No data found for daily report with project id " + localStorage.getItem('reportProjectID'));
+      }
+  }, [data]);
 
   const dataLength = dailyReportData.filter((dailyReport) => {
     return activityData.filter((activity) => {
@@ -36,6 +54,7 @@ const DRList = () => {
 
   const ifDRListDataEmpty = () => {
     if (dataLength === 0) {
+    // if (dailyReportData.length === 0) {
       return (
         <tr>
           <td colSpan="5" align="center">No Data</td>
@@ -43,6 +62,20 @@ const DRList = () => {
       );
     }
   }
+
+  const DELETE_DAILYREPORT = gql`
+  mutation DeleteDailyReport($id: String!) {
+    deleteDailyReport(id: $id) 
+  }`;
+  const [deleteReport, { deleteReportData , deleteReportError }] = useMutation(DELETE_DAILYREPORT, {
+    refetchQueries: [
+        {
+            query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
+            variables: { id: localStorage.getItem('reportProjectID') }
+        },
+    ],
+    onCompleted: () => { console.log("Berhasil Fetch") }
+  });
 
   return (
     <div className="rounded-xl shadow-lg bg-white pt-6">
@@ -68,6 +101,10 @@ const DRList = () => {
                           if (gantt.ID === activity.gantt_id) {
                             return (
                               dailyReportData.map((dailyReport) => {
+                                const reportDate = new Date(dailyReport.report_date);
+                                const reportDateYear = reportDate.toLocaleDateString('en-US', { year: 'numeric' });
+                                const reportDateMonth = reportDate.toLocaleDateString('en-US', { month: '2-digit' });
+                                const reportDateDay = reportDate.toLocaleDateString('en-US', { day: '2-digit' });
                                 if (activity.ID === dailyReport.activity_id /*&& gantt.project_id === dailyReport.project_id*/) {
                                   // const listID = toString(dailyReport.ID);
                                   console.log(typeof dailyReport.ID, dailyReport.ID);
@@ -75,10 +112,7 @@ const DRList = () => {
                                   console.log(typeof dailyReport.report_number, dailyReport.report_number);
                                   console.log(typeof dailyReport.name, dailyReport.name);
                                   console.log(typeof activity.name, activity.name);
-                                  const reportDate = new Date(dailyReport.report_date);
-                                  const reportDateYear = reportDate.toLocaleDateString('en-US', { year: 'numeric' });
-                                  const reportDateMonth = reportDate.toLocaleDateString('en-US', { month: '2-digit' });
-                                  const reportDateDay = reportDate.toLocaleDateString('en-US', { day: '2-digit' });
+                                  
                                   return (
                                     <tr key={dailyReport.ID}>
                                       <td align="center"><Link to="/dailyreportview"><button className="hover:text-primary">{dailyReport.name}</button></Link></td>
@@ -127,6 +161,17 @@ const DRList = () => {
                                     </tr>
                                   )
                                 }
+                                // if dailyreport.activity_id no longer exist in activity table (deleted) then delete the dailyreport
+                                // else if (activityData.filter((activity) => {
+                                //   return activity.ID === dailyReport.activity_id;
+                                // }
+                                // ).length === 0) {
+                                //   console.log("activity id " + dailyReport.activity_id + " no longer exist in activity table");
+                                //   const listID = String(dailyReport.ID);
+                                //   // console.log(typeof listID, listID);
+                                //   // console.log(typeof dailyReport.ID, dailyReport.ID);
+                                //   deleteReport({ variables: { id: listID } });
+                                // }
                               })
                             )
                           }

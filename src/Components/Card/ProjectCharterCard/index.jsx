@@ -21,11 +21,12 @@ import { useEffect, useState } from "react";
 import { GET_CHARTER_DATA_BY_ID, GET_CHARTER_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 import FetchCharter from "../../../Middleware/Fetchers/FetchCharter";
 import FetchProjectById from "../../../Middleware/Fetchers/FetchProjectById";
+import { chart } from "highcharts";
 
 const ProjectCharterCard = (props) => {
     const { projectID } = props;
     console.log("PROPS", projectID);
-    const projectcharterdata = FetchProjectById({projectID});
+    const projectcharterdata = FetchProjectById({ projectID });
     console.log("PROJECTCHARTERDATA", projectcharterdata);
     // const [pcData, setPcData] = useState('');
     // const [reportCharterID, setReportCharterID] = useState(localStorage.getItem('charterID'));
@@ -87,7 +88,7 @@ const ProjectCharterCard = (props) => {
     // const charterData = FetchCharter();
 
     return (
-        <div className="rounded-xl shadow-lg bg-white py-4 px-4">
+        <div className="rounded-xl shadow-lg bg-white py-16 px-4">
             <div>
                 {/* Disini rencananya make localstorage yang charterID nya nampilin data sesuai charterID, tapi makai mapping gabsia kayaknya */}
                 {projectcharterdata.map((charter) => {
@@ -98,7 +99,7 @@ const ProjectCharterCard = (props) => {
                         // charter.ID == localStorage.getItem('charterID');
                         // localStorage.setItem('charterID', charter.ID)
                         // localStorage.setItem(charter.ID, 'charterID')
-                        
+
                         console.log("Sesudah - CharterID", charter.ID)
                         console.log("Sesudah - Local CharterID", localStorage.getItem('charterID'))
                         console.log("====================================");
@@ -108,20 +109,24 @@ const ProjectCharterCard = (props) => {
                     }
                     return (
                         <div key={charter.item}>
-                            <div className="pt-4 pb-0 flex justify-between">
+                            <div className="flex justify-between">
                                 <div className="flex justify-start">
-                                    <p className="text-xl font-semibold px-2">Project Charter</p>
-                                </div>
-                                <div className="flex justify-end">
-                                    <div className="flex justify-between">
-                                    </div>
+                                    <p className="text-xl font-bold leading-6 px-24 pb-8">Project Charter</p>
                                 </div>
                             </div>
                             <div className="px-36">
-                                <div className="py-6 flex justify-between">
-                                    <div> <DescTitle title="Project Name" description={charter.name} /></div>
-                                    <div> <DescTitle title="Project Manager" description={charter.project_manager} /></div>
-                                    <div> <DescTitle title="Customer" description={charter.client} /></div>
+                                <div>
+                                    <div className="grid grid-cols-12 py-6 flex justify-between">
+                                        <div className="col-span-5">
+                                            <DescTitle title="Project Name" description={charter.name} />
+                                        </div>
+                                        <div className="col-span-5">
+                                            <DescTitle title="Project Manager" description={charter.project_manager} />
+                                        </div>
+                                        <div className="col-span-2">
+                                            <DescTitle title="Customer" description={charter.client} />
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className="py-6 flex justify-start">
@@ -134,68 +139,80 @@ const ProjectCharterCard = (props) => {
                                     <div>
                                         <div><Title title="Project Objective" /></div>
                                         <div>
-                                            <List description="Requirement Gathering for Anomaly Application" />
-                                            <List description="Prototype and designing Anomaly Application for multiplatform" />
-                                            <List description="Implementation and building Anomaly Application" />
-                                            <List description="Testing Anomaly Application" />
-                                            <List description="Maintenance Anomaly Application" />
+                                            {charter.project_objectives.map((item, index) => {
+                                                return (
+                                                    <div key={index}>
+                                                        <List description={item ? item : "N/A"} />
+                                                    </div>
+                                                )
+                                            })
+                                            }
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="py-6 flex justify-between">
-                                    <DescTitle title="Project Team Members" description="Jhon Doe, Jhon Doe" />
-                                    <DescTitlePadding title="Stakeholders" description={charter.stakeholder_ammount} />
+                                <div className="grid grid-cols-12 py-6 flex justify-between">
+                                    <div className='col-span-5'>
+                                        <DescTitle title="Project Team Members" description={charter.total_man_power} />
+                                    </div>
+                                    <div className='col-span-5'>
+                                        <DescTitlePadding title="Stakeholders" description={charter.stakeholder_ammount} />
+                                    </div>
                                 </div>
 
                                 <div className="py-6 flex justify-between">
                                     <DescTitle title="Participants" description={charter.participants} />
                                 </div>
 
-                                <div className="py-6 flex justify-between">
-                                    <DescTitleBudget title="Planned Budget" description={charter.cost_plan} />
-                                    <DescTitleBudgetPadding title="Actual Budget" description={charter.cost_actual} />
+                                <div className="grid grid-cols-12 py-6 flex justify-between">
+                                    <div className='col-span-5'>
+                                        <DescTitleBudget title="Planned Budget" description={charter.cost_plan} />
+                                    </div>
+                                    <div className='col-span-5'>
+                                        <DescTitleBudgetPadding title="Actual Budget" description={charter.cost_actual} />
+                                    </div>
                                 </div>
 
                                 <div className="py-6 flex justify-start">
                                     <div>
                                         <Title title="Resources" />
                                         <div>
-                                            <List description="10 Computer" />
-                                            <List description="45 Manpower" />
-                                            <List description="45 Project equipments" />
-                                            <List description="Etc" />
+                                            {charter.available_resources.map((item, index) => {
+                                                return (
+                                                    <div key={index}>
+                                                        <List description={item ? item : "N/A"} />
+                                                    </div>
+                                                )
+                                            })
+                                            }
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="py-6">
+                                <div className="">
                                     <TitleMilestone title="Milestone" />
-                                    <div className="flex justify-between">
-                                        <DescTitle title="Start Date" description={charter.start_project.substring(0,10)} />
-                                        <DescTitlePadding title="End Date" description={charter.end_project.substring(0,10)} />
+                                    <div className="grid grid-cols-12 pb-6 flex justify-between">
+                                        <div className='col-span-5'>
+                                            <DescTitle title="Start Date" description={charter.start_project.substring(0, 10)} />
+                                        </div>
+                                        <div className='col-span-5'>
+                                            <DescTitlePadding title="End Date" description={charter.end_project.substring(0, 10)} />
+                                        </div>
                                     </div>
                                 </div>
-
-                                {/* <div className="py-6">
-                        <TitleMilestone title="Milestone" />
-                        <div className="flex justify-between">
-                            <MilestoneDue title="Initiation" description="Dec 23 2022" />
-                            <MilestoneDue title="Planning" description="Mar 14 2023" />
-                            <MilestoneDue title="Execution" description="Aug 17 2024" />
-                            <MilestoneDue title="Evaluation" description="Dec 3 2024" />
-                            <MilestoneDue title="Closing" description="Dec 24 2024" />
-                        </div>
-                    </div> */}
 
                                 <div className="py-6 flex justify-start">
                                     <div>
                                         <Title title="Potential Risks" />
                                         <div>
-                                            <List description="Low Performance" />
-                                            <List description="High Costs" />
-                                            <List description="Operational Changes" />
-                                            <List description="Scope Creep" />
+                                            {charter.potential_risk.map((item, index) => {
+                                                return (
+                                                    <div key={index}>
+                                                        <List description={item ? item : "N/A"} />
+                                                    </div>
+                                                )
+                                            })
+                                            }
                                         </div>
                                     </div>
                                 </div>

@@ -1,16 +1,36 @@
-import React from "react";
-import { useMutation, gql } from '@apollo/client';
+import React, { useEffect, useState } from "react";
+import { useMutation, gql, useQuery } from '@apollo/client';
 import '../../../Assets/svgbutton/svgbutton.css'
 import FetchMomByProjectId from "../../../Middleware/Fetchers/FetchMomByProjectId";
 import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 import DeleteModalMinuteOfMeeting from "../../Modal/MinutesOfMeetingModal/DeleteModal/DeleteModal";
 import UpdateModalMinutesOfMeeting from "../../Modal/MinutesOfMeetingModal/UpdateModal/UpdateModal";
 import ViewModalMOM from "../../Modal/MinutesOfMeetingModal/ViewModal/ViewModal";
+import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../GraphQL/Queries";
 
 
-const MinutesofMeetingList = () => {
+const MinutesofMeetingList = (props) => {
+  const { page, limit, sort } = props;
+
   const projectData = FetchProjectByUserId();
-  const momData = FetchMomByProjectId();
+  // const momData = FetchMomByProjectId();
+
+  const { data } = useQuery(GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID, {
+    variables: { projectId: localStorage.getItem('momProjectID'), page: String(page), limit: String(limit), sort: String(sort) }
+    // variables: { projectId: localStorage.getItem('momProjectID') == null ? localStorage.setItem('momProjectID', data.dailyReportGetProjectID.data[0].ID) : localStorage.getItem('reportProjectID') },
+  });
+
+  const [momData, setMomData] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      setMomData(data.minuteOfMeetingGetProjectID.data);
+      // reportProjectID === 0 ? localStorage.setItem('reportProjectID', data.minutesOfMeetingGetProjectID.data[0].ID) : localStorage.setItem('reportProjectID', reportProjectID);
+      console.log("Minutes of Meeting data with project id " + localStorage.getItem('momProjectID') + " found");
+    } else {
+      console.log("No data found for Minutes of Meeting with project id " + localStorage.getItem('momProjectID'));
+    }
+  }, [data]);
 
   const dataLength = momData.filter((mom) => {
     return projectData.filter((project) => {
