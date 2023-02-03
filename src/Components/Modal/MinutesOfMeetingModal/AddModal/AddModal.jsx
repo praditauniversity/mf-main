@@ -108,6 +108,18 @@ const AddModalMinutesOfMeeting = () => {
 
   const projectName = FetchProjectByUserId();
 
+  const idProject = parseInt(localStorage.getItem('momProjectID'));
+
+  useEffect(() => {  
+    if(idProject){
+      setProject_id(parseInt('reportProjectID'));
+    }
+    else {
+      console.log("data not found");
+    }
+    console.log("USE EFFECT list daily report");
+  }, [idProject]);
+
   function printListProjectName() {
     return projectName.map(({ ID, name }) => (
       <>
@@ -196,13 +208,10 @@ const AddModalMinutesOfMeeting = () => {
     console.log(JSON.stringify(addMinutesOfMeetingError));
 
   const handleSubmit = (e) => {
-
-
-    const project_id = parseInt(inputRefProject.current.value);
+    
+    //ini buat projectnya milih pake dropdown
+    // const project_id = parseInt(inputRefProject.current.value);
     project_id === 0 ? setProject_id(parseInt(inputRefProject.current.value)) : project_id
-
-
-
 
     var gue3 = action_item;
     console.log("gue3", gue3);
@@ -217,7 +226,7 @@ const AddModalMinutesOfMeeting = () => {
     e.preventDefault();
     addMinutesOfMeeting({
       variables: {
-        project_id,
+        project_id : idProject,
         meeting_name,
         meeting_date,
         start_time_meeting,
@@ -318,7 +327,7 @@ const AddModalMinutesOfMeeting = () => {
                       </div>
                     </div>
                     {/* project */}
-                    <div className="mt-3">
+                    {/* <div className="mt-3">
                       <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
                         Project Name
                       </label>
@@ -332,7 +341,7 @@ const AddModalMinutesOfMeeting = () => {
                           {printListProjectName()}
                         </select>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="mt-3">
                       <DatePickerField
