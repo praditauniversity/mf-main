@@ -419,83 +419,83 @@ export const GET_TYPE_DATA = gql`
 `
 
 export const GET_PROJECT_DATA_BY_ID = gql`
-  query getProjectById($id: String!) {
-    project(id: $id) {
+query project($id: String!) {
+  project(id: $id) {
       Data {
+          ID
+      CreatedAt
+      UpdatedAt
+      DeletedAt
+      user_id
+      name
+      description
+      start_project
+      end_project
+      stakeholder_ammount
+      work_area
+      office_location
+      cost_plan
+      cost_actual
+      client
+      client_contact
+      role_id
+      type_id
+      Type {
         ID
         CreatedAt
         UpdatedAt
         DeletedAt
-        user_id
         name
         description
-        start_project
-        end_project
-        stakeholder_ammount
-        work_area
-        office_location
-        cost_plan
-        cost_actual
-        client
-        client_contact
-        role_id
-        type_id
-        Type {
-          ID
-          CreatedAt
-          UpdatedAt
-          DeletedAt
-          name
-          description
-          user_id
-          updated_by
-          deleted_by
-        }
-        progress_percentage
-        project_manager
-        project_duration
-        total_man_power
-        status
-        considered_success_when
-        currency_symbol
-        currency_code
-        currency_name
-        phase_id
-        Phase {
-          ID
-          CreatedAt
-          UpdatedAt
-          DeletedAt
-          name
-          color
-          order
-          user_id
-          updated_by
-          deleted_by
-        }
-        budget_health
-        budget
-        participants
-        milestone_id
-        Milestone {
-          ID
-          CreatedAt
-          UpdatedAt
-          DeletedAt
-          status
-          due_date
-          user_id
-          updated_by
-          deleted_by
-        }
-        project_objectives
-        available_resources
-        potential_risk
+        user_id
         updated_by
         deleted_by
       }
-    }
+      progress_percentage
+      project_manager
+      project_duration
+      total_man_power
+      status
+      considered_success_when
+      currency_symbol
+      currency_code
+      currency_name
+      phase_id
+      Phase {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        name
+        color
+        order
+        user_id
+        updated_by
+        deleted_by
+      }
+      budget_health
+      budget
+      participants
+      milestone_id
+      Milestone {
+        ID
+        CreatedAt
+        UpdatedAt
+        DeletedAt
+        status
+        due_date
+        user_id
+        updated_by
+        deleted_by
+      }
+      project_objectives
+      available_resources
+      potential_risk
+      updated_by
+      deleted_by
+      }
   }
+}
 `;
 
 export const GET_PROJECT_DATA_BY_USER_ID = gql`

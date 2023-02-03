@@ -41,15 +41,15 @@ const ADD_MINUTES_OF_MEETING = gql`
     $meeting_date: DateTime
     $start_time_meeting: DateTime
     $end_time_meeting: DateTime
-    $location: String!
-    $meeting_leader: String!
-    $meeting_objective: String!
-    $atendees: [String]!
-    $notes: [String]!
-    $action_item: [String]!
-    $owner: [String]!
-    $deadline: [String]!
-    $status: [String]!
+    $location: String
+    $meeting_leader: String
+    $meeting_objective: String
+    $atendees: [String]
+    $notes: [String]
+    $action_item: [String]
+    $owner: [String]
+    $deadline: [String]
+    $status: [String]
   ) {
     addMinuteOfMeeting(
       input: {
@@ -84,9 +84,9 @@ const AddModalMinutesOfMeeting = () => {
   ]);
   const [project_id, setProject_id] = useState(0);
   const [meeting_name, setMeeting_name] = useState("");
-  const [meeting_date, setMeeting_date] = useState("");
-  const [start_time_meeting, setStart_time_meeting] = useState("");
-  const [end_time_meeting, setEnd_time_meeting] = useState("");
+  const [meeting_date, setMeeting_date] = useState(new Date());
+  const [start_time_meeting, setStart_time_meeting] = useState(new Date);
+  const [end_time_meeting, setEnd_time_meeting] = useState(new Date);
   const [location, setLocation] = useState("");
   const [meeting_leader, setMeeting_leader] = useState("");
   const [meeting_objective, setMeeting_objective] = useState("");

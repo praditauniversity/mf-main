@@ -27,29 +27,29 @@ const ProjectCharterCard = (props) => {
     console.log("PROPS", projectID);
     const projectcharterdata = FetchProjectById({projectID});
     console.log("PROJECTCHARTERDATA", projectcharterdata);
-    const [pcData, setPcData] = useState('');
-    const [reportCharterID, setReportCharterID] = useState(localStorage.getItem('charterID'));
+    // const [pcData, setPcData] = useState('');
+    // const [reportCharterID, setReportCharterID] = useState(localStorage.getItem('charterID'));
 
-    const { data, error } = useQuery(GET_CHARTER_DATA_BY_USER_ID, {
-        variables: { id: projectID },
-    });
-    const [itemID, setItemID] = useState([]);
+    // const { data, error } = useQuery(GET_CHARTER_DATA_BY_USER_ID, {
+    //     variables: { id: projectID },
+    // });
+    // const [itemID, setItemID] = useState([]);
 
-    useEffect(() => {
-        const itemID = JSON.parse(localStorage.getItem('charterID'));
-        if(itemID){
-            setItemID(itemID);
-        }
-        if (data) {
-            setPcData(data.projectByUserId.Data);
-            reportCharterID == 0 ? localStorage.setItem('charterID', data.projectByUserId.Data[0].ID) : localStorage.setItem('charterID', reportCharterID);
-            console.log("xxxxxxxxxxxxxxx", readPCData.projectByUserId.Data);
-        }
-        else {
-            console.log("No data list project and milestone");
-        }
-        console.log("USE EFFECT list project and milestone");
-    }, [data, itemID]);
+    // useEffect(() => {
+    //     const itemID = JSON.parse(localStorage.getItem('charterID'));
+    //     if(itemID){
+    //         setItemID(itemID);
+    //     }
+    //     if (data) {
+    //         setPcData(data.projectByUserId.Data);
+    //         reportCharterID == 0 ? localStorage.setItem('charterID', data.projectByUserId.Data[0].ID) : localStorage.setItem('charterID', reportCharterID);
+    //         console.log("xxxxxxxxxxxxxxx", readPCData.projectByUserId.Data);
+    //     }
+    //     else {
+    //         console.log("No data list project and milestone");
+    //     }
+    //     console.log("USE EFFECT list project and milestone");
+    // }, [data, itemID]);
 
     // const handleChange = (event) => {
     //     setReportProjectID(event.target.value);
@@ -84,13 +84,13 @@ const ProjectCharterCard = (props) => {
     //     return projectName;
     // }
 
-    const charterData = FetchCharter();
+    // const charterData = FetchCharter();
 
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
             <div>
                 {/* Disini rencananya make localstorage yang charterID nya nampilin data sesuai charterID, tapi makai mapping gabsia kayaknya */}
-                {charterData.map((charter) => {
+                {projectcharterdata.map((charter) => {
                     // const identify = charter.ID;
                     if (charter.ID !== localStorage.getItem('charterID')) {
                         console.log("Sebelum - CharterID", charter.ID)
@@ -120,13 +120,13 @@ const ProjectCharterCard = (props) => {
                             <div className="px-36">
                                 <div className="py-6 flex justify-between">
                                     <div> <DescTitle title="Project Name" description={charter.name} /></div>
-                                    <div> <DescTitle title="Project Manager" description="Jhon Doe" /></div>
+                                    <div> <DescTitle title="Project Manager" description={charter.project_manager} /></div>
                                     <div> <DescTitle title="Customer" description={charter.client} /></div>
                                 </div>
 
                                 <div className="py-6 flex justify-start">
                                     <div>
-                                        <DescTitle title="Project Description" description="The purpose of this project is to build applications of anomaly detection include fraud detection in many case, i.e. financial transactions, fault detection in manufacturing, intrusion detection in a computer network, monitoring sensor readings in an aircraft, spotting potential risk or medical problems in health data, and predictive maintenance." />
+                                        <DescTitle title="Project Description" description={charter.description} />
                                     </div>
                                 </div>
 
@@ -145,16 +145,16 @@ const ProjectCharterCard = (props) => {
 
                                 <div className="py-6 flex justify-between">
                                     <DescTitle title="Project Team Members" description="Jhon Doe, Jhon Doe" />
-                                    <DescTitlePadding title="Stakeholders" description="Doe Jhon" />
+                                    <DescTitlePadding title="Stakeholders" description={charter.stakeholder_ammount} />
                                 </div>
 
                                 <div className="py-6 flex justify-between">
-                                    <DescTitle title="Participants" description="100" />
+                                    <DescTitle title="Participants" description={charter.participants} />
                                 </div>
 
                                 <div className="py-6 flex justify-between">
-                                    <DescTitleBudget title="Planned Budget" description="350.000.000,00" />
-                                    <DescTitleBudgetPadding title="Actual Budget" description="210.000.000,00" />
+                                    <DescTitleBudget title="Planned Budget" description={charter.cost_plan} />
+                                    <DescTitleBudgetPadding title="Actual Budget" description={charter.cost_actual} />
                                 </div>
 
                                 <div className="py-6 flex justify-start">
@@ -172,8 +172,8 @@ const ProjectCharterCard = (props) => {
                                 <div className="py-6">
                                     <TitleMilestone title="Milestone" />
                                     <div className="flex justify-between">
-                                        <DescTitle title="Start Date" description="October 13 2022" />
-                                        <DescTitlePadding title="End Date" description="December 25 2024" />
+                                        <DescTitle title="Start Date" description={charter.start_project.substring(0,10)} />
+                                        <DescTitlePadding title="End Date" description={charter.end_project.substring(0,10)} />
                                     </div>
                                 </div>
 

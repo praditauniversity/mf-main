@@ -32,14 +32,14 @@ const UPDATE_DAILY_REPORT = gql`
 mutation updateDailyreports(
   $id: String!,
   $name: String!,
-  $description: String!,
-  $status: String!,
-  $equipment: [String]!,
-  $report_date: DateTime!,
-  $work_log_name: [String]!,
-  $work_log_desc: [String]!,
-  $work_log_status: [String]!,
-  $work_log_hour: [Int]!
+  $description: String,
+  $status: String,
+  $equipment: [String],
+  $report_date: DateTime,
+  $work_log_name: [String],
+  $work_log_desc: [String],
+  $work_log_status: [String],
+  $work_log_hour: [Int]
 ) {
 updateDailyReport( id:$id
 input:{
@@ -67,7 +67,7 @@ const UpdateModalDailyReport = (props) => {
   const { reportID, reportData } = props;
 
   // const [inputFields, setInputFields] = useState([
-  //   { name: reportData, description: "", status: "", hour: 0 },
+  //   { name: reportData.work_log_name, description: reportData.work_log_desc, status: reportData.work_log_status, hour: reportData.work_log_hour },
   // ]);
   const [inputFields, setInputFields] = useState(() => {
     const inputFieldsData = [];
@@ -92,14 +92,10 @@ const UpdateModalDailyReport = (props) => {
   const [work_log_desc, setWorkLogDesc] = useState(reportData.work_log_desc);
   const [work_log_status, setWorkLogStatus] = useState(reportData.work_log_status);
   const [work_log_hour, setWorkLogHour] = useState(reportData.work_log_hour);
-  // const [projectidtest, setProjectIdTest] = useState(0);
-  // const [activityidtest, setActivityIdTest] = useState(0);
   console.log("work_log_name", setEquipment);
 
-  const [
-    updateDailyReport,
-    { loading: updateDailyReportloading, error: updateDailyReportError },
-  ] = useMutation(UPDATE_DAILY_REPORT, {
+  const [ updateDailyReport, { loading: updateDailyReportloading, error: updateDailyReportError },] = useMutation(UPDATE_DAILY_REPORT, 
+    {
     refetchQueries: [{ query: GET_DAILY_REPORT }],
   });
 
@@ -206,7 +202,10 @@ const UpdateModalDailyReport = (props) => {
     let data = [...inputFields];
     data[index][event.target.name] = event.target.value;
     setInputFields(data);
-
+    setWorkLogName(inputFields.map((inputField) => inputField.name));
+    setWorkLogDesc(inputFields.map((inputField) => inputField.description));
+    setWorkLogStatus(inputFields.map((inputField) => inputField.status));
+    setWorkLogHour(inputFields.map((inputField) => parseInt(inputField.hour)));
   };
 
   // setWorkLogName(inputFields.map((inputField) => inputField.name));
@@ -235,13 +234,6 @@ const UpdateModalDailyReport = (props) => {
     //   const project_id = parseInt(inputRefProject.current.value);
     //   activity_id === 0 ?setActivityId(parseInt(inputRefActivity.current.value)): activity_id
     //   project_id === 0 ? setProjectId(parseInt(inputRefProject.current.value)): project_id
-
-
-
-    setWorkLogName(inputFields.map((inputField) => inputField.name));
-    setWorkLogDesc(inputFields.map((inputField) => inputField.description));
-    setWorkLogStatus(inputFields.map((inputField) => inputField.status));
-    setWorkLogHour(inputFields.map((inputField) => parseInt(inputField.hour)));
     var gue = work_log_name;
     var gue2 = work_log_desc;
     var gue3 = work_log_status;

@@ -60,10 +60,10 @@ const handleRefresh = () => {
     gantt.config.buttons_left = ["gantt_save_btn", "gantt_cancel_btn", "gantt_delete_btn"];
     // gantt.config.buttons_right = [null];
 
-    gantt.config.buttons_right = gantt.config.buttons_right.filter(function(button) {
+    gantt.config.buttons_right = gantt.config.buttons_right.filter(function (button) {
         return button != "gantt_delete_btn";
-      });
-      
+    });
+
 
     gantt.form_blocks.datepicker = {
         render: (sns) => {
@@ -494,6 +494,9 @@ function TestFormGantt(props) {
     console.log("RENDER");
     const { title, dataGantt, dataPhase, dataLink, dataUnitMeasure, ganttID, isReadOnly, isShowAddColumn, isShowListGantt } = props;
 
+    let previousDataGanttLength;
+    let previousDataLinkLength;
+
     // isShowAddColumn ? (!gantt.config.columns.some(col => col.name === 'add')) ? gantt.config.columns.push({ name: "add", width: 44, grid: true }) : null : null;
 
     isShowAddColumn
@@ -690,6 +693,7 @@ function TestFormGantt(props) {
     };
 
     const removeLink = (id) => {
+        console.log("remove link", typeof id, id);
         deleteActivityLink({
             variables: {
                 id: id,
@@ -770,7 +774,7 @@ function TestFormGantt(props) {
 
     // dhtmlx save button add
     gantt.attachEvent("onAfterTaskAdd", (id, item) => {
-        console.log("onAfterTaskAdd", id, item);
+        // console.log("onAfterTaskAdd", id, item);
         if (isAdd.current === true) {
             isAdd.current = false;
             const name = item.name;
@@ -856,7 +860,7 @@ function TestFormGantt(props) {
     // dhtmlx save button update
     gantt.attachEvent("onAfterTaskUpdate", (id, item) => {
         console.log(isUpdated.current);
-        console.log("type of onAfterTaskUpdate", id, typeof item.start_date, item.start_date);
+        // console.log("type of onAfterTaskUpdate", id, typeof item.start_date, item.start_date);
         if (isUpdated.current === true) {
             isUpdated.current = false;
             const name = item.name;
@@ -911,7 +915,7 @@ function TestFormGantt(props) {
             console.log("TEMBAK GRAPHQL");
         }
 
-        console.log("onaftertaskupdate", id, item);
+        // console.log("onaftertaskupdate", id, item);
 
         // console.log(name, description, typeof user_id, start_time, end_time);
     });
@@ -931,8 +935,8 @@ function TestFormGantt(props) {
     // });
     gantt.attachEvent("onAfterLinkAdd", function (id, item) {
         //any custom logic here
-        console.log("onAfterLinkAdd", id, item);
         if (isLinkAdd.current === true) {
+            console.log("onAfterLinkAdd", id, item);
             isLinkAdd.current = false;
             const source = item.source;
             const target = item.target;
@@ -969,6 +973,12 @@ function TestFormGantt(props) {
         console.log("onLinkClick", id, e);
     });
 
+    gantt.attachEvent("onTaskClick", function (id, e) {
+        //any custom logic here
+        console.log("onTASKCLICK", id, e);
+        return true;
+    });
+
     // link can update (?)
     // gantt.attachEvent("onBeforeLinkUpdate", function(id,new_item){
     //     //any custom logic here
@@ -988,7 +998,8 @@ function TestFormGantt(props) {
 
     gantt.attachEvent("onAfterLinkDelete", function (id, item) {
         //any custom logic here
-        console.log("onAfterLinkDelete", id, item);
+        // console.log("onAfterLinkDelete", id, item);
+        // removeLink(String(id));
         // console.log("onAfterLinkDelete", gantt.isLinkExists(1));
 
         // if (gantt.isLinkExists(id)) {
@@ -1032,64 +1043,73 @@ function TestFormGantt(props) {
         // console.log("link", link);
         console.log("link TEST");
         gantt.addLink({
-            id: "1",
-            source: "1",
-            target: "9",
+            id: "100",
+            source: "12",
+            target: "13",
             type: "0",
         });
     }
 
     function MappingLink() {
-        const dataLinkMap = dataLink.map((link) => {
-            console.log("is link data?", link);
+        if (dataLink.length !== previousDataLinkLength) {
+            previousDataLinkLength = dataLink.length;
+            const dataLinkMap = dataLink.map((link) => {
+                console.log("is link data?", link);
 
-            gantt.addLink({
-                id: link.ID,
-                source: link.source,
-                target: link.target,
-                type: link.type,
-            });
+                console.log("is link data?", typeof link.type, link.type);
+
+                gantt.addLink({
+                    id: link.ID,
+                    source: link.source,
+                    target: link.target,
+                    type: link.type,
+                });
+            }
+            );
         }
-        );
     }
 
     // mapping data
     function MappingData() {
-        const dataActivity = dataGantt.map((activity) => {
-            // console.log("is activity data?", activity);
-            const startDate = subStringDate(activity.start_time);
-            const endDate = subStringDate(activity.end_time);
+        console.log("is dataGantt?", dataGantt.length);
+        if (dataGantt.length !== previousDataGanttLength) {
+            previousDataGanttLength = dataGantt.length;
+            const dataActivity = dataGantt.map((activity) => {
+                // console.log("is activity data?", activity);
+                const startDate = subStringDate(activity.start_time);
+                const endDate = subStringDate(activity.end_time);
 
-            gantt.addTask({
-                id: activity.ID,
-                name: activity.name,
-                description: activity.description,
-                users: activity.user_id,
-                start_date: startDate,
-                end_date: endDate,
-                parent: String(activity.parent_id),
-                progress: activity.progress_percentage / 100,
-                material_cost_actual: activity.material_cost_actual,
-                ganttID: activity.gantt_id,
-                cost_actual: activity.cost_actual,
-                cost_plan: activity.cost_plan,
-                weight_percentage: activity.weight_percentage,
-                priority: activity.priority,
-                material_cost_plan: activity.material_cost_plan,
-                material_cost_actual: activity.material_cost_actual,
-                tool_cost_plan: activity.tool_cost_plan,
-                tool_cost_actual: activity.tool_cost_actual,
-                human_cost_plan: activity.human_cost_plan,
-                human_cost_actual: activity.human_cost_actual,
-                activity_type: activity.activity_type,
-                phase_id: activity.phase_id,
-                unitofmeasurement_id: activity.unitofmeasurement_id,
+                gantt.addTask({
+                    id: activity.ID,
+                    name: activity.name,
+                    description: activity.description,
+                    users: activity.user_id,
+                    start_date: startDate,
+                    end_date: endDate,
+                    parent: String(activity.parent_id),
+                    progress: activity.progress_percentage / 100,
+                    material_cost_actual: activity.material_cost_actual,
+                    ganttID: activity.gantt_id,
+                    cost_actual: activity.cost_actual,
+                    cost_plan: activity.cost_plan,
+                    weight_percentage: activity.weight_percentage,
+                    priority: activity.priority,
+                    material_cost_plan: activity.material_cost_plan,
+                    material_cost_actual: activity.material_cost_actual,
+                    tool_cost_plan: activity.tool_cost_plan,
+                    tool_cost_actual: activity.tool_cost_actual,
+                    human_cost_plan: activity.human_cost_plan,
+                    human_cost_actual: activity.human_cost_actual,
+                    activity_type: activity.activity_type,
+                    phase_id: activity.phase_id,
+                    unitofmeasurement_id: activity.unitofmeasurement_id,
+                });
+
             });
-
-        });
-        if (dataActivity.length === dataGantt.length) {
-            console.log("masuk render");
-            gantt.render();
+            if (dataActivity.length === dataGantt.length) {
+                console.log("masuk render");
+                gantt.render();
+            }
         }
     }
 

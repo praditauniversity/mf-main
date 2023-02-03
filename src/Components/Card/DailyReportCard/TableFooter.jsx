@@ -35,7 +35,7 @@ const TableFooter = ({ totalPages, currentPage, onPageChange }) => {
         <Button label="+ Add Meeting"/>
       </div> */}
 
-      <AddModalDailyReport/>
+      <AddModalDailyRdaeport/>
     </div>
   )
 }

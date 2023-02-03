@@ -32,15 +32,15 @@ mutation updateMinuteOfMeeting (
     $meeting_date:DateTime,
     $start_time_meeting:DateTime,
     $end_time_meeting:DateTime,
-    $location:String!,
-    $meeting_leader:String!,
-    $meeting_objective:String!,
-    $atendees:[String]!,
-    $notes:[String]!,
-    $action_item:[String]!,
-    $owner:[String]!,
-    $deadline:[String]!,
-    $status:[String]!
+    $location:String,
+    $meeting_leader:String,
+    $meeting_objective:String,
+    $atendees:[String],
+    $notes:[String],
+    $action_item:[String],
+    $owner:[String],
+    $deadline:[String],
+    $status:[String]
 ){
   updateMinuteOfMeeting( id:$id
   input:{
@@ -217,10 +217,10 @@ const UpdateModalMinutesOfMeeting = (props) => {
         setMeeting_objective("");
         setAtendees([""]);
         setNotes([""]);
-        setAction_item([""]);
-        setOwner([""]);
-        setDeadline([""]);
-        setStatus([""]);
+        // setAction_item([""]);
+        // setOwner([""]);
+        // setDeadline([""]);s
+        // setStatus([""]);
 
         hideDialog();
     };

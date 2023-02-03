@@ -12,6 +12,7 @@ const FetchGanttByProjectId = (props) => {
 
     useEffect(() => {
         if (data) {
+            console.log("data: " + data.ganttGetProjectID.data);
             setGanttData(data.ganttGetProjectID.data);
         } else {
             console.log("No data found for gantt with project id : " + projectID);

@@ -1,11 +1,13 @@
-import { gql, useMutation } from '@apollo/client';
-import React from "react";
+import { gql, useMutation, useQuery } from '@apollo/client';
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import ProjectCharterCard from '.';
 import '../../../Assets/svgbutton/svgbutton.css';
 import FetchCharter from "../../../Middleware/Fetchers/FetchCharter";
+import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 import FetchProjectCharterID from '../../../Middleware/Fetchers/FetchProjectCharterID';
-import { GET_CHARTER_DATA } from "../../GraphQL/Queries";
+import GetProfile from '../../Auth/GetProfile';
+import { GET_CHARTER_DATA, GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 import DeleteModalProject from '../../Modal/ProjectCharterModal/DeleteModal/DeleteModal';
 import UpdateModalProject from '../../Modal/ProjectCharterModal/UpdateModal/UpdateModal';
 import ViewModalCharter from '../../Modal/ProjectCharterModal/ViewModal/ViewModal';
@@ -18,15 +20,31 @@ const DELETE_PROJECTCHARTER = gql`
     deleteProject(id: $id) 
   }`;
 
-const PCList = () => {
-    let { projectID } = useParams();
-    // const charterData = FetchCharter();
-    const charterData2 = FetchProjectCharterID({projectID});
+const PCList = (props) => {
+    // let { projectID } = useParams();
+    // const { page, limit, sort } = props;
+    const charterData = FetchProjectByUserId();
+    // const profile = GetProfile();
+    // const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+    //     variables: { userId: profile.id, page: page, limit: limit, sort: sort },
+    // });
+    // const [charterData, setCharter] = useState([]);
+
+    // useEffect(() => {
+    //     if (data) {
+    //         setCharter(data.projectByUserId.Data);
+    //         console.log("Data found for project with user id : " + profile.id);
+    //     } else {
+    //         console.log("No data found for project with user id : " + profile.id);
+    //     }
+    // }, [data]);
 
     const [deleteCharter, { loading, error }] = useMutation(DELETE_PROJECTCHARTER,
         {
             refetchQueries: [
                 { query: GET_CHARTER_DATA }, console.log("Berhasil Fetch")
+                // { query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: profile.id, page: page, limit: limit, sort: sort } },
+                // console.log("Berhasil Fetch")
             ]
         }
     );
@@ -35,7 +53,7 @@ const PCList = () => {
     if (error) return `Submission error! ${error.message}`;
 
     const ifCharterDataEmpty = () => {
-        if (charterData2.length === 0) {
+        if (charterData.length === 0) {
             // fill the table with white space
             return (
                 <tr className="h-full" >
@@ -66,7 +84,7 @@ const PCList = () => {
                     </thead>
                     <tbody>
                         {/* ada masalah disini */}
-                        {Array.isArray(charterData2) ? charterData2.map((item) => {
+                        {Array.isArray(charterData) ? charterData.map((item) => {
                             console.log("AAA", item.ID);
                             const idMap = toString(item.ID);
                             // const onClickTask = (identifier) => {

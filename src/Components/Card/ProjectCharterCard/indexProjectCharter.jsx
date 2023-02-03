@@ -6,6 +6,8 @@ import TableFooter from "./TableFooter";
 import AddModalDailyReport from "../../Modal/DailyReportModal/AddModal/AddModal";
 import PCList from "./ListProjectCharterPage";
 import AddModalProjectCharter from "../../Modal/ProjectCharterModal/AddModal/AddModal";
+import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
+import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 
 const ProjectCharterPage = (props) => {
     const { icon } = props;
@@ -13,17 +15,20 @@ const ProjectCharterPage = (props) => {
 
     const [page, setPage] = useState(1);
 
+    const projectData = FetchProjectByUserId();
+
     const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage] = useState(10)
-    const [totalItems, setTotalItems] = useState(10)
+    const [itemsPerPage] = useState(5)
+    const [totalItems, setTotalItems] = useState(5)
     const totalPages = Math.ceil(totalItems / itemsPerPage)
 
-    const handlePageChange = (page) => {
-        setCurrentPage(page)
+    const handlePageChange = (currentPage) => {
+        setCurrentPage(currentPage)
     }
 
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
+            {console.log("totallllllllllll", projectData.length)}
             <div>
                 <div className="pt-4 pb-0 flex justify-between">
                     <div className="flex justify-start">
@@ -66,7 +71,7 @@ const ProjectCharterPage = (props) => {
 
                     <div className="py-2">
                         <div className="2xl:col-span-15 col-span-12">
-                            <PCList />
+                            <PCList page={currentPage} limit={itemsPerPage} sort={"start_project asc"} />
                         </div>
                     </div>
 
