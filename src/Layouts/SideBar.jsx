@@ -8,6 +8,8 @@ import maindashboard from "../Assets/Icons/svg/MainDashboard.svg";
 import profile from "../Assets/Icons/svg/Profile.svg";
 import chart from "../Assets/Icons/svg/Progress.svg";
 import LogoutButton from "../Components/Auth/LogoutDialog";
+import Stat from "../Assets/Icons/svg/Stat.svg";
+import Key from "../Assets/Icons/svg/Key.svg";
 // import Settings from "../Assets/Icons/svg/"
 
 export const SideBar = () => {
@@ -25,6 +27,8 @@ export const SideBar = () => {
         // { id: 9, name: "About", link: "/#/about", icon: compass },
         // { id: 10, name: "Contact", link: "/#/contact", icon: compass },
         // { id: 11, name: "ProjectDashboard", link: "/#/projectdashboard", icon: key },
+        { id: 12, name: "MasterPageSuperAdmin", link: "/#/masterpage/superadmin", icon: Key, tooltip: "Master Page Super Admin" },
+        { id: 13, name: "MasterPageAdmin", link: "/#/masterpage/admin", icon: Stat, tooltip: "Master Page Admin" },
     ]);
     const [expanded, setExpanded] = useState(false);
 

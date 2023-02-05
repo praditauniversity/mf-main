@@ -10,6 +10,8 @@ import DashboardPage from "../Pages/Dashboard";
 import GanttChartPage from "../Pages/Gantt/GanttChartPage";
 import GanttPage from "../Pages/Gantt/GanttPage";
 import MainDashboard from "../Pages/MainDashboard";
+import MasterPageAdmin from "../Pages/MasterPageAdmin";
+import MasterPageSuperAdmin from "../Pages/MasterPageSuperAdmin";
 import MemberDashboardPage from "../Pages/MemberDashboard";
 import MinutesofMeeting from "../Pages/MinuteOfMeeting";
 import MinutesofMeetingView from "../Pages/MinuteOfMeeting/momview";
@@ -69,6 +71,8 @@ export default function Routing() {
         <Route path={`/project-list/:projectID/view`} element={<ProjectCharterView />}></Route>
         <Route path={`/project-list/:projectID/gantt`} element={<GanttPage />}></Route>
         <Route path={`/project-list/:projectID/gantt/:ganttID/gantt-chart`} element={<GanttChartPage />}></Route>
+        <Route path="/masterpage/superadmin" element={<MasterPageSuperAdmin />}></Route>
+        <Route path="/masterpage/admin" element={<MasterPageAdmin />}></Route>
       </Routes>
     );
   }
