@@ -20,7 +20,7 @@ const ProjectCharterPage = (props) => {
 
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage] = useState(5) // hardcode
-    const [totalItems, setTotalItems] = useState(1)
+    const [totalItems, setTotalItems] = useState(projectData.length || 0)
 
     useEffect (() => {
         if (projectData) {
@@ -34,6 +34,12 @@ const ProjectCharterPage = (props) => {
 
     const handlePageChange = (currentPage) => {
         setCurrentPage(currentPage)
+        
+    }
+
+    const onChanges = (totalItems) => {
+        setTotalItems(totalItems)
+        return totalItems
     }
 
     return (
@@ -82,13 +88,19 @@ const ProjectCharterPage = (props) => {
 
                     <div className="py-2">
                         <div className="2xl:col-span-15 col-span-12">
-                            <PCList page={currentPage} limit={itemsPerPage} sort="start_project asc" />
+                            <PCList page={currentPage} limit={itemsPerPage} sort="start_project asc" 
+                            limitItemDel={itemsPerPage} sortItemDel="start_project asc" totalItemDel={totalItems} currentPageItemDel={currentPage}/>
+                            
+                            {/* <PCList  /> */}
                         </div>
                     </div>
 
                     <div className="py-2">
                         <div className="content-end items-end">
                             <TableFooter
+                                limit={itemsPerPage} 
+                                sort="start_project asc"
+                                totalItems={totalItems}
                                 totalPages={totalPages}
                                 currentPage={currentPage}
                                 onPageChange={handlePageChange}

@@ -1,13 +1,14 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { GET_CHARTER_DATA_BY_USER_ID, GET_MILESTONE_DATA, GET_PHASE_DATA, GET_TYPE_DATA } from '../../../GraphQL/Queries';
+import { GET_CHARTER_DATA_BY_USER_ID, GET_MILESTONE_DATA, GET_PHASE_DATA, GET_PROJECT_DATA_BY_USER_ID, GET_TYPE_DATA } from '../../../GraphQL/Queries';
 // import { GET_PROJECT_DATA_BY_ID } from "../../GraphQL/Queries";
 import '../../../../Assets/svgbutton/svgbutton.css';
 import FetchCharter from '../../../../Middleware/Fetchers/FetchCharter';
 import { IconDeleteForm, IconEdit, IconPlus, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
 import { DatePickerField, InputField } from '../../../Input/Input';
 import './UpdateModal.css';
+import GetProfile from "../../../Auth/GetProfile";
 
 
 //yang masih belom mutation dan querynya
@@ -112,7 +113,7 @@ const UpdateModalProject = (props) => {
     const [pcData, setPcData] = useState('');
 
 
-    const [id, setId] = React.useState('');
+    const [id, setId] = useState('');
     const [status, setStatus] = useState(projectData.status);
     const [work_area, setWorkArea] = useState(projectData.work_area);
     const [start_project, setStartProject] = useState(new Date(projectData.start_project));
@@ -147,16 +148,39 @@ const UpdateModalProject = (props) => {
     const inputRefType = useRef(null);
     const inputRefPhase = useRef(null);
     const inputRefMilestone = useRef(null);
+    const profile = GetProfile();
+
+    const { page, limit, sort, total } = props;
+    let refetchQueries = []
+    
+    //if last data before created new data is multiple of limit, then
+    if ( total % limit === 0) {
+        refetchQueries = [
+            { query: GET_PROJECT_DATA_BY_USER_ID,
+                variables: { userId: String(profile.id) },
+
+            },
+        ]
+    } else {
+        refetchQueries = [
+            { query: GET_PROJECT_DATA_BY_USER_ID,
+                variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) },
+            },
+        ]
+    }
 
     const [updateProject, { loading: updateProjectLoading, error: updateProjectError }] = useMutation(UPDATE_CHARTER,
         {
             refetchQueries: [
-                // { query: GET_PROJECT_DATA_BY_USER_ID },
-                {
-                    query: GET_CHARTER_DATA_BY_USER_ID,
-                    variables: { id: projectID }
-                },
-            ]
+                { query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort)  }},
+                
+                // {
+                //     query: GET_CHARTER_DATA_BY_USER_ID,
+                //     variables: { id: projectID }
+                // },
+            ],
+            // refetchQueries: refetchQueries,
+            onComplete : () => {console.log("Berhasil Fetch UPDATE PROJECT CHARTER")}
         });
 
     const { data: readPCData, error: readPCDataError } = useQuery(GET_CHARTER_DATA_BY_USER_ID, {
@@ -325,7 +349,11 @@ const UpdateModalProject = (props) => {
 
 
     const handleSubmit = (e) => {
+        e.preventDefault();
+
         const milestone_id = parseInt(inputRefMilestone.current.value);
+        const phase_id = parseInt(inputRefPhase.current.value);
+        const type_id = parseInt(inputRefType.current.value);
 
         type_id !== 0 ? type_id : setTypeId(parseInt(inputRefType.current.value))
         phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))
@@ -408,7 +436,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Name",
             name: "name",
-            placeholder: "Name",
+            placeholder: "Example: Project Anomaly",
             type: "text",
             value: name,
             onChange: (e) => setName(e.target.value),
@@ -416,7 +444,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Description",
             name: "description",
-            placeholder: "Description",
+            placeholder: "Example: This project is about anomaly detection",
             type: "text",
             value: description,
             onChange: (e) => setDescription(e.target.value),
@@ -424,7 +452,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Client",
             name: "client",
-            placeholder: "Client",
+            placeholder: "Example: Makmur Group",
             type: "text",
             value: client,
             onChange: (e) => setClient(e.target.value),
@@ -432,7 +460,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Client Contact",
             name: "client_contact",
-            placeholder: "Client Contact",
+            placeholder: "Example: 08123456789",
             type: "number",
             value: client_contact,
             onChange: (e) => setClientContact(e.target.value),
@@ -440,7 +468,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Office Location",
             name: "office_location",
-            placeholder: "Office Location",
+            placeholder: "Example: Sudriman",
             type: "text",
             value: office_location,
             onChange: (e) => setOfficeLocation(e.target.value),
@@ -448,7 +476,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Work Area",
             name: "work_area",
-            placeholder: "Work Area",
+            placeholder: "Example: Jakarta",
             type: "text",
             value: work_area,
             onChange: (e) => setWorkArea(e.target.value),
@@ -456,7 +484,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Role ID",
             name: "role_id",
-            placeholder: "Role ID",
+            placeholder: "Example: 1",
             type: "number",
             value: role_id,
             onChange: (e) => setRoleId(parseInt(e.target.value)),
@@ -464,7 +492,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Stakeholder Ammount",
             name: "stakeholder_ammount",
-            placeholder: "Stakeholder Ammount",
+            placeholder: "Example: 1",
             type: "number",
             value: stakeholder_ammount,
             onChange: (e) => setStakeholderAmmount(parseInt(e.target.value)),
@@ -472,7 +500,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Total Man Power",
             name: "total_man_power",
-            placeholder: "Total Man Power",
+            placeholder: "Example: 1",
             type: "number",
             value: total_man_power,
             onChange: (e) => setTotalManPower(parseInt(e.target.value)),
@@ -480,7 +508,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Participant",
             name: "participants",
-            placeholder: "Participants",
+            placeholder: "Example: 1",
             type: "number",
             value: participants,
             onChange: (e) => setParticipants(parseInt(e.target.value)),
@@ -488,7 +516,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Progress Precentage",
             name: "progress_percentage",
-            placeholder: "Progress Precentage",
+            placeholder: "Example: 10",
             type: "number",
             value: progress_percentage,
             onChange: (e) => setProgressPercentage(parseFloat(e.target.value)),
@@ -496,7 +524,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Currency Name",
             name: "currency_name",
-            placeholder: "Currency Name",
+            placeholder: "Example: Rupiah",
             type: "text",
             value: currency_name,
             onChange: (e) => setCurrencyName(e.target.value),
@@ -504,7 +532,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Currency Code",
             name: "currency_code",
-            placeholder: "Currency Code",
+            placeholder: "Example: IDR",
             type: "text",
             value: currency_code,
             onChange: (e) => setCurrencyCode(e.target.value),
@@ -512,7 +540,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Currency Symbol",
             name: "currency_symbol",
-            placeholder: "Currency Symbol",
+            placeholder: "Example: IDR",
             type: "text",
             value: currency_symbol,
             onChange: (e) => setCurrencySymbol(e.target.value),
@@ -520,7 +548,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Cost Actual",
             name: "cost_actual",
-            placeholder: "Cost Actual",
+            placeholder: "Example: 1000000",
             type: "number",
             value: cost_actual,
             onChange: (e) => setCostActual(parseFloat(e.target.value)),
@@ -528,7 +556,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Cost Plan",
             name: "cost_plan",
-            placeholder: "Cost Plan",
+            placeholder: "Example: 1000000",
             type: "number",
             value: cost_plan,
             onChange: (e) => setCostPlan(parseFloat(e.target.value)),
@@ -536,7 +564,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Budget",
             name: "budget",
-            placeholder: "Budget",
+            placeholder: "Example: 1000000",
             type: "number",
             value: budget,
             onChange: (e) => setBudget(parseInt(e.target.value)),
@@ -544,7 +572,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Status",
             name: "status",
-            // placeholder: "Status",
+            placeholder: "Example: In Progress",
             type: "text",
             value: status,
             onChange: (e) => setStatus(e.target.value),
@@ -552,7 +580,7 @@ const UpdateModalProject = (props) => {
         {
             label: "Considered Success When",
             name: "considered_success_when",
-            placeholder: "Considered Success When",
+            placeholder: "Example: Project is done",
             type: "text",
             value: considered_success_when,
             onChange: (e) => setConsideredSuccessWhen(e.target.value),
@@ -628,7 +656,7 @@ const UpdateModalProject = (props) => {
                                                             <input
                                                                 className="input input-border border-primary-light shadow appearance-none w-full"
                                                                 name='resources'
-                                                                placeholder="Resources"
+                                                                placeholder="Example: 20 workers"
                                                                 value={input}
                                                                 onChange={event => handleFormChangeResources(event.target.value, index)}
                                                             />
@@ -652,7 +680,7 @@ const UpdateModalProject = (props) => {
                                                             <input
                                                                 className="input input-border border-primary-light shadow appearance-none w-full"
                                                                 name='ProjectObjectives'
-                                                                placeholder="Project Objectives"
+                                                                placeholder="Example : Build a house"
                                                                 value={input}
                                                                 onChange={event => handleFormChangeProjectobj(event.target.value, index)}
                                                             />
@@ -676,7 +704,7 @@ const UpdateModalProject = (props) => {
                                                             <input
                                                                 className="input input-border border-primary-light shadow appearance-none w-full"
                                                                 name='PotentialRisk'
-                                                                placeholder="Potential Risk"
+                                                                placeholder="Example : Resource is not enough"
                                                                 value={input}
                                                                 onChange={event => handleFormChangeRisk(event.target.value, index)}
                                                             />
@@ -742,12 +770,12 @@ const UpdateModalProject = (props) => {
                                             <button
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                                // onClick={handleSubmit}
-                                                onClick={e => {
-                                                    e.preventDefault();
-                                                    handleSubmit();
-                                                    window.location.reload(true);
-                                                }}
+                                                onClick={handleSubmit}
+                                                // onClick={e => {
+                                                //     e.preventDefault();
+                                                //     handleSubmit();
+                                                //     window.location.reload(true);
+                                                // }}
                                             >
                                                 <IconSaveForm />
                                                 <p className='text-base text-white pt-0.5 px-1'>Save</p>

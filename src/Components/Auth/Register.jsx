@@ -61,7 +61,7 @@ export const RegisterHandler = () => {
             register({
                 variables: data
             });
-            window.location.href = '/#/login';
+            // window.location.href = '/#/login';
             // window.location.reload();
             console.log("data berhasil");
             setError('');
@@ -71,6 +71,7 @@ export const RegisterHandler = () => {
         }
         setLoading(false);
     }
+    
 
     return (
         <>
@@ -101,9 +102,10 @@ export const RegisterHandler = () => {
                                 ))}
                             </select>
                         </div>
-                        <InputField name="email" label="Email" placeholder="Enter your email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value={input.email} onChange={handleChange} required />
-                        <InputField name="password" label="Password" placeholder="Enter your password" type="password" minlength="8" value={input.password} onChange={handleChange} required />
-                        <InputField label="Password Confirmation" placeholder="Enter your password again" type="password" value={password_confirmation} onChange={e => setPasswordConfirmation(e.target.value)} required />
+                        <InputField name="email" label="Email" placeholder="example@gmail.com" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value={input.email} onChange={handleChange} required />
+                        <InputField name="password" label="Password" placeholder="Min Password 8 Characters" type="password" minlength="8" value={input.password} onChange={handleChange} required />
+
+                        <InputField label="Password Confirmation" placeholder="Min Password 8 Characters" type="password" value={password_confirmation} onChange={e => setPasswordConfirmation(e.target.value)} required />
                     </div>
                 </div>
                 <div className="py-4 mx-auto flex items-center justify-between space-x-4">

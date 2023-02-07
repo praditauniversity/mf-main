@@ -64,7 +64,7 @@ const DonutTaskOverviewProject = (props) => {
             enabled: false
         },
         colors: ["#5E35B1", "#FDAC42", "#8AB73A"],
-        labels: ['Label 1', 'Label 2', 'Label 3'],
+        labels: ['Todo', 'In Progress', 'Done'],
         legend: {
             show: true,
             position: 'left',

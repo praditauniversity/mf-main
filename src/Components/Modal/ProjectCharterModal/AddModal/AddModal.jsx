@@ -1,7 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { GET_MILESTONE_DATA, GET_PHASE_DATA, GET_TYPE_DATA } from '../../../GraphQL/Queries';
+import { GET_MILESTONE_DATA, GET_PHASE_DATA, GET_PROJECT_DATA_BY_USER_ID, GET_TYPE_DATA } from '../../../GraphQL/Queries';
 // import { GET_PROJECT_DATA_BY_ID } from "../../GraphQL/Queries";
 import '../../../../Assets/svgbutton/svgbutton.css';
 import FetchCharter from '../../../../Middleware/Fetchers/FetchCharter';
@@ -9,6 +9,8 @@ import { IconDeleteForm, IconPlus, IconPlusForm, IconSaveForm } from '../../../I
 import { DatePickerField, InputField } from '../../../Input/Input';
 import './AddModal.css';
 import Button from "../../../Button";
+import { useForm } from "react-hook-form";
+import GetProfile from "../../../Auth/GetProfile";
 
 
 //yang masih belom mutation dan querynya
@@ -163,7 +165,7 @@ query projectCharterByUserId($userId: String!) {
   }
 `;
 
-const AddModalProjectCharter = () => {
+const AddModalProjectCharter = (props) => {
     const [status, setStatus] = useState("");
     const [work_area, setWorkArea] = useState("");
     const [start_project, setStartProject] = useState(new Date());
@@ -186,27 +188,66 @@ const AddModalProjectCharter = () => {
     const [budget, setBudget] = useState(0);
 
     const [participants, setParticipants] = useState(0);
-    const [milestone_id, setMilestoneId] = useState(1);
+    const [milestone_id, setMilestoneId] = useState(0);
 
     const [potential_risk, setPotentialRisk] = useState(['']);
     const [project_objectives, setProjectObjectives] = useState(['']);
-    const [type_id, setTypeId] = useState(1);
-    const [phase_id, setPhaseId] = useState(1);
+    const [type_id, setTypeId] = useState(0);
+    const [phase_id, setPhaseId] = useState(0);
 
     const [available_resources, setAvailableResources] = useState(['']);
+
+    const [errorValidate, setErrorValidate] = useState({});
+    const validate = () => {
+        let nameError = "";
+        let descError = "";
+
+        if (name.length < 1) {
+            nameError = "Name can't be empty";
+        }
+        if (description.length > 4) {
+            descError = "Description can't be empty";
+        }
+
+        if (nameError || descError) {
+            setErrorValidate({ nameError, descError });
+            return false;
+        }
+
+        return true;
+    };
+
 
     const inputRefType = useRef(null);
     const inputRefPhase = useRef(null);
     const inputRefMilestone = useRef(null);
 
+    const { page, limit, sort, total } = props;
+    const profile = GetProfile();
+
+    let refetchQueries = []
+    
+    //if last data length before created new data is multiple of limit, then
+    if ( total % limit === 0) {
+        refetchQueries = [
+            { query: GET_PROJECT_DATA_BY_USER_ID,
+                variables: { userId: String(profile.id) },
+            },
+        ]
+    } else {
+        refetchQueries = [
+            { query: GET_PROJECT_DATA_BY_USER_ID,
+                variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) },
+            },
+        ]
+    }
+
+
     const [addProjectCharter, { loading: addProjectLoading, error: addProjectError }] = useMutation(ADD_CHARTER,
         {
-            refetchQueries: [
-                // { query: GET_PROJECT_DATA_BY_USER_ID },
-                { query: GET_CHARTER_DATA_BY_USER_ID },
-                console.log("Berhasil Fetch")
-            ]
-        });
+            refetchQueries: refetchQueries,
+            onComplete: () => { console.log("BISA FETCH CHARTER ANJIR") }
+        });;
 
 
     // const profile = GetProfile();
@@ -372,19 +413,40 @@ const AddModalProjectCharter = () => {
 
 
     const handleSubmit = (e) => {
-        const milestone_id = parseInt(inputRefMilestone.current.value);
+        e.preventDefault();
+        // const isValid = validate();
+        // if (isValid) {
+        //     console.log("Name & Desc Submit", name, description)
+        // }
 
+        const milestone_id = parseInt(inputRefMilestone.current.value);
+        const phase_id = parseInt(inputRefPhase.current.value);
+        const type_id = parseInt(inputRefType.current.value);
+
+        setPhaseId(parseInt(inputRefPhase.current.value))
+        setTypeId(parseInt(inputRefType.current.value))
+        setMilestoneId(parseInt(inputRefMilestone.current.value))
+        
         type_id !== 0 ? type_id : setTypeId(parseInt(inputRefType.current.value))
         phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))
-        milestone_id === 0 ? setMilestoneId(parseInt(inputRefMilestone.current.value)) : milestone_id
+        milestone_id !== 0 ? milestone_id : setMilestoneId(parseInt(inputRefMilestone.current.value))
 
-        console.log(typeof parseInt(inputRefMilestone.current.value), parseInt(inputRefMilestone.current.value));
-        console.log(typeof milestone_id, milestone_id);
-        console.log(typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
-        console.log(typeof parseInt(inputRefPhase.current.value), parseInt(inputRefPhase.current.value));
+        // type_id !== 0 ? type_id : parseInt(inputRefType.current.value);
+        // phase_id !== 0 ? phase_id : parseInt(inputRefPhase.current.value);
+        // milestone_id !== 0 ? milestone_id : parseInt(inputRefMilestone.current.value);
+
+
+        console.log("Milestone",typeof parseInt(inputRefMilestone.current.value), parseInt(inputRefMilestone.current.value));
+        console.log("Milestone", typeof milestone_id, milestone_id);
+        console.log("Type", typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
+        console.log("Type", typeof type_id, type_id);
+        console.log("Phase" ,typeof parseInt(inputRefPhase.current.value), parseInt(inputRefPhase.current.value));
+        console.log("Phase", typeof phase_id, phase_id);
+
+
         console.log("Berhasil submit")
 
-        // e.preventDefault();
+        
         addProjectCharter({
             variables: {
                 participants,
@@ -453,15 +515,16 @@ const AddModalProjectCharter = () => {
         {
             label: "Name",
             name: "name",
-            placeholder: "Name",
+            placeholder: "Example: Project Anomaly",
             type: "text",
             value: name,
             onChange: (e) => setName(e.target.value),
+
         },
         {
             label: "Description",
             name: "description",
-            placeholder: "Description",
+            placeholder: "Example: This project is about anomaly detection",
             type: "text",
             value: description,
             onChange: (e) => setDescription(e.target.value),
@@ -469,7 +532,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Client",
             name: "client",
-            placeholder: "Client",
+            placeholder: "Example: Makmur Group",
             type: "text",
             value: client,
             onChange: (e) => setClient(e.target.value),
@@ -477,7 +540,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Client Contact",
             name: "client_contact",
-            placeholder: "Client Contact",
+            placeholder: "Example: 08123456789",
             type: "number",
             value: client_contact,
             onChange: (e) => setClientContact(e.target.value),
@@ -485,7 +548,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Office Location",
             name: "office_location",
-            placeholder: "Office Location",
+            placeholder: "Example: Sudriman",
             type: "text",
             value: office_location,
             onChange: (e) => setOfficeLocation(e.target.value),
@@ -493,7 +556,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Work Area",
             name: "work_area",
-            placeholder: "Work Area",
+            placeholder: "Example: Jakarta",
             type: "text",
             value: work_area,
             onChange: (e) => setWorkArea(e.target.value),
@@ -501,7 +564,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Role ID",
             name: "role_id",
-            placeholder: "Role ID",
+            placeholder: "Example: 1",
             type: "number",
             value: role_id,
             onChange: (e) => setRoleId(parseInt(e.target.value)),
@@ -509,7 +572,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Stakeholder Ammount",
             name: "stakeholder_ammount",
-            placeholder: "Stakeholder Ammount",
+            placeholder: "Example: 1",
             type: "number",
             value: stakeholder_ammount,
             onChange: (e) => setStakeholderAmmount(parseInt(e.target.value)),
@@ -517,7 +580,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Total Man Power",
             name: "total_man_power",
-            placeholder: "Total Man Power",
+            placeholder: "Example: 1",
             type: "number",
             valueL: total_man_power,
             onChange: (e) => setTotalManPower(parseInt(e.target.value)),
@@ -525,7 +588,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Participant",
             name: "participants",
-            placeholder: "Participants",
+            placeholder: "Example: 1",
             type: "number",
             value: participants,
             onChange: (e) => setParticipants(parseInt(e.target.value)),
@@ -533,7 +596,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Progress Precentage",
             name: "progress_percentage",
-            placeholder: "Progress Precentage",
+            placeholder: "Example: 10",
             type: "number",
             value: progress_percentage,
             onChange: (e) => setProgressPercentage(parseFloat(e.target.value)),
@@ -541,7 +604,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Currency Name",
             name: "currency_name",
-            placeholder: "Currency Name",
+            placeholder: "Example: Rupiah",
             type: "text",
             value: currency_name,
             onChange: (e) => setCurrencyName(e.target.value),
@@ -549,7 +612,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Currency Code",
             name: "currency_code",
-            placeholder: "Currency Code",
+            placeholder: "Example: IDR",
             type: "text",
             value: currency_code,
             onChange: (e) => setCurrencyCode(e.target.value),
@@ -557,7 +620,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Currency Symbol",
             name: "currency_symbol",
-            placeholder: "Currency Symbol",
+            placeholder: "Example: IDR",
             type: "text",
             value: currency_symbol,
             onChange: (e) => setCurrencySymbol(e.target.value),
@@ -565,7 +628,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Cost Actual",
             name: "cost_actual",
-            placeholder: "Cost Actual",
+            placeholder: "Example: 1000000",
             type: "number",
             value: cost_actual,
             onChange: (e) => setCostActual(parseFloat(e.target.value)),
@@ -573,7 +636,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Cost Plan",
             name: "cost_plan",
-            placeholder: "Cost Plan",
+            placeholder: "Example: 1000000",
             type: "number",
             value: cost_plan,
             onChange: (e) => setCostPlan(parseFloat(e.target.value)),
@@ -581,7 +644,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Budget",
             name: "budget",
-            placeholder: "Budget",
+            placeholder: "Example: 1000000",
             type: "number",
             value: budget,
             onChange: (e) => setBudget(parseInt(e.target.value)),
@@ -589,7 +652,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Status",
             name: "status",
-            placeholder: "Status",
+            placeholder: "Example: In Progress",
             type: "text",
             value: status,
             onChange: (e) => setStatus(e.target.value),
@@ -597,7 +660,7 @@ const AddModalProjectCharter = () => {
         {
             label: "Considered Success When",
             name: "considered_success_when",
-            placeholder: "Considered Success When",
+            placeholder: "Example: Project is done",
             type: "text",
             value: considered_success_when,
             onChange: (e) => setConsideredSuccessWhen(e.target.value),
@@ -614,7 +677,7 @@ const AddModalProjectCharter = () => {
             </div> */}
 
             <div className="add-button">
-                <Button label="+ Add Charter" onClick={showDialog}/>
+                <Button label="+ Add Charter" onClick={showDialog} />
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>
@@ -653,15 +716,21 @@ const AddModalProjectCharter = () => {
                                     {/* participants */}
                                     {dataDailyReport.map((data, index) => {
                                         return (
-                                            <InputField
-                                                key={index}
-                                                label={data.label}
-                                                name={data.name}
-                                                placeholder={data.placeholder}
-                                                type={data.type}
-                                                value={data.value}
-                                                onChange={data.onChange}
-                                            />
+                                            <div>
+                                                <InputField
+                                                    key={index}
+                                                    label={data.label}
+                                                    name={data.name}
+                                                    placeholder={data.placeholder}
+                                                    type={data.type}
+                                                    value={data.value}
+                                                    onChange={data.onChange}
+
+                                                />
+                                                {/* <div style={{ color: "red" }}>{errorValidate.nameError}</div> */}
+                                            </div>
+
+
                                         );
                                     })}
 
@@ -676,7 +745,7 @@ const AddModalProjectCharter = () => {
                                                             <input
                                                                 className="input input-border border-primary-light shadow appearance-none w-full"
                                                                 name='resources'
-                                                                placeholder="Resources"
+                                                                placeholder="Example: 20 workers"
                                                                 value={input}
                                                                 onChange={event => handleFormChangeResources(event.target.value, index)}
                                                             />
@@ -700,7 +769,7 @@ const AddModalProjectCharter = () => {
                                                             <input
                                                                 className="input input-border border-primary-light shadow appearance-none w-full"
                                                                 name='ProjectObjectives'
-                                                                placeholder="Project Objectives"
+                                                                placeholder="Example : Build a house"
                                                                 value={input}
                                                                 onChange={event => handleFormChangeProjectobj(event.target.value, index)}
                                                             />
@@ -724,7 +793,7 @@ const AddModalProjectCharter = () => {
                                                             <input
                                                                 className="input input-border border-primary-light shadow appearance-none w-full"
                                                                 name='PotentialRisk'
-                                                                placeholder="Potential Risk"
+                                                                placeholder="Example : Resource is not enough"
                                                                 value={input}
                                                                 onChange={event => handleFormChangeRisk(event.target.value, index)}
                                                             />
@@ -740,14 +809,14 @@ const AddModalProjectCharter = () => {
                                     <DatePickerField
                                         label="Start Project"
                                         selected={start_project}
-                                        onChange={(date) => {setStartProject(date), console.log("Start Project", typeof setStartProject(date), setStartProject(date))}}
+                                        onChange={(date) => { setStartProject(date), console.log("Start Project", typeof setStartProject(date), setStartProject(date)) }}
                                         placeholder="DD/MM/YYYY"
 
                                     />
                                     <DatePickerField
                                         label="End Project"
                                         selected={end_project}
-                                        onChange={(date) => {setEndProject(date) , console.log("End Project", typeof end_project, end_project)}}
+                                        onChange={(date) => { setEndProject(date), console.log("End Project", typeof end_project, end_project) }}
                                         placeholder="DD/MM/YYYY"
                                     />
 
@@ -789,12 +858,12 @@ const AddModalProjectCharter = () => {
                                             <button
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                                // onClick={handleSubmit}
-                                                onClick={e => {
-                                                    e.preventDefault();
-                                                    handleSubmit();
-                                                    // window.location.reload(true);
-                                                }}
+                                                onClick={handleSubmit}
+                                                // onClick={e => {
+                                                //     // e.preventDefault();
+                                                //     handleSubmit();
+                                                //     // window.location.reload(true);
+                                                // }}
                                             >
                                                 <IconSaveForm />
                                                 <p className='text-base text-white pt-0.5 px-1'>Save</p>

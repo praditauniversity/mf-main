@@ -23,14 +23,14 @@ const DailyReportPage = (props) => {
 
     const profile = GetProfile();
     const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
-        variables: { userId: profile.id},
+        variables: { userId: profile.id },
     });
     const [projectData, setProject] = useState([]);
     const [reportProjectID, setReportProjectID] = useState(localStorage.getItem('reportProjectID'));
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage] = useState(5) // hardcode
-    const [totalItems, setTotalItems] = useState(1)
+    const [itemsPerPage] = useState(4) // hardcode
+    const [totalItems, setTotalItems] = useState(DRDataList.length || 0)
 
     useEffect(() => {
         if (data) {
@@ -39,7 +39,7 @@ const DailyReportPage = (props) => {
             localStorage.getItem('reportProjectID') === null ? localStorage.setItem('reportProjectID', data.projectByUserId.Data[0].ID) : console.log("reportProjectID is not null");
             reportProjectID === null ? setReportProjectID(data.projectByUserId.Data[0].ID) : setReportProjectID(localStorage.getItem('reportProjectID'));
         }
-        if(DRDataList){
+        if (DRDataList) {
             setTotalItems(DRDataList.length);
         }
     }, [data, DRDataList]);
@@ -53,7 +53,7 @@ const DailyReportPage = (props) => {
     function printListProjectName() {
         return projectData.map(({ ID, name }) => (
             <>
-                <option value={ID}>{name}</option>               
+                <option value={ID}>{name}</option>
             </>
         ));
     }
@@ -101,7 +101,7 @@ const DailyReportPage = (props) => {
                                         <p className="text-sm font-semibold opacity-70">Project Manager</p>
                                     </div>
                                     <div>
-                                        <p className="text-base font-semibold"><ProjectManager value={reportProjectID}/></p>
+                                        <p className="text-base font-semibold"><ProjectManager value={reportProjectID} /></p>
                                     </div>
                                 </div>
                                 <div className="col-span-3">
@@ -109,7 +109,7 @@ const DailyReportPage = (props) => {
                                         <p className="text-sm font-semibold opacity-70">Client</p>
                                     </div>
                                     <div>
-                                        <p className="text-base font-semibold"><Client value={reportProjectID}/></p>
+                                        <p className="text-base font-semibold"><Client value={reportProjectID} /></p>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@ const DailyReportPage = (props) => {
                                         <p className="text-sm font-semibold opacity-70">Location</p>
                                     </div>
                                     <div>
-                                        <p className="text-base font-semibold"><Location value={reportProjectID}/></p>
+                                        <p className="text-base font-semibold"><Location value={reportProjectID} /></p>
                                     </div>
                                 </div>
                                 <div className="col-span-6">
@@ -128,7 +128,7 @@ const DailyReportPage = (props) => {
                                         <p className="text-sm font-semibold opacity-70">General Project Status</p>
                                     </div>
                                     <div>
-                                        <p className="text-base font-semibold"><ProjectStatus value={reportProjectID}/></p>
+                                        <p className="text-base font-semibold"><ProjectStatus value={reportProjectID} /></p>
                                     </div>
                                 </div>
                                 <div className="col-span-3">
@@ -136,7 +136,7 @@ const DailyReportPage = (props) => {
                                         <p className="text-sm font-semibold opacity-70">Client Contact</p>
                                     </div>
                                     <div>
-                                        <p className="text-base font-semibold"><ClientContact value={reportProjectID}/></p>
+                                        <p className="text-base font-semibold"><ClientContact value={reportProjectID} /></p>
                                     </div>
                                 </div>
                             </div>
@@ -177,6 +177,9 @@ const DailyReportPage = (props) => {
                     <div className="py-2">
                         <div className="content-end items-end">
                             <TableFooter
+                                limit={itemsPerPage}
+                                sort="start_project asc"
+                                totalItems={totalItems}
                                 totalPages={totalPages}
                                 currentPage={currentPage}
                                 onPageChange={handlePageChange}

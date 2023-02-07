@@ -40,8 +40,8 @@ function useActivity() {
   return [activityData, setActivity, testData, settestData];
 }
 
-function useLink(){
-  const [ linkData, setLink ] = useState([]);
+function useLink() {
+  const [linkData, setLink] = useState([]);
 
   const { data, loading, error } = useQuery(GET_LINK_DATA);
 
@@ -226,6 +226,7 @@ export const useUnitMeasure = () => {
 export const PrintGantt = (props) => {
   const { title } = props;
   const [activityData, setActivity] = useActivity();
+  const [linkData, setLink] = useLink();
   const [activityPhaseData, setActivityPhaseData] = useActivityPhase();
   const [unitMeasureData, setUnitMeasureData] = useUnitMeasure();
 
@@ -237,6 +238,7 @@ export const PrintGantt = (props) => {
     {/* <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} /> */}
     {/* <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} ganttID={ganttID} isReadOnly={true} isShowAddColumn={false} isShowListGantt={true} /> */}
     {/* <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={true} isShowAddColumn={false} isShowListGantt={true} /> */}
+    {/* <AppGantt title={title} dataGantt={activityData} dataLink={linkData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={true} isShowAddColumn={false} isShowListGantt={true} /> */}
     {console.log("activityData", activityData)}
   </>
 }
@@ -253,8 +255,8 @@ export const PrintGanttPage = (props) => {
   // const addButtonColumns = { };
 
   return <>
-    {/* <AppGantt title={title} dataGantt={activityData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={true} isShowListGantt={false} /> */}
-    <TestFormGantt title={title} dataGantt={activityData} dataLink={linkData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={true} isShowListGantt={false} />
+    {/* <TestFormGantt title={title} dataGantt={activityData} dataLink={linkData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={true} isShowListGantt={false} /> */}
+    <AppGantt title={title} dataGantt={activityData} dataLink={linkData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={true} isShowListGantt={true} />
     {console.log("activityData", activityData)}
   </>
 }

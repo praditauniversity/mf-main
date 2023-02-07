@@ -1,5 +1,6 @@
 import React from "react";
 import dailyReportIcon from "../../../Assets/Icons/svg/File_dock_duotone.svg";
+import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 import FetchProjectCharter from "../../../Middleware/Fetchers/FetchProjectCharter";
 
 const ListProject = [
@@ -76,7 +77,7 @@ const ActionsButton = (props) => {
     const { projectID_Table } = props;
 
     const buttonName = [
-        { id: 1, name: "Project Charter", icon: dailyReportIcon, link: `/#/project-list/${projectID_Table}/view` },
+        { id: 1, name: "Project Charter", icon: dailyReportIcon, link: `/#/project-list/${projectID_Table}/charter` },
         { id: 2, name: "Gantt", icon: dailyReportIcon, link: `/#/project-list/${projectID_Table}/gantt` }, // TODO: Change this link to gantt
         { id: 3, name: "Daily Report", icon: dailyReportIcon, link: "/#/dailyreport" },
     ]
@@ -108,7 +109,7 @@ const ActionsButton = (props) => {
 
 
 const ProjectListPage = () => {
-    const projectData = FetchProjectCharter();
+    const projectData = FetchProjectByUserId();
 
     const filler = () => {
         if (projectData.length > 0) {

@@ -197,7 +197,7 @@ const UpdateModalTask = (props) => {
                                                 </button>
                                                 <button
                                                     type="button"
-                                                    className="inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-primary hover:bg-error-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                    className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                     // value={taskData.ID}
                                                     onClick={e => {
                                                         e.preventDefault();

@@ -57,7 +57,7 @@ export const LoginHandler = () => {
     return (
         <div>
             <form onSubmit={handleSubmitWrapper}>
-                <InputField label="Email" type="email" placeholder="JohnDoe@mail.com" defaultValue={email} onChange={(e) => setEmail(e.target.value)} ref={emailRef} />
+                <InputField label="Email" type="email" placeholder="example@gmail.com" defaultValue={email} onChange={(e) => setEmail(e.target.value)} ref={emailRef} />
                 <InputField label="Password" type="password" placeholder="Enter your password" defaultValue={password} onChange={(e) => setPassword(e.target.value)} ref={passwordRef} />
                 <div className="py-4 mx-auto flex items-center justify-between space-x-4">
                     <button type="submit"

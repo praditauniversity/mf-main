@@ -10,6 +10,7 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 import { DatePickerField, InputField } from '../../Input/Input';
 import TableDatePicker from '../ModalDatePicker/DatePickerModal';
 import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
+import { useParams } from 'react-router-dom';
 
 
 // note
@@ -17,10 +18,8 @@ import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 //Kalo static, aman
 
 const AddModalGantt = () => {
-    let currentUrl = window.location.href;
-    let lastUrl = currentUrl.split('/').pop();
-    const project_id = parseInt(lastUrl);
-
+    let { projectID } = useParams();
+    
     const [isOpen, setIsOpen] = useState(false);
 
     const profile = GetProfile();
@@ -30,20 +29,19 @@ const AddModalGantt = () => {
         refetchQueries: [
             {
                 query: GET_GANTT_PROJECT_ID,
-                variables: { project_id: project_id }
+                variables: { project_id: projectID }
             },
         ],
         onCompleted: () => { console.log("Berhasil Fetch") }
-    });;
+    });
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [user_id, setUserId] = useState(profile.id);
     const [version, setVersion] = useState(0);
     // const [project_id, setProjectId] = useState(1);
-    const [start_time, setStartTime] = useState('');
-    const [end_time, setEndTime] = useState('');
-
+    const [start_time, setStartTime] = useState(new Date());
+    const [end_time, setEndTime] = useState(new Date());
     const showDialog = () => {
         setIsOpen(true);
     }
@@ -68,8 +66,7 @@ const AddModalGantt = () => {
                 description,
                 user_id: profile.id,
                 version,
-                // project_id: projectID,
-                project_id,
+                project_id: parseInt(projectID),
                 start_time,
                 end_time
             },
@@ -82,7 +79,7 @@ const AddModalGantt = () => {
         console.log(typeof user_id, user_id);
         console.log(typeof profile.id, profile.id);
         console.log(typeof version, version);
-        console.log(typeof project_id, project_id);
+        // console.log(typeof project_id, project_id);
         // console.log(typeof projectID, projectID);
         console.log(typeof start_time, start_time);
         console.log(typeof end_time, end_time);
@@ -106,7 +103,7 @@ const AddModalGantt = () => {
         {
             label: "Name",
             name: "name",
-            placeholder: "Enter Gantt Name",
+            placeholder: "Ex: Gantt First Project",
             type: "text",
             value: name,
             onChange: (e) => setName(e.target.value),
@@ -114,7 +111,7 @@ const AddModalGantt = () => {
         {
             label: "Description",
             name: "descrtiption",
-            placeholder: "Enter Gantt Description",
+            placeholder: "Ex: Gantt for First Project",
             type: "text",
             value: description,
             onChange: (e) => setDescription(e.target.value),
@@ -122,7 +119,7 @@ const AddModalGantt = () => {
         {
             label: "Version",
             name: "version",
-            placeholder: "Enter Gantt Version",
+            placeholder: "Ex: 1",
             type: "number",
             value: version,
             onChange: (e) => setVersion(parseInt(e.target.value)),
@@ -180,7 +177,7 @@ const AddModalGantt = () => {
                                                 <div className="mt-3">
                                                     <div className="form-control w-full max-w-5xl">
                                                         <label className="label">
-                                                            <span className="label-text">{gantt.label}</span>
+                                                            <span className="label-text">{item.label}</span>
                                                         </label>
                                                         <InputField
                                                             key={index}
@@ -198,8 +195,11 @@ const AddModalGantt = () => {
 
                                     <div className="pb-2 w-full min-w-5xl" id="buttonInside">
                                         <div className="">
+                                            <label className="label">
+                                                <span className="label-text">Start Date</span>
+                                            </label>
                                             <DatePickerField
-                                                label="Start Date"
+                                                // label="Start Date"
                                                 selected={start_time}
                                                 onChange={(date) => setStartTime(date)}
                                                 placeholder="DD/MM/YYYY"
@@ -209,8 +209,11 @@ const AddModalGantt = () => {
 
                                     <div className="pb-2 w-full min-w-5xl" id="buttonInside">
                                         <div className="">
+                                            <label className="label">
+                                                <span className="label-text">End Date</span>
+                                            </label>
                                             <DatePickerField
-                                                label="End Date"
+                                                // label="End Date"
                                                 selected={end_time}
                                                 onChange={(date) => setEndTime(date)}
                                                 placeholder="DD/MM/YYYY"

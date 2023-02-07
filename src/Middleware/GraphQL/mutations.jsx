@@ -102,12 +102,12 @@ export const GET_PROJECT_BY_ID = gql`
 export const ADD_GANTT = gql`
   mutation addGantt(
     $name: String!
-    $description: String!
-    $user_id: String!
-    $version: Int!
+    $description: String
+    $user_id: String
+    $version: Int
     $project_id: Int!
-    $start_time: DateTime!
-    $end_time: DateTime!
+    $start_time: DateTime
+    $end_time: DateTime
   ) {
     addGantt(
       input: {

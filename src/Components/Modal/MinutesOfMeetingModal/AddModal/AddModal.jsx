@@ -320,7 +320,7 @@ const AddModalMinutesOfMeeting = () => {
                         <input
                           value={meeting_name}
                           type="text"
-                          placeholder="Enter project name"
+                          placeholder="Example: Meeting Day 1"
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                           onChange={(e) => setMeeting_name(e.target.value)}
                         />
@@ -380,7 +380,7 @@ const AddModalMinutesOfMeeting = () => {
                         <input
                           value={location}
                           type="text"
-                          placeholder="Enter location of meeting"
+                          placeholder="Example : Jakarta"
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                           onChange={(e) => setLocation(e.target.value)}
                         />
@@ -395,7 +395,7 @@ const AddModalMinutesOfMeeting = () => {
                         <input
                           value={meeting_leader}
                           type="text"
-                          placeholder="Enter meeting ladder name"
+                          placeholder="Example : John Doe"
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                           onChange={(e) => setMeeting_leader(e.target.value)}
                         />
@@ -410,7 +410,7 @@ const AddModalMinutesOfMeeting = () => {
                         <input
                           value={meeting_objective}
                           type="text"
-                          placeholder="Enter purpose of meeting"
+                          placeholder="Example : Complete a daily activity"
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                           onChange={(e) => setMeeting_objective(e.target.value)}
                         />
@@ -444,7 +444,7 @@ const AddModalMinutesOfMeeting = () => {
                                 <input
                                   className="input input-border border-primary-light shadow appearance-none w-full"
                                   name="Atendees"
-                                  placeholder="Atendees"
+                                  placeholder="Example : John Doe"
                                   value={input}
                                   onChange={(event) =>
                                     handleFormChangeAtendees(
@@ -494,7 +494,7 @@ const AddModalMinutesOfMeeting = () => {
                                 <input
                                   className="input input-border border-primary-light shadow appearance-none w-full"
                                   name="Notes"
-                                  placeholder="Notes"
+                                  placeholder="Example : Complete activity 1 still in progress"
                                   value={input}
                                   onChange={(event) =>
                                     handleFormChangeNotes(
@@ -570,7 +570,7 @@ const AddModalMinutesOfMeeting = () => {
                                     <input
                                       className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
                                       name="action_item"
-                                      placeholder="Enter Action Item"
+                                      placeholder="Example : Activity 1"
                                       value={input.action_item}
                                       onChange={(event) =>
                                         handleFormChange(index, event)
@@ -579,7 +579,7 @@ const AddModalMinutesOfMeeting = () => {
                                     <input
                                       className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
                                       name="owner"
-                                      placeholder="Enter owner"
+                                      placeholder="Example : John Doe"
                                       value={input.owner}
                                       onChange={(event) =>
                                         handleFormChange(index, event)
@@ -588,7 +588,7 @@ const AddModalMinutesOfMeeting = () => {
                                     <input
                                       className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
                                       name="deadline"
-                                      placeholder="Enter deadline"
+                                      placeholder="Example : 12/12/2021"
                                       value={input.deadline}
                                       onChange={(event) =>
                                         handleFormChange(index, event)
@@ -597,7 +597,7 @@ const AddModalMinutesOfMeeting = () => {
                                     <input
                                       className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
                                       name="status"
-                                      placeholder="Enter status"
+                                      placeholder="Example : Done"
                                       value={input.status}
                                       onChange={(event) =>
                                         handleFormChange(index, event)

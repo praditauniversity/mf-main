@@ -5,12 +5,12 @@ import Trash from "../../Assets/Icons/svg/Trash.svg";
 import { useState } from "react";
 import FetchActivity from "../../Middleware/Fetchers/FetchActivity.jsx";
 import FetchGantt from "../../Middleware/Fetchers/FetchGantt.jsx";
-import FetchProject from "../../Middleware/Fetchers/FetchProject.jsx";
+import FetchProjectByUserId from "../../Middleware/Fetchers/FetchProjectByUserId.jsx";
 import NoTasks from "../Tasks/NoTasks.jsx";
 
 const Tabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
-  const projectData = FetchProject();
+  const projectData = FetchProjectByUserId();
   const ganttData = FetchGantt();
   const activityData = FetchActivity();
 
@@ -20,7 +20,17 @@ const Tabs = ({ color }) => {
   //   { id: 3, icon: Trash, projectName: "Project anomaly", taskName: "User requirements", date: "30 Aug" },
   // ]);
 
-  const completedTaskLength = activityData.filter((task) => task.phase.name === "Done").length;
+  const completedTaskLength = activityData.filter((task) => {
+    return task.phase.name === "Done"
+  }).filter((task) => {
+    return ganttData.filter((gantt) => {
+      return gantt.ID === task.gantt_id
+    }).filter((gantt) => {
+      return projectData.filter((project) => {
+        return project.ID === gantt.project_id
+      }).length > 0
+    }).length > 0
+  }).length
 
   return (
     <>

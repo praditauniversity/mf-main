@@ -68,7 +68,7 @@ export default function Routing() {
         <Route path="/project-list" element={<ProjectList />}></Route>
         <Route path="/minutesofmeeting" element={<MinutesofMeeting />}></Route>
         <Route path="/minutesofmeetingview" element={<MinutesofMeetingView />}></Route>
-        <Route path={`/project-list/:projectID/view`} element={<ProjectCharterView />}></Route>
+        <Route path={`/project-list/:projectID/charter`} element={<ProjectCharterView />}></Route>
         <Route path={`/project-list/:projectID/gantt`} element={<GanttPage />}></Route>
         <Route path={`/project-list/:projectID/gantt/:ganttID/gantt-chart`} element={<GanttChartPage />}></Route>
         <Route path="/masterpage/superadmin" element={<MasterPageSuperAdmin />}></Route>

@@ -20,7 +20,7 @@ const DELETE_PROJECTCHARTER = gql`
     deleteProject(id: $id) 
   }`;
 
-const PCList = (props) => {
+const PCList = (props, limitItem, sortItem, totalItems) => {
     // let { projectID } = useParams();
     const { page, limit, sort } = props;
     // const charterData = FetchProjectByUserId();
@@ -106,8 +106,8 @@ const PCList = (props) => {
                             const endProjectMonth = endProject.toLocaleDateString('en-US', { month: '2-digit' });
                             const endProjectDay = endProject.toLocaleDateString('en-US', { day: '2-digit' });
 
-                            const StartingProject = startProjectMonth+'/'+startProjectDay+'/'+startProjectYear
-                            const EndingProject = endProjectMonth+'/'+endProjectDay+'/'+endProjectYear
+                            const StartingProject = startProjectMonth + '/' + startProjectDay + '/' + startProjectYear
+                            const EndingProject = endProjectMonth + '/' + endProjectDay + '/' + endProjectYear
                             return (
                                 <tr key={item.ID} >
                                     {/* className={`cursor-pointer ${isClicked ? 'bg-yellow-500 text-primary' : ''}`} */}
@@ -129,6 +129,9 @@ const PCList = (props) => {
                                             <UpdateModalProject
                                                 projectID={String(item.ID)}
                                                 projectData={item}
+                                                limit={limitItem}
+                                                sort={sortItem}
+                                                totalItems={totalItems}
                                             />
                                         </button>
                                         <button className="" id="icon">
@@ -140,22 +143,22 @@ const PCList = (props) => {
                                         </button>
                                         <button className="" id="icon">
                                             <ViewModalCharter
-                                            charterID={item.ID}
-                                            charterName={item.name}
-                                            charterManager={item.project_manager ? item.project_manager : "N/A"}
-                                            charterClient={item.client ? item.client : "N/A"}
-                                            charterDesc={item.description ? item.description : "N/A"}
-                                            charterObj={item.project_objectives}
-                                            charterTeam={item.total_man_power}
-                                            charterStakeholder={item.stakeholder_ammount}
-                                            charterParticipant={item.participants}
-                                            charterPlanned={item.cost_plan}
-                                            charterActual={item.cost_actual}
-                                            charterSymbol={item.currency_symbol ? item.currency_symbol : "N/A"}
-                                            charterResource={item.available_resources}
-                                            charterStart={StartingProject}
-                                            charterEnd={EndingProject}
-                                            charterRisk={item.potential_risk}
+                                                charterID={item.ID}
+                                                charterName={item.name}
+                                                charterManager={item.project_manager ? item.project_manager : "N/A"}
+                                                charterClient={item.client ? item.client : "N/A"}
+                                                charterDesc={item.description ? item.description : "N/A"}
+                                                charterObj={item.project_objectives}
+                                                charterTeam={item.total_man_power}
+                                                charterStakeholder={item.stakeholder_ammount}
+                                                charterParticipant={item.participants}
+                                                charterPlanned={item.cost_plan}
+                                                charterActual={item.cost_actual}
+                                                charterSymbol={item.currency_symbol ? item.currency_symbol : "N/A"}
+                                                charterResource={item.available_resources}
+                                                charterStart={StartingProject}
+                                                charterEnd={EndingProject}
+                                                charterRisk={item.potential_risk}
                                             />
                                         </button>
                                         {/* <button className="" id="icon" onClick={(e) => {

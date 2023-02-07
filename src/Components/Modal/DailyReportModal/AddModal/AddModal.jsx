@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import "../../../../Assets/svgbutton/svgbutton.css";
 import Button from "../../../Button";
-import { GET_ACTIVITY_DATA, GET_GANTT_PROJECT_ID, GET_PROJECT_DATA_BY_ID } from "../../../GraphQL/Queries";
+import { GET_ACTIVITY_DATA, GET_DAILY_REPORT_DATA_BY_PROJECT_ID, GET_GANTT_PROJECT_ID, GET_PROJECT_DATA_BY_ID } from "../../../GraphQL/Queries";
 import {
   IconDeleteForm,
   IconPlus,
@@ -65,7 +65,7 @@ const ADD_DAILY_REPORT = gql`
   }
 `;
 
-const AddModalDailyReport = () => {
+const AddModalDailyReport = (props) => {
   const [inputFields, setInputFields] = useState([
     { name: "", description: "", status: "", hour: 0 },
   ]);
@@ -81,12 +81,35 @@ const AddModalDailyReport = () => {
   const [work_log_status, setWorkLogStatus] = useState([""]);
   const [work_log_hour, setWorkLogHour] = useState([0]);
   console.log("work_log_name", setEquipment);
+  
+  const { page, limit, sort, total } = props;
+
+  let refetchQueries = []
+    
+  //if last data length before created new data is multiple of limit, then
+  if ( total % limit === 0) {
+      refetchQueries = [
+          { query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
+              variables: { projectId: String(localStorage.getItem('reportProjectID')) },
+          },
+      ]
+  } else {
+      refetchQueries = [
+          { query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
+              variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) },
+          },
+      ]
+  }
+
   const [
-    addDailyReport,
-    { loading: addDailyReportLoading, error: addDailyReportError },
-  ] = useMutation(ADD_DAILY_REPORT, {
-    refetchQueries: [{ query: GET_DAILY_REPORT }],
-  });
+    addDailyReport, { loading: addDailyReportLoading, error: addDailyReportError },] = useMutation(ADD_DAILY_REPORT,
+      {
+        // refetchQueries: [{ query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
+        //   variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
+        //  }],
+        refetchQueries: refetchQueries,
+        onComplete: () => { console.log("BISA FETCH DAILY REPORT ANJIR") }
+      });
 
   const inputRefActivity = useRef(null);
   const inputRefProject = useRef(null);
@@ -114,8 +137,8 @@ const AddModalDailyReport = () => {
 
   const idProject = parseInt(localStorage.getItem('reportProjectID'));
 
-  useEffect(() => {  
-    if(idProject){
+  useEffect(() => {
+    if (idProject) {
       setProjectId(parseInt('reportProjectID'));
     }
     if (data) {
@@ -149,7 +172,7 @@ const AddModalDailyReport = () => {
                   <option value={activity.ID}>{activity.name}</option>
                 </>
               );
-            } 
+            }
           });
         }
       });
@@ -246,7 +269,7 @@ const AddModalDailyReport = () => {
     // const project_id = parseInt(inputRefProject.current.value);
     activity_id === 0 ? setActivityId(parseInt(inputRefActivity.current.value)) : activity_id
     project_id === 0 ? setProjectId(parseInt(inputRefProject.current.value)) : project_id
-    
+
     setWorkLogName(inputFields.map((inputField) => inputField.name));
     setWorkLogDesc(inputFields.map((inputField) => inputField.description));
     setWorkLogStatus(inputFields.map((inputField) => inputField.status));
@@ -261,7 +284,7 @@ const AddModalDailyReport = () => {
         status,
         equipment,
         activity_id,
-        project_id : idProject,
+        project_id: idProject,
         report_date,
         work_log_name,
         work_log_desc,
@@ -274,8 +297,10 @@ const AddModalDailyReport = () => {
     setDescription("");
     setStatus("");
     setActivityId(0);
-    setProjectId(0);
+    setProjectId(String(localStorage.getItem("reportProjectID")));
     setReportDate("");
+
+    hideDialog();
   };
 
   return (

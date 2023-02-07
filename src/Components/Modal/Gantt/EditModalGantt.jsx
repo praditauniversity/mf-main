@@ -14,12 +14,11 @@ import { useQuery, gql, useMutation } from "@apollo/client";
 import { DatePickerField, InputField } from '../../Input/Input';
 import TableDatePicker from '../ModalDatePicker/DatePickerModal';
 import { GET_GANTT_DATA, GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
+import { useParams } from 'react-router-dom';
 
 const EditModalGantt = (props) => {
     const { ganttID } = props;
-    let currentUrl = window.location.href;
-    let lastUrl = currentUrl.split('/').pop();
-    const project_id = parseInt(lastUrl);
+    let { projectID } = useParams();
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -29,7 +28,7 @@ const EditModalGantt = (props) => {
         refetchQueries: [
             {
                 query: GET_GANTT_PROJECT_ID,
-                variables: { project_id: project_id }
+                variables: { project_id: projectID }
             },
         ],
         onCompleted: () => { console.log("Berhasil Fetch") }
@@ -85,7 +84,7 @@ const EditModalGantt = (props) => {
                 description,
                 user_id: profile.id,
                 version,
-                project_id: parseInt(project_id),
+                project_id: parseInt(projectID),
                 start_time,
                 end_time
             },
@@ -120,7 +119,7 @@ const EditModalGantt = (props) => {
         {
             label: "Name",
             name: "name",
-            placeholder: "Enter Gantt Name",
+            placeholder: "Ex: Gantt First Project",
             type: "text",
             value: name,
             onChange: (e) => setName(e.target.value),
@@ -128,7 +127,7 @@ const EditModalGantt = (props) => {
         {
             label: "Description",
             name: "descrtiption",
-            placeholder: "Enter Gantt Description",
+            placeholder: "Ex: Gantt for First Project",
             type: "text",
             value: description,
             onChange: (e) => setDescription(e.target.value),
@@ -136,7 +135,7 @@ const EditModalGantt = (props) => {
         {
             label: "Version",
             name: "version",
-            placeholder: "Enter Gantt Version",
+            placeholder: "Ex: 1",
             type: "number",
             value: version,
             onChange: (e) => setVersion(parseInt(e.target.value)),

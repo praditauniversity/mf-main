@@ -1,5 +1,6 @@
 import React from "react";
 import FetchProject from "../../../Middleware/Fetchers/FetchProject";
+import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 
 const ProjectListCard = () => {
     // const data = [
@@ -8,7 +9,7 @@ const ProjectListCard = () => {
     //     { projectname: "Winter Wonderland Singapore", projectmanager: "John Heraldin", plannedinterval: "11/10/2021 - 09/03/2022", duration: "365 Days", manpower: "2/5", projectbudget:"IDR 84.000.000.000", invoice:"IDR 40.000.000.000", cashin:"IDR 44.000.000.000", outstandingbalance:"IDR 40.000.000", progress: "80%" },
     //     { projectname: "Reverie Product Management Application", projectmanager: "Gerald Revalin", plannedinterval: "11/10/2021 - 09/03/2022", duration: "365 Days", manpower: "2/5", projectbudget:"IDR 84.000.000.000", invoice:"IDR 40.000.000.000", cashin:"IDR 44.000.000.000", outstandingbalance:"IDR 40.000.000", progress: "20%" },
     // ]
-    const project = FetchProject();
+    const project = FetchProjectByUserId();
     const ifProjectEmpty = () => {
         if (project.length === 0) {
             // fill the table with white space

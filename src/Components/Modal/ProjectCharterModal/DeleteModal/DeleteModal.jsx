@@ -3,7 +3,8 @@ import { gql, useMutation } from '@apollo/client';
 import { Dialog, Transition } from '@headlessui/react';
 import '../../../../Assets/svgbutton/svgbutton.css'
 import { IconDelete, IconSaveForm } from '../../../Icons/icon';
-import { GET_CHARTER_DATA_BY_USER_ID } from '../../../GraphQL/Queries';
+import { GET_CHARTER_DATA_BY_USER_ID, GET_PROJECT_DATA_BY_USER_ID } from '../../../GraphQL/Queries';
+import GetProfile from '../../../Auth/GetProfile';
 
 const DELETE_PROJECTCHARTER = gql`
 mutation DeleteProject($id: String!) {
@@ -20,19 +21,22 @@ const DeleteModalProject = (props) => {
         setIsOpen(false);
     }
 
+    const profile = GetProfile();
     const [deleteCharter, { data: deleteCharterData, error: deleteCharterError }] = useMutation(DELETE_PROJECTCHARTER, {
         refetchQueries: [
-            {
-                query: GET_CHARTER_DATA_BY_USER_ID,
-                variables: { id: projectID }
-            },
+            // {
+            //     query: GET_CHARTER_DATA_BY_USER_ID,
+            //     variables: { id: projectID }
+            // },
+            {query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: String(profile.id) } },
+            // console.log("Berhasil FETCH DELETE COK")
         ],
-        onCompleted: () => { console.log("Berhasil Fetch") }
+        onCompleted: () => { console.log("Berhasil DELETE PROJECT") }
     }
     );
 
-    const handleDelete = () => {
-        // e.preventDefault();
+    const handleDelete = (e) => {
+        e.preventDefault();
 
         deleteCharter({
             variables: {
@@ -110,11 +114,12 @@ const DeleteModalProject = (props) => {
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-primary hover:bg-error-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                 value={projectID}
-                                                onClick={e => {
-                                                    e.preventDefault();
-                                                    handleDelete();
-                                                    window.location.reload(true);
-                                                }}
+                                                onClick={handleDelete}
+                                                // onClick={e => {
+                                                //     e.preventDefault();
+                                                //     handleDelete();
+                                                //     // window.location.reload(true);
+                                                // }}
                                             >
                                                 <IconSaveForm />
                                                 <p className='text-base text-white pt-0.5 px-1'>Delete</p>
