@@ -12,7 +12,7 @@ const DELETE_MINUTES_OF_MEETING = gql`
 `;
 
 const DeleteModalMinuteOfMeeting = (props) => {
-    const { momID, momName } = props;
+    const { momID, momName, page, limit, sort, total, updateTotal, dropCurrentPage, totalPages } = props;
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
@@ -25,15 +25,15 @@ const DeleteModalMinuteOfMeeting = (props) => {
         refetchQueries: [
             {
                 query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID,
-                variables: { id: momID }
+                variables: { projectId: String(localStorage.getItem('momProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
             },
         ],
         onCompleted: () => { console.log("Berhasil Fetch") }
     }
     );
 
-    const handleDelete = () => {
-        // e.preventDefault();
+    const handleDelete = (e) => {
+        e.preventDefault();
 
         deleteMom({
             variables: {
@@ -43,6 +43,12 @@ const DeleteModalMinuteOfMeeting = (props) => {
 
         if (error) {
             console.log(JSON.stringify(error, null, 2));
+        }
+
+        updateTotal();
+
+        if (total % limit === 1 && page === totalPages) {
+            dropCurrentPage(page - 1);
         }
 
         hideDialog();
@@ -111,11 +117,12 @@ const DeleteModalMinuteOfMeeting = (props) => {
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-primary hover:bg-error-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                 value={momID}
-                                                onClick={e => {
-                                                    e.preventDefault();
-                                                    handleDelete();
-                                                    window.location.reload(true);
-                                                }}
+                                                onClick={handleDelete}
+                                                // onClick={e => {
+                                                //     e.preventDefault();
+                                                //     handleDelete();
+                                                //     // window.location.reload(true);
+                                                // }}
                                             >
                                                 <IconSaveForm />
                                                 <p className='text-base text-white pt-0.5 px-1'>Delete</p>

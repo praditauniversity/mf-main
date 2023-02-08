@@ -10,9 +10,21 @@ const ListboxProjectName = (props) => {
     console.log("XXXXXXXXXXXXXXX", projectData);
 
     
-    
-    // const [projectID, setProjectID] = React.useState(localStorage.getItem('projectID'));
+    // const [projectData, setProjectData] = useState([]);
+    // const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
     // const profile = GetProfile();
+    // const {data} = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+    //     variables: { userId: profile.id, sort: "ID asc" },
+    // });
+    // useEffect(() => {
+    //     if(data){
+    //         setProjectData(data.projectByUserId.Data);
+    //         localStorage.getItem('projectID') === null ? localStorage.setItem('projectID', data.projectByUserId.Data[0].ID) : console.log("projectID is not null");
+    //     projectID === null ? setProjectID(data.projectByUserId.Data[0].ID) : setProjectID(localStorage.getItem('TPEID'));
+    // }
+    // }, [data]);
+    
+    
     // const { loading, error, data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
     //     variables: { userId: profile.id },
     // });
@@ -41,7 +53,7 @@ const ListboxProjectName = (props) => {
 // TODO: Fix this
     function printListProjectName() {
         if(projectData.length>0){
-        return projectData.map(({ ID, name, user_id }) => (
+        return projectData.map(({ ID, name }) => (
             <>
                 <option value={ID}>{name}</option>               
             </>
@@ -56,7 +68,7 @@ const ListboxProjectName = (props) => {
         setProjectID(event.target.value);
         localStorage.setItem('projectID', event.target.value);
         localStorage.setItem('ganttID', "0");
-        // window.location.reload();
+        window.location.reload();
     };
 
     return (

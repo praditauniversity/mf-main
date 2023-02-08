@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DetailManpower from "../../Modal/FutureUpdateModal/DetailManpower/DetailManpower.jsx";
 import LineChart from "./chart.jsx";
 
 export default class ManpowerCard extends React.Component {
@@ -24,9 +25,10 @@ export default class ManpowerCard extends React.Component {
                     <LineChart />
                 </div>
                 <div className="py-4 flex justify-end">
-                    <button className="font-semibold text-sm text-primary">
+                    {/* <button className="font-semibold text-sm text-primary">
                         Detail Project Overview
-                    </button>
+                    </button> */}
+                    <DetailManpower/>
                 </div>
             </div>
         );

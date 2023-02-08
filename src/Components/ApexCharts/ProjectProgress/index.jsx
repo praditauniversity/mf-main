@@ -3,6 +3,7 @@ import DropdownTime from "../../DropdownTime/index.jsx";
 import ListboxTime from "../../Listbox/ListboxTime/index.jsx";
 import RadialChart from "./chart.jsx";
 import { ProgressPercentage } from "../../GraphQL/ProjectByIdQueries.jsx";
+import FutureDetailProjectProgress from "../../Modal/FutureUpdateModal/DetailProjectProgress/DetailProjectProgress.jsx";
 
 export default class ProjectProgressCard extends React.Component {
     // useStateInClass() {
@@ -40,9 +41,10 @@ export default class ProjectProgressCard extends React.Component {
                     <RadialChart />
                 </div>
                 <div className="py-4 flex justify-end">
-                    <button className="font-semibold text-sm text-primary">
-                        Detail Project Overview
-                    </button>
+                    {/* <button className="font-semibold text-sm text-primary">
+                        Detail Project Progress
+                    </button> */}
+                    <FutureDetailProjectProgress />
                 </div>
             </div>
         );

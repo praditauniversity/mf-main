@@ -4,7 +4,7 @@ import ChevronRight from "../../../Assets/Icons/svg/Chevron.svg";
 import Button from "../../Button";
 import AddModalMinutesOfMeeting from "../../Modal/MinutesOfMeetingModal/AddModal/AddModal";
 
-const TableFooter = ({ totalPages, currentPage, onPageChange }) => {
+const TableFooter = ({ totalPages, currentPage, onPageChange, limit, sort, totalItems, updateTotalItems  }) => {
   return (
     <div className="pagination flex justify-between py-[12px] px-[20px] align-center">
       <div className="flex align-center">
@@ -35,7 +35,7 @@ const TableFooter = ({ totalPages, currentPage, onPageChange }) => {
         <Button label="+ Add Meeting"/>
       </div> */}
 
-      <AddModalMinutesOfMeeting />
+      <AddModalMinutesOfMeeting page={currentPage} limit={limit} sort={sort} total={totalItems} updateTotal={updateTotalItems} totalPages={totalPages} />
 
 
     </div>

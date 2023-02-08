@@ -10,13 +10,13 @@ import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../GraphQL/Queries
 
 
 const MinutesofMeetingList = (props) => {
-  const { page, limit, sort } = props;
+  const { page, limit, sort, totalItems, updateTotalItems, onPageChange, totalPages } = props;
 
   const projectData = FetchProjectByUserId();
   // const momData = FetchMomByProjectId();
 
   const { data } = useQuery(GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID, {
-    variables: { projectId: localStorage.getItem('momProjectID'), page: String(page), limit: String(limit), sort: String(sort) }
+    variables: { projectId: String(localStorage.getItem('momProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
     // variables: { projectId: localStorage.getItem('momProjectID') == null ? localStorage.setItem('momProjectID', data.dailyReportGetProjectID.data[0].ID) : localStorage.getItem('reportProjectID') },
   });
 
@@ -100,14 +100,23 @@ const MinutesofMeetingList = (props) => {
                           <td align="center">
                             <button className="px-1" id="icon">
                               <UpdateModalMinutesOfMeeting
-                                momID={String(mom.ID)}
                                 momData={mom}
+                                page={page}
+                                limit={limit}
+                                sort={sort}
                               />
                             </button>
                             <button className="px-1" id="icon">
                               <DeleteModalMinuteOfMeeting
                                 momID={String(mom.ID)}
                                 momName={mom.meeting_name}
+                                page={page}
+                                limit={limit}
+                                sort={sort}
+                                total={totalItems}
+                                updateTotal={updateTotalItems}
+                                dropCurrentPage={onPageChange}
+                                totalPages={totalPages}
                               />
                             </button>
                             <button className="px-1" id="icon">

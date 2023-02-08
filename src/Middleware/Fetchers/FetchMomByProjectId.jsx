@@ -4,7 +4,7 @@ import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from '../../Components/Grap
 
 const FetchMomByProjectId = () => {
     const { data } = useQuery(GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID, {
-        variables: { projectId: localStorage.getItem('momProjectID')}
+        variables: { projectId: String(localStorage.getItem('momProjectID')), sort: "ID asc" },
         // variables: { projectId: localStorage.getItem('momProjectID') == null ? localStorage.setItem('momProjectID', data.dailyReportGetProjectID.data[0].ID) : localStorage.getItem('reportProjectID') },
     });
     const [minutesOfMeeting, setMinutesOfMeeting] = useState([]);

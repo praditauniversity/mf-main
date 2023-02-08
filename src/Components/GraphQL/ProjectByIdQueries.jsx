@@ -228,8 +228,7 @@ export function CostHealth(props) {
         return (
             <div>
                 <p>
-                    {/* {costHealth.toFixed(2)}% */}
-                    {costHealth}
+                    {costHealth ? costHealth : "N/A"}
                 </p>
             </div>
         );
@@ -274,7 +273,7 @@ export function ScheduleHealth(props) {
         return (
             <div>
                 <p>
-                    {scheduleHealth}
+                    {scheduleHealth ? scheduleHealth : "N/A"}
                 </p>
             </div>
         );

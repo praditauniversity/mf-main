@@ -9,6 +9,7 @@ import AddModalProjectCharter from "../../Modal/ProjectCharterModal/AddModal/Add
 import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 import { useEffect } from "react";
+import FutureUpdateFilter from "../../Modal/FutureUpdateModal/Filter/FutureUpdateFilter";
 
 const ProjectCharterPage = (props) => {
     const { icon } = props;
@@ -20,7 +21,7 @@ const ProjectCharterPage = (props) => {
 
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage] = useState(5) // hardcode
-    const [totalItems, setTotalItems] = useState(projectData.length || 0)
+    const [totalItems, setTotalItems] = useState(projectData.length || 1)
 
     useEffect (() => {
         if (projectData) {
@@ -33,19 +34,19 @@ const ProjectCharterPage = (props) => {
     const totalPages = Math.ceil(totalItems / itemsPerPage)
 
     const handlePageChange = (currentPage) => {
-        setCurrentPage(currentPage)
-        
+        setCurrentPage(currentPage)      
     }
+    
+    const increaseTotalItems = () => {
+        setTotalItems(totalItems + 1);
+    };
 
-    const onChanges = (totalItems) => {
-        setTotalItems(totalItems)
-        return totalItems
-    }
+    const decreaseTotalItems = () => {
+        setTotalItems(totalItems - 1);
+    };
 
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
-            {console.log("totallllllllllll", projectData.length, typeof projectData.length)}
-            {console.log("limitttttt", itemsPerPage, typeof itemsPerPage)}
             <div>
                 <div className="pt-4 pb-0 flex justify-between">
                     <div className="flex justify-start">
@@ -78,18 +79,26 @@ const ProjectCharterPage = (props) => {
                                 <input
                                     className="form-control shadow appearance-none border rounded py-1 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline"
                                     type="text"
-                                    placeholder={"search"}
+                                    placeholder={"Search"}
                                 />
                                 {/* <IconSearch /> */}
-                                <button className="px-1" id="icon"><IconFilter /></button>
+                                <div className="px-1" id="icon"><FutureUpdateFilter/></div>
+                                {/* <button className="px-1" id="icon"><IconFilter /></button> */}
                             </div>
                         </div>
                     </div>
 
                     <div className="py-2">
                         <div className="2xl:col-span-15 col-span-12">
-                            <PCList page={currentPage} limit={itemsPerPage} sort="start_project asc" 
-                            limitItemDel={itemsPerPage} sortItemDel="start_project asc" totalItemDel={totalItems} currentPageItemDel={currentPage}/>
+                            <PCList 
+                                page={currentPage} 
+                                limit={itemsPerPage} 
+                                sort="ID asc" 
+                                totalItems={totalItems} 
+                                updateTotalItems={decreaseTotalItems} 
+                                onPageChange={handlePageChange} 
+                                totalPages={totalPages} 
+                            />
                             
                             {/* <PCList  /> */}
                         </div>
@@ -99,8 +108,9 @@ const ProjectCharterPage = (props) => {
                         <div className="content-end items-end">
                             <TableFooter
                                 limit={itemsPerPage} 
-                                sort="start_project asc"
+                                sort="ID asc"
                                 totalItems={totalItems}
+                                updateTotalItems={increaseTotalItems}
                                 totalPages={totalPages}
                                 currentPage={currentPage}
                                 onPageChange={handlePageChange}

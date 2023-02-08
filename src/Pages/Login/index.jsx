@@ -1,5 +1,7 @@
 import React from "react";
 import { LoginHandler } from "../../Components/Auth/Login";
+import FutureFacebookLogin from "../../Components/Modal/FutureUpdateModal/FutureLogin/FutureFacebookLogin";
+import FutureGoogleLogin from "../../Components/Modal/FutureUpdateModal/FutureLogin/FutureGoogleLogin";
 
 const LoginPage = () => {
     return (
@@ -13,7 +15,7 @@ const LoginPage = () => {
 
                 <LoginHandler />
 
-                <div className="flex items-center justify-center space-x-2">
+                {/* <div className="flex items-center justify-center space-x-2">
                     <span className="h-px w-16 bg-gray-200"></span>
                     <span className="text-gray-300 font-normal">or continue with</span>
                     <span className="h-px w-16 bg-gray-200"></span>
@@ -21,12 +23,12 @@ const LoginPage = () => {
 
                 <div className="flex items-center justify-between space-x-4">
                     <button className="bg-blue-500 hover:bg-blue-700 text-white w-full p-2 font-bold rounded">
-                        Facebook
+                        <FutureFacebookLogin />
                     </button>
                     <button className="bg-red-500 hover:bg-red-700 text-white w-full p-2 font-bold rounded">
-                        Google
+                        <FutureGoogleLogin/>
                     </button>
-                </div>
+                </div> */}
 
             </div>
         </div>

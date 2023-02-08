@@ -1,6 +1,7 @@
 import React from "react";
 import GetProfile from "../../Auth/GetProfile";
 import { IconEdit } from "../../Icons/icon";
+import FutureUpdateEdit from "../../Modal/FutureUpdateModal/Edit (Profile Page)/FutureUpdateEdit";
 
 const AboutMeCard = () => {
     const profile = GetProfile();
@@ -31,7 +32,7 @@ const AboutMeCard = () => {
             <div className="pb-5 border-b-2">
                 <div className="flex justify-between">
                     <p className="text-lg font-semibold">About Me</p>
-                    <button><IconEdit /></button>
+                    <div><FutureUpdateEdit /></div>
                 </div>
             </div>
 

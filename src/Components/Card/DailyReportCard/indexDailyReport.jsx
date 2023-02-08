@@ -11,6 +11,7 @@ import GetProfile from "../../Auth/GetProfile";
 import { Client, ClientContact, Location, ProjectManager, ProjectStatus } from "../../GraphQL/ProjectByIdQueries";
 import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 import FetchDailyReportByProjectId from "../../../Middleware/Fetchers/FetchDailyReportByProjectId";
+import FutureUpdateFilter from "../../Modal/FutureUpdateModal/Filter/FutureUpdateFilter";
 
 const DailyReportPage = (props) => {
     const { icon } = props;
@@ -23,13 +24,13 @@ const DailyReportPage = (props) => {
 
     const profile = GetProfile();
     const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
-        variables: { userId: profile.id },
+        variables: { userId: profile.id, sort: "ID asc" },
     });
     const [projectData, setProject] = useState([]);
     const [reportProjectID, setReportProjectID] = useState(localStorage.getItem('reportProjectID'));
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage] = useState(4) // hardcode
+    const [itemsPerPage] = useState(5) // hardcode
     const [totalItems, setTotalItems] = useState(DRDataList.length || 0)
 
     useEffect(() => {
@@ -49,6 +50,14 @@ const DailyReportPage = (props) => {
     const handlePageChange = (currentPage) => {
         setCurrentPage(currentPage)
     }
+    
+    const increaseTotalItems = () => {
+        setTotalItems(totalItems + 1);
+    };
+
+    const decreaseTotalItems = () => {
+        setTotalItems(totalItems - 1);
+    };
 
     function printListProjectName() {
         return projectData.map(({ ID, name }) => (
@@ -160,17 +169,25 @@ const DailyReportPage = (props) => {
                                 <input
                                     className="form-control shadow appearance-none border rounded py-1 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline"
                                     type="text"
-                                    placeholder={"search"}
+                                    placeholder={"Search"}
                                 />
                                 {/* <IconSearch /> */}
-                                <button className="px-1" id="icon"><IconFilter /></button>
+                                <div className="px-1" id="icon"><FutureUpdateFilter /></div>
                             </div>
                         </div>
                     </div>
 
                     <div className="py-2">
                         <div className="col-span-15">
-                            <DRList page={currentPage} limit={itemsPerPage} sort="report_number asc" />
+                            <DRList 
+                                page={currentPage} 
+                                limit={itemsPerPage} 
+                                sort="ID asc" 
+                                totalItems={totalItems}
+                                updateTotalItems={decreaseTotalItems}
+                                onPageChange={handlePageChange} 
+                                totalPages={totalPages} 
+                            />
                         </div>
                     </div>
 
@@ -178,8 +195,9 @@ const DailyReportPage = (props) => {
                         <div className="content-end items-end">
                             <TableFooter
                                 limit={itemsPerPage}
-                                sort="start_project asc"
+                                sort="ID asc"
                                 totalItems={totalItems}
+                                updateTotalItems={increaseTotalItems}
                                 totalPages={totalPages}
                                 currentPage={currentPage}
                                 onPageChange={handlePageChange}

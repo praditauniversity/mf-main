@@ -16,7 +16,7 @@ import {
 } from "../../../Icons/icon";
 import "./AddModal.css";
 import { DatePickerField, TimePickerField } from "../../../Input/Input";
-import { GET_PROJECT_DATA } from "../../../GraphQL/Queries";
+import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID, GET_PROJECT_DATA } from "../../../GraphQL/Queries";
 import FetchProjectByUserId from "../../../../Middleware/Fetchers/FetchProjectByUserId";
 import Button from "../../../Button";
 
@@ -78,7 +78,7 @@ const ADD_MINUTES_OF_MEETING = gql`
   }
 `;
 
-const AddModalMinutesOfMeeting = () => {
+const AddModalMinutesOfMeeting = (props) => {
   const [inputFields, setInputFields] = useState([
     { action_item: "", owner: "", deadline: "", status: "" },
   ]);
@@ -97,21 +97,39 @@ const AddModalMinutesOfMeeting = () => {
   const [deadline, setDeadline] = useState([""]);
   const [status, setStatus] = useState([""]);
 
-  const [
-    addMinutesOfMeeting,
-    { loading: addMinutesOfMeetingLoading, error: addMinutesOfMeetingError },
-  ] = useMutation(ADD_MINUTES_OF_MEETING, {
-    refetchQueries: [{ query: GET_MINUTES_OF_MEETING_DATA }],
-  });
+  const { page, limit, sort, total, updateTotal, totalPages } = props;
+
+  let refetchQueries = []
+
+  //if last data length before created new data is multiple of limit, then
+  if (total % limit === 0 || page !== totalPages) {
+    refetchQueries = [
+      {
+        query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID,
+        variables: { projectId: String(localStorage.getItem('momProjectID')) },
+      },
+    ]
+  } else if (page === totalPages) {
+    refetchQueries = [
+      {
+        query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID,
+        variables: { projectId: String(localStorage.getItem('momProjectID')), page: String(page), limit: String(limit), sort: String(sort) },
+      },
+    ]
+  }
+
+  const [addMinutesOfMeeting, { loading: addMinutesOfMeetingLoading, error: addMinutesOfMeetingError },] = useMutation(ADD_MINUTES_OF_MEETING,
+    {
+      refetchQueries: refetchQueries,
+      onComplete: (total) => { console.log("Total", total) }
+    });
 
   const inputRefProject = React.useRef(null);
-
-  const projectName = FetchProjectByUserId();
-
+  // const projectName = FetchProjectByUserId();
   const idProject = parseInt(localStorage.getItem('momProjectID'));
 
-  useEffect(() => {  
-    if(idProject){
+  useEffect(() => {
+    if (idProject) {
       setProject_id(parseInt('reportProjectID'));
     }
     else {
@@ -120,13 +138,13 @@ const AddModalMinutesOfMeeting = () => {
     console.log("USE EFFECT list daily report");
   }, [idProject]);
 
-  function printListProjectName() {
-    return projectName.map(({ ID, name }) => (
-      <>
-        <option value={ID}>{name}</option>
-      </>
-    ));
-  }
+  // function printListProjectName() {
+  //   return projectName.map(({ ID, name }) => (
+  //     <>
+  //       <option value={ID}>{name}</option>
+  //     </>
+  //   ));
+  // }
 
   const handleChangeProject = (event) => {
     setProject_id(parseInt(event.target.value));
@@ -208,25 +226,18 @@ const AddModalMinutesOfMeeting = () => {
     console.log(JSON.stringify(addMinutesOfMeetingError));
 
   const handleSubmit = (e) => {
-    
+
     //ini buat projectnya milih pake dropdown
     // const project_id = parseInt(inputRefProject.current.value);
     project_id === 0 ? setProject_id(parseInt(inputRefProject.current.value)) : project_id
 
-    var gue3 = action_item;
-    console.log("gue3", gue3);
-
-    console.log("BAIBBIBIIBIB", inputFields.map((inputField) => inputField.action_item))
-
-
-    console.log("Action_item", action_item);
-    console.log("Owner", owner);
-    console.log("Deadline", deadline);
-    console.log("Status", status);
     e.preventDefault();
+
+    console.log("ToTALL DATA BEFORE", total);
+
     addMinutesOfMeeting({
       variables: {
-        project_id : idProject,
+        project_id: idProject,
         meeting_name,
         meeting_date,
         start_time_meeting,
@@ -244,9 +255,9 @@ const AddModalMinutesOfMeeting = () => {
     });
 
     setMeeting_name("");
-    setMeeting_date("");
-    setStart_time_meeting("");
-    setEnd_time_meeting("");
+    setMeeting_date(new Date());
+    setStart_time_meeting(new Date());
+    setEnd_time_meeting(new Date());
     setLocation("");
     setMeeting_leader("");
     setMeeting_objective("");
@@ -256,6 +267,8 @@ const AddModalMinutesOfMeeting = () => {
     setOwner([""]);
     setDeadline([""]);
     setStatus([""]);
+
+    updateTotal();
 
     hideDialog();
   };
@@ -276,7 +289,7 @@ const AddModalMinutesOfMeeting = () => {
       <div className="add-button">
         <Button label="+ Add Meeting" onClick={showDialog} />
       </div>
-      
+
       <>
         <Transition appear show={isOpen} as={Fragment}>
           <Dialog as="div" className="relative z-40" onClose={hideDialog}>
@@ -306,9 +319,9 @@ const AddModalMinutesOfMeeting = () => {
                   <Dialog.Panel className="px-24 py-16 w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-bold leading-6"
+                      className="text-lg font-bold leading-6 pb-4"
                     >
-                      Minutes Of Meeting
+                      Add Minutes Of Meeting
                     </Dialog.Title>
                     <div className="mt-3">
                       <div className="form-control w-full max-w-5xl">

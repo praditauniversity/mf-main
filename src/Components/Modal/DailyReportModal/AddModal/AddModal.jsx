@@ -15,18 +15,6 @@ import "./AddModal.css";
 import Addnewequipment, { useEquipment } from "./Addnewequipment";
 import Addnewworklog, { useWorkLog } from "./Addnewworklog";
 
-const GET_DAILY_REPORT = gql`
-  query DailyReport {
-    dailyReport {
-      data {
-        name
-        description
-        report_number
-      }
-    }
-  }
-`;
-
 const ADD_DAILY_REPORT = gql`
   mutation addDailyReport(
     $name: String!
@@ -81,24 +69,26 @@ const AddModalDailyReport = (props) => {
   const [work_log_status, setWorkLogStatus] = useState([""]);
   const [work_log_hour, setWorkLogHour] = useState([0]);
   console.log("work_log_name", setEquipment);
-  
-  const { page, limit, sort, total } = props;
+
+  const { page, limit, sort, total, updateTotal, totalPages } = props;
 
   let refetchQueries = []
-    
+
   //if last data length before created new data is multiple of limit, then
-  if ( total % limit === 0) {
-      refetchQueries = [
-          { query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
-              variables: { projectId: String(localStorage.getItem('reportProjectID')) },
-          },
-      ]
+  if (total % limit === 0 || page !== totalPages) {
+    refetchQueries = [
+      {
+        query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
+        variables: { projectId: String(localStorage.getItem('reportProjectID')) },
+      },
+    ]
   } else {
-      refetchQueries = [
-          { query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
-              variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) },
-          },
-      ]
+    refetchQueries = [
+      {
+        query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
+        variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) },
+      },
+    ]
   }
 
   const [
@@ -265,6 +255,11 @@ const AddModalDailyReport = (props) => {
   };
 
   const handleSubmit = (e) => {
+
+    // const idProject = parseInt(localStorage.getItem('reportProjectID'));
+    // idProject !== null ? idProject : setProjectId(parseInt('reportProjectID'));
+
+    console.log("PROJECT ID BEFORE SUBMIT", typeof project_id, project_id);
     const activity_id = parseInt(inputRefActivity.current.value);
     // const project_id = parseInt(inputRefProject.current.value);
     activity_id === 0 ? setActivityId(parseInt(inputRefActivity.current.value)) : activity_id
@@ -298,9 +293,12 @@ const AddModalDailyReport = (props) => {
     setStatus("");
     setActivityId(0);
     setProjectId(String(localStorage.getItem("reportProjectID")));
-    setReportDate("");
+    setReportDate(new Date());
+
+    updateTotal();
 
     hideDialog();
+    console.log("PROJECT ID AFTER SUBMIT", typeof project_id, project_id);
   };
 
   return (
@@ -347,9 +345,9 @@ const AddModalDailyReport = (props) => {
                   <Dialog.Panel className="md:px-24 px-10 py-16 w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-bold leading-6"
+                      className="text-lg font-bold leading-6 pb-4"
                     >
-                      Daily Report
+                      Add Daily Report
                     </Dialog.Title>
                     <div className="mt-3">
                       <div className="form-control w-full max-w-5xl">
@@ -359,7 +357,7 @@ const AddModalDailyReport = (props) => {
                         <input
                           value={name}
                           type="text"
-                          placeholder="Enter project name"
+                          placeholder="Example: Daily Report 1"
                           onChange={handleName}
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                         />
@@ -373,7 +371,7 @@ const AddModalDailyReport = (props) => {
                         <input
                           value={description}
                           type="text"
-                          placeholder="Enter your name"
+                          placeholder="Example: Report Day 1"
                           onChange={handleDescription}
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                         />
@@ -387,7 +385,7 @@ const AddModalDailyReport = (props) => {
                         <input
                           value={status}
                           type="text"
-                          placeholder="Enter your report status"
+                          placeholder="Example: In Progress"
                           onChange={handleStatus}
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                         />
@@ -486,7 +484,7 @@ const AddModalDailyReport = (props) => {
                                     <input
                                       className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
                                       name="name"
-                                      placeholder="Enter name"
+                                      placeholder="Example: John Doe"
                                       value={input.name}
                                       onChange={(event) =>
                                         handleFormChange(index, event)
@@ -495,7 +493,7 @@ const AddModalDailyReport = (props) => {
                                     <input
                                       className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
                                       name="description"
-                                      placeholder="Enter description"
+                                      placeholder="Example: Create new UI"
                                       value={input.description}
                                       onChange={(event) =>
                                         handleFormChange(index, event)
@@ -504,7 +502,7 @@ const AddModalDailyReport = (props) => {
                                     <input
                                       className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
                                       name="status"
-                                      placeholder="Enter status"
+                                      placeholder="Example: Done"
                                       value={input.status}
                                       onChange={(event) =>
                                         handleFormChange(index, event)
@@ -514,7 +512,7 @@ const AddModalDailyReport = (props) => {
                                       className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
                                       name="hour"
                                       type={"number"}
-                                      placeholder="Enter hour"
+                                      placeholder="Example: 4"
                                       value={input.hour}
                                       onChange={(event) =>
                                         handleFormChange(index, event)
@@ -569,7 +567,7 @@ const AddModalDailyReport = (props) => {
                                 <input
                                   className="input input-border border-primary-light shadow appearance-none w-full"
                                   name="Equipment"
-                                  placeholder="Equipment"
+                                  placeholder="Example: Laptop"
                                   value={input}
                                   onChange={(event) =>
                                     handleFormChangeEquipment(

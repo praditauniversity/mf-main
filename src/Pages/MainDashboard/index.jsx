@@ -3,7 +3,7 @@ import Accordion from "../../Components/Accordion";
 import Counter from "../../Components/Counter";
 import Tabs from "../../Components/Tabs";
 import TabsDailyReminder from "../../Components/Tabs/tabsDailyReminder";
-import FetchProjectByUserId from "../../Middleware/Fetchers/FetchProject";
+import FetchProjectByUserId from "../../Middleware/Fetchers/FetchProjectByUserId";
 import "./scrollbar.css";
 
 const MainDashboard = () => {

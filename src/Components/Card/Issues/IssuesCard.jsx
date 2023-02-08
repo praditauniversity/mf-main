@@ -1,4 +1,7 @@
 import React from "react";
+import FutureUpdateDeleteText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateEditText";
+import FutureUpdateEditText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateDeleteText";
+import FutureUpdateViewAllIssues from "../../Modal/FutureUpdateModal/ViewAllIssues/FutureUpdateViewAllIssues";
 
 //ini gabisa
 const useStyles = () => ({
@@ -31,8 +34,12 @@ const IssuesCard = () => {
                                     {/* <button tabIndex={0} className="btn btn-outline text-xs">:</button> */}
                                     <button tabIndex={0} className="text-base font-black">:</button>
                                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
-                                        <li><a>Edit</a></li>
-                                        <li><a>Delete</a></li>
+                                        <li>
+                                            <FutureUpdateEditText />
+                                        </li>
+                                        <li>
+                                            <FutureUpdateDeleteText />
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -51,8 +58,12 @@ const IssuesCard = () => {
                                     {/* <button tabIndex={0} className="btn btn-outline text-xs">:</button> */}
                                     <button tabIndex={0} className="text-base font-black">:</button>
                                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
-                                        <li><a>Edit</a></li>
-                                        <li><a>Delete</a></li>
+                                        <li>
+                                            <FutureUpdateEditText />
+                                        </li>
+                                        <li>
+                                            <FutureUpdateDeleteText />
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -71,8 +82,12 @@ const IssuesCard = () => {
                                     {/* <button tabIndex={0} className="btn btn-outline text-xs">:</button> */}
                                     <button tabIndex={0} className="text-base font-black">:</button>
                                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
-                                        <li><a>Edit</a></li>
-                                        <li><a>Delete</a></li>
+                                        <li>
+                                            <FutureUpdateEditText />
+                                        </li>
+                                        <li>
+                                            <FutureUpdateDeleteText />
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -91,8 +106,12 @@ const IssuesCard = () => {
                                     {/* <button tabIndex={0} className="btn btn-outline text-xs">:</button> */}
                                     <button tabIndex={0} className="text-base font-black">:</button>
                                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
-                                        <li><a>Edit</a></li>
-                                        <li><a>Delete</a></li>
+                                        <li>
+                                            <FutureUpdateEditText />
+                                        </li>
+                                        <li>
+                                            <FutureUpdateDeleteText />
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -104,9 +123,10 @@ const IssuesCard = () => {
                 </div>
             </div>
             <div className="pt-8 pb-8 pl-12 pr-12 flex justify-end">
-                <button className="font-semibold text-sm text-primary">
+                {/* <button className="font-semibold text-sm text-primary">
                     View All Issues
-                </button>
+                </button> */}
+                <FutureUpdateViewAllIssues/>
             </div>
         </div>
     )

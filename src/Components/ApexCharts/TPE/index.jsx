@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ListboxProject from "../../Listbox/ListboxProject/index.jsx";
+import DetailTPE from "../../Modal/FutureUpdateModal/DetailTPE/DetailTPE.jsx";
 import BarChart from "./chart.jsx";
 
 const TPECard = () => {
-    const [savedOption, setSavedOption] = useState(localStorage.getItem('TPEID')); 
+    const [TpeID,setTPEID] = useState(localStorage.getItem('TPEID'));
     useEffect(() => {
-        savedOption !=0? setSavedOption(savedOption) : setSavedOption(0);
-    }, []);
-        return (
-            <div className="rounded-xl shadow-lg bg-white py-6 px-12">
+        setTPEID(localStorage.getItem('TPEID'));
+    }, [TpeID]);
+    return (
+        <div className="rounded-xl shadow-lg bg-white py-6 px-12">
                 <div>
                     <div className="pt-4 pb-0 flex justify-between">
                         <div className="flex justify-start">
@@ -28,15 +29,16 @@ const TPECard = () => {
                     </div>
                 </div>
                 <div className="py-4">
-                    <BarChart value={savedOption} />
+                    <BarChart value={TpeID} />
                 </div>
                 <div className="py-4 flex justify-end">
-                    <button className="font-semibold text-sm text-primary">
+                    {/* <button className="font-semibold text-sm text-primary">
                         Detail Project Overview
-                    </button>
+                    </button> */}
+                    <DetailTPE />
                 </div>
             </div>
         );
-}
-
-export default TPECard;
+    }
+    
+    export default TPECard;

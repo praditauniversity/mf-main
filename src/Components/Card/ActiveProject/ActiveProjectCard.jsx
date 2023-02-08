@@ -2,6 +2,8 @@ import React from "react";
 import FetchProject from "../../../Middleware/Fetchers/FetchProject";
 import FetchProjectPage from "../../../Middleware/Fetchers/FetchProjectPage";
 import Accordion from "../../Accordion";
+import FutureUpdateEditText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateDeleteText";
+import FutureUpdateDeleteText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateEditText";
 
 //ini gabisa
 const useStyles = () => ({
@@ -66,8 +68,12 @@ const ActiveProjectCard = () => {
                                             {/* <button tabIndex={0} className="btn btn-outline text-xs">:</button> */}
                                             <button tabIndex={0} className="text-base font-black">:</button>
                                             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
-                                                <li><a>Edit</a></li>
-                                                <li><a>Delete</a></li>
+                                                <li>
+                                                    <FutureUpdateEditText/>
+                                                </li>
+                                                <li>
+                                                    <FutureUpdateDeleteText/>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>

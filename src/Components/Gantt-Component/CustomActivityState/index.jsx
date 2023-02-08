@@ -60,12 +60,12 @@ function useLink() {
 }
 
 function useGantt() {
-  const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
-  const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
-
+  const profile = GetProfile();
   const [projectData, setProjectData] = useState([]);
   const [ganttName, setGanttName] = useState([]);
-  const profile = GetProfile();
+  const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
+  const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
+
 
   const { loading: loadingProjectUser, error: errorProjectUser, data: dataProjectUser } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
     variables: { userId: profile.id },
@@ -79,36 +79,29 @@ function useGantt() {
 
   useEffect(() => {
     console.log("INSIDE USEEFFECT USE GANTT");
-    if (dataGanttProject) {
-      console.log("Data Ready list gantt");
-      console.log("Data Ready gantt get project", dataGanttProject.ganttGetProjectID.data);
-      setGanttName(dataGanttProject.ganttGetProjectID.data);
-      console.log("Data Ready", dataGanttProject.ganttGetProjectID.data);
-      ganttID === 0 ? localStorage.setItem('ganttID', dataGanttProject.ganttGetProjectID.data[0].ID) : localStorage.setItem('ganttID', ganttID);
-      setGanttID(localStorage.getItem('ganttID'));
-      console.log("gant id =? ", ganttID);
-      // ganttID == 0 ? console.log("gantt id !==0 true: ", ganttID) : console.log("gantt id !==0 false: ", ganttID);
-
-    } else {
-      console.log("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-      localStorage.setItem("ganttID", 0);
-    }
-
     if (dataProjectUser) {
       console.log("Data Ready list gantt");
       console.log("Data Ready gantt get project", dataProjectUser.projectByUserId.Data);
       setProjectData(dataProjectUser.projectByUserId.Data);
       console.log("Data Ready", dataProjectUser.projectByUserId.Data);
-      // projectID === 1 ? localStorage.setItem('projectID', dataProjectUser.projectByUserId.Data[0].ID) : localStorage.setItem('projectID', projectID);
-      projectID === 1 ? console.log("PROJECT IDDDD TRUEEEEEEEEEEEEEEE") : console.log("PROJECT IDDDD FALSEEEEEEEEEEeeeeeee");
-      setProjectID(localStorage.getItem('projectID'));
+      localStorage.getItem('projectID') === null ? localStorage.setItem('projectID', dataProjectUser.projectByUserId.Data[0].ID) : console.log("projectID is not null");
+      projectID === null ? setProjectID(dataProjectUser.projectByUserId.Data[0].ID) : setProjectID(localStorage.getItem('projectID'));
       console.log("projectID =? ", projectID);
       // ganttID == 0 ? console.log("gantt id !==0 true: ", ganttID) : console.log("gantt id !==0 false: ", ganttID);
 
-    } else {
-      console.log("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-      localStorage.setItem("projectID", 0);
-    }
+    } 
+    if (dataGanttProject) {
+      console.log("Data Ready list gantt");
+      console.log("Data Ready gantt get project", dataGanttProject.ganttGetProjectID.data);
+      setGanttName(dataGanttProject.ganttGetProjectID.data);
+      console.log("Data Ready", dataGanttProject.ganttGetProjectID.data);
+      localStorage.getItem('ganttID') === null ? localStorage.setItem('ganttID', dataGanttProject.ganttGetProjectID.data[0].ID) : console.log("projectID is not null");
+      ganttID === null ? setGanttID(dataGanttProject.ganttGetProjectID.data[0].ID) : setGanttID(localStorage.getItem('ganttID'));
+      console.log("gant id =? ", ganttID);
+      // ganttID == 0 ? console.log("gantt id !==0 true: ", ganttID) : console.log("gantt id !==0 false: ", ganttID);
+
+    } 
+
   }, [dataGanttProject, dataProjectUser]);
 
   return [ganttID, setGanttID, projectID, setProjectID, ganttName, setGanttName, projectData, setProjectData, dataGanttProject, dataProjectUser];

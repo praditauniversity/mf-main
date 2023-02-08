@@ -3,6 +3,7 @@ import UserImage from "../../../Assets/Images/png/User.png";
 import Button from "../../Button";
 import GetProfile from "../../Auth/GetProfile";
 import { IconEdit } from "../../Icons/icon";
+import FutureUpdateEdit from "../../Modal/FutureUpdateModal/Edit (Profile Page)/FutureUpdateEdit";
 
 const MyAccount = () => {
     const profile = GetProfile();
@@ -17,7 +18,7 @@ const MyAccount = () => {
             <div>
                 <div className="flex justify-between">
                     <p className="text-lg font-semibold">My Account</p>
-                    <button><IconEdit /></button>
+                    <div><FutureUpdateEdit /></div>
                 </div>
                 <div className="flex justify-start">
                     <p className="text-sm opacity-70">Joined on {joinedMonth} {joinedDate}, {joinedYear}</p>

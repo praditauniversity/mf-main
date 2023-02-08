@@ -1,5 +1,6 @@
 import React from "react";
 import { IconEdit } from "../../Icons/icon";
+import FutureUpdateEdit from "../../Modal/FutureUpdateModal/Edit (Profile Page)/FutureUpdateEdit";
 
 const SkillsCard = () => {
 
@@ -29,7 +30,7 @@ const SkillsCard = () => {
             <div className="pb-5 border-b-2">
                 <div className="flex justify-between">
                     <p className="text-lg font-semibold">Skills</p>
-                    <button><IconEdit /></button>
+                    <div><FutureUpdateEdit /></div>
                 </div>
             </div>
 

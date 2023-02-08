@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DetailProjectBy from "../../Modal/FutureUpdateModal/DetailProjecyBy/DetailProjectBy.jsx";
 import DonutChart2 from "./chart.jsx";
 
 export default class ProjectByCard extends React.Component {
@@ -24,9 +25,10 @@ export default class ProjectByCard extends React.Component {
                     <DonutChart2 />
                 </div>
                 <div className="py-4 flex justify-end">
-                    <p className="font-semibold text-sm text-primary">
+                    {/* <p className="font-semibold text-sm text-primary">
                         Detail Project Overview
-                    </p>
+                    </p> */}
+                    <DetailProjectBy/>
                 </div>
             </div>
         );

@@ -222,13 +222,13 @@ const AddModalProjectCharter = (props) => {
     const inputRefPhase = useRef(null);
     const inputRefMilestone = useRef(null);
 
-    const { page, limit, sort, total } = props;
+    const { page, limit, sort, total, updateTotal, totalPages } = props;
     const profile = GetProfile();
 
     let refetchQueries = []
     
     //if last data length before created new data is multiple of limit, then
-    if ( total % limit === 0) {
+    if ( total % limit === 0 || page !== totalPages ) {
         refetchQueries = [
             { query: GET_PROJECT_DATA_BY_USER_ID,
                 variables: { userId: String(profile.id) },
@@ -446,6 +446,7 @@ const AddModalProjectCharter = (props) => {
 
         console.log("Berhasil submit")
 
+        updateTotal();
         
         addProjectCharter({
             variables: {
@@ -519,6 +520,7 @@ const AddModalProjectCharter = (props) => {
             type: "text",
             value: name,
             onChange: (e) => setName(e.target.value),
+            minLength: 1,
 
         },
         {
@@ -708,7 +710,7 @@ const AddModalProjectCharter = (props) => {
                                 <Dialog.Panel className="px-24 py-16 w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg font-bold leading-6"
+                                        className="text-lg font-bold leading-6 pb-8"
                                     >
                                         Add Project Charter
                                     </Dialog.Title>
@@ -725,6 +727,7 @@ const AddModalProjectCharter = (props) => {
                                                     type={data.type}
                                                     value={data.value}
                                                     onChange={data.onChange}
+                                                    minLength={data.minLength}
 
                                                 />
                                                 {/* <div style={{ color: "red" }}>{errorValidate.nameError}</div> */}

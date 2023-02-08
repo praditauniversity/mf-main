@@ -10,6 +10,7 @@ import GetProfile from "../../Auth/GetProfile";
 import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 import { Client, ProjectManager } from "../../GraphQL/ProjectByIdQueries";
 import FetchMomByProjectId from "../../../Middleware/Fetchers/FetchMomByProjectId";
+import FutureUpdateFilter from "../../Modal/FutureUpdateModal/Filter/FutureUpdateFilter";
 
 const MinutesofMeetingCard = (props) => {
     const { icon } = props;
@@ -20,20 +21,16 @@ const MinutesofMeetingCard = (props) => {
     const momData = FetchMomByProjectId();
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage] = useState(5)
-    const [totalItems, setTotalItems] = useState(1)
-    const totalPages = Math.ceil(totalItems / itemsPerPage)
-
-    const handlePageChange = (currentPage) => {
-      setCurrentPage(currentPage)
-    }
+    const [itemsPerPage] = useState(5) // hardcode
+    const [totalItems, setTotalItems] = useState(momData.length || 1)
 
     const profile = GetProfile();
     const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
-        variables: { userId: profile.id},
+        variables: { userId: profile.id, sort: "ID asc" },
     });
     const [projectData, setProject] = useState([]);
     const [momProjectID, setMomProjectID] = useState(localStorage.getItem('momProjectID'));
+    const [isNewDataArrived, setIsNewDataArrived] = useState(false);
 
     useEffect(() => {
         if (data) {
@@ -43,18 +40,34 @@ const MinutesofMeetingCard = (props) => {
             // momProjectID === null ? localStorage.setItem('momProjectID', data.projectByUserId.Data[0].ID) : localStorage.setItem('momProjectID', momProjectID);
         }
         if (momData) {
-            setTotalItems(momData.length)
+            setTotalItems(momData.length);
+            console.log("totalItems : " + totalItems);
         }
-         else {
+        else {
             console.log("No data found for project with user id : " + profile.id);
             localStorage.setItem('momProjectID', 0)
         }
     }, [data, momData]);
 
+    const totalPages = Math.ceil(totalItems / itemsPerPage)
+
+    const handlePageChange = (currentPage) => {
+        setCurrentPage(currentPage)
+    }
+    
+    const increaseTotalItems = () => {
+        setTotalItems(totalItems + 1);
+        // setIsNewDataArrived(true);
+    };
+
+    const decreaseTotalItems = () => {
+        setTotalItems(totalItems - 1);
+    };
+
     function printListProjectName() {
         return projectData.map(({ ID, name }) => (
             <>
-                <option value={ID}>{name}</option>               
+                <option value={ID}>{name}</option>
             </>
         ));
     }
@@ -107,7 +120,7 @@ const MinutesofMeetingCard = (props) => {
                                 <p className="text-sm font-semibold opacity-70">Client</p>
                             </div>
                             <div>
-                                <p className="text-base font-semibold"><Client value={momProjectID}/></p>
+                                <p className="text-base font-semibold"><Client value={momProjectID} /></p>
                             </div>
                         </div>
                     </div>
@@ -129,26 +142,38 @@ const MinutesofMeetingCard = (props) => {
                                 <input
                                     className="form-control shadow appearance-none border rounded py-1 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline"
                                     type="text"
-                                    placeholder={"search"}
+                                    placeholder={"Search"}
                                 />
                                 {/* <IconSearch /> */}
-                                <button className="px-1" id="icon"><IconFilter /></button>
+                                <div className="px-1" id="icon"><FutureUpdateFilter /></div>
                             </div>
                         </div>
                     </div>
 
                     <div className="py-2">
                         <div className="col-span-15">
-                            <MinutesofMeetingList page={currentPage} limit={itemsPerPage} sort="meeting_date asc" />
+                            <MinutesofMeetingList 
+                                page={currentPage} 
+                                limit={itemsPerPage} 
+                                sort="ID asc" 
+                                totalItems={totalItems}
+                                updateTotalItems={decreaseTotalItems}
+                                onPageChange={handlePageChange} 
+                                totalPages={totalPages} 
+                            />
                         </div>
                     </div>
 
                     <div className="py-2">
                         <div className="content-end items-end">
-                            <TableFooter 
-                                totalPages={totalPages} 
-                                currentPage={currentPage} 
-                                onPageChange={handlePageChange}  
+                            <TableFooter
+                                limit={itemsPerPage}
+                                sort="ID asc"
+                                totalItems={totalItems}
+                                updateTotalItems={increaseTotalItems}
+                                totalPages={totalPages}
+                                currentPage={currentPage}
+                                onPageChange={handlePageChange}
                             />
                         </div>
                     </div>

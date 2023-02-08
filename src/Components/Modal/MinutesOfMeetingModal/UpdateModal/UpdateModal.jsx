@@ -10,21 +10,8 @@ import {
 } from "../../../Icons/icon";
 import "./UpdateModal.css";
 import { DatePickerField, TimePickerField } from "../../../Input/Input";
+import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../../GraphQL/Queries";
 
-const GET_MINUTES_OF_MEETING_DATA = gql`
-  query minuteOfMeeting {
-    minuteofmeeting {
-      data {
-        ID
-        project_id
-        meeting_name
-        start_time_meeting
-        end_time_meeting
-        user_id
-      }
-    }
-  }
-`;
 const UPDATE_MINUTES_OF_MEETING = gql`
 mutation updateMinuteOfMeeting (
     $id:String!,
@@ -68,7 +55,7 @@ mutation updateMinuteOfMeeting (
 }`;
 
 const UpdateModalMinutesOfMeeting = (props) => {
-    const { momID, momData } = props;
+    const { momData, page, limit, sort } = props;
 
     // const [inputFields, setInputFields] = useState([
     //     { action_item: "", owner: "", deadline: "", status: "" },
@@ -102,7 +89,12 @@ const UpdateModalMinutesOfMeeting = (props) => {
 
     const [updateMinutesOfMeeting,{ loading, error },] = useMutation(UPDATE_MINUTES_OF_MEETING, 
         {
-        refetchQueries: [{ query: GET_MINUTES_OF_MEETING_DATA }],
+        refetchQueries: [
+            {
+                query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID,
+                variables: { projectId: String(localStorage.getItem('momProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
+            },
+        ],
     });
 
     const [isOpen, setIsOpen] = useState(false);
@@ -191,7 +183,7 @@ const UpdateModalMinutesOfMeeting = (props) => {
         e.preventDefault();
         updateMinutesOfMeeting({
             variables: {
-                id: momID,
+                id: String(momData.ID),
                 meeting_name,
                 meeting_date,
                 start_time_meeting,
@@ -265,9 +257,9 @@ const UpdateModalMinutesOfMeeting = (props) => {
                                     <Dialog.Panel className="px-24 py-16 w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                                         <Dialog.Title
                                             as="h3"
-                                            className="text-lg font-bold leading-6"
+                                            className="text-lg font-bold leading-6 pb-4"
                                         >
-                                            Minutes Of Meeting
+                                           Edit Minutes Of Meeting
                                         </Dialog.Title>
                                         <div className="mt-3">
                                             <div className="form-control w-full max-w-5xl">
@@ -573,7 +565,7 @@ const UpdateModalMinutesOfMeeting = (props) => {
                                         </div>
 
                                         <div>
-                                            <p className="label-text">Minutes of Meeting ID: <span className="label-text font-bold">{momID}</span></p>
+                                            <p className="label-text">Minutes of Meeting ID: <span className="label-text font-bold">{String(momData.ID)}</span></p>
                                         </div>
 
                                         <div className="mt-10">

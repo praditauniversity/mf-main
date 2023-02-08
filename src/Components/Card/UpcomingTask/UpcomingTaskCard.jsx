@@ -1,4 +1,5 @@
 import React from "react";
+import FutureUpdateViewAllTasks from "../../Modal/FutureUpdateModal/ViewAllTask/FutureUpdateViewAllTask";
 
 //ini gabisa
 const useStyles = () => ({
@@ -99,9 +100,10 @@ const UpcomingTaskCard = (props) => {
                 </div>
             </div>
             <div className="pt-8 pb-8 pl-12 pr-12 flex justify-end">
-                <button className="font-semibold text-sm text-primary">
+                {/* <button className="font-semibold text-sm text-primary">
                     View All Tasks
-                </button>
+                </button> */}
+                <FutureUpdateViewAllTasks/>
             </div>
         </div>
     )

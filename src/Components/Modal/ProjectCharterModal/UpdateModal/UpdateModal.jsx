@@ -108,7 +108,7 @@ const UPDATE_CHARTER = gql`
 `;
 
 const UpdateModalProject = (props) => {
-    const { projectID, projectData } = props;
+    const { projectData, page, limit, sort } = props;
     // const charterData = FetchCharter();
     const [pcData, setPcData] = useState('');
 
@@ -150,25 +150,6 @@ const UpdateModalProject = (props) => {
     const inputRefMilestone = useRef(null);
     const profile = GetProfile();
 
-    const { page, limit, sort, total } = props;
-    let refetchQueries = []
-    
-    //if last data before created new data is multiple of limit, then
-    if ( total % limit === 0) {
-        refetchQueries = [
-            { query: GET_PROJECT_DATA_BY_USER_ID,
-                variables: { userId: String(profile.id) },
-
-            },
-        ]
-    } else {
-        refetchQueries = [
-            { query: GET_PROJECT_DATA_BY_USER_ID,
-                variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) },
-            },
-        ]
-    }
-
     const [updateProject, { loading: updateProjectLoading, error: updateProjectError }] = useMutation(UPDATE_CHARTER,
         {
             refetchQueries: [
@@ -176,7 +157,7 @@ const UpdateModalProject = (props) => {
                 
                 // {
                 //     query: GET_CHARTER_DATA_BY_USER_ID,
-                //     variables: { id: projectID }
+                //     variables: { id: String(projectData.ID) }
                 // },
             ],
             // refetchQueries: refetchQueries,
@@ -184,7 +165,7 @@ const UpdateModalProject = (props) => {
         });
 
     const { data: readPCData, error: readPCDataError } = useQuery(GET_CHARTER_DATA_BY_USER_ID, {
-        variables: { id: projectID },
+        variables: { id: String(projectData.ID) },
     });
 
     const { data: dataMilestone, loading: loadingMilestone, error: errorMilestone } = useQuery(GET_MILESTONE_DATA);
@@ -368,7 +349,7 @@ const UpdateModalProject = (props) => {
         // e.preventDefault();
         updateProject({
             variables: {
-                id: projectID,
+                id: String(projectData.ID),
                 participants,
                 available_resources,
                 milestone_id,
@@ -589,7 +570,7 @@ const UpdateModalProject = (props) => {
     ];
 
     return (
-        console.log("Project id", typeof projectID, projectID),
+        console.log("Project id", typeof String(projectData.ID), String(projectData.ID)),
         <>
             <div className="flex flex-row items-center justify-center">
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
@@ -625,9 +606,9 @@ const UpdateModalProject = (props) => {
                                 <Dialog.Panel className="px-24 py-16 w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg font-bold leading-6"
+                                        className="text-lg font-bold leading-6 pb-8"
                                     >
-                                        Project Charter
+                                       Edit Project Charter
                                     </Dialog.Title>
 
                                     {/* participants */}
@@ -763,7 +744,7 @@ const UpdateModalProject = (props) => {
                                         </div>
                                     </div>
 
-                                    <p className="label-text">Project ID: <span className="label-text font-bold">{projectID}</span></p>
+                                    <p className="label-text">Project ID: <span className="label-text font-bold">{String(projectData.ID)}</span></p>
 
                                     <div className="mt-10">
                                         <div className='flex justify-end'>

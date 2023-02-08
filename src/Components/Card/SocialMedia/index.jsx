@@ -5,6 +5,7 @@ import Twitter from "../../../Assets/Images/png/Twitter.png";
 import Linkedin from "../../../Assets/Images/png/Linkedin.png";
 import Button from "../../Button";
 import { IconEdit } from "../../Icons/icon";
+import FutureUpdateEdit from "../../Modal/FutureUpdateModal/Edit (Profile Page)/FutureUpdateEdit";
 
 const SocialMediaCard = () => {
     return (
@@ -14,7 +15,7 @@ const SocialMediaCard = () => {
             <div className="pb-5">
                 <div className="flex justify-between">
                     <p className="text-lg font-semibold">My Account</p>
-                    <button><IconEdit /></button>
+                    <div><FutureUpdateEdit /></div>
                 </div>
             </div>
 

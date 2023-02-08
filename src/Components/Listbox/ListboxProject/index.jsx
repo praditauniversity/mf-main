@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useQuery } from '@apollo/client';
 import FetchProjectByUserId from '../../../Middleware/Fetchers/FetchProjectByUserId';
+import GetProfile from '../../Auth/GetProfile';
+import { GET_PROJECT_DATA_BY_USER_ID } from '../../GraphQL/Queries';
 
 const ListboxProject = () => {
-    
+    const profile = GetProfile();
+    const {data} = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+        variables: { userId: profile.id, sort: "ID asc" },
+    });
+    const [projectData, setProjectData] = useState([]);
     const [TPEID, setTPEID] = useState(localStorage.getItem('TPEID'));
-    const projectData = FetchProjectByUserId();
+    useEffect(() => {
+    if(data){
+        setProjectData(data.projectByUserId.Data);
+        //if local storage is empty, set to first project id
+        localStorage.getItem('TPEID') === null ? localStorage.setItem('TPEID', data.projectByUserId.Data[0].ID) : console.log("TpeID is not null");
+        TPEID === null ? setTPEID(data.projectByUserId.Data[0].ID) : setTPEID(localStorage.getItem('TPEID'));
+    }
+    }, [data]);
+    
     function printListProjectName() {
         return projectData.map(({ ID, name }) => (
             <>

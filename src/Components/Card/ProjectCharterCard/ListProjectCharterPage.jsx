@@ -20,9 +20,9 @@ const DELETE_PROJECTCHARTER = gql`
     deleteProject(id: $id) 
   }`;
 
-const PCList = (props, limitItem, sortItem, totalItems) => {
+const PCList = (props) => {
     // let { projectID } = useParams();
-    const { page, limit, sort } = props;
+    const { page, limit, sort, totalItems, updateTotalItems, onPageChange, totalPages } = props;
     // const charterData = FetchProjectByUserId();
     const profile = GetProfile();
     const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
@@ -127,11 +127,10 @@ const PCList = (props, limitItem, sortItem, totalItems) => {
                                         <button className="" id="icon">
                                             {/* <IconEdit /> */}
                                             <UpdateModalProject
-                                                projectID={String(item.ID)}
                                                 projectData={item}
-                                                limit={limitItem}
-                                                sort={sortItem}
-                                                totalItems={totalItems}
+                                                page={page}
+                                                limit={limit}
+                                                sort={sort}
                                             />
                                         </button>
                                         <button className="" id="icon">
@@ -139,6 +138,13 @@ const PCList = (props, limitItem, sortItem, totalItems) => {
                                             <DeleteModalProject
                                                 projectID={String(item.ID)}
                                                 projectName={item.name}
+                                                page={page}
+                                                limit={limit}
+                                                sort={sort}
+                                                total={totalItems}
+                                                updateTotal={updateTotalItems}
+                                                dropCurrentPage={onPageChange}
+                                                totalPages={totalPages}
                                             />
                                         </button>
                                         <button className="" id="icon">

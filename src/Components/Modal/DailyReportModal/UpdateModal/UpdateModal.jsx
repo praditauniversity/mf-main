@@ -2,7 +2,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import "../../../../Assets/svgbutton/svgbutton.css";
-import { GET_ACTIVITY_DATA } from "../../../GraphQL/Queries";
+import { GET_ACTIVITY_DATA, GET_DAILY_REPORT_DATA_BY_PROJECT_ID } from "../../../GraphQL/Queries";
 import {
   IconDeleteForm,
   IconEdit,
@@ -61,7 +61,7 @@ input:{
 `;
 
 const UpdateModalDailyReport = (props) => {
-  const { reportID, reportData } = props;
+  const { reportData, page, limit, sort } = props;
 
   const [inputFields, setInputFields] = useState(() => {
     const inputFieldsData = [];
@@ -88,7 +88,17 @@ const UpdateModalDailyReport = (props) => {
 
   const [ updateDailyReport, { loading: updateDailyReportloading, error: updateDailyReportError },] = useMutation(UPDATE_DAILY_REPORT, 
     {
-    refetchQueries: [{ query: GET_DAILY_REPORT }],
+    refetchQueries: [
+      {
+        query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
+        variables: {
+          projectId: String(reportData.project_id),
+          page: String(page),
+          limit: String(limit),
+          sort: String(sort),
+        },
+      },
+    ],
   });
 
   const [isOpen, setIsOpen] = useState(false);
@@ -163,7 +173,7 @@ const UpdateModalDailyReport = (props) => {
 
     updateDailyReport({
       variables: {
-        id: reportID,
+        id: String(reportData.ID),
         name,
         description,
         status,
@@ -180,6 +190,8 @@ const UpdateModalDailyReport = (props) => {
     setDescription("");
     setStatus("");
     setReportDate("");
+
+    hideDialog();
   };
 
   return (
@@ -222,9 +234,9 @@ const UpdateModalDailyReport = (props) => {
                   <Dialog.Panel className="px-24 py-16 w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-bold leading-6"
+                      className="text-lg font-bold leading-6 pb-4"
                     >
-                      Daily Report
+                     Edit Daily Report
                     </Dialog.Title>
                     <div className="mt-3">
                       <div className="form-control w-full max-w-5xl">
@@ -431,7 +443,7 @@ const UpdateModalDailyReport = (props) => {
                     </div>
 
                     <div>
-                      <p className="label-text">Daily Report ID: <span className="label-text font-bold">{reportID}</span></p>
+                      <p className="label-text">Daily Report ID: <span className="label-text font-bold">{String(reportData.ID)}</span></p>
                     </div>
 
                     <div className="mt-10">

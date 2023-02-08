@@ -15,7 +15,7 @@ import { GET_DAILY_REPORT_DATA_BY_PROJECT_ID } from "../../GraphQL/Queries";
 
 
 const DRList = (props) => {
-  const { page, limit, sort } = props;
+  const { page, limit, sort, totalItems, updateTotalItems, onPageChange, totalPages } = props;
   const projectData = FetchProject();
   const ganttData = FetchGantt();
   const activityData = FetchActivity();
@@ -122,8 +122,10 @@ const DRList = (props) => {
                                       <td align="center">
                                         <button className="px-1" id="icon">
                                           <UpdateModalDailyReport
-                                            reportID={String(dailyReport.ID)}
                                             reportData={dailyReport}
+                                            page={page}
+                                            limit={limit}
+                                            sort={sort}
                                           />
                                         </button>
                                         {/* <button className="px-1" id="icon"
@@ -139,6 +141,13 @@ const DRList = (props) => {
                                           <DeleteModalReport
                                             reportID={String(dailyReport.ID)}
                                             reportName={dailyReport.name}
+                                            page={page}
+                                            limit={limit}
+                                            sort={sort}
+                                            total={totalItems}
+                                            updateTotal={updateTotalItems}
+                                            dropCurrentPage={onPageChange}
+                                            totalPages={totalPages}
                                           />
                                         </button>
 

@@ -12,7 +12,7 @@ deleteProject(id: $id)
 }`;
 
 const DeleteModalProject = (props) => {
-    const { projectID, projectName } = props;
+    const { projectID, projectName, page, limit, sort, total, updateTotal, dropCurrentPage, totalPages } = props;
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
@@ -22,14 +22,20 @@ const DeleteModalProject = (props) => {
     }
 
     const profile = GetProfile();
+
+    // let refetchQueries = [];
+    // //if last data in page is deleted, then refetch previous page
+    // if ( total % limit === 1 && page > 1) {
+    //     refetchQueries = [
+    //         { query: GET_PROJECT_DATA_BY_USER_ID,
+    //             variables: { userId: String(profile.id), page: String(page-1), limit: String(limit), sort: String(sort) },
+    //         },
+    //     ]
+    // } 
+
     const [deleteCharter, { data: deleteCharterData, error: deleteCharterError }] = useMutation(DELETE_PROJECTCHARTER, {
         refetchQueries: [
-            // {
-            //     query: GET_CHARTER_DATA_BY_USER_ID,
-            //     variables: { id: projectID }
-            // },
-            {query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: String(profile.id) } },
-            // console.log("Berhasil FETCH DELETE COK")
+            { query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) } },
         ],
         onCompleted: () => { console.log("Berhasil DELETE PROJECT") }
     }
@@ -46,6 +52,12 @@ const DeleteModalProject = (props) => {
 
         if (deleteCharterError) {
             console.log(JSON.stringify(deleteCharterError, null, 2));
+        }
+
+        updateTotal();
+
+        if (total % limit === 1 && page === totalPages) {
+            dropCurrentPage(page - 1);
         }
 
         hideDialog();
