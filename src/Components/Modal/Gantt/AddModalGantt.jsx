@@ -103,7 +103,7 @@ const AddModalGantt = () => {
         {
             label: "Name",
             name: "name",
-            placeholder: "Ex: Gantt First Project",
+            placeholder: "Example:  Gantt First Project",
             type: "text",
             value: name,
             onChange: (e) => setName(e.target.value),
@@ -111,7 +111,7 @@ const AddModalGantt = () => {
         {
             label: "Description",
             name: "descrtiption",
-            placeholder: "Ex: Gantt for First Project",
+            placeholder: "Example:  Gantt for First Project",
             type: "text",
             value: description,
             onChange: (e) => setDescription(e.target.value),
@@ -119,7 +119,7 @@ const AddModalGantt = () => {
         {
             label: "Version",
             name: "version",
-            placeholder: "Ex: 1",
+            placeholder: "Example:  1",
             type: "number",
             value: version,
             onChange: (e) => setVersion(parseInt(e.target.value)),

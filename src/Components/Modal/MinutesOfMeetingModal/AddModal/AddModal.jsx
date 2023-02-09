@@ -97,19 +97,45 @@ const AddModalMinutesOfMeeting = (props) => {
   const [deadline, setDeadline] = useState([""]);
   const [status, setStatus] = useState([""]);
 
+  const [errorValidate, setErrorValidate] = useState({});
+  const validate = () => {
+    let nameError = "";
+
+    if (meeting_name.length < 1) {
+      nameError = "Name can't be empty";
+    }
+    if (nameError) {
+      setErrorValidate({ nameError });
+      return false;
+    }
+
+    return true;
+  };
+
   const { page, limit, sort, total, updateTotal, totalPages } = props;
 
   let refetchQueries = []
 
   //if last data length before created new data is multiple of limit, then
-  if (total % limit === 0 || page !== totalPages) {
+  if (total % limit === 0) {
     refetchQueries = [
       {
         query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID,
         variables: { projectId: String(localStorage.getItem('momProjectID')) },
       },
     ]
-  } else if (page === totalPages) {
+  } 
+  
+  //if right now is not on the last page, then refetch the last page
+  if (page !== totalPages) {
+    refetchQueries = [
+      {
+        query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID,
+        variables: { projectId: String(localStorage.getItem('momProjectID')), page: String(totalPages), limit: String(limit), sort: String(sort) },
+      },
+    ]
+  }
+  else if (page === totalPages) {
     refetchQueries = [
       {
         query: GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID,
@@ -226,12 +252,16 @@ const AddModalMinutesOfMeeting = (props) => {
     console.log(JSON.stringify(addMinutesOfMeetingError));
 
   const handleSubmit = (e) => {
+    e.preventDefault();
+    const isValid = validate();
 
+    if (isValid) {
+      hideDialog();
+      setErrorValidate("");
+    }
     //ini buat projectnya milih pake dropdown
     // const project_id = parseInt(inputRefProject.current.value);
     project_id === 0 ? setProject_id(parseInt(inputRefProject.current.value)) : project_id
-
-    e.preventDefault();
 
     console.log("ToTALL DATA BEFORE", total);
 
@@ -270,7 +300,7 @@ const AddModalMinutesOfMeeting = (props) => {
 
     updateTotal();
 
-    hideDialog();
+    // hideDialog();
   };
   return (
     <>
@@ -337,8 +367,10 @@ const AddModalMinutesOfMeeting = (props) => {
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                           onChange={(e) => setMeeting_name(e.target.value)}
                         />
+                        <div className="mt-3" style={{ color: "red" }}>{errorValidate.nameError}</div>
                       </div>
                     </div>
+                    
                     {/* project */}
                     {/* <div className="mt-3">
                       <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">

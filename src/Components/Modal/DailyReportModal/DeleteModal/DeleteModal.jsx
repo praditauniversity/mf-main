@@ -24,7 +24,7 @@ const DeleteModalReport = (props) => {
         refetchQueries: [
             {
                 query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
-                variables: { id: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
+                variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
             },
         ],
         onCompleted: () => { console.log("Berhasil Hapus") }

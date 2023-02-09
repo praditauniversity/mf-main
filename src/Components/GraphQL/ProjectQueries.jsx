@@ -20,7 +20,7 @@ export function SumActual() {
     return (
       <div>
         <p>
-          {projectCurrency} {sumAct.toFixed(2)}
+          {projectCurrency} {sumAct % 1 !== 0 ? sumAct.toFixed(2) : sumAct}
         </p>
       </div>
     );
@@ -44,7 +44,7 @@ export function SumCost() {
     return (
       <div>
         <p>
-          {projectCurrency} {sumCost.toFixed(2)}
+          {projectCurrency} {sumCost % 1 !== 0 ? sumCost.toFixed(2) : sumCost}
         </p>
       </div>
     );
@@ -68,7 +68,7 @@ export function SumBudget() {
     return (
       <div>
         <p>
-          {projectCurrency} {sumBudget.toFixed(2)}
+          {projectCurrency} {sumBudget % 1 !== 0 ? sumBudget.toFixed(2) : sumBudget}
         </p>
       </div>
     );
@@ -97,7 +97,7 @@ export function SumDanger() {
     return (
       <div>
         <p>
-          {projectCurrency} {sumDanger.toFixed(2)}
+          {projectCurrency} {sumDanger % 1 !== 0 ? sumDanger.toFixed(2) : sumDanger}
         </p>
       </div>
     );
@@ -126,7 +126,7 @@ export function SumVariance() {
     return (
       <div>
         <p>
-          {projectCurrency} {sumVariance.toFixed(2)}
+          {projectCurrency} {sumVariance % 1 !== 0 ? sumVariance.toFixed(2) : sumVariance}
         </p>
       </div>
     );

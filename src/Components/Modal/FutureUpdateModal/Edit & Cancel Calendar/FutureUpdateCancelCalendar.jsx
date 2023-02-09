@@ -4,7 +4,7 @@ import { IconEdit } from '../../../Icons/icon';
 
 
 
-const FutureUpdateDeleteText = () => {
+const FutureUpdateCancelCalendar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
@@ -48,8 +48,8 @@ const FutureUpdateDeleteText = () => {
 
     return (
         <div>
-            <button onClick={showDialog} >
-                <a>Delete</a>
+            <button onClick={showDialog} className='bg-white hover:bg-gray-100 text-gray-900 px-4 py-2 text-sm w-full text-left' >
+                Cancel
             </button>
             <DialogButton />
         </div>
@@ -58,4 +58,4 @@ const FutureUpdateDeleteText = () => {
     );
 };
 
-export default FutureUpdateDeleteText;
+export default FutureUpdateCancelCalendar;

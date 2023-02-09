@@ -17,6 +17,8 @@ import {
     startOfToday,
 } from 'date-fns'
 import { Fragment, useState } from 'react'
+import FutureUpdateEditCalendar from '../../Modal/FutureUpdateModal/Edit & Cancel Calendar/FutureUpdateEditCalendar'
+import FutureUpdateCancelCalendar from '../../Modal/FutureUpdateModal/Edit & Cancel Calendar/FutureUpdateCancelCalendar'
 
 const meetings = [
     {
@@ -108,12 +110,12 @@ function Meeting({ meeting }) {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                 >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 origin-top-right bg-white rounded-md shadow-lg w-36 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-10 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <div className="py-1">
                             <Menu.Item>
-                                {({ active }) => (
+                                {/* {({ active }) => (
                                     <a
-                                        href="#"
+                                        // href="#"
                                         className={classNames(
                                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                             'block px-4 py-2 text-sm'
@@ -121,12 +123,14 @@ function Meeting({ meeting }) {
                                     >
                                         Edit
                                     </a>
-                                )}
+                                )} */}
+
+                                <FutureUpdateEditCalendar/>
                             </Menu.Item>
                             <Menu.Item>
-                                {({ active }) => (
+                                {/* {({ active }) => (
                                     <a
-                                        href="#"
+                                        // href="#"
                                         className={classNames(
                                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                             'block px-4 py-2 text-sm'
@@ -134,7 +138,9 @@ function Meeting({ meeting }) {
                                     >
                                         Cancel
                                     </a>
-                                )}
+                                )} */}
+
+                                <FutureUpdateCancelCalendar />
                             </Menu.Item>
                         </div>
                     </Menu.Items>

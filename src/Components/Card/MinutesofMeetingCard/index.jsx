@@ -22,7 +22,7 @@ const MinutesofMeetingCard = (props) => {
 
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage] = useState(5) // hardcode
-    const [totalItems, setTotalItems] = useState(momData.length || 1)
+    const [totalItems, setTotalItems] = useState(momData.length)
 
     const profile = GetProfile();
     const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
@@ -49,7 +49,7 @@ const MinutesofMeetingCard = (props) => {
         }
     }, [data, momData]);
 
-    const totalPages = Math.ceil(totalItems / itemsPerPage)
+    const totalPages = Math.ceil(totalItems / itemsPerPage) ? Math.ceil(totalItems / itemsPerPage) : 1
 
     const handlePageChange = (currentPage) => {
         setCurrentPage(currentPage)

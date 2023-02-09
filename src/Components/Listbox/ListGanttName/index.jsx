@@ -4,10 +4,9 @@ import { useQuery, gql } from '@apollo/client';
 import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 
 const ListGanttByProject = (props) => {
-    const {ganttID, setGanttID, projectID, ganttName} = props;
+    const {ganttID, projectID, ganttName} = props;
 
     console.log("GANTTTTTTTTTTT ID", ganttID);
-    console.log("GANTTTTTTTTTTT PRoject ID", projectID);
     console.log("GANTTTTTTTTTTT ganttData", ganttName);
 
     // TODO: Fix this
@@ -45,9 +44,6 @@ const ListGanttByProject = (props) => {
                 <option value="4">Project Gamma</option> */}
                 {printListGanttName()}
             </select>
-            {/* {<Actual value={selectedOption} />} */}
-            {console.log("OPTION val project id:", typeof projectID, projectID)}
-            {console.log("OPTION val gantt id:", typeof projectID, projectID)}
         </div>
     );
 }

@@ -6,7 +6,9 @@ import { InputField } from "../Input/Input";
 
 const SubmitHandler = async (e, login, email, password, setProfile, setError) => {
     e.preventDefault();
+    console.log("SubmitHandler");
     try {
+        console.log("SubmitHandler TRY");
         const response = await login({ variables: { email, password } });
         const data = response.data.login.data;
         const token = data.auth_token;
@@ -24,16 +26,18 @@ const SubmitHandler = async (e, login, email, password, setProfile, setError) =>
             created_at: data.CreatedAt,
         });
         setError('');
+        
     } catch (err) {
-        setError(err.message);
+        console.log("SubmitHandler ERROR", err);
+        setError(JSON.stringify(err.message));
+        alert("Error : " + "\n" + "Check your email and password");
     }
 }
 export const LoginHandler = () => {
     const [login] = useMutation(LOGIN);
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const emailRef = React.useRef('');
-    const passwordRef = React.useRef('');
+
     // const [email, setEmail] = useLocalStorage('email', 'coba@gmail.com');
     // const [password, setPassword] = useLocalStorage('password', '4dM1nSuPeR');
     const [error, setError] = useState('');
@@ -47,8 +51,6 @@ export const LoginHandler = () => {
 
     const handleSubmitWrapper = (e) => {
         e.preventDefault();
-        setEmail(emailRef.current.value);
-        setPassword(passwordRef.current.value);
         SubmitHandler(e, login, email, password, setProfile, setError);
     }
 
@@ -57,8 +59,8 @@ export const LoginHandler = () => {
     return (
         <div>
             <form onSubmit={handleSubmitWrapper}>
-                <InputField label="Email" type="email" placeholder="example@gmail.com" defaultValue={email} onChange={(e) => setEmail(e.target.value)} ref={emailRef} />
-                <InputField label="Password" type="password" placeholder="Enter your password" defaultValue={password} onChange={(e) => setPassword(e.target.value)} ref={passwordRef} />
+                <InputField label="Email" type="email" placeholder="example@gmail.com" defaultValue={email} onChange={(e) => setEmail(e.target.value)} />
+                <InputField label="Password" type="password" placeholder="Enter your password" defaultValue={password} onChange={(e) => setPassword(e.target.value)} />
                 <div className="py-4 mx-auto flex items-center justify-between space-x-4">
                     <button type="submit"
                         className={rainbow}>

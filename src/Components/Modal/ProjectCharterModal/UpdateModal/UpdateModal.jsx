@@ -380,34 +380,37 @@ const UpdateModalProject = (props) => {
             },
         });
 
-        setId('');
-        setStatus("");
-        setWorkArea("");
-        setStartProject("");
-        setStakeholderAmmount(0);
-        setRoleId(0);
-        setTypeId(0);
-        setConsideredSuccessWhen("");
-        setCostActual(0);
-        setCostPlan(0);
-        setClient("");
-        setClientContact("");
-        setCurrencyName("");
-        setCurrencyCode("");
-        setCurrencySymbol("");
-        setDescription("");
-        setEndProject("");
-        setName("");
-        setOfficeLocation("");
-        setPhaseId(0);
-        setPotentialRisk([""]);
-        setTotalManPower(0);
-        setProjectObjectives([""]);
-        setProgressPercentage(0);
-        setBudget(0);
 
-        setParticipants(0);
-        setAvailableResources(['']);
+
+        // setId(projectData.id);
+        // setStatus(projectData.status);
+        // setWorkArea(projectData.work_area);
+        // setStartProject(new Date(projectData.start_project));
+        // setStakeholderAmmount(projectData.stakeholder_ammount);
+        // setRoleId(projectData.role_id);
+        // setTypeId(projectData.type_id);
+        // setConsideredSuccessWhen(projectData.considered_success_when);
+        // setCostActual(projectData.cost_actual);
+        // setCostPlan(projectData.cost_plan);
+        // setClient(projectData.client);
+        // setClientContact(projectData.client_contact);
+        // setCurrencyName(projectData.currency_name);
+        // setCurrencyCode(projectData.currency_code);
+        // setCurrencySymbol(projectData.currency_symbol);
+        // setDescription(projectData.description);
+        // setEndProject(new Date(projectData.end_project));
+        // setName(projectData.name);
+        // setOfficeLocation(projectData.office_location);
+        // setPhaseId(projectData.phase_id);
+        // setMilestoneId(projectData.milestone_id);
+        // setPotentialRisk(projectData.potential_risk);
+        // setTotalManPower(projectData.total_man_power);
+        // setProjectObjectives(projectData.project_objectives);
+        // setProgressPercentage(projectData.progress_percentage);
+        // setBudget(projectData.budget);
+
+        // setParticipants(projectData.participants);
+        // setAvailableResources(projectData.available_resources);
 
         hideDialog();
 

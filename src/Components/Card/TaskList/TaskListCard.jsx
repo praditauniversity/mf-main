@@ -41,7 +41,7 @@ const TaskListCard = (props) => {
                             <th align="center">Duration</th>
                             <th align="center">Status</th>
                             <th align="center">Priority</th>
-                            <th align="center">Assignee</th>
+                            {/* <th align="center">Assignee</th> */}
                             <th align="center">Progress</th>
                         </tr>
                     </thead>
@@ -50,8 +50,9 @@ const TaskListCard = (props) => {
                             dataTask.map((task) => {
                                 const startDate = new Date(task.start_time);
                                 const endDate = new Date(task.end_time);
-                                const duration = endDate - startDate;
-                                const durationInDays = Math.round(duration / (1000 * 3600 * 24));
+                                const durationInDays = task.activity_duration;
+                                // const duration = endDate - startDate;
+                                // const durationInDays = Math.round(duration / (1000 * 3600 * 24));
 
                                 const startDateYear = startDate.toLocaleDateString('en-US', {year: 'numeric'});
                                 const startDateMonth = startDate.toLocaleDateString('en-US', {month: '2-digit'});
@@ -70,10 +71,10 @@ const TaskListCard = (props) => {
                                         <td align="center">{startDateYear}/{startDateMonth}/{startDateDay}</td>
                                         <td align="center">{endDateYear}/{endDateMonth}/{endDateDay}</td>
                                         <td align="center">{durationInDays} Days</td>
-                                        <td align="center">{task.phase.name}</td>
-                                        <td align="center">{priority}</td>
-                                        <td align="center">Rendha Vateria</td>
-                                        <td align="center">{task.progress_percentage}%</td>
+                                        <td align="center">{task.phase.name ? task.phase.name : "N/A"}</td>
+                                        <td align="center">{priority ? priority : "N/A"}</td>
+                                        {/* <td align="center">Rendha Vateria</td> */}
+                                        <td align="center">{task.progress_percentage % 1 === 0 ? task.progress_percentage + "%" : task.progress_percentage.toFixed(2) + "%"}</td>
                                     </tr>  
                                 )
                             })

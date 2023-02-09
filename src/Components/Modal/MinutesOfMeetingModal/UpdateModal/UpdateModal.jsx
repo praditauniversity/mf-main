@@ -139,7 +139,7 @@ const UpdateModalMinutesOfMeeting = (props) => {
 
     // setWorkLogName(inputFields.map((inputField) => inputField.name));
     const addFields = () => {
-        let newfield = { notes: "" };
+        let newfield = { action_item: "", owner: "", deadline: "", status: "" };
 
         setInputFields([...inputFields, newfield]);
     };
@@ -148,6 +148,22 @@ const UpdateModalMinutesOfMeeting = (props) => {
         let data = [...inputFields];
         data.splice(index, 1);
         setInputFields(data);
+
+        let dataActionItem = [...action_item];
+        dataActionItem.splice(index, 1);
+        setAction_item(dataActionItem);
+
+        let dataOwner = [...owner];
+        dataOwner.splice(index, 1);
+        setOwner(dataOwner);
+
+        let dataDeadline = [...deadline];
+        dataDeadline.splice(index, 1);
+        setDeadline(dataDeadline);
+
+        let dataStatus = [...status];
+        dataStatus.splice(index, 1);
+        setStatus(dataStatus);
     };
 
     const removeFieldsNotes = (index) => {
@@ -200,15 +216,15 @@ const UpdateModalMinutesOfMeeting = (props) => {
             },
         });
 
-        setMeeting_name("");
-        setMeeting_date("");
-        setStart_time_meeting("");
-        setEnd_time_meeting("");
-        setLocation("");
-        setMeeting_leader("");
-        setMeeting_objective("");
-        setAtendees([""]);
-        setNotes([""]);
+        // setMeeting_name("");
+        // setMeeting_date("");
+        // setStart_time_meeting("");
+        // setEnd_time_meeting("");
+        // setLocation("");
+        // setMeeting_leader("");
+        // setMeeting_objective("");
+        // setAtendees([""]);
+        // setNotes([""]);
         // setAction_item([""]);
         // setOwner([""]);
         // setDeadline([""]);s

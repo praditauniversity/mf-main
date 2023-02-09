@@ -29,13 +29,13 @@ const DRList = (props) => {
   // const [projectID, setProjectID] = useState(localStorage.getItem('reportProjectID'));
 
   useEffect(() => {
-      if (data) {
-          setDailyReport(data.dailyReportGetProjectID.data);
-          // projectID === 0 ? localStorage.setItem('reportProjectID', data.dailyReportGetProjectID.data[0].ID) : localStorage.setItem('reportProjectID', projectID);
-          console.log("Daily Report data with project id " + localStorage.getItem('reportProjectID') + " found");
-      } else {
-          console.log("No data found for daily report with project id " + localStorage.getItem('reportProjectID'));
-      }
+    if (data) {
+      setDailyReport(data.dailyReportGetProjectID.data);
+      // projectID === 0 ? localStorage.setItem('reportProjectID', data.dailyReportGetProjectID.data[0].ID) : localStorage.setItem('reportProjectID', projectID);
+      console.log("Daily Report data with project id " + localStorage.getItem('reportProjectID') + " found");
+    } else {
+      console.log("No data found for daily report with project id " + localStorage.getItem('reportProjectID'));
+    }
   }, [data]);
 
   const dataLength = dailyReportData.filter((dailyReport) => {
@@ -52,27 +52,34 @@ const DRList = (props) => {
     }).length > 0;
   }).length;
 
+  const noneDataLength = dailyReportData.filter((dailyReport) => {
+    return dailyReport.activity_id === 0;
+  }).filter((dailyReport) => {
+    return projectData.filter((project) => {
+      return project.ID === dailyReport.project_id;
+    }).length > 0;
+  }).length;
+
   const ifDRListDataEmpty = () => {
-    if (dataLength === 0) {
-    // if (dailyReportData.length === 0) {
+    if (dataLength === 0 && noneDataLength === 0) {
       return (
         <tr>
-          <td colSpan="5" align="center">No Data</td>
+          <td colSpan="5" align="center">No Daily Report Data</td>
         </tr>
       );
     }
-  }
+  };
 
   const DELETE_DAILYREPORT = gql`
   mutation DeleteDailyReport($id: String!) {
     deleteDailyReport(id: $id) 
   }`;
-  const [deleteReport, { deleteReportData , deleteReportError }] = useMutation(DELETE_DAILYREPORT, {
+  const [deleteReport, { deleteReportData, deleteReportError }] = useMutation(DELETE_DAILYREPORT, {
     refetchQueries: [
-        {
-            query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
-            variables: { id: localStorage.getItem('reportProjectID') }
-        },
+      {
+        query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
+        variables: { id: localStorage.getItem('reportProjectID') }
+      },
     ],
     onCompleted: () => { console.log("Berhasil Fetch") }
   });
@@ -101,24 +108,19 @@ const DRList = (props) => {
                           if (gantt.ID === activity.gantt_id) {
                             return (
                               dailyReportData.map((dailyReport) => {
-                                const reportDate = new Date(dailyReport.report_date);
-                                const reportDateYear = reportDate.toLocaleDateString('en-US', { year: 'numeric' });
-                                const reportDateMonth = reportDate.toLocaleDateString('en-US', { month: '2-digit' });
-                                const reportDateDay = reportDate.toLocaleDateString('en-US', { day: '2-digit' });
-                                if (activity.ID === dailyReport.activity_id /*&& gantt.project_id === dailyReport.project_id*/) {
-                                  // const listID = toString(dailyReport.ID);
-                                  console.log(typeof dailyReport.ID, dailyReport.ID);
-                                  console.log(typeof dailyReport.report_date, dailyReport.report_date);
-                                  console.log(typeof dailyReport.report_number, dailyReport.report_number);
-                                  console.log(typeof dailyReport.name, dailyReport.name);
-                                  console.log(typeof activity.name, activity.name);
-                                  
+                                if (activity.ID === dailyReport.activity_id) {
+                                  const reportDate = new Date(dailyReport.report_date);
+                                  const reportDateYear = reportDate.toLocaleDateString('en-US', { year: 'numeric' });
+                                  const reportDateMonth = reportDate.toLocaleDateString('en-US', { month: '2-digit' });
+                                  const reportDateDay = reportDate.toLocaleDateString('en-US', { day: '2-digit' });
                                   return (
                                     <tr key={dailyReport.ID}>
-                                      <td align="center"><Link to="/dailyreportview"><button className="hover:text-primary">{dailyReport.name}</button></Link></td>
+                                      {/* <td align="center"><Link to="/dailyreportview"><button className="hover:text-primary">{dailyReport.name}</button></Link></td> */}
+                                      <td align="center">{dailyReport.name}</td>
                                       <td align="center">{dailyReport.report_number}</td>
                                       <td align="center">{reportDateYear}/{reportDateMonth}/{reportDateDay}</td>
-                                      <td align="center">{activity.name}</td>
+                                      <td align="center">{activity.name === null ? "None" : activity.name}</td>
+                                      {/* <td align="center">{activity.ID === dailyReport.activity_id ? activity.name : "none"}</td> */}
                                       <td align="center">
                                         <button className="px-1" id="icon">
                                           <UpdateModalDailyReport
@@ -189,6 +191,65 @@ const DRList = (props) => {
                     }
                   })
                 )
+              })
+            }
+            
+            {
+              projectData.map((project) => {
+                return dailyReportData.map((dailyReport) => {
+                  if (project.ID === dailyReport.project_id && dailyReport.activity_id === 0) {
+        
+                    const reportDate = new Date(dailyReport.report_date);
+                    const reportDateYear = reportDate.toLocaleDateString('en-US', { year: 'numeric' });
+                    const reportDateMonth = reportDate.toLocaleDateString('en-US', { month: '2-digit' });
+                    const reportDateDay = reportDate.toLocaleDateString('en-US', { day: '2-digit' });
+                    return (
+                      <tr key={dailyReport.ID}>
+                        <td align="center">{dailyReport.name}</td>
+                        <td align="center">{dailyReport.report_number}</td>
+                        <td align="center">{reportDateYear}/{reportDateMonth}/{reportDateDay}</td>
+                        <td align="center">None</td>
+                        <td align="center">
+                          <button className="px-1" id="icon">
+                            <UpdateModalDailyReport
+                              reportData={dailyReport}
+                              page={page}
+                              limit={limit}
+                              sort={sort}
+                            />
+                          </button>
+                          <button className="px-1" id="icon">
+                            <DeleteModalReport
+                              reportID={String(dailyReport.ID)}
+                              reportName={dailyReport.name}
+                              page={page}
+                              limit={limit}
+                              sort={sort}
+                              total={totalItems}
+                              updateTotal={updateTotalItems}
+                              dropCurrentPage={onPageChange}
+                              totalPages={totalPages}
+                            />
+                          </button>
+                          <button className="px-1" id="icon">
+                            <ViewModalReport
+                              reportName={dailyReport.name}
+                              reportDesc={dailyReport.description}
+                              reportDate={reportDateMonth + "/" + reportDateDay + "/" + reportDateYear}
+                              reportNumber={dailyReport.report_number}
+                              reportActivity="None"
+                              reportWLName={dailyReport.work_log_name}
+                              reportWLDesc={dailyReport.work_log_desc}
+                              reportWLStatus={dailyReport.work_log_status}
+                              reportWLHour={dailyReport.work_log_hour}
+                              reportEq={dailyReport.equipment}
+                            />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  }
+                });
               })
             }
             {ifDRListDataEmpty()}

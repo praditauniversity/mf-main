@@ -2,8 +2,8 @@ import React from "react";
 import FetchProject from "../../../Middleware/Fetchers/FetchProject";
 import FetchProjectPage from "../../../Middleware/Fetchers/FetchProjectPage";
 import Accordion from "../../Accordion";
-import FutureUpdateEditText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateDeleteText";
-import FutureUpdateDeleteText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateEditText";
+import FutureUpdateDeleteText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateDeleteText";
+import FutureUpdateEditText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateEditsText";
 
 //ini gabisa
 const useStyles = () => ({

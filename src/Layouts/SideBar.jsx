@@ -48,7 +48,7 @@ export const SideBar = () => {
                     <ul className="space-y-8">
                         {sideList.map((item) => (
                             <a key={item.id} href={item.link} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white">
-                                <div className="tooltip tooltip-right" data-tip={item.tooltip}>
+                                <div className="tooltip tooltip-right z-40" data-tip={item.tooltip}>
                                     <img src={item.icon} alt={item.name} className="w-6 h-6" />
                                 </div>
                             </a>

@@ -2,7 +2,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import "../../../../Assets/svgbutton/svgbutton.css";
-import { GET_ACTIVITY_DATA, GET_DAILY_REPORT_DATA_BY_PROJECT_ID } from "../../../GraphQL/Queries";
+import { GET_ACTIVITY_DATA, GET_DAILY_REPORT_DATA_BY_PROJECT_ID, GET_GANTT_PROJECT_ID, GET_PROJECT_DATA_BY_ID } from "../../../GraphQL/Queries";
 import {
   IconDeleteForm,
   IconEdit,
@@ -13,18 +13,6 @@ import {
 import { DatePickerField } from "../../../Input/Input";
 import "./UpdateModal.css";
 
-const GET_DAILY_REPORT = gql`
-  query DailyReport {
-    dailyReport {
-      data {
-        name
-        description
-        report_number
-      }
-    }
-  }
-`;
-
 const UPDATE_DAILY_REPORT = gql`
 mutation updateDailyreports(
   $id: String!,
@@ -32,6 +20,7 @@ mutation updateDailyreports(
   $description: String,
   $status: String,
   $equipment: [String],
+  $activity_id: Int,
   $report_date: DateTime,
   $work_log_name: [String],
   $work_log_desc: [String],
@@ -44,6 +33,7 @@ input:{
       description: $description,
     status: $status,
       equipment: $equipment,
+      activity_id: $activity_id,
       report_date: $report_date,
       work_log_name: $work_log_name,
       work_log_desc: $work_log_desc,
@@ -76,6 +66,7 @@ const UpdateModalDailyReport = (props) => {
     return inputFieldsData;
   });
 
+  const [activity_id, setActivityId] = useState(reportData.activity_id);
   const [equipment, setEquipment] = useState(reportData.equipment);
   const [name, setName] = useState(reportData.name);
   const [description, setDescription] = useState(reportData.description);
@@ -101,12 +92,66 @@ const UpdateModalDailyReport = (props) => {
     ],
   });
 
+  const inputRefActivity = useRef(null);
+
+  const { data: dataProject } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    variables: { id: String(localStorage.getItem("reportProjectID")) },
+  });
+  const [projectName, setProjectName] = useState([]);
+
+  const { data: dataGantt } = useQuery(GET_GANTT_PROJECT_ID, {
+    variables: { project_id: String(localStorage.getItem("reportProjectID")) },
+  });
+  const [ganttName, setGanttName] = useState([]);
+
+  const { data, loading, error } = useQuery(GET_ACTIVITY_DATA);
+  const [activityName, setActivityName] = useState([]);
+
+  useEffect(() => {
+    if (dataProject) {
+      setProjectName(dataProject.project.Data);
+    }
+    if (dataGantt) {
+      setGanttName(dataGantt.ganttGetProjectID.data);
+    }
+    if (data) {
+      setActivityName(data.activity.data);
+    }
+  }, [dataProject, dataGantt, data]);
+
   const [isOpen, setIsOpen] = useState(false);
   const showDialog = () => {
     setIsOpen(true);
   };
   const hideDialog = () => {
     setIsOpen(false);
+  };
+
+  function printListsetActivityName() {
+    return projectName.map((project) => {
+      return ganttName.map((gantt) => {
+        if (gantt.project_id === project.ID) {
+          return activityName.map((activity) => {
+            if (gantt.ID === activity.gantt_id) {
+              return (
+                <>
+                  <option value={activity.ID}>{activity.name}</option>
+                </>
+              );
+            }
+          });
+        }
+      });
+    });
+  }
+
+  const handleChangeActivity = (event) => {
+    setActivityId(parseInt(event.target.value));
+    console.log(
+      "Activity ID",
+      typeof parseInt(event.target.value),
+      event.target.value
+    );
   };
 
   const handleName = (event) => {
@@ -149,7 +194,7 @@ const UpdateModalDailyReport = (props) => {
   };
 
   const addFields = () => {
-    let newfield = { equipment: "" };
+    let newfield = { name: "", description: "", status: "", hour: "" };
 
     setInputFields([...inputFields, newfield]);
   };
@@ -158,6 +203,23 @@ const UpdateModalDailyReport = (props) => {
     let data = [...inputFields];
     data.splice(index, 1);
     setInputFields(data);
+
+    let workLogName = [...work_log_name];
+    workLogName.splice(index, 1);
+    setWorkLogName(workLogName);
+
+    let workLogDesc = [...work_log_desc];
+    workLogDesc.splice(index, 1);
+    setWorkLogDesc(workLogDesc);
+
+    let workLogStatus = [...work_log_status];
+    workLogStatus.splice(index, 1);
+    setWorkLogStatus(workLogStatus);
+
+    let workLogHour = [...work_log_hour];
+    workLogHour.splice(index, 1);
+    setWorkLogHour(workLogHour);
+    
   };
 
   const removeFieldsEquipment = (index) => {
@@ -171,6 +233,10 @@ const UpdateModalDailyReport = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setActivityId(parseInt(inputRefActivity.current.value));
+
+    console.log("Activity ID BRIAN", activity_id, typeof activity_id);
+
     updateDailyReport({
       variables: {
         id: String(reportData.ID),
@@ -178,6 +244,7 @@ const UpdateModalDailyReport = (props) => {
         description,
         status,
         equipment,
+        activity_id,
         report_date,
         work_log_name,
         work_log_desc,
@@ -185,11 +252,17 @@ const UpdateModalDailyReport = (props) => {
         work_log_hour,
       },
     });
-    setName("");
-    setEquipment([''])
-    setDescription("");
-    setStatus("");
-    setReportDate("");
+
+    if (updateDailyReportError) {
+      console.log("Error", JSON.stringify(updateDailyReportError));
+    }
+
+    // biar dia bisa dapetin value sekarang
+    // setName("");
+    // setEquipment([''])
+    // setDescription("");
+    // setStatus("");
+    // setReportDate("");
 
     hideDialog();
   };
@@ -269,7 +342,7 @@ const UpdateModalDailyReport = (props) => {
                     <div className="mt-3">
                       <div className="form-control w-full max-w-5xl">
                         <label className="label">
-                          <span className="label-text">Status Project</span>
+                          <span className="label-text">Status</span>
                         </label>
                         <input
                           value={status}
@@ -287,6 +360,24 @@ const UpdateModalDailyReport = (props) => {
                         onChange={(date) => setReportDate(date)}
                         placeholder="DD/MM/YYYY"
                       />
+                    </div>
+
+                    {/* activity */}
+                    <div className="mt-3">
+                      <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
+                        Activity Name
+                      </label>
+                      <div className="flex flex-col items-center">
+                        <select
+                          ref={inputRefActivity}
+                          value={activity_id}
+                          onChange={handleChangeActivity}
+                          className="editor_type select select-bordered w-full max-w-5xl"
+                        >
+                          <option value={0}>None</option>
+                          {printListsetActivityName()}
+                        </select>
+                      </div>
                     </div>
 
                     <div>

@@ -18,7 +18,7 @@ const UpcomingTaskCard = (props) => {
         const startDate = new Date(item.start_time);
         const endDate = new Date(item.end_time);
         const status = item.phase.name;
-        return startDate > todayDate && endDate > todayDate && status === "Todo";
+        return startDate > todayDate && endDate > todayDate/* && status === "Todo"*/;
     }).length;
 
     const ifUpcomingTaskEmpty = () => {
@@ -45,7 +45,7 @@ const UpcomingTaskCard = (props) => {
                     const todayDate = new Date();
                     const date = new Date(task.start_time);
                     const status = task.phase.name;
-                    if (date > todayDate && status === "Todo") {
+                    if (date > todayDate /*&& status === "Todo"*/) {
                         const dateMonth = date.toLocaleDateString('en-US', {month: 'long'});
                         const dateDay = date.toLocaleDateString('en-US', {day: 'numeric'});
 
@@ -100,10 +100,10 @@ const UpcomingTaskCard = (props) => {
                 </div>
             </div>
             <div className="pt-8 pb-8 pl-12 pr-12 flex justify-end">
-                {/* <button className="font-semibold text-sm text-primary">
-                    View All Tasks
-                </button> */}
-                <FutureUpdateViewAllTasks/>
+                <button className="font-semibold text-sm text-primary">
+                    <a href={`/#/project-list/${localStorage.getItem('projectID')}/gantt/${localStorage.getItem('ganttID')}/gantt-chart`}>View All Tasks</a>
+                </button>
+                {/* <FutureUpdateViewAllTasks/> */}
             </div>
         </div>
     )

@@ -2,9 +2,9 @@ import { Listbox } from '@headlessui/react';
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
-export const InputField = ({ value, label, name, placeholder, type, onChange, disabled, error, minLength, maxLength, pattern }) => (
+export const InputField = ({ value, label, name, placeholder, type, onChange, disabled, error, minLength, maxLength, pattern, errorMsg }) => (
     <div className="form-group">
-        <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
+        <label className="block uppercase tracking-wide text-darkest text-xs font-bold pb-2">{label}</label>
         <input
             type={type}
             value={value}

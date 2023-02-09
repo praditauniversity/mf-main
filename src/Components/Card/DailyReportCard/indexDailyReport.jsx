@@ -31,7 +31,7 @@ const DailyReportPage = (props) => {
 
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage] = useState(5) // hardcode
-    const [totalItems, setTotalItems] = useState(DRDataList.length || 0)
+    const [totalItems, setTotalItems] = useState(DRDataList.length)
 
     useEffect(() => {
         if (data) {
@@ -45,7 +45,7 @@ const DailyReportPage = (props) => {
         }
     }, [data, DRDataList]);
 
-    const totalPages = Math.ceil(totalItems / itemsPerPage)
+    const totalPages = Math.ceil(totalItems / itemsPerPage) ? Math.ceil(totalItems / itemsPerPage) : 1
 
     const handlePageChange = (currentPage) => {
         setCurrentPage(currentPage)

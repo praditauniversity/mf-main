@@ -1,6 +1,6 @@
 import React from "react";
-import FutureUpdateDeleteText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateEditText";
-import FutureUpdateEditText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateDeleteText";
+import FutureUpdateDeleteText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateDeleteText";
+import FutureUpdateEditText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateEditsText";
 import FutureUpdateViewAllIssues from "../../Modal/FutureUpdateModal/ViewAllIssues/FutureUpdateViewAllIssues";
 
 //ini gabisa

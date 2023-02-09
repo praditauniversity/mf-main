@@ -67,7 +67,7 @@ const ListboxProjectName = (props) => {
     const handleChange = (event) => {
         setProjectID(event.target.value);
         localStorage.setItem('projectID', event.target.value);
-        localStorage.setItem('ganttID', "0");
+        localStorage.setItem('ganttID', null);
         window.location.reload();
     };
 

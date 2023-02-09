@@ -33,7 +33,7 @@ export function Actual(props) {
         return (
             <div>
                 <p>
-                    {projectCurrency} {act.toFixed(2)}
+                    {projectCurrency} {act % 1 !== 0 ? act.toFixed(2) : act}
                 </p>
             </div>
         );
@@ -72,7 +72,7 @@ export function Cost(props) {
         return (
             <div>
                 <p>
-                    {projectCurrency} {cost.toFixed(2)}
+                    {projectCurrency} {cost % 1 !== 0 ? cost.toFixed(2) : cost}
                 </p>
             </div>
         );
@@ -111,7 +111,7 @@ export function Budget(props) {
         return (
             <div>
                 <p>
-                    {projectCurrency} {budget.toFixed(2)}
+                    {projectCurrency} {budget % 1 !== 0 ? budget.toFixed(2) : budget}
                 </p>
             </div>
         );
@@ -151,7 +151,7 @@ export function Danger(props) {
         return (
             <div>
                 <p>
-                    {projectCurrency} {danger.toFixed(2)}
+                    {projectCurrency} {danger % 1 !== 0 ? danger.toFixed(2) : danger}
                 </p>
             </div>
         );
@@ -191,7 +191,7 @@ export function Variance(props) {
         return (
             <div>
                 <p>
-                    {projectCurrency} {variance.toFixed(2)}
+                    {projectCurrency} {variance % 1 !== 0 ? variance.toFixed(2) : variance}
                 </p>
             </div>
         );

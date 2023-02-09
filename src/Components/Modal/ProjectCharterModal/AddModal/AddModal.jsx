@@ -226,17 +226,29 @@ const AddModalProjectCharter = (props) => {
     const profile = GetProfile();
 
     let refetchQueries = []
-    
+
     //if last data length before created new data is multiple of limit, then
-    if ( total % limit === 0 || page !== totalPages ) {
+    if (total % limit === 0 || page !== totalPages) {
         refetchQueries = [
-            { query: GET_PROJECT_DATA_BY_USER_ID,
+            {
+                query: GET_PROJECT_DATA_BY_USER_ID,
                 variables: { userId: String(profile.id) },
             },
         ]
-    } else {
+    }
+
+    //if right now is not on the last page, then refetch the last page
+    if (page !== totalPages) {
         refetchQueries = [
-            { query: GET_PROJECT_DATA_BY_USER_ID,
+            {
+                query: GET_PROJECT_DATA_BY_USER_ID,
+                variables: { userId: String(profile.id), page: String(totalPages), limit: String(limit), sort: String(sort) },
+            },
+        ]
+    } else if (page === totalPages) {
+        refetchQueries = [
+            {
+                query: GET_PROJECT_DATA_BY_USER_ID,
                 variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) },
             },
         ]
@@ -414,10 +426,12 @@ const AddModalProjectCharter = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // const isValid = validate();
-        // if (isValid) {
-        //     console.log("Name & Desc Submit", name, description)
-        // }
+        
+        const isValid = validate();
+        if (isValid) {
+            hideDialog();
+            setErrorValidate("");
+        }
 
         const milestone_id = parseInt(inputRefMilestone.current.value);
         const phase_id = parseInt(inputRefPhase.current.value);
@@ -426,7 +440,7 @@ const AddModalProjectCharter = (props) => {
         setPhaseId(parseInt(inputRefPhase.current.value))
         setTypeId(parseInt(inputRefType.current.value))
         setMilestoneId(parseInt(inputRefMilestone.current.value))
-        
+
         type_id !== 0 ? type_id : setTypeId(parseInt(inputRefType.current.value))
         phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))
         milestone_id !== 0 ? milestone_id : setMilestoneId(parseInt(inputRefMilestone.current.value))
@@ -436,18 +450,18 @@ const AddModalProjectCharter = (props) => {
         // milestone_id !== 0 ? milestone_id : parseInt(inputRefMilestone.current.value);
 
 
-        console.log("Milestone",typeof parseInt(inputRefMilestone.current.value), parseInt(inputRefMilestone.current.value));
+        console.log("Milestone", typeof parseInt(inputRefMilestone.current.value), parseInt(inputRefMilestone.current.value));
         console.log("Milestone", typeof milestone_id, milestone_id);
         console.log("Type", typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
         console.log("Type", typeof type_id, type_id);
-        console.log("Phase" ,typeof parseInt(inputRefPhase.current.value), parseInt(inputRefPhase.current.value));
+        console.log("Phase", typeof parseInt(inputRefPhase.current.value), parseInt(inputRefPhase.current.value));
         console.log("Phase", typeof phase_id, phase_id);
 
 
         console.log("Berhasil submit")
 
         updateTotal();
-        
+
         addProjectCharter({
             variables: {
                 participants,
@@ -508,11 +522,10 @@ const AddModalProjectCharter = (props) => {
         setParticipants(0);
         setAvailableResources(['']);
 
-        hideDialog();
-
+        // hideDialog();
     }
 
-    const dataDailyReport = [
+    const dataProjectCharterName = [
         {
             label: "Name",
             name: "name",
@@ -523,6 +536,19 @@ const AddModalProjectCharter = (props) => {
             minLength: 1,
 
         },
+    ]
+
+    const dataProjectCharter = [
+        // {
+        //     label: "Name",
+        //     name: "name",
+        //     placeholder: "Example: Project Anomaly",
+        //     type: "text",
+        //     value: name,
+        //     onChange: (e) => setName(e.target.value),
+        //     minLength: 1,
+
+        // },
         {
             label: "Description",
             name: "description",
@@ -716,7 +742,29 @@ const AddModalProjectCharter = (props) => {
                                     </Dialog.Title>
 
                                     {/* participants */}
-                                    {dataDailyReport.map((data, index) => {
+                                    {dataProjectCharterName.map((data, index) => {
+                                        return (
+                                            <div className="pb-2">
+                                                <InputField
+                                                    key={index}
+                                                    label={data.label}
+                                                    name={data.name}
+                                                    placeholder={data.placeholder}
+                                                    type={data.type}
+                                                    value={data.value}
+                                                    onChange={data.onChange}
+                                                    minLength={data.minLength}
+
+                                                />
+                                                <div style={{ color: "red" }}>{errorValidate.nameError}</div>
+                                            </div>
+
+
+                                        );
+                                    })}
+
+                                    {/* participants */}
+                                    {dataProjectCharter.map((data, index) => {
                                         return (
                                             <div>
                                                 <InputField
@@ -862,11 +910,11 @@ const AddModalProjectCharter = (props) => {
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                 onClick={handleSubmit}
-                                                // onClick={e => {
-                                                //     // e.preventDefault();
-                                                //     handleSubmit();
-                                                //     // window.location.reload(true);
-                                                // }}
+                                            // onClick={e => {
+                                            //     // e.preventDefault();
+                                            //     handleSubmit();
+                                            //     // window.location.reload(true);
+                                            // }}
                                             >
                                                 <IconSaveForm />
                                                 <p className='text-base text-white pt-0.5 px-1'>Save</p>

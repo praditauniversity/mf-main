@@ -170,6 +170,7 @@ export const GET_ACTIVITY_GANTT_ID = gql`
           human_cost_plan
           human_cost_actual
           activity_type
+          activity_duration
           phase_id
           phase {
             ID
@@ -888,6 +889,7 @@ export const GET_ACTIVITY_DATA = gql`
         human_cost_plan
         human_cost_actual
         activity_type
+        activity_duration
         phase_id
         phase {
           ID

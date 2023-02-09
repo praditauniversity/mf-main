@@ -33,7 +33,7 @@ export default function BarChart(props) {
     // var projectCurrency = "";
 
     projectData.map((project) => {
-        if(profile.id === project.user_id){
+        if (profile.id === project.user_id) {
             sumBudget = sumBudget + project.budget;
             sumAct = sumAct + project.cost_actual;
             sumCost = sumCost + project.cost_plan;
@@ -45,7 +45,12 @@ export default function BarChart(props) {
     //   projectCurrency = project.currency_symbol;
     });
     return (
-      [sumBudget.toFixed(2), sumAct.toFixed(2), sumCost.toFixed(2), sumDanger.toFixed(2), sumVariance.toFixed(2)]
+        [   sumBudget % 1 !== 0 ? sumBudget.toFixed(2) : sumBudget,
+            sumAct % 1 !== 0 ? sumAct.toFixed(2) : sumAct,
+            sumCost % 1 !== 0 ? sumCost.toFixed(2) : sumCost,
+            sumDanger % 1 !== 0 ? sumDanger.toFixed(2) : sumDanger,
+            sumVariance % 1 !== 0 ? sumVariance.toFixed(2) : sumVariance
+        ]
     );
   }
 

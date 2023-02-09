@@ -70,6 +70,22 @@ const AddModalDailyReport = (props) => {
   const [work_log_hour, setWorkLogHour] = useState([0]);
   console.log("work_log_name", setEquipment);
 
+  const [errorValidate, setErrorValidate] = useState({});
+  const validate = () => {
+    let nameError = "";
+
+    if (name.length < 1) {
+      nameError = "Name can't be empty";
+    }
+    if (nameError) {
+      setErrorValidate({ nameError });
+      return false;
+    }
+
+    return true;
+  };
+
+
   const { page, limit, sort, total, updateTotal, totalPages } = props;
 
   let refetchQueries = []
@@ -82,7 +98,17 @@ const AddModalDailyReport = (props) => {
         variables: { projectId: String(localStorage.getItem('reportProjectID')) },
       },
     ]
-  } else {
+  }
+
+  //if right now is not on the last page, then refetch the last page
+  if (page !== totalPages) {
+    refetchQueries = [
+      {
+        query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
+        variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(totalPages), limit: String(limit), sort: String(sort) },
+      },
+    ]
+  } else if (page === totalPages) {
     refetchQueries = [
       {
         query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
@@ -94,9 +120,6 @@ const AddModalDailyReport = (props) => {
   const [
     addDailyReport, { loading: addDailyReportLoading, error: addDailyReportError },] = useMutation(ADD_DAILY_REPORT,
       {
-        // refetchQueries: [{ query: GET_DAILY_REPORT_DATA_BY_PROJECT_ID,
-        //   variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
-        //  }],
         refetchQueries: refetchQueries,
         onComplete: () => { console.log("BISA FETCH DAILY REPORT ANJIR") }
       });
@@ -169,26 +192,10 @@ const AddModalDailyReport = (props) => {
     });
   }
 
-  function printListsetProjectName() {
-    return projectName.map(({ ID, name }) => (
-      <>
-        <option value={ID}>{name}</option>
-      </>
-    ));
-  }
   const handleChangeActivity = (event) => {
     setActivityId(parseInt(event.target.value));
     console.log(
       "Activity ID",
-      typeof parseInt(event.target.value),
-      event.target.value
-    );
-  };
-
-  const handleChangeProject = (event) => {
-    setProjectId(parseInt(event.target.value));
-    console.log(
-      "Project ID",
       typeof parseInt(event.target.value),
       event.target.value
     );
@@ -255,6 +262,12 @@ const AddModalDailyReport = (props) => {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
+    const isValid = validate();
+    if (isValid) {
+      hideDialog();
+      setErrorValidate("");
+    }
 
     // const idProject = parseInt(localStorage.getItem('reportProjectID'));
     // idProject !== null ? idProject : setProjectId(parseInt('reportProjectID'));
@@ -269,8 +282,6 @@ const AddModalDailyReport = (props) => {
     setWorkLogDesc(inputFields.map((inputField) => inputField.description));
     setWorkLogStatus(inputFields.map((inputField) => inputField.status));
     setWorkLogHour(inputFields.map((inputField) => parseInt(inputField.hour)));
-
-    e.preventDefault();
 
     addDailyReport({
       variables: {
@@ -297,7 +308,8 @@ const AddModalDailyReport = (props) => {
 
     updateTotal();
 
-    hideDialog();
+    // hideDialog();
+
     console.log("PROJECT ID AFTER SUBMIT", typeof project_id, project_id);
   };
 
@@ -361,8 +373,10 @@ const AddModalDailyReport = (props) => {
                           onChange={handleName}
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                         />
+                        <div className="mt-3" style={{ color: "red" }}>{errorValidate.nameError}</div>
                       </div>
                     </div>
+                    
                     <div className="mt-3">
                       <div className="form-control w-full max-w-5xl">
                         <label className="label">
@@ -411,6 +425,7 @@ const AddModalDailyReport = (props) => {
                           onChange={handleChangeActivity}
                           className="editor_type select select-bordered w-full max-w-5xl"
                         >
+                          <option value={0}>None</option>
                           {printListsetActivityName()}
                         </select>
                       </div>

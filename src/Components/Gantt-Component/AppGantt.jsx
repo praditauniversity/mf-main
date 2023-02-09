@@ -172,19 +172,19 @@ const handleClearAll = () => {
                 "<label class='label'>" +
                 "<span class='label-text'>Name</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity name' class='editor_name input input-bordered w-full' name='name' />" +
+                "<input type='text' placeholder='Example: Preparing' class='editor_name input input-bordered w-full' name='name' />" +
                 "</div>" +
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
                 "<span class='label-text'>Description</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity description' class='editor_description input input-bordered w-full' name='description' />" +
+                "<input type='text' placeholder='Example: Preparing the project with requirement analysis' class='editor_description input input-bordered w-full' name='description' />" +
                 "</div>" +
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
                 "<span class='label-text'>activity type</span>" +
                 "</label>" +
-                "<input type='text' placeholder='Enter activity type' class='editor_type input input-bordered w-full' name='type' />" +
+                "<input type='text' placeholder='Example: Manpower' class='editor_type input input-bordered w-full' name='type' />" +
                 "</div>" +
                 "</div>"
             );
@@ -215,13 +215,13 @@ const handleClearAll = () => {
                 "<label class='label'>" +
                 "<span class='label-text'>Weight Percentage</span>" +
                 "</label>" +
-                "<input type='number' placeholder='Enter weight percentage' class='editor_weight input input-bordered w-full' name='weight_percentage' />" +
+                "<input type='number' placeholder='Example: 50' class='editor_weight input input-bordered w-full' name='weight_percentage' />" +
                 "</div>" +
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
                 "<span class='label-text'>Progress Percentage</span>" +
                 "</label>" +
-                "<input type='number' placeholder='Enter progress percentage' class='editor_progress input input-bordered w-full' name='progress' />" +
+                "<input type='number' placeholder='Example: 10' class='editor_progress input input-bordered w-full' name='progress' />" +
                 "</div>" +
 
                 "</div>"
@@ -246,55 +246,55 @@ const handleClearAll = () => {
                 "<label class='label'>" +
                 "<span class='label-text'>Cost Plan</span>" +
                 "</label>" +
-                "<input type='number' placeholder='Enter cost plan' class='editor_costPlan input input-bordered w-full' name='costPlan' />" +
+                "<input type='number' placeholder='Example: 100000' class='editor_costPlan input input-bordered w-full' name='costPlan' />" +
                 "</div>" +
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
                 "<span class='label-text'>Cost Actual</span>" +
                 "</label>" +
-                "<input type='number' placeholder='Enter cost actual' class='editor_costActual input input-bordered w-full' name='costActual' />" +
+                "<input type='number' placeholder='Example: 100000' class='editor_costActual input input-bordered w-full' name='costActual' />" +
                 "</div>" +
 
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
                 "<span class='label-text'>Material Cost Plan</span>" +
                 "</label>" +
-                "<input type='number' placeholder='Enter material cost plan' class='editor_materialPlan input input-bordered w-full' name='materialPlan' />" +
+                "<input type='number' placeholder='Example: 100000' class='editor_materialPlan input input-bordered w-full' name='materialPlan' />" +
                 "</div>" +
 
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
                 "<span class='label-text'>Material Cost Actual</span>" +
                 "</label>" +
-                "<input type='number' placeholder='Enter material cost actual' class='editor_materialActual input input-bordered w-full' name='materialActual' />" +
+                "<input type='number' placeholder='Example: 100000' class='editor_materialActual input input-bordered w-full' name='materialActual' />" +
                 "</div>" +
 
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
                 "<span class='label-text'>tool Cost Plan</span>" +
                 "</label>" +
-                "<input type='number' placeholder='Enter tool cost plan' class='editor_toolPlan input input-bordered w-full' name='toolPlan' />" +
+                "<input type='number' placeholder='Example: 100000' class='editor_toolPlan input input-bordered w-full' name='toolPlan' />" +
                 "</div>" +
 
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
                 "<span class='label-text'>tool Cost Actual</span>" +
                 "</label>" +
-                "<input type='number' placeholder='Enter tool cost actual' class='editor_toolActual input input-bordered w-full' name='toolActual' />" +
+                "<input type='number' placeholder='Example: 100000' class='editor_toolActual input input-bordered w-full' name='toolActual' />" +
                 "</div>" +
 
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
                 "<span class='label-text'>Human Cost Plan</span>" +
                 "</label>" +
-                "<input type='number' placeholder='Enter human cost plan' class='editor_humanPlan input input-bordered w-full' name='humanPlan' />" +
+                "<input type='number' placeholder='Example: 100000' class='editor_humanPlan input input-bordered w-full' name='humanPlan' />" +
                 "</div>" +
 
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
                 "<span class='label-text'>Human Cost Actual</span>" +
                 "</label>" +
-                "<input type='number' placeholder='Enter human cost actual' class='editor_humanActual input input-bordered w-full' name='humanActual' />" +
+                "<input type='number' placeholder='Example: 100000' class='editor_humanActual input input-bordered w-full' name='humanActual' />" +
                 "</div>" +
                 "</br>" +
                 "</div>"

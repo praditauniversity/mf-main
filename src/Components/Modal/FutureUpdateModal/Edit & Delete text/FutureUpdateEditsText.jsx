@@ -4,7 +4,7 @@ import { IconEdit } from '../../../Icons/icon';
 
 
 
-const FutureUpdateDeleteText = () => {
+const FutureUpdateEditText = () => {
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
@@ -49,7 +49,7 @@ const FutureUpdateDeleteText = () => {
     return (
         <div>
             <button onClick={showDialog} >
-                <a>Delete</a>
+                <a>Edit</a>
             </button>
             <DialogButton />
         </div>
@@ -58,4 +58,4 @@ const FutureUpdateDeleteText = () => {
     );
 };
 
-export default FutureUpdateDeleteText;
+export default FutureUpdateEditText;

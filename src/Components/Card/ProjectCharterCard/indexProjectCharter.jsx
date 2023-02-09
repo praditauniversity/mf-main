@@ -21,7 +21,7 @@ const ProjectCharterPage = (props) => {
 
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage] = useState(5) // hardcode
-    const [totalItems, setTotalItems] = useState(projectData.length || 1)
+    const [totalItems, setTotalItems] = useState(projectData.length)
 
     useEffect (() => {
         if (projectData) {
@@ -31,7 +31,7 @@ const ProjectCharterPage = (props) => {
         }
     }, [projectData])
 
-    const totalPages = Math.ceil(totalItems / itemsPerPage)
+    const totalPages = Math.ceil(totalItems / itemsPerPage) ? Math.ceil(totalItems / itemsPerPage) : 1
 
     const handlePageChange = (currentPage) => {
         setCurrentPage(currentPage)      
