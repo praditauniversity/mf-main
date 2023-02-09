@@ -60,6 +60,10 @@ const DRList = (props) => {
     }).length > 0;
   }).length;
 
+  const setDataEmpty = () => {
+    setDailyReport([]);
+  }
+
   const ifDRListDataEmpty = () => {
     if (dataLength === 0 && noneDataLength === 0) {
       return (
@@ -133,6 +137,7 @@ const DRList = (props) => {
                               updateTotal={updateTotalItems}
                               dropCurrentPage={onPageChange}
                               totalPages={totalPages}
+                              setDataEmpty={setDataEmpty}
                             />
                           </button>
                           <button className="px-1" id="icon">

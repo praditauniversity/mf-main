@@ -12,7 +12,7 @@ const DELETE_MINUTES_OF_MEETING = gql`
 `;
 
 const DeleteModalMinuteOfMeeting = (props) => {
-    const { momID, momName, page, limit, sort, total, updateTotal, dropCurrentPage, totalPages } = props;
+    const { momID, momName, page, limit, sort, total, updateTotal, dropCurrentPage, totalPages, setDataEmpty } = props;
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
@@ -28,7 +28,7 @@ const DeleteModalMinuteOfMeeting = (props) => {
                 variables: { projectId: String(localStorage.getItem('momProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
             },
         ],
-        onCompleted: () => { console.log("Berhasil Fetch") }
+        onCompleted: () => { console.log("Berhasil Delete, sisa data:", total) }
     }
     );
 
@@ -49,6 +49,10 @@ const DeleteModalMinuteOfMeeting = (props) => {
 
         if (total % limit === 1 && page === totalPages) {
             dropCurrentPage(page - 1);
+        }
+
+        if (total % limit === 1 && page === 1) {
+            setDataEmpty();
         }
 
         hideDialog();

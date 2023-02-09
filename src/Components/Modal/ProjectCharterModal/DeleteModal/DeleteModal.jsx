@@ -3,7 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import { Dialog, Transition } from '@headlessui/react';
 import '../../../../Assets/svgbutton/svgbutton.css'
 import { IconDelete, IconSaveForm } from '../../../Icons/icon';
-import { GET_CHARTER_DATA_BY_USER_ID, GET_PROJECT_DATA_BY_USER_ID } from '../../../GraphQL/Queries';
+import { GET_CHARTER_DATA_BY_USER_ID, GET_PROJECT_DATA, GET_PROJECT_DATA_BY_USER_ID } from '../../../GraphQL/Queries';
 import GetProfile from '../../../Auth/GetProfile';
 
 const DELETE_PROJECTCHARTER = gql`
@@ -12,7 +12,7 @@ deleteProject(id: $id)
 }`;
 
 const DeleteModalProject = (props) => {
-    const { projectID, projectName, page, limit, sort, total, updateTotal, dropCurrentPage, totalPages } = props;
+    const { projectID, projectName, page, limit, sort, total, updateTotal, dropCurrentPage, totalPages, setEmpty } = props;
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
@@ -24,20 +24,20 @@ const DeleteModalProject = (props) => {
     const profile = GetProfile();
 
     // let refetchQueries = [];
-    // //if last data in page is deleted, then refetch previous page
-    // if ( total % limit === 1 && page > 1) {
+    //if only one item in the first page, then data will be empty
+    // if (total % limit === 1 && page === 1) {
     //     refetchQueries = [
-    //         { query: GET_PROJECT_DATA_BY_USER_ID,
-    //             variables: { userId: String(profile.id), page: String(page-1), limit: String(limit), sort: String(sort) },
+    //         {
+    //             query: GET_PROJECT_DATA,
     //         },
-    //     ]
+    //     ];
     // } 
 
     const [deleteCharter, { data: deleteCharterData, error: deleteCharterError }] = useMutation(DELETE_PROJECTCHARTER, {
-        refetchQueries: [
+        refetchQueries : [
             { query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) } },
         ],
-        onCompleted: () => { console.log("Berhasil DELETE PROJECT") }
+        onCompleted: () => { console.log("Berhasil DELETE PROJECT, sisa", total) }
     }
     );
 
@@ -56,8 +56,12 @@ const DeleteModalProject = (props) => {
 
         updateTotal();
 
-        if (total % limit === 1 && page === totalPages) {
+        if (total % limit === 1 && page === totalPages && page !== 1) {
             dropCurrentPage(page - 1);
+        }
+
+        if (total % limit === 1 && page === 1) {
+            setEmpty();
         }
 
         hideDialog();

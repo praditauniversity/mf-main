@@ -52,6 +52,10 @@ const PCList = (props) => {
     if (loading) return 'Submitting...';
     if (error) return `Submission error! ${error.message}`;
 
+    const setCharterDataEmpty = () => {
+        setCharter([]);
+    }
+
     const ifCharterDataEmpty = () => {
         if (charterData.length === 0) {
             // fill the table with white space
@@ -83,7 +87,6 @@ const PCList = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* ada masalah disini */}
                         {Array.isArray(charterData) ? charterData.map((item) => {
                             console.log("AAA", item.ID);
                             const idMap = toString(item.ID);
@@ -145,6 +148,7 @@ const PCList = (props) => {
                                                 updateTotal={updateTotalItems}
                                                 dropCurrentPage={onPageChange}
                                                 totalPages={totalPages}
+                                                setEmpty={setCharterDataEmpty}
                                             />
                                         </button>
                                         <button className="" id="icon">

@@ -38,6 +38,10 @@ const MinutesofMeetingList = (props) => {
     }).length > 0;
   }).length;
 
+  const setDataEmpty = () => {
+    setMomData([]);
+  }
+
   const ifMomListEmpty = () => {
     if (dataLength === 0) {
       return (
@@ -117,6 +121,7 @@ const MinutesofMeetingList = (props) => {
                                 updateTotal={updateTotalItems}
                                 dropCurrentPage={onPageChange}
                                 totalPages={totalPages}
+                                setDataEmpty={setDataEmpty}
                               />
                             </button>
                             <button className="px-1" id="icon">

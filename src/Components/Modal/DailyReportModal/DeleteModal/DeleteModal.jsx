@@ -11,7 +11,7 @@ const DELETE_DAILYREPORT = gql`
   }`;
 
 const DeleteModalReport = (props) => {
-    const { reportID, reportName, page, limit, sort, total, updateTotal, dropCurrentPage, totalPages } = props;
+    const { reportID, reportName, page, limit, sort, total, updateTotal, dropCurrentPage, totalPages, setDataEmpty } = props;
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
@@ -27,7 +27,7 @@ const DeleteModalReport = (props) => {
                 variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
             },
         ],
-        onCompleted: () => { console.log("Berhasil Hapus") }
+        onCompleted: () => { console.log("Berhasil Hapus, sisa data:", total) }
     }
     );
 
@@ -46,8 +46,12 @@ const DeleteModalReport = (props) => {
 
         updateTotal();
 
-        if (total % limit === 1 && page === totalPages) {
+        if (total % limit === 1 && page === totalPages && page !== 1) {
             dropCurrentPage(page - 1);
+        }
+
+        if (total % limit === 1 && page === 1) {
+            setDataEmpty();
         }
 
         hideDialog();

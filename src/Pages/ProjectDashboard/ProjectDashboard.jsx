@@ -12,6 +12,10 @@ import { Actual, Budget, Client, Cost, CostHealth, Danger, ProjectManager, Sched
 const ProjectDashboard = (props) => {
 
     const { data } = props;
+    const [datadata, setDatadata] = React.useState(data);
+    useEffect(() => {
+        setDatadata(data);
+    }, [data]);
     return (
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 2xl:grid-cols-18 lg:mt-0 mt-4 no-scrollbar">
             <div className="2xl:col-span-15 col-span-12 row-span-1">
@@ -22,26 +26,26 @@ const ProjectDashboard = (props) => {
                             title1="Project Name"
                             description1="Project Anomaly"
                             title2="Project Manager"
-                            description2={data != 0 ? <ProjectManager value={data} /> : "N/A"}
+                            description2={datadata != 0 ? <ProjectManager value={datadata} /> : "N/A"}
                             title3="Client"
-                            description3={data != 0 ? <Client value={data} /> : "N/A"}
+                            description3={datadata != 0 ? <Client value={datadata} /> : "N/A"}
                         />
                     </div>
-                    <div className="md:col-span-3 col-span-15 row-span-1"> <HealthCard title="Health by Cost" description={<CostHealth value={data} />} colorIcon="text-error-dark" /> </div>
-                    <div className="md:col-span-3 col-span-15 row-span-1"> <HealthCard title="Health by Schedule" description={<ScheduleHealth value={data} />} colorIcon="text-tertiary-dark" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <HealthCard title="Health by Cost" description={<CostHealth value={datadata} />} colorIcon="text-error-dark" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <HealthCard title="Health by Schedule" description={<ScheduleHealth value={datadata} />} colorIcon="text-tertiary-dark" /> </div>
 
-                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Budget" description={<Budget value={data} />} colorIcon="text-secondary-800" /> </div>
-                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Cost" description={<Cost value={data} />} colorIcon="text-orange-dark" /> </div>
-                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Actual" description={<Actual value={data} />} colorIcon="text-primary-800" /> </div>
-                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Danger" description={<Danger value={data} />} colorIcon="text-error-dark" /> </div>
-                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Variance" description={<Variance value={data} />} colorIcon="text-tertiary-800" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Budget" description={<Budget value={datadata} />} colorIcon="text-secondary-800" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Cost" description={<Cost value={datadata} />} colorIcon="text-orange-dark" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Actual" description={<Actual value={datadata} />} colorIcon="text-primary-800" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Danger" description={<Danger value={datadata} />} colorIcon="text-error-dark" /> </div>
+                    <div className="md:col-span-3 col-span-15 row-span-1"> <BudgetCard title="Variance" description={<Variance value={datadata} />} colorIcon="text-tertiary-800" /> </div>
 
 
                     {/* Main row */}
                     <div className="md:col-span-5 col-span-15 row-span-1"> <ProjectProgressCard /> </div>
                     <div className="md:col-span-10 col-span-15 row-span-3"> <PrintGantt title="Gantt Chart" /> </div>
                     {/* <div className="md:col-span-5 col-span-15 row-span-1"> <TaskOverviewCardProject /> </div> */}
-                    <div className="md:col-span-5 col-span-15 row-span-1"> <DonutTaskOverviewProject value={data} /> </div>
+                    <div className="md:col-span-5 col-span-15 row-span-1"> <DonutTaskOverviewProject value={datadata} /> </div>
                     <div className="col-span-15">
                         {/* <TaskListCard />  */}
                         {<PrintTaskList />}
