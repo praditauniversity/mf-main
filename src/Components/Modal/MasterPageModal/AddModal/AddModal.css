@@ -1,0 +1,19 @@
+#buttonInside {
+  position: relative;
+}
+#inputInside {
+
+}
+
+#buttonInputInside {
+  position: absolute;
+  top: 0;
+  border-radius: 0px 8px 8px 0px;
+  right: 0px;
+  z-index: 2;
+  border: none;
+  height: 42px;
+  width: 42px;
+  cursor: pointer;
+  transform: translateX(2px);
+}

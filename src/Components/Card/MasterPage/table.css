@@ -1,0 +1,6 @@
+.table tr td:first-child {
+    position: sticky;
+    position: -webkit-sticky;
+    left: 0px;
+    z-index: 11;
+}

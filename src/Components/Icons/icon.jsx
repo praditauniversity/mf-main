@@ -141,6 +141,16 @@ export const IconView = () => {
     )
 }
 
+export const IconInfo= () => {
+    return (
+        <svg width="30" height="31" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="15" cy="15.5" r="11.25" fill="#2A4157" fill-opacity="0.24"/>
+            <path d="M15 22.375V13.625H13.125M15 22.375H17.5M15 22.375H12.5" stroke="#252B4B"/>
+            <path d="M15 8V9.875" stroke="#33363F" stroke-linecap="round"/>
+        </svg>
+    )
+}
+
 // export const IconFacebook = () => {
 //     return (
 //         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

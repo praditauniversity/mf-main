@@ -1,8 +1,8 @@
 import React from "react";
-import IconHome from "../../Assets/Icons/svg/Home.svg";
 import IconUser from "../../Assets/Icons/svg/User_bw.svg";
 import IconUserGroup from "../../Assets/Icons/svg/UserGroup.svg";
 import MasterPageInnerCard from "../../Components/Card/MasterPage/MasterPageInnerCard";
+import Tabs from "../../Components/Card/MasterPage/Tabs";
 
 const MasterPageAdmin = () => {
     const MainHeader = (props) => {
@@ -19,7 +19,7 @@ const MasterPageAdmin = () => {
             <div className="2xl:col-span-18 col-span-12 h-100">
                 <div className="col-span-12 ml-5 mb-10 mr-5 h-100">
                     <div className="flex items-center mb-3 mt-3">
-                        <MainHeader label="Master Page"/>
+                        <MainHeader label="Master Page - PT Raksa Jaya Serbaguna"/>
                     </div>
 
                     {/* Still static hehe, gonna move this to the component part */}
@@ -40,7 +40,7 @@ const MasterPageAdmin = () => {
                         <MainHeader label="All Lists" />
                     </div>
                     <div className="border border-none rounded-lg bg-background-snow p-5">
-                        
+                        <Tabs color="primary"/>
                     </div>
                 </div>
 
