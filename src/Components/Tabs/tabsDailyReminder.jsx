@@ -18,6 +18,14 @@ const TabsDailyReminder = ({ color }) => {
     const endDate = new Date(item.end_time);
     const status = item.phase.name;
     return endDate > todayDate && status === "In Progress";
+  }).filter((item) => {
+    return ganttData.filter((gantt) => {
+      return gantt.ID === item.gantt_id;
+    }).filter((gantt) => {
+      return projectData.filter((project) => {
+        return project.ID === gantt.project_id;
+      }).length > 0;
+    }).length > 0;
   }).length;
 
   // const [someTask, setSomeTask] = useState([

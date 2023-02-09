@@ -100,6 +100,64 @@ const DRList = (props) => {
           <tbody>
             {
               projectData.map((project) => {
+                return dailyReportData.map((dailyReport) => {
+                  if (project.ID === dailyReport.project_id && dailyReport.activity_id === 0) {
+        
+                    const reportDate = new Date(dailyReport.report_date);
+                    const reportDateYear = reportDate.toLocaleDateString('en-US', { year: 'numeric' });
+                    const reportDateMonth = reportDate.toLocaleDateString('en-US', { month: '2-digit' });
+                    const reportDateDay = reportDate.toLocaleDateString('en-US', { day: '2-digit' });
+                    return (
+                      <tr key={dailyReport.ID}>
+                        <td align="center">{dailyReport.name}</td>
+                        <td align="center">{dailyReport.report_number}</td>
+                        <td align="center">{reportDateYear}/{reportDateMonth}/{reportDateDay}</td>
+                        <td align="center">None</td>
+                        <td align="center">
+                          <button className="px-1" id="icon">
+                            <UpdateModalDailyReport
+                              reportData={dailyReport}
+                              page={page}
+                              limit={limit}
+                              sort={sort}
+                            />
+                          </button>
+                          <button className="px-1" id="icon">
+                            <DeleteModalReport
+                              reportID={String(dailyReport.ID)}
+                              reportName={dailyReport.name}
+                              page={page}
+                              limit={limit}
+                              sort={sort}
+                              total={totalItems}
+                              updateTotal={updateTotalItems}
+                              dropCurrentPage={onPageChange}
+                              totalPages={totalPages}
+                            />
+                          </button>
+                          <button className="px-1" id="icon">
+                            <ViewModalReport
+                              reportName={dailyReport.name}
+                              reportDesc={dailyReport.description}
+                              reportDate={reportDateMonth + "/" + reportDateDay + "/" + reportDateYear}
+                              reportNumber={dailyReport.report_number}
+                              reportActivity="None"
+                              reportWLName={dailyReport.work_log_name}
+                              reportWLDesc={dailyReport.work_log_desc}
+                              reportWLStatus={dailyReport.work_log_status}
+                              reportWLHour={dailyReport.work_log_hour}
+                              reportEq={dailyReport.equipment}
+                            />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  }
+                });
+              })
+            }
+            {
+              projectData.map((project) => {
                 return (
                   ganttData.map((gantt) => {
                     if (project.ID === gantt.project_id) {
@@ -191,65 +249,6 @@ const DRList = (props) => {
                     }
                   })
                 )
-              })
-            }
-            
-            {
-              projectData.map((project) => {
-                return dailyReportData.map((dailyReport) => {
-                  if (project.ID === dailyReport.project_id && dailyReport.activity_id === 0) {
-        
-                    const reportDate = new Date(dailyReport.report_date);
-                    const reportDateYear = reportDate.toLocaleDateString('en-US', { year: 'numeric' });
-                    const reportDateMonth = reportDate.toLocaleDateString('en-US', { month: '2-digit' });
-                    const reportDateDay = reportDate.toLocaleDateString('en-US', { day: '2-digit' });
-                    return (
-                      <tr key={dailyReport.ID}>
-                        <td align="center">{dailyReport.name}</td>
-                        <td align="center">{dailyReport.report_number}</td>
-                        <td align="center">{reportDateYear}/{reportDateMonth}/{reportDateDay}</td>
-                        <td align="center">None</td>
-                        <td align="center">
-                          <button className="px-1" id="icon">
-                            <UpdateModalDailyReport
-                              reportData={dailyReport}
-                              page={page}
-                              limit={limit}
-                              sort={sort}
-                            />
-                          </button>
-                          <button className="px-1" id="icon">
-                            <DeleteModalReport
-                              reportID={String(dailyReport.ID)}
-                              reportName={dailyReport.name}
-                              page={page}
-                              limit={limit}
-                              sort={sort}
-                              total={totalItems}
-                              updateTotal={updateTotalItems}
-                              dropCurrentPage={onPageChange}
-                              totalPages={totalPages}
-                            />
-                          </button>
-                          <button className="px-1" id="icon">
-                            <ViewModalReport
-                              reportName={dailyReport.name}
-                              reportDesc={dailyReport.description}
-                              reportDate={reportDateMonth + "/" + reportDateDay + "/" + reportDateYear}
-                              reportNumber={dailyReport.report_number}
-                              reportActivity="None"
-                              reportWLName={dailyReport.work_log_name}
-                              reportWLDesc={dailyReport.work_log_desc}
-                              reportWLStatus={dailyReport.work_log_status}
-                              reportWLHour={dailyReport.work_log_hour}
-                              reportEq={dailyReport.equipment}
-                            />
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  }
-                });
               })
             }
             {ifDRListDataEmpty()}

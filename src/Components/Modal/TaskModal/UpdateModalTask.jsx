@@ -22,7 +22,7 @@ const UpdateModalTask = (props) => {
             refetchQueries: [
                 {
                     query: GET_ACTIVITY_DATA,
-                    variables: { id: taskData.ID }
+                    variables: { id: String(taskData.ID) }
                 },
             ],
             onCompleted: () => { console.log("Berhasil Fetch") }
@@ -83,7 +83,7 @@ const UpdateModalTask = (props) => {
         };
 
         const handleSubmit = (e) => {
-            // e.preventDefault();
+            e.preventDefault();
     
             const id = taskData.ID;
             const gantt_id = taskData.gantt_id;
@@ -199,11 +199,12 @@ const UpdateModalTask = (props) => {
                                                     type="button"
                                                     className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                     // value={taskData.ID}
-                                                    onClick={e => {
-                                                        e.preventDefault();
-                                                        handleSubmit();
-                                                        // window.location.reload(true);
-                                                    }}
+                                                    // onClick={e => {
+                                                    //     e.preventDefault();
+                                                    //     handleSubmit();
+                                                    //     // window.location.reload(true);
+                                                    // }}
+                                                    onClick={handleSubmit}
                                                 >
                                                     <IconSaveForm />
                                                     <p className='text-base text-white pt-0.5 px-1'>Update</p>
@@ -226,14 +227,14 @@ const UpdateModalTask = (props) => {
             refetchQueries: [
                 {
                     query: GET_ACTIVITY_DATA,
-                    variables: { id: taskData.ID }
+                    variables: { id: String(taskData.ID) }
                 },
             ],
             onCompleted: () => { console.log("Berhasil Fetch") }
         });
     
         const handleDelete = (e) => {
-            // e.preventDefault();
+            e.preventDefault();
             deleteTask({
                 variables: {
                     id: String(taskData.ID),
@@ -311,11 +312,12 @@ const UpdateModalTask = (props) => {
                                                     type="button"
                                                     className="inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-primary hover:bg-error-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                     // value={taskData.ID}
-                                                    onClick={e => {
-                                                        e.preventDefault();
-                                                        handleDelete();
-                                                        // window.location.reload(true);
-                                                    }}
+                                                    // onClick={e => {
+                                                    //     e.preventDefault();
+                                                    //     handleDelete();
+                                                    //     // window.location.reload(true);
+                                                    // }}
+                                                    onClick={handleDelete}
                                                 >
                                                     <IconSaveForm />
                                                     <p className='text-base text-white pt-0.5 px-1'>Delete</p>
