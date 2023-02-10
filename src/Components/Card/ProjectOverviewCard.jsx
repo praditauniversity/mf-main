@@ -1,6 +1,7 @@
 import React from "react";
 import { PrintListProjetcName } from "../Gantt-Component/CustomActivityState";
 import ListboxProjectName from "../Listbox/ListProjectName";
+import PrintListProjectDashboardWithData from "./PrintListProjectDashboardWithData/PrintListProjectDashboardWithData";
 
 
 const ProjectOverviewCard = (props) => {
@@ -12,7 +13,7 @@ const ProjectOverviewCard = (props) => {
         <div>
         {/* <ListboxProjectName /> */}
         {/* error below */}
-        <PrintListProjetcName />
+        <PrintListProjectDashboardWithData />
         </div>
         {/* <p className={`py-1 font-semibold text-xl`}>{description1}</p> */}
       </div>

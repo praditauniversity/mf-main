@@ -14,6 +14,7 @@ import EditModalGantt from "../Modal/Gantt/EditModalGantt";
 import { PrintListGanttName } from "./CustomActivityState";
 import Toolbar from "./Toolbar";
 import { GET_ACTIVITY_DATA, GET_ACTIVITY_GANTT_ID, GET_LINK_DATA } from "../GraphQL/Queries";
+import ListboxGanttProjectDashboard from "../Card/PrintGanttProjectDashboard/ListboxGanttProjectDashboard";
 
 let selectedPriorityValue;
 let selectedPriorityText;
@@ -521,7 +522,7 @@ let previousDataGanttLength;
 
 function AppGantt(props) {
     console.log("Console Log AppGantt Rendered");
-    const { title, dataGantt, dataPhase, dataLink, dataUnitMeasure, ganttID, isReadOnly, isShowAddColumn, isShowListGantt } = props;
+    const { title, dataGantt, dataPhase, dataLink, dataUnitMeasure, ganttID, isReadOnly, isShowAddColumn, isShowListGantt, projectID } = props;
 
     let previousDataLinkLength;
 
@@ -1121,7 +1122,8 @@ function AppGantt(props) {
                         <div className="py-2 px-4 flex justify-between items-center align-middle">
                             <p className="text-md">{title}</p>
                             <div className="px-4 flex items-center align-right">
-                                <PrintListGanttName />
+                                {console.log("BRIAN", typeof projectID, projectID)}
+                                <ListboxGanttProjectDashboard projectID={String(projectID)}/>
                             </div>
                         </div>
                     ) : null

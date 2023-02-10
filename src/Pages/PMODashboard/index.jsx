@@ -23,6 +23,7 @@ const PMODashboardPage = () => {
     return (
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 2xl:grid-cols-18 lg:mt-0 mt-4">
             {/* Main Activities */}
+            {console.log("RENDER PMODASHBOARD")}
             <div className="2xl:col-span-15 col-span-12">
                 <div className="grid grid-cols-15 gap-2">
                     {/* Top row */}

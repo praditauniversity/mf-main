@@ -23,7 +23,7 @@ const DailyReportPage = (props) => {
     // const projectData = FetchProjectByUserId();
 
     const profile = GetProfile();
-    const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+    const { data,refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: profile.id, sort: "ID asc" },
     });
     const [projectData, setProject] = useState([]);
@@ -40,6 +40,7 @@ const DailyReportPage = (props) => {
             localStorage.getItem('reportProjectID') === null ? localStorage.setItem('reportProjectID', data.projectByUserId.Data[0].ID) : console.log("reportProjectID is not null");
             reportProjectID === null ? setReportProjectID(data.projectByUserId.Data[0].ID) : setReportProjectID(localStorage.getItem('reportProjectID'));
         }
+        refetch({ userId: String(profile.id), sort: "ID asc" });
         if (DRDataList) {
             setTotalItems(DRDataList.length);
         }

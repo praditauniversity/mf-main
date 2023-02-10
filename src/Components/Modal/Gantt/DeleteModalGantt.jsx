@@ -17,7 +17,7 @@ import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 import { useParams } from 'react-router-dom';
 
 const DeleteModalGantt = (props) => {
-    const { ganttID, ganttName } = props;
+    const { ganttID, ganttName, total, setDataEmpty } = props;
 
     let { projectID } = useParams();
 
@@ -60,6 +60,10 @@ const DeleteModalGantt = (props) => {
 
         if (deleteGanttError) {
             console.log(JSON.stringify(deleteGanttError, null, 2));
+        }
+
+        if (total === 1) {
+            setDataEmpty();
         }
 
         hideDialog();

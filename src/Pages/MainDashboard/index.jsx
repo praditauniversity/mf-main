@@ -30,14 +30,14 @@ const MainDashboard = () => {
         if (projectLength === 0) {
             // fill the table with white space
             return (
-                <tr className="h-full" >
-                    <td colSpan="7" className="text-center ">
+                <div className="h-full" >
+                    <div colSpan="7" className="text-center py-24">
                         <div className="text-gray-400">
                             <div className="text-5xl font-bold">No On-going Project</div>
                             <div className="text-xl">Please take your time</div>
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                </div>
             )
         }
     }

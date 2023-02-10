@@ -4,21 +4,20 @@ import FetchProjectByUserId from '../../../Middleware/Fetchers/FetchProjectByUse
 import GetProfile from '../../Auth/GetProfile';
 import { GET_PROJECT_DATA_BY_USER_ID } from '../../GraphQL/Queries';
 
-const ListboxProject = () => {
+const PrintListProjectDashboardWithData = () => {
     const profile = GetProfile();
-    const {data, refetch} = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+    const {data,refetch} = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: profile.id, sort: "ID asc" },
     });
     const [projectData, setProjectData] = useState([]);
-    const [TPEID, setTPEID] = useState(localStorage.getItem('TPEID'));
+    const [PROJECTID, setPROJECTID] = useState(localStorage.getItem('projectID'));
     useEffect(() => {
     if(data){
         setProjectData(data.projectByUserId.Data);
         //if local storage is empty, set to first project id
-        localStorage.getItem('TPEID') === null ? localStorage.setItem('TPEID', data.projectByUserId.Data[0].ID) : console.log("TpeID is not null");
-        TPEID === null ? setTPEID(data.projectByUserId.Data[0].ID) : setTPEID(localStorage.getItem('TPEID'));
+        localStorage.getItem('projectID') === null ? localStorage.setItem('projectID', data.projectByUserId.Data[0].ID) : console.log("projectID is not null");
+        PROJECTID === null ? setPROJECTID(data.projectByUserId.Data[0].ID) : setPROJECTID(localStorage.getItem('projectID'));
     }
-    
     refetch({ userId: String(profile.id), sort: "ID asc" });
     }, [data]);
     
@@ -30,13 +29,14 @@ const ListboxProject = () => {
         ));
     }
     const handleChange=(event)=>{
-        setTPEID(event.target.value);
-        localStorage.setItem('TPEID',event.target.value);
+        setPROJECTID(event.target.value);
+        localStorage.setItem('projectID', event.target.value);
+        localStorage.setItem('ganttID', null);
         window.location.reload();
     }
     return (
         <div className="flex flex-col items-center">
-            <select value={TPEID} onChange={handleChange} className="select select-ghost select-sm w-full max-w-xs">
+            <select value={PROJECTID} onChange={handleChange} className="select select-ghost select-sm w-full max-w-xs">
                 {/* <option>Solar Panel Smart Lab</option>
                 <option>Winter Wonderland</option>
                 <option>Reverie Product</option>
@@ -46,4 +46,4 @@ const ListboxProject = () => {
         </div>
     );
 }
-export default ListboxProject;
+export default PrintListProjectDashboardWithData;

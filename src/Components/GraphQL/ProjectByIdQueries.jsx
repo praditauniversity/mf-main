@@ -338,13 +338,13 @@ export function ProjectManager(props) {
         let projectManager = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                projectManager = project.project_manager ? project.project_manager : "N/A";
+                projectManager = project.project_manager;
             }
         });
         return (
             <div>
                 <p>
-                    {projectManager}
+                    {projectManager ? projectManager : "N/A"}
                 </p>
             </div>
         );
@@ -374,13 +374,13 @@ export function Client(props) {
         let client = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                client = project.client ? project.client : "N/A";
+                client = project.client;
             }
         });
         return (
             <div>
                 <p>
-                    {client}
+                    {client ? client : "N/A"}
                 </p>
             </div>
         );
@@ -410,13 +410,13 @@ export function ClientContact(props) {
         let clientContact = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                clientContact = project.client_contact ? project.client_contact : "N/A";
+                clientContact = project.client_contact;
             }
         });
         return (
             <div>
                 <p>
-                    {clientContact}
+                    {clientContact ? clientContact : "N/A"}
                 </p>
             </div>
         );
@@ -446,13 +446,13 @@ export function ProjectStatus(props) {
         let projectStatus = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                projectStatus = project.status ? project.status : "N/A";
+                projectStatus = project.status;
             }
         });
         return (
             <div>
                 <p>
-                    {projectStatus}
+                    {projectStatus ? projectStatus : "N/A"}
                 </p>
             </div>
         );
@@ -482,13 +482,13 @@ export function Location(props) {
         let location = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                location = project.office_location ? project.office_location : "N/A";
+                location = project.office_location;
             }
         });
         return (
             <div>
                 <p>
-                    {location}
+                    {location ? location : "N/A"}
                 </p>
             </div>
         );

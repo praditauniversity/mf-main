@@ -14,17 +14,17 @@ import VerticalTabs from "../../Tabs/verticalTabs";
 import ListGanttByProject from "../../Listbox/ListGanttName";
 import ListboxProjectName from "../../Listbox/ListProjectName";
 import GetProfile from "../../Auth/GetProfile";
+import ProjectDashboard from "../../../Pages/ProjectDashboard/ProjectDashboard";
 
 function useActivity() {
   const { ganttID } = useGantt();
-  const [ganttIDUSEGANTT, setGanttID] = useState(localStorage.getItem('ganttID'));
+  const [ setGanttID] = useState(localStorage.getItem('ganttID'));
 
   const { data, loading, error } = useQuery(GET_ACTIVITY_GANTT_ID, {
     variables: { gantt_id: String(ganttID), sort: "ID asc" }
   });
 
   const [activityData, setActivity] = useState([]);
-  const [testData, settestData] = useState([]);
 
   useEffect(() => {
     console.log("USE EFFECT ACTIVITY");
@@ -32,12 +32,36 @@ function useActivity() {
       console.log("Data Ready Activity");
       setActivity(data.activityGetGanttID.data);
       console.log(data.activityGetGanttID.data);
+    } 
+    else {
+      console.log("No data Activity");
+    }
+  }, [data]);
+
+  return [activityData, setActivity];
+}
+
+function useUpcomingActivity() {
+  const { ganttID } = useGantt();
+
+  const { data, loading, error } = useQuery(GET_ACTIVITY_GANTT_ID, {
+    variables: { gantt_id: String(ganttID), limit: "6", sort: "start_time asc" }
+  });
+
+  const [upcomingData, setUpcomingData] = useState([]);
+
+  useEffect(() => {
+    console.log("USE EFFECT ACTIVITY");
+    if (data) {
+      console.log("Data Ready Upcoming");
+      setUpcomingData(data.activityGetGanttID.data);
+      console.log(data.activityGetGanttID.data);
     } else {
       console.log("No data Activity");
     }
   }, [data]);
 
-  return [activityData, setActivity, testData, settestData];
+  return [upcomingData, setUpcomingData];
 }
 
 function useLink() {
@@ -59,7 +83,7 @@ function useLink() {
   return [linkData, setLink];
 }
 
-function useProject() {
+export function useProject() {
   const profile = GetProfile();
   const [projectData, setProjectData] = useState([]);
   const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
@@ -97,7 +121,6 @@ function useGantt() {
   const { data: dataGanttProject, loading: loadingGanttProject, error: errorGanttProject } = useQuery(GET_GANTT_PROJECT_ID, {
     variables: { project_id: projectID }
   });
-
 
   useEffect(() => {
     if (dataGanttProject) {
@@ -162,22 +185,23 @@ export const useUnitMeasure = () => {
   return [unitMeasureData, setUnitMeasureData];
 }
 
-export const PrintGantt = (props) => {
-  const { title } = props;
-  const { projectID } = useProject();
-  const { ganttID } = useGantt();
-  console.log("PrintGantt projectID", projectID);
-  console.log("PrintGantt ganttID", ganttID);
-  const [activityData, setActivity] = useActivity();
-  const [linkData, setLink] = useLink();
-  const [activityPhaseData, setActivityPhaseData] = useActivityPhase();
-  const [unitMeasureData, setUnitMeasureData] = useUnitMeasure();
+// Error when logout no list gantt
+// export const PrintGantt = (props) => {
+//   const { title } = props;
+//   const { projectID } = useProject();
+//   const { ganttID } = useGantt();
+//   console.log("PrintGantt projectID", projectID);
+//   console.log("PrintGantt ganttID", ganttID);
+//   const [activityData, setActivity] = useActivity();
+//   const [linkData, setLink] = useLink();
+//   const [activityPhaseData, setActivityPhaseData] = useActivityPhase();
+//   const [unitMeasureData, setUnitMeasureData] = useUnitMeasure();
 
-  return <>
-    {console.log("PrintGantt activityData", activityData)}
-    <AppGantt title={title} dataGantt={activityData} dataLink={linkData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={true} isShowAddColumn={false} isShowListGantt={true} />
-  </>
-}
+//   return <>
+//     {console.log("PrintGantt activityData", activityData)}
+//     <AppGantt title={title} dataGantt={activityData} dataLink={linkData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={true} isShowAddColumn={false} isShowListGantt={true} />
+//   </>
+// }
 
 export const PrintGanttPage = (props) => {
   const { title, ganttID, projectID } = props;
@@ -195,16 +219,17 @@ export const PrintGanttPage = (props) => {
   </>
 }
 
-export const PrintListGanttName = () => {
-  const { ganttID, setGanttID, ganttName } = useGantt();
-  console.log("this is custom activity. ganttname is ", ganttName);
-  console.log("CUSTOMMM ID", ganttID);
-  console.log("CUSTOMMM ganttData", ganttName);
+// Error when logout no list gantt
+// export const PrintListGanttName = () => {
+//   const { ganttID, setGanttID, ganttName } = useGantt();
+//   console.log("this is custom activity. ganttname is ", ganttName);
+//   console.log("CUSTOMMM ID", ganttID);
+//   console.log("CUSTOMMM ganttData", ganttName);
 
-  return <>
-    <ListGanttByProject ganttID={ganttID} setGanttID={setGanttID} ganttName={ganttName} />
-  </>
-}
+//   return <>
+//     <ListGanttByProject ganttID={ganttID} setGanttID={setGanttID} ganttName={ganttName} />
+//   </>
+// }
 
 // TODO : ERROR
 export const PrintListProjetcName = () => {
@@ -217,5 +242,26 @@ export const PrintListProjetcName = () => {
 
   return <>
     <ListboxProjectName setGanttID={setGanttID} projectID={projectID} setProjectID={setProjectID} projectData={projectData} />
+  </>
+}
+
+// TODO : ERROR
+export const PrintProjectDashboard = () => {
+  const [projectData,setProjectData]= useState(localStorage.getItem('projectID'));
+  console.log("PrintProjectDashboard projectData", projectData);
+  useEffect(() => {
+    if (projectData === null) {
+      setProjectData(String(localStorage.getItem('projectID')));
+    } else {
+      setProjectData(String(localStorage.getItem('projectID')));
+    }
+  }, [projectData]);
+
+  const setProjectID = (projectData) => {
+    setProjectData(projectData);
+  }
+
+  return <>
+    <ProjectDashboard projectData={projectData} setProjectID={setProjectID} />
   </>
 }

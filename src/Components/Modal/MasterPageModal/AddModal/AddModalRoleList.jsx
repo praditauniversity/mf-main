@@ -11,6 +11,7 @@ import './AddModal.css';
 import Button from "../../../Button";
 import { useForm } from "react-hook-form";
 import GetProfile from "../../../Auth/GetProfile";
+import ChooseColor from "./ChooseColor";
 
 
 //yang masih belom mutation dan querynya
@@ -204,7 +205,7 @@ const AddModalRoleList = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         const isValid = validate();
         if (isValid) {
             hideDialog();
@@ -239,6 +240,21 @@ const AddModalRoleList = () => {
             value: description,
             onChange: (e) => setDescription(e.target.value),
         }
+    ];
+
+    const colorButton = [
+        {
+            color: "[#A8186E]"
+        },
+        {
+            color: "red-500"
+        },
+        {
+            color: "pink-500"
+        },
+        {
+            color: "primary"
+        },
     ];
 
     return (
@@ -305,8 +321,6 @@ const AddModalRoleList = () => {
                                                 />
                                                 <div style={{ color: "red" }}>{errorValidate.nameError}</div>
                                             </div>
-
-
                                         );
                                     })}
 
@@ -332,11 +346,43 @@ const AddModalRoleList = () => {
                                         );
                                     })}
 
-                                    
+                                    <div className="pt-1 pb-3">
+                                        <label className="block uppercase tracking-wide text-darkest text-xs font-bold pb-2">Color</label>
+                                        <div className="flex mr-2">
+                                            {colorButton.map((data) => {
+                                                return (
+                                                    <div>
+                                                        <ChooseColor color={data.color} />
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                        <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md border border-primary bg-background-snow px-4 py-2 text-sm font-medium text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 mt-2"
+                                            >
+                                                <div className="flex align-center">
+                                                    <span className="text-xl mr-3">+</span> 
+                                                    <p className='text-md text-primary font-bold pt-[5px]'>ADD OTHER COLOR</p>
+                                                </div>
+                                                
+                                        </button>
+                                    </div>
 
-
-                                    
-
+                                    <div className="pt-1 pb-3">
+                                        <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">Access Page</label>
+                                        <p className="text-sm mb-2">Manage what page that this role can access</p>
+                                        <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 mt-2"
+                                                onClick={handleSubmit}
+                                            >
+                                                <div className="flex align-center">
+                                                    <span className="text-xl text-white mr-3">+</span> 
+                                                    <p className='text-md text-white font-bold pt-[5px]'>ADD ACCESS PAGE</p>
+                                                </div>
+                                        </button>
+                                    </div>
 
                                     <div className="mt-10">
                                         <div className='flex justify-end'>
@@ -357,8 +403,6 @@ const AddModalRoleList = () => {
                     </div>
                 </Dialog>
             </Transition>
-
-
         </>
     )
 }

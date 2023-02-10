@@ -1,5 +1,6 @@
 import React from "react";
 import FetchProject from "../../../Middleware/Fetchers/FetchProject";
+import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 import FetchProjectPage from "../../../Middleware/Fetchers/FetchProjectPage";
 import Accordion from "../../Accordion";
 import FutureUpdateDeleteText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateDeleteText";
@@ -14,8 +15,8 @@ const useStyles = () => ({
 
 const ActiveProjectCard = () => {
     const classes = useStyles();
-    // const project = FetchProject();
-    const project = FetchProjectPage();
+    const project = FetchProjectByUserId();
+    // const project = FetchProjectPage();
 
     const projectLength = project.filter((item) => {
         const todayDate = new Date();
@@ -28,14 +29,14 @@ const ActiveProjectCard = () => {
         if (projectLength === 0) {
             // fill the table with white space
             return (
-                <tr className="h-full" >
-                    <td colSpan="7" className="text-center ">
+                <div className="h-full" >
+                    <div colSpan="7" className="text-center py-24">
                         <div className="text-gray-400">
                             <div className="text-5xl font-bold">No Active Project</div>
                             <div className="text-xl">Please take your time</div>
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                </div>
             )
         }
     }

@@ -5,11 +5,14 @@ import BarChart from "./chart.jsx";
 
 const TPECard = () => {
     const [TpeID,setTPEID] = useState(localStorage.getItem('TPEID'));
+    console.log("TPECard TpeID",TpeID)
     useEffect(() => {
         setTPEID(localStorage.getItem('TPEID'));
     }, [TpeID]);
+    console.log("TPECard TpeID AFTER",TpeID)
     return (
         <div className="rounded-xl shadow-lg bg-white py-6 px-12">
+        {console.log("RENDER TPECARD")}
                 <div>
                     <div className="pt-4 pb-0 flex justify-between">
                         <div className="flex justify-start">

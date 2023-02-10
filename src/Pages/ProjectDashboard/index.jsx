@@ -11,7 +11,7 @@ import CalendarTailwind from "../../Components/Card/CalendarTailwind/Calendar";
 import HealthCard from "../../Components/Card/HealthCard";
 import IssuesCard from "../../Components/Card/Issues/IssuesCard";
 import ProjectOverviewCard from "../../Components/Card/ProjectOverviewCard";
-import { PrintGantt, PrintTask, PrintTaskList } from "../../Components/Gantt-Component/CustomActivityState";
+import { PrintGantt, PrintProjectDashboard, PrintTask, PrintTaskList } from "../../Components/Gantt-Component/CustomActivityState";
 import { Actual, Budget, Client, Cost, CostHealth, Danger, ProjectManager, ScheduleHealth, Variance } from "../../Components/GraphQL/ProjectByIdQueries";
 import ProjectDashboard from "./ProjectDashboard";
 
@@ -39,7 +39,7 @@ const ProjectDashboardPage = () => {
     return (
         // <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 2xl:grid-cols-18 lg:mt-0 mt-4 no-scrollbar">
         <>
-            <ProjectDashboard data={ProjectID}/>
+            <ProjectDashboard value = {ProjectID}/>
 
         </>
     );

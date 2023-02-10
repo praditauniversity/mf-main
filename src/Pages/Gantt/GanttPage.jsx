@@ -31,9 +31,52 @@ const GanttPage = () => {
         )
     }
 
+    const ganttList = FetchGanttByProjectId({ projectID });
+    const [totalData, setTotalData] = useState(ganttList.length);
+    const [ganttData, setGanttData] = useState([]);
 
+    useEffect(() => {
+        if (ganttList) {
+            setTotalData(ganttList.length);
+            setGanttData(ganttList);
+        }
+    }, [ganttList]);
 
-    const ganttData = FetchGanttByProjectId({ projectID });
+    const setDataEmpty = () => {
+        setGanttData([]);
+    }
+
+    const filler = () => {
+        if (ganttData.length > 0) {
+            // fill the table with white space
+            return (
+                <tr className="h-full" >
+                    <td colSpan="7" className="text-center ">
+                        <div className="text-gray-400 opacity-10 hover:opacity-40 hover:cursor-pointer">
+                            <div className="text-4xl font-bold">Other Gantt</div>
+                            <div className="text-md">Add another gantt?</div>
+                        </div>
+                    </td>
+                </tr>
+            )
+        }
+    }
+
+    const ifGanttDataEmpty = () => {
+        if (ganttData.length === 0) {
+            // fill the table with white space
+            return (
+                <tr className="h-full" >
+                    <td colSpan="7" className="text-center ">
+                        <div className="text-gray-400">
+                            <div className="text-5xl font-bold">No Gantt</div>
+                            <div className="text-xl">Please add a gantt</div>
+                        </div>
+                    </td>
+                </tr>
+            )
+        }
+    }
 
     console.log("jjjjjjjjhjhjhjhjhjhjhjh", ganttData);
     const [isOpen, setIsOpen] = useState(false);
@@ -97,22 +140,27 @@ const GanttPage = () => {
                                     </div>
                                 </td>
                                 {/* maximum 48 pixel width, otherwise it will be on the next line */}
-                                <th className="flex items-center space-x-2 w-48">
-                                    <EditModalGantt ganttID={gantt.ID} />
-                                    <DeleteModalGantt ganttID={gantt.ID} ganttName={gantt.name} />
-                                    <a
-                                        // className="rounded-full bg-primary-light cursor-pointer"
-                                        href={`/#/project-list/${projectID}/gantt/${gantt.ID}/gantt-chart`}
-                                    >
-                                        <img
-                                            src={dailyReportIcon}
-                                            alt="view gantt"
-                                            className="w-5 h-5 opacity-75 hover:opacity "
-                                        />
-                                    </a>
-                                </th>
+                                <td className="flex items-center space-x-3 w-48 pt-6">
+                                    <div className="flex items-center mb-4">
+                                        <EditModalGantt ganttID={gantt.ID} />
+                                        <DeleteModalGantt ganttID={gantt.ID} ganttName={gantt.name} total={totalData} setDataEmpty={setDataEmpty} />
+                                        <a
+                                            // className="rounded-full bg-primary-light cursor-pointer"
+                                            href={`/#/project-list/${projectID}/gantt/${gantt.ID}/gantt-chart`}
+                                        >
+                                            <img
+                                                src={dailyReportIcon}
+                                                alt="view gantt"
+                                                className="w-5 h-5 opacity-75 hover:opacity "
+                                            />
+                                        </a>
+                                    </div>
+
+                                </td>
                             </tr>
                         ))}
+                        {ifGanttDataEmpty()}
+                        {filler()}
                     </tbody>
                     {/* <!-- foot --> */}
                     <tfoot>

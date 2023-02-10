@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dailyReportIcon from "../../../Assets/Icons/svg/File_dock_duotone.svg";
 import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 import FetchProjectCharter from "../../../Middleware/Fetchers/FetchProjectCharter";
@@ -108,11 +108,15 @@ const ActionsButton = (props) => {
 }
 
 
-const ProjectListPage = () => {
-    const projectData = FetchProjectByUserId();
+const ProjectListPage = (props) => {
+    // const projectData = FetchProjectByUserId();
+    const {value} = props;
+
+    
+    console.log("PROJECTDATALIST", value);
 
     const filler = () => {
-        if (projectData.length > 0) {
+        if (value.length > 0) {
             // fill the table with white space
             return (
                 <tr className="h-full" >
@@ -127,7 +131,7 @@ const ProjectListPage = () => {
         }
     }
     const ifProjectDataEmpty = () => {
-        if (projectData.length === 0) {
+        if (value.length === 0) {
             // fill the table with white space
             return (
                 <tr className="h-full" >
@@ -152,7 +156,8 @@ const ProjectListPage = () => {
                     </thead>
                     {/* <!-- body --> */}
                     <tbody>
-                        {projectData.map((project) => (
+                        {console.log("BRIAN", value)}
+                        {value.map((project) => (
                             <tr key={project.ID}>
                                 <td>
                                     <div className="flex items-center space-x-3">
