@@ -35,8 +35,7 @@ export default function DonutChart() {
             [todo, inprogress, done]
         );
     }
-
-    // const series = [50, 25, 25];
+    
     const series = printTaskOverview();
     const options = {
         chart: {

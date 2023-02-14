@@ -11,20 +11,12 @@ export default class ProjectProgressOverviewCard extends React.Component {
                         <p className="text-lg place-self-center font-semibold">Project Progress Overview</p>
                     </div>
                     <div className="pt-1 pb-4 flex justify-start">
-                        {/* <p className="text-xl font-semibold place-self-center">71</p> */}
                         <p className="text-xs opacity-70 align-text-bottom place-self-center">Overview of all project progress</p>
                     </div>
                 </div>
-
-                {/* disini harusnya radial chart */}
                 <div className="py-4">
                     <DualColumnChart />
                 </div>
-                {/* <div className="py-4 flex justify-end">
-                    <button className="font-semibold text-sm text-primary">
-                        Detail Project Overview
-                    </button>
-                </div> */}
             </div>
         );
     }

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import ChevronLeft from "../../../Assets/Icons/svg/ChevronLeft.svg";
 import ChevronRight from "../../../Assets/Icons/svg/Chevron.svg";
-import Button from "../../Button";
 import AddModalMinutesOfMeeting from "../../Modal/MinutesOfMeetingModal/AddModal/AddModal";
 
 const TableFooter = ({ totalPages, currentPage, onPageChange, limit, sort, totalItems, updateTotalItems  }) => {
@@ -30,14 +29,7 @@ const TableFooter = ({ totalPages, currentPage, onPageChange, limit, sort, total
           <img src={ChevronRight} className="pl-3"></img>
         </button>
       </div>
-
-      {/* <div className="add-button">
-        <Button label="+ Add Meeting"/>
-      </div> */}
-
       <AddModalMinutesOfMeeting page={currentPage} limit={limit} sort={sort} total={totalItems} updateTotal={updateTotalItems} totalPages={totalPages} />
-
-
     </div>
   )
 }

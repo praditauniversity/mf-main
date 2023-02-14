@@ -1,29 +1,15 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from 'react-router-dom';
-import ProjectCharterCard from '.';
 import '../../../Assets/svgbutton/svgbutton.css';
-import FetchCharter from "../../../Middleware/Fetchers/FetchCharter";
-import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
-import FetchProjectCharterID from '../../../Middleware/Fetchers/FetchProjectCharterID';
 import GetProfile from '../../Auth/GetProfile';
-import { GET_CHARTER_DATA, GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
+import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 import DeleteModalProject from '../../Modal/ProjectCharterModal/DeleteModal/DeleteModal';
 import UpdateModalProject from '../../Modal/ProjectCharterModal/UpdateModal/UpdateModal';
 import ViewModalCharter from '../../Modal/ProjectCharterModal/ViewModal/ViewModal';
 import './table.css';
-// import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
-
-
-const DELETE_PROJECTCHARTER = gql`
-  mutation DeleteProject($id: String!) {
-    deleteProject(id: $id) 
-  }`;
 
 const PCList = (props) => {
-    // let { projectID } = useParams();
     const { page, limit, sort, totalItems, updateTotalItems, onPageChange, totalPages } = props;
-    // const charterData = FetchProjectByUserId();
     const profile = GetProfile();
     const { data, error: errorGetProject } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) },
@@ -43,23 +29,13 @@ const PCList = (props) => {
         }
     }, [data]);
 
-    const [deleteCharter, { loading, error }] = useMutation(DELETE_PROJECTCHARTER,
-        {
-            refetchQueries: [
-                // { query: GET_CHARTER_DATA }, console.log("Berhasil Fetch")
-                { query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: profile.id, page: page, limit: limit, sort: sort } },
-                console.log("Berhasil Fetch")
-            ]
-        }
-    );
-
     if (loading) return 'Submitting...';
     if (error) return `Submission error! ${error.message}`;
 
     const setCharterDataEmpty = () => {
         // setCharter([]);
-        console.log("setCharterDataEmpty 1", totalItems);
-        console.log("setCharterDataEmpty 2", charterData);
+        console.log("setCharterDataEmpty with Total Items", totalItems);
+        console.log("setCharterDataEmpty with Charter Data", charterData);
     }
 
     const ifCharterDataEmpty = () => {
@@ -94,15 +70,6 @@ const PCList = (props) => {
                     </thead>
                     <tbody>
                         {Array.isArray(charterData) ? charterData.map((item) => {
-                            console.log("AAA", item.ID);
-                            const idMap = toString(item.ID);
-                            // const onClickTask = (identifier) => {
-                            //     const index = charterData.findIndex(task => task.id === identifier);
-                            //     const newTasks = [...tasks];
-                            //     newTasks[index].isComplete = true;
-
-                            //     setTasks(newTasks);
-                            //   };    
 
                             const startProject = new Date(item.start_project);
                             const endProject = new Date(item.end_project);
@@ -119,14 +86,6 @@ const PCList = (props) => {
                             const EndingProject = endProjectMonth + '/' + endProjectDay + '/' + endProjectYear
                             return (
                                 <tr key={item.ID} >
-                                    {/* className={`cursor-pointer ${isClicked ? 'bg-yellow-500 text-primary' : ''}`} */}
-                                    {/* <td align="center"><Link to={{ pathname: '/charterview', state: { value: item.ID } }}><button className="hover:text-primary" onClick={localStorage.setItem('charterID', item.ID)} >{item.name}</button></Link></td> */}
-                                    {/* <td align="center"><button className="" id="icon" onClick={(e) => {
-                                        localStorage.setItem('charterID', item.ID)
-                                        console.log("ID", localStorage.getItem('charterID'))
-                                    }}><Link Link to={{ pathname: '/charterview', state: { value: item.ID } }}>{item.name}e</Link>
-                                    </button>
-                                    </td> */}
                                     <td align="center">{item.name}</td>
                                     <td align="center">{item.project_manager ? item.project_manager : "N/A"}</td>
                                     <td align="center">{item.client ? item.client : "N/A"}</td>
@@ -134,7 +93,6 @@ const PCList = (props) => {
                                     <td align="center">{endProjectMonth}/{endProjectDay}/{endProjectYear}</td>
                                     <td align="center">
                                         <button className="" id="icon">
-                                            {/* <IconEdit /> */}
                                             <UpdateModalProject
                                                 projectData={item}
                                                 page={page}
@@ -143,7 +101,6 @@ const PCList = (props) => {
                                             />
                                         </button>
                                         <button className="" id="icon">
-                                            {/* <IconEdit /> */}
                                             <DeleteModalProject
                                                 projectID={String(item.ID)}
                                                 projectName={item.name}
@@ -177,23 +134,6 @@ const PCList = (props) => {
                                                 charterRisk={item.potential_risk}
                                             />
                                         </button>
-                                        {/* <button className="" id="icon" onClick={(e) => {
-                                            localStorage.setItem('charterID', item.ID)
-                                            console.log("ID", localStorage.getItem('charterID'))
-                                        }}>
-                                            <Link Link to={{ pathname: '/charterview', state: { value: item.ID } }}>++</Link>
-                                        </button> */}
-                                        {/* <button className="px-1" id="icon" onClick={e => {
-                                            console.log(typeof idMap, idMap);
-                                            console.log(typeof item.ID, item.ID);
-                                            const testDAH = String(item.ID);
-                                            console.log(typeof testDAH, testDAH);
-                                            e.preventDefault();
-                                            deleteCharter({ variables: { id: testDAH } });
-                                            // window.location.reload(true);
-                                            // setId('');
-                                            // id =idMap;
-                                        }}><IconDelete /></button> */}
                                     </td>
                                 </tr>
                             )

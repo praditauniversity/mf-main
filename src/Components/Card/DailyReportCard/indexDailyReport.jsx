@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from '@apollo/client';
-import { IconPlus, IconEdit, IconDelete, IconFilter, IconSearch } from "../../Icons/icon";
+import { IconSearch } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
-import { InputField } from "../../Input/Input";
 import TableFooter from "./TableFooter";
 import DRList from "./List";
-import AddModalDailyReport from "../../Modal/DailyReportModal/AddModal/AddModal";
-import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 import GetProfile from "../../Auth/GetProfile";
 import { Client, ClientContact, Location, ProjectManager, ProjectStatus } from "../../GraphQL/ProjectByIdQueries";
 import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
@@ -19,8 +16,6 @@ const DailyReportPage = (props) => {
 
     const [page, setPage] = useState(1);
     const DRDataList = FetchDailyReportByProjectId();
-
-    // const projectData = FetchProjectByUserId();
 
     const profile = GetProfile();
     const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
@@ -77,19 +72,12 @@ const DailyReportPage = (props) => {
 
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
-            {console.log("BANYAKNYA DATA: " + totalItems)}
+            {console.log("Daily report items total: " + totalItems)}
             <div>
                 <div className="pt-4 pb-0 flex justify-between">
                     <div className="flex justify-start">
                         <p className="text-xl font-semibold px-2">Daily Report</p>
                     </div>
-                    {/* <div className="flex justify-end">
-                        <div className="flex justify-between">
-                            <AddModalDailyReport />
-                            <button className="px-1" id="icon"><IconEdit /></button>
-                            <button className="px-1" id="icon"><IconDelete /></button>
-                        </div>
-                    </div> */}
                 </div>
 
                 <div className="px-8">
@@ -101,7 +89,6 @@ const DailyReportPage = (props) => {
                                         <p className="text-sm font-semibold opacity-70">Project Name</p>
                                     </div>
                                     <div>
-                                        {/* <p className="text-base font-semibold">Project Anomaly</p> */}
                                         <select value={reportProjectID} onChange={handleChange} className="select select-ghost select-sm w-full max-w-xs">
                                             {printListProjectName()}
                                         </select>
@@ -165,15 +152,11 @@ const DailyReportPage = (props) => {
                     <div className="py-2">
                         <div className="content-end items-end text-right">
                             <div className="flex justify-end align-middle items-center text-center">
-                                {/* <Input > */}
-                                {/* <InputField /> */}
-                                {/* {var iconaaa = <IconSearch />} */}
                                 <input
                                     className="form-control shadow appearance-none border rounded py-1 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline"
                                     type="text"
                                     placeholder={"Search"}
                                 />
-                                {/* <IconSearch /> */}
                                 <div className="px-1" id="icon"><FutureUpdateFilter /></div>
                             </div>
                         </div>
@@ -209,14 +192,6 @@ const DailyReportPage = (props) => {
 
                 </div>
             </div>
-
-            {/* <div className="py-4">
-            </div>
-            <div className="py-4 flex justify-end">
-                <button className="font-semibold text-sm text-primary">
-                    Detail Project Overview
-                </button>
-            </div> */}
         </div>
     );
 };

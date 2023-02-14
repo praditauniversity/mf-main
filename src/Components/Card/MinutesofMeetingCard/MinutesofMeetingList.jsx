@@ -13,11 +13,9 @@ const MinutesofMeetingList = (props) => {
   const { page, limit, sort, totalItems, updateTotalItems, onPageChange, totalPages } = props;
 
   const projectData = FetchProjectByUserId();
-  // const momData = FetchMomByProjectId();
 
   const { data } = useQuery(GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID, {
     variables: { projectId: String(localStorage.getItem('momProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
-    // variables: { projectId: localStorage.getItem('momProjectID') == null ? localStorage.setItem('momProjectID', data.dailyReportGetProjectID.data[0].ID) : localStorage.getItem('reportProjectID') },
   });
 
   const [momData, setMomData] = useState([]);
@@ -82,15 +80,12 @@ const MinutesofMeetingList = (props) => {
 
                       const startDate = new Date(mom.start_time_meeting);
                       const startHour = typeof startDate.getHours() === 'number' ? startDate.getHours().toString().padStart(2, '0') : "00";
-                      const startMinute = typeof startDate.getMinutes() === 'number' ? startDate.getMinutes().toString().padStart(2, '0') : "00";
-                      // const second = typeof startDate.getSeconds() === 'number' ? startDate.getSeconds() : 0;
+                      const startMinute = typeof startDate.getMinutes() === 'number' ? startDate.getMinutes().toString().padStart(2, '0') : "00"; // const second = typeof startDate.getSeconds() === 'number' ? startDate.getSeconds() : 0;
                       const startTime = `${startHour}:${startMinute}`;
-                      // console.log("TIMEEEEEE", startTime);
 
                       const endDate = new Date(mom.end_time_meeting);
                       const endHour = typeof endDate.getHours() === 'number' ? endDate.getHours().toString().padStart(2, '0') : "00";
                       const endMinute = typeof endDate.getMinutes() === 'number' ? endDate.getMinutes().toString().padStart(2, '0') : "00";
-                      // const second = typeof startDate.getSeconds() === 'number' ? startDate.getSeconds() : 0;
                       const endTime = `${endHour}:${endMinute}`;
 
                       const meetingTime = startTime + " - " + endTime;

@@ -7,28 +7,12 @@ import { GET_PHASE_DATA } from "../../GraphQL/Queries";
 import GetProfile from "../../Auth/GetProfile";
 
 export default function RadialChart() {
+  // Not implement right now
+
   const profile = GetProfile();
   const { loading, error, data } = useQuery(GET_PROJECT_DATA);
   const { loading: loading2, error: error2, data: data2 } = useQuery(GET_PHASE_DATA);
-  // if (loading) return <div>Loading...</div>;
-  // if (error) return <div>Error {console.log(error)}</div>;
-
-  // const [projectPerPhase, setProjectPerPhase] = useState([]);
-  // const [phase, setPhase] = useState([]);
-  // useEffect(() => {
-  //   if (data && data2) {
-  //     console.log("data is ready");
-  //     // console.log(data);
-  //     setProjectPerPhase(data.project.Data);
-  //     //   console.log("LENGTHHHHHHH", data.project.Data.length);
-  //     setPhase(data2.projectPhase.Data);
-  //   } else {
-  //     // setProjectPerPhase([]);
-  //     console.log("data is empty");
-  //   }
-  //   console.log("USERRRRR", profile)
-  // }, [data]);
-
+  
   function printSeries() {
     // let totalProject = projectPerPhase.length;
     let totalProject = 0;
@@ -69,9 +53,6 @@ export default function RadialChart() {
     planning = (planning / totalProject) * 100;
     initiation = (initiation / totalProject) * 100;
     return (
-      // [initiation, planning, research, execution, testing, evaluation, closing]
-      // [closing, evaluation, testing, execution, research, planning, initiation]
-
       //rounding number
       [Math.round(closing), Math.round(evaluation), Math.round(testing), Math.round(execution), Math.round(research), Math.round(planning), Math.round(initiation)]
     );
@@ -105,7 +86,6 @@ export default function RadialChart() {
     const series = [70, 80, 90, 100, 100, 100, 100];
   const options = {
     chart: {
-      // type: 'radialBar',
       width: 450,
       height: 450,
     },

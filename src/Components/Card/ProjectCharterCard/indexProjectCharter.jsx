@@ -52,13 +52,6 @@ const ProjectCharterPage = (props) => {
                     <div className="flex justify-start">
                         <p className="text-xl font-semibold px-2">Project Charter</p>
                     </div>
-                    {/* <div className="flex justify-end">
-                        <div className="flex justify-between">
-                            <AddModalProjectCharter />
-                            <button className="px-1" id="icon"><IconEdit /></button>
-                            <button className="px-1" id="icon"><IconDelete /></button>
-                        </div>
-                    </div> */}
                 </div>
 
                 <div className="px-8">
@@ -73,17 +66,12 @@ const ProjectCharterPage = (props) => {
                     <div className="py-2">
                         <div className="content-end items-end text-right">
                             <div className="flex justify-end align-middle items-center text-center">
-                                {/* <Input > */}
-                                {/* <InputField /> */}
-                                {/* {var iconaaa = <IconSearch />} */}
                                 <input
                                     className="form-control shadow appearance-none border rounded py-1 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline"
                                     type="text"
                                     placeholder={"Search"}
                                 />
-                                {/* <IconSearch /> */}
                                 <div className="px-1" id="icon"><FutureUpdateFilter/></div>
-                                {/* <button className="px-1" id="icon"><IconFilter /></button> */}
                             </div>
                         </div>
                     </div>
@@ -99,8 +87,6 @@ const ProjectCharterPage = (props) => {
                                 onPageChange={handlePageChange} 
                                 totalPages={totalPages} 
                             />
-                            
-                            {/* <PCList  /> */}
                         </div>
                     </div>
 
@@ -120,14 +106,6 @@ const ProjectCharterPage = (props) => {
 
                 </div>
             </div>
-
-            {/* <div className="py-4">
-            </div>
-            <div className="py-4 flex justify-end">
-                <button className="font-semibold text-sm text-primary">
-                    Detail Project Overview
-                </button>
-            </div> */}
         </div>
     );
 };

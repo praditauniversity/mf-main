@@ -1,5 +1,4 @@
 import React from "react";
-import { IconEdit } from "../../Icons/icon";
 import FutureUpdateEdit from "../../Modal/FutureUpdateModal/Edit (Profile Page)/FutureUpdateEdit";
 
 const SkillsCard = () => {
@@ -50,10 +49,6 @@ const SkillsCard = () => {
                                 </div>
                             ))}
                         </div>
-
-
-
-
                     </div>
                 </div>
             </div>

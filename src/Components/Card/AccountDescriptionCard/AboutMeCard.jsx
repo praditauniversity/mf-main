@@ -1,6 +1,5 @@
 import React from "react";
 import GetProfile from "../../Auth/GetProfile";
-import { IconEdit } from "../../Icons/icon";
 import FutureUpdateEdit from "../../Modal/FutureUpdateModal/Edit (Profile Page)/FutureUpdateEdit";
 
 const AboutMeCard = () => {
@@ -65,7 +64,6 @@ const AboutMeCard = () => {
                                 </div>
                             </div>
                         ))}
-
 
                     </div>
                 </div>

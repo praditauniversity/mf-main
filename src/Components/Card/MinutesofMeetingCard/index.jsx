@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from '@apollo/client';
 import MinutesofMeetingList from "./MinutesofMeetingList";
-import { IconPlus, IconEdit, IconDelete, IconFilter, IconSearch } from "../../Icons/icon";
+import { IconSearch } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
-import { InputField } from "../../Input/Input";
 import TableFooter from "./TableFooter";
-import AddModalMinutesOfMeeting from "../../Modal/MinutesOfMeetingModal/AddModal/AddModal";
 import GetProfile from "../../Auth/GetProfile";
 import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 import { Client, ProjectManager } from "../../GraphQL/ProjectByIdQueries";
@@ -37,7 +35,6 @@ const MinutesofMeetingCard = (props) => {
             setProject(data.projectByUserId.Data);
             localStorage.getItem("momProjectID") === null ? localStorage.setItem('momProjectID', data.projectByUserId.Data[0].ID) : console.log("momProjectID is not null");
             momProjectID === null ? setMomProjectID(data.projectByUserId.Data[0].ID) : setMomProjectID(localStorage.getItem('momProjectID'));
-            // momProjectID === null ? localStorage.setItem('momProjectID', data.projectByUserId.Data[0].ID) : localStorage.setItem('momProjectID', momProjectID);
         }
         if (momData) {
             setTotalItems(momData.length);
@@ -59,7 +56,6 @@ const MinutesofMeetingCard = (props) => {
 
     const increaseTotalItems = () => {
         setTotalItems(totalItems + 1);
-        // setIsNewDataArrived(true);
     };
 
     const decreaseTotalItems = () => {
@@ -87,13 +83,6 @@ const MinutesofMeetingCard = (props) => {
                     <div className="flex justify-start">
                         <p className="text-xl font-semibold px-2">Minutes of Meeting</p>
                     </div>
-                    {/* <div className="flex justify-end">
-                        <div className="flex justify-between">
-                            <AddModalMinutesOfMeeting />
-                            <button className="px-1" id="icon"><IconEdit /></button>
-                            <button className="px-1" id="icon"><IconDelete /></button>
-                        </div>
-                    </div> */}
                 </div>
 
                 <div className="px-8">
@@ -103,7 +92,6 @@ const MinutesofMeetingCard = (props) => {
                                 <p className="text-sm font-semibold opacity-70">Project Name</p>
                             </div>
                             <div>
-                                {/* <p className="text-base font-semibold">Project Anomaly</p> */}
                                 <select value={momProjectID} onChange={handleChange} className="select select-ghost select-sm w-full max-w-xs">
                                     {printListProjectName()}
                                 </select>
@@ -138,15 +126,11 @@ const MinutesofMeetingCard = (props) => {
                     <div className="py-2">
                         <div className="content-end items-end text-right">
                             <div className="flex justify-end align-middle items-center text-center">
-                                {/* <Input > */}
-                                {/* <InputField /> */}
-                                {/* {var iconaaa = <IconSearch />} */}
                                 <input
                                     className="form-control shadow appearance-none border rounded py-1 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline"
                                     type="text"
                                     placeholder={"Search"}
                                 />
-                                {/* <IconSearch /> */}
                                 <div className="px-1" id="icon"><FutureUpdateFilter /></div>
                             </div>
                         </div>
@@ -182,14 +166,6 @@ const MinutesofMeetingCard = (props) => {
 
                 </div>
             </div>
-
-            {/* <div className="py-4">
-            </div>
-            <div className="py-4 flex justify-end">
-                <button className="font-semibold text-sm text-primary">
-                    Detail Project Overview
-                </button>
-            </div> */}
         </div>
     );
 };

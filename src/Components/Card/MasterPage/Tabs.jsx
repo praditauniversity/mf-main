@@ -1,7 +1,6 @@
 import React from 'react';
 import UserLists from './UserLists';
 import RoleLists from './RoleLists';
-import Badge from '../../Badge/Badge';
 
 const Tabs = ({color}) => {
     const [openTab, setOpenTab] = React.useState(1);

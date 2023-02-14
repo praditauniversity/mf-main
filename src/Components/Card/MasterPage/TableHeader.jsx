@@ -14,9 +14,6 @@ const TableHeader = (props) => {
       <div className="flex align-center">
           <div className="content-end items-end text-right">
               <div className="flex justify-end align-middle items-center text-center">
-                  {/* <Input > */}
-                  {/* <InputField /> */}
-                  {/* {var iconaaa = <IconSearch />} */}
                   <input
                       className="form-control shadow appearance-none border rounded py-3 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline"
                       type="text"

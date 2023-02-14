@@ -28,9 +28,7 @@ export const RegisterHandler = () => {
         { id: 2, name: 'Female', value: "Female", unavailable: false },
     ]
     console.log("error register", JSON.stringify(registerError))
-    // if (error) return console.log("error", JSON.stringify(error));
-    // if (loading) return <Text>Loading...</Text>;
-    // if (error) return <Text>Error :(</Text>;
+    
     const inputRefGender = useRef(null);
 
     const [errorValidate, setErrorValidate] = useState({});
@@ -58,8 +56,7 @@ export const RegisterHandler = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        // console.log("ASDASDASD", inputRefGender.current.value);
-
+        console.log("Gender Change", inputRefGender.current.value);
         setInput({ ...input, [name]: value });
     }
 
@@ -106,8 +103,6 @@ export const RegisterHandler = () => {
                 register({
                     variables: data
                 });
-                // window.location.href = '/#/login';
-                // window.location.reload();
                 console.log("data berhasil");
                 setError('');
             } catch (err) {
@@ -129,7 +124,6 @@ export const RegisterHandler = () => {
                             <InputField name="nik" label="NIK" type="text" placeholder="Enter your nik" minlength="5" maxlength="100" value={input.nik} onChange={handleChange} required />
                             <InputField name="address" label="Address" type="text" placeholder="Enter your address" value={input.address} onChange={handleChange} required />
                             <InputField name="phone_number" label="Phone Number" placeholder="Enter your phone number" type="text" minlength="11" maxlength="13" value={input.phone_number} onChange={handleChange} required />
-                            {/* <SelectField ref={inputRefGender} name="gender" options={gender} label="Gender" onChange={handleChange} value={input.gender} /> */}
                             <div className="form-group">
                                 <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">Gender</label>
                                 <select

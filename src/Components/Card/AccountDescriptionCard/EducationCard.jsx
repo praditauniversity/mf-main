@@ -1,5 +1,4 @@
 import React from "react";
-import { IconEdit } from "../../Icons/icon";
 import FutureUpdateEdit from "../../Modal/FutureUpdateModal/Edit (Profile Page)/FutureUpdateEdit";
 
 const EducationCard = () => {
@@ -23,8 +22,6 @@ const EducationCard = () => {
             <div className="py-5">
                 <div className="grid grid-cols-18">
                     <div className="col-span-18">
-
-
                         {educationList.map((item, index) => (
                             <div className="grid grid-cols-16 py-2" key={index}>
                                 <div className="xl:col-span-4 col-span-8">
@@ -37,8 +34,6 @@ const EducationCard = () => {
                                 </div>
                             </div>
                         ))}
-
-
                     </div>
                 </div>
             </div>

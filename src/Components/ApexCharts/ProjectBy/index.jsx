@@ -25,9 +25,6 @@ export default class ProjectByCard extends React.Component {
                     <DonutChart2 />
                 </div>
                 <div className="py-4 flex justify-end">
-                    {/* <p className="font-semibold text-sm text-primary">
-                        Detail Project Overview
-                    </p> */}
                     <DetailProjectBy/>
                 </div>
             </div>

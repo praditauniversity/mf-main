@@ -10,7 +10,6 @@ export default class ManpowerCard extends React.Component {
                     <div className="pt-4 pb-0 flex justify-between">
                         <div className="flex justify-start">
                             <p className="text-sm ">Manpower</p>
-                            {/* <p className="text-sm ml-1">By Duration</p> */}
                         </div>
                         <div className="flex justify-end">
                             <p className="text-sm ">+2.45%</p>
@@ -25,9 +24,6 @@ export default class ManpowerCard extends React.Component {
                     <LineChart />
                 </div>
                 <div className="py-4 flex justify-end">
-                    {/* <button className="font-semibold text-sm text-primary">
-                        Detail Project Overview
-                    </button> */}
                     <DetailManpower/>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { IconPlus, IconEdit, IconDelete, IconList } from "../../Icons/icon";
+import { IconEdit, IconDelete, IconList } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
 import AddModalMinutesOfMeeting from "../../Modal/MinutesOfMeetingModal/AddModal/AddModal";
 import MinutesofMeetingList from "./MinutesofMeetingList";
@@ -27,7 +27,6 @@ const MinutesofMeetingCardView = (props) => {
                         <div className="pt-6 pb-4 col-span-18">
                             <div className="grid grid-cols-15">
                                 <div className="col-span-6">
-                                    {/* <DRComponentDesc title="Daily Report Name" description="Report 1"/> */}
                                 </div>
                                 <div className="col-span-6">
                                     <div className="pb-2">
@@ -91,14 +90,6 @@ const MinutesofMeetingCardView = (props) => {
                                         <p className="text-base font-semibold">In Progress</p>
                                     </div>
                                 </div>
-                                {/* <div className="col-span-3">
-                                    <div className="pb-2">
-                                        <p className="text-sm font-semibold opacity-70">Weather Condition</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-base font-semibold">Sunny, Clear, mid-70s</p>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -121,9 +112,6 @@ const MinutesofMeetingCardView = (props) => {
 
                     <div className="flex justify-start">
                         <div className="">
-                            {/* <div className="pb-2">
-                                <p className="text-sm font-semibold opacity-70">Project Objectives</p>
-                            </div> */}
                             <div>
                                 <div className="flex justify-start py-1">
                                     <div className="pr-1 pt-2"><IconList /></div>
@@ -151,14 +139,6 @@ const MinutesofMeetingCardView = (props) => {
 
                 </div>
             </div>
-
-            {/* <div className="py-4">
-            </div>
-            <div className="py-4 flex justify-end">
-                <button className="font-semibold text-sm text-primary">
-                    Detail Project Overview
-                </button>
-            </div> */}
         </div>
     );
 };

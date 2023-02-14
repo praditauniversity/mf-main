@@ -1,14 +1,7 @@
 import React from "react";
-import FetchProject from "../../../Middleware/Fetchers/FetchProject";
 import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 
 const ProjectListCard = () => {
-    // const data = [
-    //     { projectname: "Solar Panel Smart Lab", projectmanager: "Rendha Vateria", plannedinterval: "11/10/2021 - 09/03/2022", duration: "365 Days", manpower: "2/5", projectbudget:"IDR 84.000.000.000", invoice:"IDR 40.000.000.000", cashin:"IDR 44.000.000.000", outstandingbalance:"IDR 40.000.000", progress: "50%" },
-    //     { projectname: "Project After Math", projectmanager: "Valeriy Hardin", plannedinterval: "11/10/2021 - 09/03/2022", duration: "365 Days", manpower: "2/5", projectbudget:"IDR 84.000.000.000", invoice:"IDR 40.000.000.000", cashin:"IDR 44.000.000.000", outstandingbalance:"IDR 40.000.000", progress: "50%" },
-    //     { projectname: "Winter Wonderland Singapore", projectmanager: "John Heraldin", plannedinterval: "11/10/2021 - 09/03/2022", duration: "365 Days", manpower: "2/5", projectbudget:"IDR 84.000.000.000", invoice:"IDR 40.000.000.000", cashin:"IDR 44.000.000.000", outstandingbalance:"IDR 40.000.000", progress: "80%" },
-    //     { projectname: "Reverie Product Management Application", projectmanager: "Gerald Revalin", plannedinterval: "11/10/2021 - 09/03/2022", duration: "365 Days", manpower: "2/5", projectbudget:"IDR 84.000.000.000", invoice:"IDR 40.000.000.000", cashin:"IDR 44.000.000.000", outstandingbalance:"IDR 40.000.000", progress: "20%" },
-    // ]
     const project = FetchProjectByUserId();
     const ifProjectEmpty = () => {
         if (project.length === 0) {
@@ -47,25 +40,9 @@ const ProjectListCard = () => {
                 </thead>
                 <tbody>
                     {
-                        // data.map((item, i) =>
-                        //     <tr key={i}>
-                        //         <td align="center">{item.projectname}</td>
-                        //         <td align="center">{item.projectmanager}</td>
-                        //         <td align="center">{item.plannedinterval}</td>
-                        //         <td align="center">{item.duration}</td>
-                        //         <td align="center">{item.manpower}</td>
-                        //         <td align="center">{item.projectbudget}</td>
-                        //         <td align="center">{item.invoice}</td>
-                        //         <td align="center">{item.cashin}</td>
-                        //         <td align="center">{item.outstandingbalance}</td>
-                        //         <td align="center">{item.progress}</td>
-                        //     </tr>
-                        // )
                         project.map((item, i) => {
                             const startProject = new Date(item.start_project);
                             const endProject = new Date(item.end_project);
-                            // const duration = endProject - startProject;
-                            // const durationInDays = Math.round(duration / (1000 * 3600 * 24));
                             const durationInDays = item.project_duration;
 
                             const startProjectYear = startProject.toLocaleDateString('en-US', { year: 'numeric' });

@@ -5,15 +5,6 @@ import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUse
 export default function DualColumnChart() {
   let projectData = [];
   projectData = FetchProjectByUserId();
-  // const series = [
-  //   {
-  //     name: 'Planning',
-  //     data: [44, 55, 57, 56, 61, 58, 63, 60, 80]
-  //   }, {
-  //     name: 'Actual',
-  //     data: [76, 85, 101, 98, 87, 105, 91, 114, 120]
-  //   }
-  // ]
   const series = [
     {
       name: 'Planning',
@@ -47,15 +38,14 @@ export default function DualColumnChart() {
     colors: ["#7E57C2", "#1E88E5"],
     xaxis: {
       show: false,
-      labels:{
+      labels: {
         show: true,
         style: {
           fontSize: '11px',
           fontWeight: 400,
           cssClass: 'apexcharts-xaxis-label',
+        },
       },
-      },
-      // categories: ['Gedung Tenanga Panel Surya', 'Pembangunan Gedung Tower ABC', 'Tower Jaringan Jawa Barat', 'Tower Jaringan Jawa Timur', 'Tower Jaringan Jawa Tengah', 'Tower Jaringan Bali', 'Project Tower ABC', 'Tower Jaringan DKI Jakarta', 'Tower Jaringan NTT'],
       categories: projectData.map((project) => project.name),
     },
     yaxis: {
@@ -70,7 +60,6 @@ export default function DualColumnChart() {
     tooltip: {
       y: {
         formatter: function (val) {
-          // return "$ " + val + " thousands"
           return "$ " + val
         }
       }

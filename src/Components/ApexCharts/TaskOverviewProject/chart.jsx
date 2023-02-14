@@ -11,7 +11,6 @@ const DonutTaskOverviewProject = (props) => {
 
     const ganttData = FetchGantt();
     const activityData = FetchActivity();
-    const projectData = FetchProject();
 
     const { data} = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
@@ -54,7 +53,6 @@ const DonutTaskOverviewProject = (props) => {
         );
     }
 
-    // const series = [50, 25, 25];
     const series = printTaskOverview();
     const options = {
         chart: {
@@ -87,7 +85,6 @@ const DonutTaskOverviewProject = (props) => {
                 </div>
             </div>
             <div className="py-4">
-                {/* <DonutChartProject value={} /> */}
                 <Chart options={options} type="donut" series={series} width="100%" height="70%" />
             </div>
         </div>

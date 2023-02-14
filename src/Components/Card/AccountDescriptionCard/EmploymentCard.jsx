@@ -1,5 +1,4 @@
 import React from "react";
-import { IconEdit } from "../../Icons/icon";
 import FutureUpdateEdit from "../../Modal/FutureUpdateModal/Edit (Profile Page)/FutureUpdateEdit";
 
 const EmploymentCard = () => {

@@ -1,5 +1,4 @@
 import React from "react";
-import { IconEdit, IconDelete } from "../../Icons/icon";
 
 const DailyReportList = () => {
     const data = [

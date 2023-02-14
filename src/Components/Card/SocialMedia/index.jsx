@@ -3,8 +3,6 @@ import Facebook from "../../../Assets/Images/png/Facebook.png";
 import Instagram from "../../../Assets/Images/png/Instagram.png";
 import Twitter from "../../../Assets/Images/png/Twitter.png";
 import Linkedin from "../../../Assets/Images/png/Linkedin.png";
-import Button from "../../Button";
-import { IconEdit } from "../../Icons/icon";
 import FutureUpdateEdit from "../../Modal/FutureUpdateModal/Edit (Profile Page)/FutureUpdateEdit";
 
 const SocialMediaCard = () => {
@@ -64,7 +62,6 @@ const SocialMediaCard = () => {
                         </div>
                     </div>
                 </div>
-    
             </div>
         </div>
     )

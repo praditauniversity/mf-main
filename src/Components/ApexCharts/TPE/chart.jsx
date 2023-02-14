@@ -30,7 +30,6 @@ export default function BarChart(props) {
     let sumCost = 0;
     let sumDanger = 0;
     let sumVariance = 0;
-    // var projectCurrency = "";
 
     projectData.map((project) => {
         if (profile.id === project.user_id) {
@@ -42,7 +41,6 @@ export default function BarChart(props) {
             const tempVariance = sumVariance + (sumBudget - sumAct);
             sumVariance = tempVariance <= 0 ? tempVariance * -1 : 0;
         }
-    //   projectCurrency = project.currency_symbol;
     });
     return (
         [   sumBudget % 1 !== 0 ? sumBudget.toFixed(2) : sumBudget,

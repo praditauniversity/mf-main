@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
 export default function LineChart() {
+    // Still static data
     const series = [
         {
             name: 'Manpower',

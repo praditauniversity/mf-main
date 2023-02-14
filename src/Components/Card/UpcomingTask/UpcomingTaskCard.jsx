@@ -1,16 +1,6 @@
 import React from "react";
-import FutureUpdateViewAllTasks from "../../Modal/FutureUpdateModal/ViewAllTask/FutureUpdateViewAllTask";
-
-//ini gabisa
-const useStyles = () => ({
-    gridHeight: {
-        height: '1000px'
-    }
-})
-
 
 const UpcomingTaskCard = (props) => {
-    const classes = useStyles();
     const { dataTask } = props;
 
     const upcomingTaskFilter = dataTask.filter((item) => {
@@ -65,7 +55,6 @@ const UpcomingTaskCard = (props) => {
                                 </div>
                                 <div className="flex justify-end">
                                     <div className="dropdown dropdown-button dropdown-end">
-                                        {/* <button tabIndex={0} className="btn btn-outline text-xs">:</button> */}
                                         <button tabIndex={task.ID} className="text-base font-black">:</button>
                                         <ul tabIndex={task.ID} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
                                             <li><a>Edit</a></li>
@@ -111,7 +100,6 @@ const UpcomingTaskCard = (props) => {
                         )
                     }
                 </button>
-                {/* <FutureUpdateViewAllTasks/> */}
             </div>
         </div>
     )

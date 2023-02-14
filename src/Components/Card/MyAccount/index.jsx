@@ -1,8 +1,6 @@
 import React from "react";
 import UserImage from "../../../Assets/Images/png/User.png";
-import Button from "../../Button";
 import GetProfile from "../../Auth/GetProfile";
-import { IconEdit } from "../../Icons/icon";
 import FutureUpdateEdit from "../../Modal/FutureUpdateModal/Edit (Profile Page)/FutureUpdateEdit";
 
 const MyAccount = () => {
@@ -36,7 +34,6 @@ const MyAccount = () => {
                     </center>
                 </div>
             </div>
-
 
             <div>
                 <div className="py-3">

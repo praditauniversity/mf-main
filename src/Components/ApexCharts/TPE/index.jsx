@@ -17,10 +17,8 @@ const TPECard = () => {
                     <div className="pt-4 pb-0 flex justify-between">
                         <div className="flex justify-start">
                             <p className="text-sm place-self-center">Total Project Expenditure</p>
-                            {/* <p className="text-sm ml-1">By Duration</p> */}
                         </div>
                         <div className="flex justify-end">
-                            {/* <p className="text-sm ">Solar Panel Smart Lab</p> */}
                             <div className="mb-1">
                                 <ListboxProject />
                             </div>
@@ -35,9 +33,6 @@ const TPECard = () => {
                     <BarChart value={TpeID} />
                 </div>
                 <div className="py-4 flex justify-end">
-                    {/* <button className="font-semibold text-sm text-primary">
-                        Detail Project Overview
-                    </button> */}
                     <DetailTPE />
                 </div>
             </div>

@@ -1,8 +1,5 @@
 import React from "react";
-import FetchProject from "../../../Middleware/Fetchers/FetchProject";
 import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
-import FetchProjectPage from "../../../Middleware/Fetchers/FetchProjectPage";
-import Accordion from "../../Accordion";
 import FutureUpdateDeleteText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateDeleteText";
 import FutureUpdateEditText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateEditsText";
 
@@ -16,7 +13,6 @@ const useStyles = () => ({
 const ActiveProjectCard = () => {
     const classes = useStyles();
     const project = FetchProjectByUserId();
-    // const project = FetchProjectPage();
 
     const projectFilter = project.filter((item) => {
         const todayDate = new Date();

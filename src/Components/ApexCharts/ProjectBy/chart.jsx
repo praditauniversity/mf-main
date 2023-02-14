@@ -52,6 +52,7 @@ export default function DonutChart2() {
   }
   return (
     <div>
+      {/* Print The Cart */}
       <Chart options={options} type="donut" series={printProjectHealth()} width="100%" height="200%" />
     </div>
   );

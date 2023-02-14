@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import ChevronLeft from "../../../Assets/Icons/svg/ChevronLeft.svg";
 import ChevronRight from "../../../Assets/Icons/svg/Chevron.svg";
-import Button from "../../Button";
-// import AddModalProjectCharter from "../../Modal/ProjectCharterModal/AddModal/AddModal";
-
 const TableFooter = ({ totalPages, currentPage, onPageChange, limit, sort, totalItems, updateTotalItems }) => {
   return (
     <div className="pagination py-[12px] px-[20px]">

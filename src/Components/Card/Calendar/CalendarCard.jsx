@@ -30,11 +30,9 @@ const CalendarCard = () => {
 
     return (
         <div className="rounded-xl shadow-lg bg-white py-5 px-3 calendarapp">
-            {/* <Typography className="header">React Calendar</Typography> */}
             <div className='calendar-container'>
                 <Calendar onChange={setDate} value={date} />
             </div>
-            {/* <Grid className="text-center">Selected date: {date.toDateString()}</Grid> */}
             <div className='px-3 pt-5'>
                 <h3 className="font-bold">Meeting</h3>
                 {data.map((item) => (
