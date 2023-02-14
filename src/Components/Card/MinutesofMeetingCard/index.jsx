@@ -25,7 +25,7 @@ const MinutesofMeetingCard = (props) => {
     const [totalItems, setTotalItems] = useState(momData.length)
 
     const profile = GetProfile();
-    const { data,refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+    const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: profile.id, sort: "ID asc" },
     });
     const [projectData, setProject] = useState([]);
@@ -47,7 +47,8 @@ const MinutesofMeetingCard = (props) => {
             console.log("No data found for project with user id : " + profile.id);
             localStorage.setItem('momProjectID', 0)
         }
-        refetch({ userId: profile.id, sort: "ID asc" });
+
+        refetch({ userId: String(profile.id), sort: "ID asc" });
     }, [data, momData]);
 
     const totalPages = Math.ceil(totalItems / itemsPerPage) ? Math.ceil(totalItems / itemsPerPage) : 1
@@ -55,7 +56,7 @@ const MinutesofMeetingCard = (props) => {
     const handlePageChange = (currentPage) => {
         setCurrentPage(currentPage)
     }
-    
+
     const increaseTotalItems = () => {
         setTotalItems(totalItems + 1);
         // setIsNewDataArrived(true);
@@ -153,14 +154,14 @@ const MinutesofMeetingCard = (props) => {
 
                     <div className="py-2">
                         <div className="col-span-15">
-                            <MinutesofMeetingList 
-                                page={currentPage} 
-                                limit={itemsPerPage} 
-                                sort="ID asc" 
+                            <MinutesofMeetingList
+                                page={currentPage}
+                                limit={itemsPerPage}
+                                sort="ID asc"
                                 totalItems={totalItems}
                                 updateTotalItems={decreaseTotalItems}
-                                onPageChange={handlePageChange} 
-                                totalPages={totalPages} 
+                                onPageChange={handlePageChange}
+                                totalPages={totalPages}
                             />
                         </div>
                     </div>

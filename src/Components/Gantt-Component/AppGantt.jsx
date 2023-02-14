@@ -526,6 +526,57 @@ function AppGantt(props) {
 
     let previousDataLinkLength;
 
+    const handleParse = () => {
+        console.log("handleParse");
+    
+        const testData = [];
+        const testLinks = [];
+
+        dataGantt.map((activity) => {
+            // console.log("is activity data?", activity);
+            const startDate = subStringDate(activity.start_time);
+            const endDate = subStringDate(activity.end_time);
+
+            testData.push({
+                id: activity.ID,
+                name: activity.name,
+                description: activity.description,
+                users: activity.user_id,
+                start_date: startDate,
+                end_date: endDate,
+                parent: String(activity.parent_id),
+                progress: activity.progress_percentage / 100,
+                material_cost_actual: activity.material_cost_actual,
+                ganttID: activity.gantt_id,
+                cost_actual: activity.cost_actual,
+                cost_plan: activity.cost_plan,
+                weight_percentage: activity.weight_percentage,
+                priority: activity.priority,
+                material_cost_plan: activity.material_cost_plan,
+                material_cost_actual: activity.material_cost_actual,
+                tool_cost_plan: activity.tool_cost_plan,
+                tool_cost_actual: activity.tool_cost_actual,
+                human_cost_plan: activity.human_cost_plan,
+                human_cost_actual: activity.human_cost_actual,
+                activity_type: activity.activity_type,
+                phase_id: activity.phase_id,
+                unitofmeasurement_id: activity.unitofmeasurement_id,
+            });
+
+        });
+
+        dataLink.map((link) => {
+                testLinks.push({
+                    id: String(link.ID),
+                    source: link.source,
+                    target: link.target,
+                    type: link.type,
+                });
+        });
+        console.log("Handle Parse Data", "testData", testData, "testLinks", testLinks);
+        gantt.parse({data: testData, links: testLinks});
+    }
+
     isShowAddColumn
         ? !gantt.config.columns.some(col => col.name === 'add') && gantt.config.columns.push({ name: "add", width: 44, grid: true }) && gantt.render()
         : gantt.config.columns.some(col => col.name === 'add') && gantt.config.columns.splice(gantt.config.columns.findIndex(col => col.name === 'add'), 1) && gantt.render()
@@ -692,7 +743,8 @@ function AppGantt(props) {
                     query: GET_LINK_DATA,
                 }
             ],
-            onCompleted: () => { console.log("Refetch deleteActivityLink Completed") }
+            awaitRefetchQueries: true,
+            onCompleted: () => { gantt.clearAll(); handleParse(); console.log("Refetch deleteActivityLink Completed") }
         });
 
     const createLink = (source, target, type) => {
@@ -735,7 +787,7 @@ function AppGantt(props) {
             },
         });
 
-        window.location.reload();
+        // window.location.reload();
 
         if (deleteActivityLinkError) {
             console.log("deleteActivityLinkError", JSON.stringify(deleteActivityLinkError));
@@ -1123,7 +1175,7 @@ function AppGantt(props) {
                             <p className="text-md">{title}</p>
                             <div className="px-4 flex items-center align-right">
                                 {console.log("BRIAN", typeof projectID, projectID)}
-                                <ListboxGanttProjectDashboard projectID={String(projectID)}/>
+                                <ListboxGanttProjectDashboard projectID={String(projectID)} />
                             </div>
                         </div>
                     ) : null
@@ -1135,6 +1187,7 @@ function AppGantt(props) {
                         zoom={currentZoom}
                         onZoomChange={handleZoomChange}
                     />
+                    {/* <button className="border-[#D9D9D9] border-solid rounded border-2 px-3 hover:bg-[#B39DDB]" onClick={handleParse}>Parse Gantt</button> */}
                     {/* <button className="border-[#D9D9D9] border-solid rounded border-2 px-3 hover:bg-[#B39DDB]" onClick={handleRender}>Render Gantt</button> */}
                     {/* <button className="border-[#D9D9D9] border-solid rounded border-2 px-3 hover:bg-[#B39DDB]" onClick={handleClearAll}>Clear Gantt</button> */}
                 </div>

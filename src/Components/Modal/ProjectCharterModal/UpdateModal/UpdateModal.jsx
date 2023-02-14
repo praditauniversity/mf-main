@@ -747,7 +747,7 @@ const UpdateModalProject = (props) => {
                                         </div>
                                     </div>
 
-                                    <p className="label-text">Project ID: <span className="label-text font-bold">{String(projectData.ID)}</span></p>
+                                    {/* <p className="label-text">Project ID: <span className="label-text font-bold">{String(projectData.ID)}</span></p> */}
 
                                     <div className="mt-10">
                                         <div className='flex justify-end'>

@@ -533,9 +533,9 @@ const UpdateModalDailyReport = (props) => {
                       })}
                     </div>
 
-                    <div>
+                    {/* <div>
                       <p className="label-text">Daily Report ID: <span className="label-text font-bold">{String(reportData.ID)}</span></p>
-                    </div>
+                    </div> */}
 
                     <div className="mt-10">
                       <div className="flex justify-end">

@@ -24,8 +24,8 @@ export const RegisterHandler = () => {
     });
     const [password_confirmation, setPasswordConfirmation] = useState('');
     const gender = [
-        { id: 1, name: 'Male', value: "male", unavailable: false },
-        { id: 2, name: 'Female', value: "female", unavailable: false },
+        { id: 1, name: 'Male', value: "Male", unavailable: false },
+        { id: 2, name: 'Female', value: "Female", unavailable: false },
     ]
     console.log("error register", JSON.stringify(registerError))
     // if (error) return console.log("error", JSON.stringify(error));

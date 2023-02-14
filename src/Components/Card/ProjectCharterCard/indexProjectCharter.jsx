@@ -21,7 +21,7 @@ const ProjectCharterPage = (props) => {
 
     const [currentPage, setCurrentPage] = useState(1)
     const [itemsPerPage] = useState(5) // hardcode
-    const [totalItems, setTotalItems] = useState(projectData.length)
+    const [totalItems, setTotalItems] = useState(0)
 
     useEffect (() => {
         if (projectData) {

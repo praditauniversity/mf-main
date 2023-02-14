@@ -580,9 +580,9 @@ const UpdateModalMinutesOfMeeting = (props) => {
                                             </div>
                                         </div>
 
-                                        <div>
+                                        {/* <div>
                                             <p className="label-text">Minutes of Meeting ID: <span className="label-text font-bold">{String(momData.ID)}</span></p>
-                                        </div>
+                                        </div> */}
 
                                         <div className="mt-10">
                                             <div className="flex justify-end">

@@ -3,13 +3,14 @@ import Done from "../../Assets/Icons/svg/Done.svg";
 import FetchActivity from "../../Middleware/Fetchers/FetchActivity";
 import FetchGantt from "../../Middleware/Fetchers/FetchGantt";
 import FetchProject from "../../Middleware/Fetchers/FetchProject";
+import FetchProjectByUserId from "../../Middleware/Fetchers/FetchProjectByUserId";
 import Tasks from "../Tasks/index";
 import NoTasks from "../Tasks/NoTasks";
 
 const TabsDailyReminder = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
 
-  const projectData = FetchProject();
+  const projectData = FetchProjectByUserId();
   const ganttData = FetchGantt();
   const activityData = FetchActivity();
 

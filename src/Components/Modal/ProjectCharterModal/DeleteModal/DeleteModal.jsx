@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { Dialog, Transition } from '@headlessui/react';
 import '../../../../Assets/svgbutton/svgbutton.css'
 import { IconDelete, IconSaveForm } from '../../../Icons/icon';
@@ -34,12 +34,19 @@ const DeleteModalProject = (props) => {
     // } 
 
     const [deleteCharter, { data: deleteCharterData, error: deleteCharterError }] = useMutation(DELETE_PROJECTCHARTER, {
-        refetchQueries : [
-            { query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) } },
+        refetchQueries: [
+            {
+                query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) },
+            }
         ],
-        onCompleted: () => { console.log("Berhasil DELETE PROJECT, sisa", total) }
-    }
-    );
+        awaitRefetchQueries: true, // Wait for refetchQueries to complete before returning from useMutation
+        onCompleted: () => { console.log("Berhasil DELETE PROJECT, sisa", total) },
+      });
+      
+      if (deleteCharterError) {
+        // Handle the error
+        console.error(JSON.stringify(deleteCharterError));
+      }
 
     const handleDelete = (e) => {
         e.preventDefault();
@@ -131,11 +138,11 @@ const DeleteModalProject = (props) => {
                                                 className="inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-primary hover:bg-error-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                 value={projectID}
                                                 onClick={handleDelete}
-                                                // onClick={e => {
-                                                //     e.preventDefault();
-                                                //     handleDelete();
-                                                //     // window.location.reload(true);
-                                                // }}
+                                            // onClick={e => {
+                                            //     e.preventDefault();
+                                            //     handleDelete();
+                                            //     // window.location.reload(true);
+                                            // }}
                                             >
                                                 <IconSaveForm />
                                                 <p className='text-base text-white pt-0.5 px-1'>Delete</p>

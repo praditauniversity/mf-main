@@ -121,17 +121,17 @@ const ProjectCharterCard = (props) => {
                                             <DescTitle title="Project Name" description={charter.name} />
                                         </div>
                                         <div className="col-span-5">
-                                            <DescTitle title="Project Manager" description={charter.project_manager} />
+                                            <DescTitle title="Project Manager" description={charter.project_manager ? charter.project_manager : "N/A"} />
                                         </div>
                                         <div className="col-span-2">
-                                            <DescTitle title="Customer" description={charter.client} />
+                                            <DescTitle title="Customer" description={charter.client ? charter.client : "N/A"} />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="py-6 flex justify-start">
                                     <div>
-                                        <DescTitle title="Project Description" description={charter.description} />
+                                        <DescTitle title="Project Description" description={charter.description ? charter.description : "N/A"} />
                                     </div>
                                 </div>
 

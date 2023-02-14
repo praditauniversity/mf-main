@@ -3,7 +3,8 @@ import Chart from "react-apexcharts";
 import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 
 export default function DualColumnChart() {
-  const projectData = FetchProjectByUserId();
+  let projectData = [];
+  projectData = FetchProjectByUserId();
   // const series = [
   //   {
   //     name: 'Planning',

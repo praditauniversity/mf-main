@@ -8,20 +8,20 @@ import { GET_ACTIVITY_GANTT_ID } from "../GraphQL/Queries";
 import { useQuery } from "@apollo/client";
 import FetchActivity from "../../Middleware/Fetchers/FetchActivity";
 import FetchGantt from "../../Middleware/Fetchers/FetchGantt";
-import FetchProject from "../../Middleware/Fetchers/FetchProject";
+import FetchProjectByUserId from "../../Middleware/Fetchers/FetchProjectByUserId";
 
 const VerticalTabs = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
   const activityData = FetchActivity();
   const ganttData = FetchGantt();
-  const projectData = FetchProject();
+  const projectData = FetchProjectByUserId();
 
   const todayTaskLength = activityData.filter((item) => {
     const todayDate = new Date();
     const startDate = new Date(item.start_time);
     const endDate = new Date(item.end_time);
     const status = item.phase.name;
-    return startDate == todayDate && endDate > todayDate && status === "Todo";
+    return startDate <= todayDate && endDate > todayDate && status === "Todo";
   }).filter((item) => {
     return ganttData.filter((gantt) => {
       return gantt.ID === item.gantt_id;
@@ -207,7 +207,7 @@ const VerticalTabs = ({ color }) => {
                         const startDate = new Date(activity.start_time);
                         const endDate = new Date(activity.end_time);
                         const status = activity.phase.name;
-                        if (startDate == todayDate && endDate > todayDate && status === "Todo") {
+                        if (startDate <= todayDate && endDate > todayDate && status === "Todo") {
                           return (
                             <Tasks data={activity} icon={Done} projectName={project.name} />  
                           )

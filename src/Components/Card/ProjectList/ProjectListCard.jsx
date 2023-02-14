@@ -93,10 +93,17 @@ const ProjectListCard = () => {
                                 </tr>
                             )
                         })
+                            .slice(0, 6)
                     }
                     {ifProjectEmpty()}
                 </tbody>
             </table>
+            <div className="flex justify-end pr-8 py-6">
+                <button className="font-semibold text-sm text-primary">
+                    <a href="/#/projectcharter">View All Projects</a>
+                </button>
+
+            </div>
         </div>
     )
 }

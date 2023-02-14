@@ -61,7 +61,8 @@ const DRList = (props) => {
   }).length;
 
   const setDataEmpty = () => {
-    setDailyReport([]);
+    // setDailyReport([]);
+    console.log("Data Daily Report Kosong")
   }
 
   const ifDRListDataEmpty = () => {

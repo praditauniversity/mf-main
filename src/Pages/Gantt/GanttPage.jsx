@@ -43,7 +43,8 @@ const GanttPage = () => {
     }, [ganttList]);
 
     const setDataEmpty = () => {
-        setGanttData([]);
+        // setGanttData([]);
+        console.log("GANTT DATA is cleared");
     }
 
     const filler = () => {
@@ -78,7 +79,6 @@ const GanttPage = () => {
         }
     }
 
-    console.log("jjjjjjjjhjhjhjhjhjhjhjh", ganttData);
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);

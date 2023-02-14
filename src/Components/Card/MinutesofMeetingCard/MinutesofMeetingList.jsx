@@ -39,7 +39,8 @@ const MinutesofMeetingList = (props) => {
   }).length;
 
   const setDataEmpty = () => {
-    setMomData([]);
+    // setMomData([]);
+    console.log("Data Minutes of Meeting is empty")
   }
 
   const ifMomListEmpty = () => {

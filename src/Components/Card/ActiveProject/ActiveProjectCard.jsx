@@ -18,12 +18,14 @@ const ActiveProjectCard = () => {
     const project = FetchProjectByUserId();
     // const project = FetchProjectPage();
 
-    const projectLength = project.filter((item) => {
+    const projectFilter = project.filter((item) => {
         const todayDate = new Date();
         const startDate = new Date(item.start_project);
         const endDate = new Date(item.end_project);
         return startDate <= todayDate && endDate > todayDate;
-    }).length;
+    });
+
+    const projectLength = projectFilter.length;
 
     const ifActiveProjectEmpty = () => {
         if (projectLength === 0) {
@@ -41,6 +43,12 @@ const ActiveProjectCard = () => {
         }
     }
 
+    const filteredProjects = projectFilter
+        .sort((a, b) => {
+            return new Date(a.start_project) - new Date(b.start_project);
+        })
+        .slice(0, 6);
+
     return (
         <div className="rounded-xl shadow-lg bg-white">
             <div>
@@ -52,7 +60,7 @@ const ActiveProjectCard = () => {
             </div>
             <div className="h-96 border-t-2 border-b-2">
                 <div className="pt-6 pb-6 pl-12 pr-12">
-                {project.map((item) => {
+                {filteredProjects.map((item) => {
                     const todayDate = new Date();
                     const startDate = new Date(item.start_project);
                     const endDate = new Date(item.end_project);

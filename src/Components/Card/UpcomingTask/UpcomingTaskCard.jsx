@@ -13,13 +13,15 @@ const UpcomingTaskCard = (props) => {
     const classes = useStyles();
     const { dataTask } = props;
 
-    const upcomingTaskLength = dataTask.filter((item) => {
+    const upcomingTaskFilter = dataTask.filter((item) => {
         const todayDate = new Date();
         const startDate = new Date(item.start_time);
         const endDate = new Date(item.end_time);
         const status = item.phase.name;
         return startDate > todayDate && endDate > todayDate/* && status === "Todo"*/;
-    }).length;
+    });
+
+    const upcomingTaskLength = upcomingTaskFilter.length;
 
     const ifUpcomingTaskEmpty = () => {
         if (upcomingTaskLength === 0) {
@@ -38,12 +40,7 @@ const UpcomingTaskCard = (props) => {
     }
 
     function MappingData() {
-        const filteredTasks = dataTask
-            .filter(task => {
-                const todayDate = new Date();
-                const date = new Date(task.start_time);
-                return date > todayDate /*&& status === "Todo"*/;
-            })
+        const filteredTasks = upcomingTaskFilter
             .sort((a, b) => {
                 return new Date(a.start_time) - new Date(b.start_time);
             })

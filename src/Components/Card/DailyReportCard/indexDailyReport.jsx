@@ -23,7 +23,7 @@ const DailyReportPage = (props) => {
     // const projectData = FetchProjectByUserId();
 
     const profile = GetProfile();
-    const { data,refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+    const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: profile.id, sort: "ID asc" },
     });
     const [projectData, setProject] = useState([]);
@@ -40,10 +40,11 @@ const DailyReportPage = (props) => {
             localStorage.getItem('reportProjectID') === null ? localStorage.setItem('reportProjectID', data.projectByUserId.Data[0].ID) : console.log("reportProjectID is not null");
             reportProjectID === null ? setReportProjectID(data.projectByUserId.Data[0].ID) : setReportProjectID(localStorage.getItem('reportProjectID'));
         }
-        refetch({ userId: String(profile.id), sort: "ID asc" });
         if (DRDataList) {
             setTotalItems(DRDataList.length);
         }
+
+        refetch({ userId: String(profile.id), sort: "ID asc" });
     }, [data, DRDataList]);
 
     const totalPages = Math.ceil(totalItems / itemsPerPage) ? Math.ceil(totalItems / itemsPerPage) : 1
@@ -51,7 +52,7 @@ const DailyReportPage = (props) => {
     const handlePageChange = (currentPage) => {
         setCurrentPage(currentPage)
     }
-    
+
     const increaseTotalItems = () => {
         setTotalItems(totalItems + 1);
     };
@@ -180,14 +181,14 @@ const DailyReportPage = (props) => {
 
                     <div className="py-2">
                         <div className="col-span-15">
-                            <DRList 
-                                page={currentPage} 
-                                limit={itemsPerPage} 
-                                sort="ID asc" 
+                            <DRList
+                                page={currentPage}
+                                limit={itemsPerPage}
+                                sort="ID asc"
                                 totalItems={totalItems}
                                 updateTotalItems={decreaseTotalItems}
-                                onPageChange={handlePageChange} 
-                                totalPages={totalPages} 
+                                onPageChange={handlePageChange}
+                                totalPages={totalPages}
                             />
                         </div>
                     </div>

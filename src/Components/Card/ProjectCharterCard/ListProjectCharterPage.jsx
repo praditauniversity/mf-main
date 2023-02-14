@@ -25,15 +25,19 @@ const PCList = (props) => {
     const { page, limit, sort, totalItems, updateTotalItems, onPageChange, totalPages } = props;
     // const charterData = FetchProjectByUserId();
     const profile = GetProfile();
-    const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+    const { data, error: errorGetProject } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) },
     });
     const [charterData, setCharter] = useState([]);
 
     useEffect(() => {
+        if (errorGetProject) {
+            console.log("Error Get Project", errorGetProject);
+        }
         if (data) {
             setCharter(data.projectByUserId.Data);
             console.log("Data found for project with user id : " + profile.id);
+            console.log("Data found for project with user id : " + data.projectByUserId.Data);
         } else {
             console.log("No data found for project with user id : " + profile.id);
         }
@@ -53,7 +57,9 @@ const PCList = (props) => {
     if (error) return `Submission error! ${error.message}`;
 
     const setCharterDataEmpty = () => {
-        setCharter([]);
+        // setCharter([]);
+        console.log("setCharterDataEmpty 1", totalItems);
+        console.log("setCharterDataEmpty 2", charterData);
     }
 
     const ifCharterDataEmpty = () => {

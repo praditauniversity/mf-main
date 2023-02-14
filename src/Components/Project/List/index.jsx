@@ -131,7 +131,7 @@ const ProjectListPage = (props) => {
         }
     }
     const ifProjectDataEmpty = () => {
-        if (value.length === 0) {
+        if (value.length === 0 || (value.length === 1 && Object.keys(value[0]).length === 0)) {
             // fill the table with white space
             return (
                 <tr className="h-full" >
@@ -156,7 +156,6 @@ const ProjectListPage = (props) => {
                     </thead>
                     {/* <!-- body --> */}
                     <tbody>
-                        {console.log("BRIAN", value)}
                         {value.map((project) => (
                             <tr key={project.ID}>
                                 <td>
