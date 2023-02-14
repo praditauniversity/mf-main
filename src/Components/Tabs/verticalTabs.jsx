@@ -3,9 +3,6 @@ import Tasks from "../Tasks";
 import NoTasks from "../Tasks/NoTasks";
 import Counter from "../Counter";
 import Done from "../../Assets/Icons/svg/Done.svg";
-import { useState } from "react";
-import { GET_ACTIVITY_GANTT_ID } from "../GraphQL/Queries";
-import { useQuery } from "@apollo/client";
 import FetchActivity from "../../Middleware/Fetchers/FetchActivity";
 import FetchGantt from "../../Middleware/Fetchers/FetchGantt";
 import FetchProjectByUserId from "../../Middleware/Fetchers/FetchProjectByUserId";
@@ -64,24 +61,6 @@ const VerticalTabs = ({ color }) => {
     }).length > 0;
   }).length;
 
-  // const [someTask, setSomeTask] = useState([
-  //   { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Make moodboard", date: "14 Sep" },
-  //   { id: 2, icon: Done, projectName: "Project anomaly", taskName: "Create wireframe", date: "14 Sep" },
-  //   { id: 3, icon: Done, projectName: "Project anomaly", taskName: "Make the Lo-Fi model", date: "14 Sep" },
-  //   { id: 4, icon: Done, projectName: "Project anomaly", taskName: "Make the Hi-Fi model", date: "14 Sep" },
-  //   { id: 5, icon: Done, projectName: "Project anomaly", taskName: "Usability testing", date: "14 Sep" },
-  // ]);
-
-  // const [someTask1, setSomeTask1] = useState([
-  //   { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Discovery requirements", date: "12 Sep" },
-  // ]);
-
-  // const [someTask2, setSomeTask2] = useState([]);
-
-  // const someTaskLength = someTask.length;
-  // const someTask1Length = someTask1.length;
-  // const someTask2Length = someTask2.length;
-  
   return (
     <>
       <div className="flex flex-wrap flex-row grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 lg:mt-0 mt-2">

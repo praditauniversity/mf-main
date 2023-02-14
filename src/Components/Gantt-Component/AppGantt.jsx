@@ -8,12 +8,8 @@ import { gantt } from "dhtmlx-gantt";
 
 // import data
 import { useRef } from "react";
-import AddModalGantt from "../Modal/Gantt/AddModalGantt";
-import DeleteModalGantt from "../Modal/Gantt/DeleteModalGantt";
-import EditModalGantt from "../Modal/Gantt/EditModalGantt";
-import { PrintListGanttName } from "./CustomActivityState";
 import Toolbar from "./Toolbar";
-import { GET_ACTIVITY_DATA, GET_ACTIVITY_GANTT_ID, GET_LINK_DATA } from "../GraphQL/Queries";
+import { GET_ACTIVITY_GANTT_ID, GET_LINK_DATA } from "../GraphQL/Queries";
 import ListboxGanttProjectDashboard from "../Card/PrintGanttProjectDashboard/ListboxGanttProjectDashboard";
 
 let selectedPriorityValue;
@@ -22,9 +18,7 @@ let selectedPhaseValue;
 let selectedPhaseText;
 let selectedUnitMeasureText;
 let selectedUnitMeasureValue;
-// add by mappingPhase()
 let optionPhase = [];
-// add by mappingUnitofMeasurement()
 let optionUnitMeasurement = [];
 let isLinkDelete;
 
@@ -53,7 +47,6 @@ gantt.config.columns = [
         },
         resize: true,
     },
-    // { name: "add", width: 44 },
 ];
 
 gantt.eachTask(function (task) {
@@ -61,9 +54,7 @@ gantt.eachTask(function (task) {
 });
 
 const handleRender = () => {
-    // Refresh the Gantt chart
-    // if there is an error this handle will not refresh and broken instead
-    console.log("handleRender");
+    console.log("This is View modal HandlerRender");
     gantt.render();
 };
 const handleClearAll = () => {
@@ -74,13 +65,10 @@ const handleClearAll = () => {
 // Create custom add task editor
 (function () {
     $(".gantt_cal_light.my-custom-class").css("height", "800px");
-    // eslint-disable-next-line no-undef
     const startDatepicker = (node) => $(node).find("input[name='start']");
-    // eslint-disable-next-line no-undef
     const endDateInput = (node) => $(node).find("input[name='end']");
 
     gantt.config.buttons_left = ["gantt_save_btn", "gantt_cancel_btn", "gantt_delete_btn"];
-    // gantt.config.buttons_right = [null];
 
     gantt.config.buttons_right = gantt.config.buttons_right.filter(function (button) {
         return button != "gantt_delete_btn";
@@ -91,7 +79,6 @@ const handleClearAll = () => {
         render: (sns) => {
             const height = sns.height || 45;
             return (
-                // eslint-disable-next-line prefer-template
                 "<div class='gantt-lb-datepicker px-4' style='height:" +
                 height +
                 "px;'>" +
@@ -357,7 +344,6 @@ const handleClearAll = () => {
             const prioritySelector = node.querySelector(".editor_priority");
             const phaseSelector = node.querySelector(".editor_phase");
             const unitMeasureSelector = node.querySelector(".editor_unitmeasure");
-            // console.log("Console Log Check Options Data", optionPriority, optionPhase, optionUnitMeasurement)
 
             if (prioritySelector.length < 1) {
                 optionPriority.forEach(option => {
@@ -450,7 +436,7 @@ gantt.config.lightbox.sections = [
 
 // dhtmlx cancel button
 gantt.attachEvent("onLightboxCancel", function (id) {
-    console.log("onLightboxCancel", id);
+    console.log("onLightboxCancel id", id);
 });
 
 //dhtmlx to get data
@@ -527,13 +513,12 @@ function AppGantt(props) {
     let previousDataLinkLength;
 
     const handleParse = () => {
-        console.log("handleParse");
-    
+        console.log("This is Handle Parse");
+
         const testData = [];
         const testLinks = [];
 
         dataGantt.map((activity) => {
-            // console.log("is activity data?", activity);
             const startDate = subStringDate(activity.start_time);
             const endDate = subStringDate(activity.end_time);
 
@@ -566,15 +551,15 @@ function AppGantt(props) {
         });
 
         dataLink.map((link) => {
-                testLinks.push({
-                    id: String(link.ID),
-                    source: link.source,
-                    target: link.target,
-                    type: link.type,
-                });
+            testLinks.push({
+                id: String(link.ID),
+                source: link.source,
+                target: link.target,
+                type: link.type,
+            });
         });
-        console.log("Handle Parse Data", "testData", testData, "testLinks", testLinks);
-        gantt.parse({data: testData, links: testLinks});
+        console.log("Handle Parse Data", "testData :", testData, "testLinks : ", testLinks);
+        gantt.parse({ data: testData, links: testLinks });
     }
 
     isShowAddColumn
@@ -584,7 +569,6 @@ function AppGantt(props) {
     const isUpdated = useRef(false);
     const isAdd = useRef(false);
     const isDelete = useRef(false);
-    // const isLinkDelete = useRef(false);
     const isLinkAdd = useRef(false);
     const isDrag = useRef(false);
 
@@ -726,16 +710,7 @@ function AppGantt(props) {
             onCompleted: () => { console.log("Refetch addActivityLink Completed") }
         }
         );
-    // No use UpdateActivityLink for now only add and delete
-    // const [updateActivityLink, { data: updateActivityLinkData, error: updateActivityLinkError }] =
-    //     useMutation(UPDATE_ACTIVITY_LINK, {
-    //         refetchQueries: [
-    //             {
-    //                 query: GET_LINK_DATA,
-    //             }
-    //         ],
-    //         onCompleted: () => { console.log("Refetch updateActivityLink Completed") }
-    //     });
+
     const [deleteActivityLink, { data: deleteActivityLinkData, error: deleteActivityLinkError }] =
         useMutation(DELETE_ACTIVITY_LINK, {
             refetchQueries: [
@@ -762,25 +737,8 @@ function AppGantt(props) {
         }
     };
 
-    // No use UpdateActivityLink for now only add and delete
-    // const changeLink = (id, source, target, type) => {
-    //     updateActivityLink({
-    //         variables: {
-    //             id: id,
-    //             source: source,
-    //             target: target,
-    //             type: type,
-    //             gantt_id: parseInt(ganttID),
-    //         },
-    //     });
-
-    //     if (updateActivityLinkError) {
-    //         console.log("updateActivityLinkError", JSON.stringify(updateActivityLinkError));
-    //     }
-    // };
-
     const removeLink = (id) => {
-        console.log("remove link", typeof id, id);
+        console.log("Remove link", typeof id, id);
         deleteActivityLink({
             variables: {
                 id: id,
@@ -862,7 +820,6 @@ function AppGantt(props) {
 
     // dhtmlx save button add
     gantt.attachEvent("onAfterTaskAdd", (id, item) => {
-        // console.log("onAfterTaskAdd", id, item);
         if (isAdd.current === true) {
             isAdd.current = false;
             const name = item.name;
@@ -944,7 +901,7 @@ function AppGantt(props) {
 
     // dhtmlx save button update
     gantt.attachEvent("onAfterTaskUpdate", (id, item) => {
-        console.log(isUpdated.current);
+        // console.log(isUpdated.current);
         // console.log("typeof onAfterTaskUpdate", id, typeof item.start_date, item.start_date);
         if (isUpdated.current === true) {
             isUpdated.current = false;
@@ -1041,14 +998,6 @@ function AppGantt(props) {
         console.log("when link clicked", link);
     });
 
-    // cant use this because onafterlinkadd need to deletelink first (the link that use id auto gantt)
-    // gantt.attachEvent("onBeforeLinkDelete", function(id,item){
-    //     //any custom logic here
-    //     console.log("onBeforeLinkDelete", id, item);
-    //     isLinkDelete.current = true;
-    //     return true;
-    // });
-
     gantt.attachEvent("onAfterLinkDelete", function (id, item) {
         //any custom logic here
         console.log("uslinkdelete", isLinkDelete)
@@ -1064,11 +1013,9 @@ function AppGantt(props) {
     }
 
     function MappingPhase() {
-        // if optionPhase.length < 0 {
         if (optionPhase.length === 0 && dataPhase.length > 0 || optionPhase.length === null) {
             console.log("masuk mapping phase", dataPhase);
             const arrayPhase = dataPhase.map((phase) => {
-                // console.log("is activity data?", activity);
                 optionPhase.push({
                     value: phase.ID,
                     label: phase.name,
@@ -1081,7 +1028,6 @@ function AppGantt(props) {
         if (optionUnitMeasurement.length === 0 && dataUnitMeasure.length > 0) {
             console.log("masuk mapping uom", dataUnitMeasure);
             const arrayUOM = dataUnitMeasure.map((uom) => {
-                // console.log("is activity data?", activity);
                 optionUnitMeasurement.push({
                     value: uom.ID,
                     label: uom.name,
@@ -1091,13 +1037,10 @@ function AppGantt(props) {
     }
 
     function MappingLink() {
-        console.log("is link data?", dataLink.length);
+        console.log("is link data ? - ", dataLink.length);
         if (dataLink.length !== previousDataLinkLength) {
             previousDataLinkLength = dataLink.length;
             const dataLinkMap = dataLink.map((link) => {
-
-                // console.log("is link data?", typeof link.type, link.type);
-
                 if (!gantt.isLinkExists(link.ID)) {
                     gantt.addLink({
                         id: String(link.ID),
@@ -1108,7 +1051,7 @@ function AppGantt(props) {
                 }
             });
             if (dataLinkMap.length === dataLink.length) {
-                console.log("masuk render");
+                console.log("masuk render mapping link");
                 gantt.render();
             }
         }
@@ -1116,11 +1059,10 @@ function AppGantt(props) {
 
     // mapping data
     function MappingData() {
-        console.log("is dataGantt?", dataGantt.length);
+        console.log("is dataGantt? - ", dataGantt.length);
         if (dataGantt.length !== previousDataGanttLength) {
             previousDataGanttLength = dataGantt.length;
             const dataActivity = dataGantt.map((activity) => {
-                // console.log("is activity data?", activity);
                 const startDate = subStringDate(activity.start_time);
                 const endDate = subStringDate(activity.end_time);
 
@@ -1165,10 +1107,7 @@ function AppGantt(props) {
 
     return (
         <div className="py-6 bg-white px-12 rounded-xl shadow-lg h-full">
-            {/* fill the height */}
-            {/* <div className="h-50%"> */}
             <div className="h-full">
-                {/* <div className="h-4/5"> */}
                 {
                     isShowListGantt ? (
                         <div className="py-2 px-4 flex justify-between items-center align-middle">
@@ -1181,15 +1120,11 @@ function AppGantt(props) {
                     ) : null
 
                 }
-                {/* <div className="py-1 px-4 h-full">{MappingData()}</div> */}
                 <div className="zoom-bar px-3 flex justify-between">
                     <Toolbar
                         zoom={currentZoom}
                         onZoomChange={handleZoomChange}
                     />
-                    {/* <button className="border-[#D9D9D9] border-solid rounded border-2 px-3 hover:bg-[#B39DDB]" onClick={handleParse}>Parse Gantt</button> */}
-                    {/* <button className="border-[#D9D9D9] border-solid rounded border-2 px-3 hover:bg-[#B39DDB]" onClick={handleRender}>Render Gantt</button> */}
-                    {/* <button className="border-[#D9D9D9] border-solid rounded border-2 px-3 hover:bg-[#B39DDB]" onClick={handleClearAll}>Clear Gantt</button> */}
                 </div>
                 <div className="py-1 px-4 h-5/6">
                     <div className="h-full">

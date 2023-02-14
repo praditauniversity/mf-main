@@ -13,11 +13,11 @@ export function Actual(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Actual");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Actual");
         }
     }, [data]);
 
@@ -45,18 +45,17 @@ export function Actual(props) {
 export function Cost(props) {
     const profile = GetProfile();
     const { value } = props;
-    // console.log("Value: " + value);
     const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Cost");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Cost");
         }
     }, [data]);
 
@@ -84,18 +83,17 @@ export function Cost(props) {
 export function Budget(props) {
     const profile = GetProfile();
     const { value } = props;
-    // console.log("Value: " + value);
     const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Budget");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Budget");
         }
     }, [data]);
 
@@ -123,18 +121,17 @@ export function Budget(props) {
 export function Danger(props) {
     const profile = GetProfile();
     const { value } = props;
-    // console.log("Value: " + value);
     const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Danger");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Danger");
         }
     }, [data]);
 
@@ -163,18 +160,17 @@ export function Danger(props) {
 export function Variance(props) {
     const profile = GetProfile();
     const { value } = props;
-    // console.log("Value: " + value);
     const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Variance");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Variance");
         }
     }, [data]);
 
@@ -209,11 +205,11 @@ export function CostHealth(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Cost Health");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Cost Health");
         }
     }, [data]);
 
@@ -221,7 +217,6 @@ export function CostHealth(props) {
         let costHealth = "";
         projectData.map((project) => {
             if (profile.id === project.user_id) {
-                // costHealth = project.cost_actual / project.cost_plan;
                 costHealth = project.budget_health;
             }
         });
@@ -246,11 +241,11 @@ export function ScheduleHealth(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Schedule Health");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Schedule Health");
         }
     }, [data]);
 
@@ -291,11 +286,11 @@ export function ProgressPercentage(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Progress Percentage");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Progress Percentage");
         }
     }, [data]);
     function printProgressPercentage() {
@@ -326,11 +321,11 @@ export function ProjectManager(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Project Manager");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Project Manager");
         }
     }, [data]);
 
@@ -362,11 +357,11 @@ export function Client(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Client");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Client");
         }
     }, [data]);
 
@@ -398,11 +393,11 @@ export function ClientContact(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Client Contact");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Client Contact");
         }
     }, [data]);
 
@@ -434,11 +429,11 @@ export function ProjectStatus(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Project Status");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Project Status");
         }
     }, [data]);
 
@@ -470,11 +465,11 @@ export function Location(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Data Ready - Location");
             setProject(data.project.Data);
             console.log(projectData);
         } else {
-            console.log("No data");
+            console.log("No data - Location");
         }
     }, [data]);
 

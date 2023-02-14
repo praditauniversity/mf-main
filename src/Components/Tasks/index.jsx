@@ -23,7 +23,6 @@ const Tasks = (props) => {
             </div>
 
             <a key={data.ID} className="flex justify-center align-center opacity-70 hover:opacity-100 ease-out duration-100">
-                {/* <img src={icon} className="w-12"></img> */}
                 <UpdateModalTask taskData={data} icon={icon} />
             </a>
             

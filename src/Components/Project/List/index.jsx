@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import dailyReportIcon from "../../../Assets/Icons/svg/File_dock_duotone.svg";
-import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
-import FetchProjectCharter from "../../../Middleware/Fetchers/FetchProjectCharter";
 
 const ListProject = [
     {
@@ -109,7 +107,6 @@ const ActionsButton = (props) => {
 
 
 const ProjectListPage = (props) => {
-    // const projectData = FetchProjectByUserId();
     const {value} = props;
 
     
@@ -195,7 +192,6 @@ const ProjectListPage = (props) => {
                                 <td>
                                     <div className="flex items-center space-x-3">
                                         <div>
-                                            {/*parsing from 2023-01-05T04:04:48.377Z to 05 January 2023 */}
                                             <div className="font-bold">{new Date(project.start_project).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</div>
                                             <div className="text-sm opacity-50">{new Date(project.end_project).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</div>
                                         </div>
@@ -205,7 +201,6 @@ const ProjectListPage = (props) => {
                                     <div className="flex items-center space-x-3">
                                         <div>
                                             {/* calculate duration */}
-                                            {/* <div className="font-bold">{Math.round((new Date(project.end_project) - new Date(project.start_project)) / (1000 * 60 * 60 * 24))} days</div> */}
                                             <div className="font-bold">{project.project_duration} days</div>
                                             <div className="text-sm opacity-50">Duration Project</div>
 

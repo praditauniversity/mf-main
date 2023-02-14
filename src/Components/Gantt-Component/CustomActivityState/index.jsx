@@ -93,19 +93,13 @@ export function useProject() {
   });
 
   useEffect(() => {
-
     if (dataProjectUser) {
-      console.log("Data Ready list gantt");
-      console.log("Data Ready project by userid", dataProjectUser.projectByUserId.Data);
+      console.log("Data Ready list gantt and project by userid : ", dataProjectUser.projectByUserId.Data);
       setProjectData(dataProjectUser.projectByUserId.Data);
-      console.log("Data Ready projectData", projectData);
       localStorage.getItem('projectID') === null ? localStorage.setItem('projectID', dataProjectUser.projectByUserId.Data[0].ID) : console.log("projectID is not null");
       projectID === null ? setProjectID(dataProjectUser.projectByUserId.Data[0].ID) : setProjectID(localStorage.getItem('projectID'));
-      console.log("projectID =? ", projectID);
-      // ganttID == 0 ? console.log("gantt id !==0 true: ", ganttID) : console.log("gantt id !==0 false: ", ganttID);
 
     }
-    console.log("USE EFFECT PROJECT");
   }, [dataProjectUser]);
 
   return { projectData, projectID, setProjectID, dataProjectUser };
@@ -187,24 +181,6 @@ export const useUnitMeasure = () => {
   return [unitMeasureData, setUnitMeasureData];
 }
 
-// Error when logout no list gantt
-// export const PrintGantt = (props) => {
-//   const { title } = props;
-//   const { projectID } = useProject();
-//   const { ganttID } = useGantt();
-//   console.log("PrintGantt projectID", projectID);
-//   console.log("PrintGantt ganttID", ganttID);
-//   const [activityData, setActivity] = useActivity();
-//   const [linkData, setLink] = useLink();
-//   const [activityPhaseData, setActivityPhaseData] = useActivityPhase();
-//   const [unitMeasureData, setUnitMeasureData] = useUnitMeasure();
-
-//   return <>
-//     {console.log("PrintGantt activityData", activityData)}
-//     <AppGantt title={title} dataGantt={activityData} dataLink={linkData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={true} isShowAddColumn={false} isShowListGantt={true} />
-//   </>
-// }
-
 export const PrintGanttPage = (props) => {
   const { title, ganttID, projectID } = props;
   localStorage.setItem('ganttID', ganttID);
@@ -215,32 +191,18 @@ export const PrintGanttPage = (props) => {
   const [unitMeasureData, setUnitMeasureData] = useUnitMeasure();
 
   return <>
-    {/* <TestFormGantt title={title} dataGantt={activityData} dataLink={linkData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={true} isShowListGantt={false} /> */}
     <AppGantt title={title} dataGantt={activityData} dataLink={linkData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={true} isShowListGantt={false} />
-    {console.log("activityData", activityData)}
   </>
 }
-
-// Error when logout no list gantt
-// export const PrintListGanttName = () => {
-//   const { ganttID, setGanttID, ganttName } = useGantt();
-//   console.log("this is custom activity. ganttname is ", ganttName);
-//   console.log("CUSTOMMM ID", ganttID);
-//   console.log("CUSTOMMM ganttData", ganttName);
-
-//   return <>
-//     <ListGanttByProject ganttID={ganttID} setGanttID={setGanttID} ganttName={ganttName} />
-//   </>
-// }
 
 // TODO : ERROR
 export const PrintListProjetcName = () => {
   const { projectID, setProjectID, projectData } = useProject();
   const { ganttID, setGanttID, ganttName } = useGantt();
-  console.log("PrintListProjetcName ganttt ID ", ganttID);
-  console.log("PrintListProjetcName ProjectID", projectID);
-  console.log("PrintListProjetcName ganttname", ganttName);
-  console.log("PrintListProjetcName projectdata", projectData);
+  // console.log("PrintListProjetcName ganttt ID ", ganttID);
+  // console.log("PrintListProjetcName ProjectID", projectID);
+  // console.log("PrintListProjetcName ganttname", ganttName);
+  // console.log("PrintListProjetcName projectdata", projectData);
 
   return <>
     <ListboxProjectName setGanttID={setGanttID} projectID={projectID} setProjectID={setProjectID} projectData={projectData} />
@@ -250,7 +212,7 @@ export const PrintListProjetcName = () => {
 // TODO : ERROR
 export const PrintProjectDashboard = () => {
   const [projectData,setProjectData]= useState(localStorage.getItem('projectID'));
-  console.log("PrintProjectDashboard projectData", projectData);
+  console.log("PrintProjectDashboard projectData : ", projectData);
   useEffect(() => {
     if (projectData === null) {
       setProjectData(String(localStorage.getItem('projectID')));

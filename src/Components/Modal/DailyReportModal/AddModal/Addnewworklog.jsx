@@ -3,10 +3,6 @@ import { IconDeleteForm, IconPlusForm } from "../../../Icons/icon";
 import './AddModal.css'
 
 const Addnewworklog = () => {
-
-    // const [inputFields, setInputFields] = useState([
-    //     { name: '', description: '', status: '', hour: '' }
-    // ])
     const [ inputFields, setInputFields,setWorkLogName,setWorkLogDesc,setWorkLogStatus,setWorkLogHour] = useWorkLog()
 
     const handleFormChange = (index, event) => {
@@ -14,8 +10,6 @@ const Addnewworklog = () => {
         let data = [...inputFields];
         const dataevent=event.target.name;
         data[index][event.target.name] = event.target.value;
-        console.log("awawawaaw",data)
-        console.log("awawawaaw",inputFields)
 
         var work_log_name = [];
         var work_log_desc = [];
@@ -30,7 +24,6 @@ const Addnewworklog = () => {
             work_log_hour.push(item.work_log_hour)
             return;
         })
-        console.log ("testing111",getdatanewwork)
         
         setWorkLogName(work_log_name);
         setWorkLogDesc(work_log_desc);
@@ -77,7 +70,6 @@ const Addnewworklog = () => {
                         </div>
                     </div>
                 </div>
-                {console.log(inputFields)}
                 {inputFields.map((input, index) => {
                     return (
                         <div key={index}>

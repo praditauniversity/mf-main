@@ -50,7 +50,6 @@ const CommandPalette = () => {
                     <Combobox
                         onChange={(project) => {
                             console.log(project.ID)
-                            // window.location.href = `/#/projects/${project.ID}`
                             window.location.href = `/#/projectdashboard`
                         }}
                         as="div"

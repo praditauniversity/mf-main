@@ -130,34 +130,14 @@ export default class Gantt extends Component {
     return this.props.zoom !== nextProps.zoom;
   }
 
-  // componentDidMount() {
-  //   gantt.config.date_format = "%Y-%m-%d %H:%i";
-  //   const { tasks } = this.props;
-  //   gantt.config.open_tree_initially = true;
-  //   gantt.config.lightbox.height = 670;
-  //   // gantt.config.lightbox_additional_height = 6000;
-  //   gantt.init(this.ganttContainer);
-  //   gantt.config.readonly = this.props.isReadOnly;
-  //   // gantt.config.height = "full";
-  //   gantt.render();
-  //   gantt.config.lightbox.width = 900;
-  //   gantt.parse(tasks);
-  //   // gantt.config.lightbox.css = "max-height: 600px; overflow-y: auto;";
-  //   gantt.config.lightbox.css = "height: 700px;";
-  //   // gantt.cal.area.css = "height: 600px; overflow-y: auto;";
-  //   gantt.config.lightbox.height = 670;
-  // }
-
   componentDidMount() {
     gantt.config.date_format = "%Y-%m-%d %H:%i";
-    // const { tasks } = this.props;
     gantt.config.open_tree_initially = true;
     gantt.init(this.ganttContainer);
     gantt.config.readonly = this.props.isReadOnly;
     gantt.render();
     gantt.config.lightbox.width = 900;
     gantt.config.lightbox.height = 6700;
-    // gantt.parse(tasks);
     gantt.config.lightbox.height = 6700;
   }
 

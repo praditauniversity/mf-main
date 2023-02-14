@@ -148,7 +148,7 @@ const UpdateModalDailyReport = (props) => {
   const handleChangeActivity = (event) => {
     setActivityId(parseInt(event.target.value));
     console.log(
-      "Activity ID",
+      "Activity ID - Handle Change Update",
       typeof parseInt(event.target.value),
       event.target.value
     );
@@ -156,22 +156,22 @@ const UpdateModalDailyReport = (props) => {
 
   const handleName = (event) => {
     setName(event.target.value);
-    console.log("Name", event.target.value);
+    // console.log("Name", event.target.value);
   };
 
   const handleDescription = (event) => {
     setDescription(event.target.value);
-    console.log("Description", event.target.value);
+    // console.log("Description", event.target.value);
   };
 
   const handleStatus = (event) => {
     setStatus(event.target.value);
-    console.log("Status", event.target.value);
+    // console.log("Status", event.target.value);
   };
 
   const handleReportDate = (event) => {
     setReportDate(event.target.value);
-    console.log("Report Date", event.target.value);
+    // console.log("Report Date", event.target.value);
   };
 
   const handleFormChangeEquipment = (value, index) => {
@@ -179,10 +179,8 @@ const UpdateModalDailyReport = (props) => {
       return equipIndex === index ? value : equipItem;
     });
     setEquipment(dataEquip);
-
-    console.log("DATA", dataEquip);
-    console.log("DAILYREPORTEQUP", equipment);
   };
+
   const handleFormChange = (index, event) => {
     let data = [...inputFields];
     data[index][event.target.name] = event.target.value;
@@ -225,17 +223,12 @@ const UpdateModalDailyReport = (props) => {
   const removeFieldsEquipment = (index) => {
     let dataEquip = [...equipment];
     dataEquip.splice(index, 1);
-    console.log("removefields", equipment);
-    console.log("removefields", dataEquip);
     setEquipment(dataEquip);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setActivityId(parseInt(inputRefActivity.current.value));
-
-    console.log("Activity ID BRIAN", activity_id, typeof activity_id);
 
     updateDailyReport({
       variables: {
@@ -410,7 +403,6 @@ const UpdateModalDailyReport = (props) => {
                             </div>
                           </div>
                         </div>
-                        {console.log(inputFields)}
                         {inputFields.map((input, index) => {
                           return (
                             <div key={index}>
@@ -532,10 +524,6 @@ const UpdateModalDailyReport = (props) => {
                         );
                       })}
                     </div>
-
-                    {/* <div>
-                      <p className="label-text">Daily Report ID: <span className="label-text font-bold">{String(reportData.ID)}</span></p>
-                    </div> */}
 
                     <div className="mt-10">
                       <div className="flex justify-end">

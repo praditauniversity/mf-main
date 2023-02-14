@@ -159,9 +159,6 @@ export const DatePickerFieldEnd = ({ label, dateFormat, selected, placeholder, o
 }
 
 export const TimePickerField = ({ label, selected, placeholder, onChange, disabled, error }) => {
-    // const [startDate, setStartDate] = useState(
-    //     setHours(setMinutes(new Date(), 30), 16)
-    // );
     return (
         <div className="form-group">
             <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">{label}</label>
@@ -175,9 +172,6 @@ export const TimePickerField = ({ label, selected, placeholder, onChange, disabl
                 timeInputLabel="Time:"
                 dateFormat="MM/dd/yyyy h:mm aa"
                 showTimeInput
-                // dateFormat="h:mm aa"
-                // showTimeSelect
-                // showTimeSelectOnly
 
             />
         </div>

@@ -1,22 +1,13 @@
 import React from "react";
 import UserCard from "../../Components/Card/UserCard";
-import BlankCard from "../../Components/Card/Blank";
 import BudgetCard from "../../Components/Card/BudgetCard";
 import { SumActual, SumCost, ProjectHealth, SumBudget, SumDanger, SumVariance } from "../../Components/GraphQL/ProjectQueries";
-import SplineChart from "../../Components/Charts/SplineChart";
-import ColumnChart from "../../Components/Charts/ColumnChart";
-import LineChart from "../../Components/Charts/LineChart";
-import DonutChartV2 from "../../Components/Charts/PieChartProjectBy";
-import ProjectProgressCard from "../../Components/ApexCharts/ProjectProgress";
-import TaskOverviewCard from "../../Components/ApexCharts/TaskOverview";
 import ProjectByCard from "../../Components/ApexCharts/ProjectBy";
 import ManpowerCard from "../../Components/ApexCharts/Manpower";
 import SCurveCard from "../../Components/ApexCharts/SCurve";
 import TPECard from "../../Components/ApexCharts/TPE";
 import ProjectListCard from "../../Components/Card/ProjectList/ProjectListCard";
 import ActiveProjectCard from "../../Components/Card/ActiveProject/ActiveProjectCard";
-import AppGantt from "../../Components/Gantt-Component/AppGantt";
-import TestQuery from "../../Components/Gantt-Component/TestQuery";
 
 
 const PMODashboardPage = () => {

@@ -1,17 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import Addnewprojectobj from '../ProjectCharterModal/AddModal/Addnewprojectobj';
-import Addnewresource from '../ProjectCharterModal/AddModal/Addnewresource';
-import Addnewphase from '../ProjectCharterModal/AddModal/Addnewphase';
-import Addnewrisk from '../ProjectCharterModal/AddModal/Addnewrisk';
-import { IconDateForm, IconPlus, IconSaveForm } from '../../Icons/icon';
+import { IconSaveForm } from '../../Icons/icon';
 import './AddModal.css'
 import Button from '../../Button';
 import GetProfile from '../../Auth/GetProfile';
 import useLocalStorage from '../../../Middleware/useLocalStorage';
 import { ADD_GANTT } from '../../../Middleware/GraphQL/mutations';
-import { useQuery, gql, useMutation } from "@apollo/client";
-import { DatePickerField } from '../../Input/Input';
+import { useMutation } from "@apollo/client";
 import TableDatePicker from '../ModalDatePicker/DatePickerModal';
 
 const AddModalActivity = () => {

@@ -7,26 +7,18 @@ const Addnewequipment = () => {
     const [inputFields, setInputFields] = useState([
         { equipment: '' }
     ])
-    // const [equipment, inputFields, setInputFields, setEquipment] = useEquipment()
 
     const handleFormChange = (index, event) => {
-        // console.log("SEWIWIWIWIWIWIWIWII", equipment[0].equipment);
         let data = [...inputFields];
         const dataEvent = event.target.name;
         data[index][event.target.name] = event.target.value;
 
-        console.log("SEWIWIWIWIWIWIWIWII", data);
-
         var equipment = [];
-        
-
 
         var Addnewequipment = data.map((item) => {
             equipment.push(item.equipment)
             return;
         })
-        console.log("coba", equipment);
-        // setInputFields(coba);
         setEquipment(equipment);
     }
 
@@ -44,7 +36,6 @@ const Addnewequipment = () => {
 
     return (
         <div className="">
-            {console.log("inputFields", inputFields)}
             {inputFields.map((input, index) => {
                 return (
                     <div key={index}>
@@ -65,24 +56,21 @@ const Addnewequipment = () => {
                     </div>
                 )
             })}
-            {/* <div className='pb-2 pl-2 col-span-1' >
-                <button className='text-primary' onClick={addFields}>+ New List</button>
-            </div> */}
         </div>
     );
 }
-export function useEquipment(){
+export function useEquipment() {
     const [inputFields, setInputFields] = useState([
         { equipment: '' }
     ])
     const [equipment, setEquipment] = useState([]);
     useEffect(() => {
         setEquipment(inputFields);
-    },[inputFields])
+    }, [inputFields])
 
-        return [equipment,inputFields, setInputFields,setEquipment];
-    
+    return [equipment, inputFields, setInputFields, setEquipment];
+
 }
 
 
-export default Addnewequipment ;
+export default Addnewequipment;

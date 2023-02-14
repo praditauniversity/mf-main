@@ -29,15 +29,6 @@ const TabsDailyReminder = ({ color }) => {
     }).length > 0;
   }).length;
 
-  // const [someTask, setSomeTask] = useState([
-  //   { id: 1, icon: Done, projectName: "Project anomaly", taskName: "Make moodboard", date: "14 Sep" },
-  //   { id: 2, icon: Done, projectName: "Project anomaly", taskName: "Create wireframe", date: "14 Sep" },
-  //   { id: 3, icon: Done, projectName: "Project anomaly", taskName: "Make the Lo-Fi model", date: "14 Sep" },
-  //   { id: 4, icon: Done, projectName: "Project anomaly", taskName: "Make the Hi-Fi model", date: "14 Sep" },
-  //   { id: 5, icon: Done, projectName: "Project anomaly", taskName: "Usability testing", date: "14 Sep" },
-  // ]);
-  // const someTaskLength = someTask.length;
-
   const [someTask1, setSomeTask1] = useState([]);
   const someTask1Length = someTask1.length;
 

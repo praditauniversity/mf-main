@@ -1,7 +1,5 @@
 import React from 'react';
-import { createStore } from 'redux';
 import { Provider, connect } from 'react-redux';
-import { useState } from 'react';
 import { ConnectedMyComponent } from './TestRedux';
 import {store} from './TestRedux';
 
@@ -11,7 +9,6 @@ function ImplementRedux(props) {
       <Provider store={store}>
         <p>Global A: {props.globalState}</p>
         <ConnectedMyComponent />
-        {/* <ConnectTest /> */}
       </Provider>
     );
   }

@@ -1,13 +1,8 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { useParams, withRouter } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import { Dialog, Transition } from "@headlessui/react";
-import { GET_CHARTER_DATA } from '../../../GraphQL/Queries';
-import TitleMilestone from '../../../Card/ProjectCharterCard/titlemilestone';
 import '../../../../Assets/svgbutton/svgbutton.css';
 import { IconView } from '../../../Icons/icon';
 import DescTitleReport from '../../../Card/DailyReportCard/desctitlereport';
-import TitleReport from '../../../Card/DailyReportCard/titleReport';
 import ListReport from '../../../Card/DailyReportCard/listreport';
 import ListReportNoDot from '../../../Card/DailyReportCard/listreportnodot';
 
@@ -191,8 +186,6 @@ const ViewModalReport = (props) => {
                                                         </div>
                                                     </div>
                                                 </div>
-
-
 
                                             </div>
                                         </div>

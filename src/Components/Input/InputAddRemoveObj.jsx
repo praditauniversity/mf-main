@@ -11,7 +11,6 @@ const InputAddRemoveObj = ({ label, name, placeholder, onChange, value}) => {
     const handleFormChange = (index, event) => {
         const { name, value } = event.target;
         let data = [...inputFields];
-        // data[index][event.target.name] = event.target.value;
         data[index][name] = value
         setInputFields(data);
     }
@@ -38,8 +37,6 @@ const InputAddRemoveObj = ({ label, name, placeholder, onChange, value}) => {
                                     className="input border-primary-light shadow appearance-none w-[86%] text-darkest leading-tight focus:outline-none focus:shadow-outline"
                                     name={name}
                                     placeholder={placeholder}
-                                    // disabled={disabled}
-                                    // error={error}
                                     defaultValue={input.inputFields}
                                     onChange={event => handleFormChange(index, event)}
                                 />
@@ -50,9 +47,6 @@ const InputAddRemoveObj = ({ label, name, placeholder, onChange, value}) => {
                     </div>
                 )
             })}
-            {/* <div className='pb-2 pl-2 col-span-1' >
-                <button className='text-primary' onClick={addFields}>+ New List</button>
-            </div> */}
         </div>
     );
 }

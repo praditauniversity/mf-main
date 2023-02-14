@@ -6,14 +6,11 @@ import Button from "../../../Button";
 import { GET_ACTIVITY_DATA, GET_DAILY_REPORT_DATA_BY_PROJECT_ID, GET_GANTT_PROJECT_ID, GET_PROJECT_DATA_BY_ID } from "../../../GraphQL/Queries";
 import {
   IconDeleteForm,
-  IconPlus,
   IconPlusForm,
   IconSaveForm,
 } from "../../../Icons/icon";
 import { DatePickerField } from "../../../Input/Input";
 import "./AddModal.css";
-import Addnewequipment, { useEquipment } from "./Addnewequipment";
-import Addnewworklog, { useWorkLog } from "./Addnewworklog";
 
 const ADD_DAILY_REPORT = gql`
   mutation addDailyReport(
@@ -68,7 +65,6 @@ const AddModalDailyReport = (props) => {
   const [work_log_desc, setWorkLogDesc] = useState([""]);
   const [work_log_status, setWorkLogStatus] = useState([""]);
   const [work_log_hour, setWorkLogHour] = useState([0]);
-  console.log("work_log_name", setEquipment);
 
   const [errorValidate, setErrorValidate] = useState({});
   const validate = () => {
@@ -121,7 +117,7 @@ const AddModalDailyReport = (props) => {
     addDailyReport, { loading: addDailyReportLoading, error: addDailyReportError },] = useMutation(ADD_DAILY_REPORT,
       {
         refetchQueries: refetchQueries,
-        onComplete: () => { console.log("BISA FETCH DAILY REPORT ANJIR") }
+        onComplete: () => { console.log("Add Daily Report + Refetch Completed") }
       });
 
   const inputRefActivity = useRef(null);
@@ -157,9 +153,9 @@ const AddModalDailyReport = (props) => {
     if (data) {
       console.log("data Ready List Activity");
       setActivityName(data.activity.data);
-      console.log("data found", data.activity.data);
+      console.log("data list activity found", data.activity.data);
     } else {
-      console.log("data not found");
+      console.log("data list activity not found");
     }
     if (dataProject) {
       console.log("data Ready List Project");
@@ -169,7 +165,7 @@ const AddModalDailyReport = (props) => {
     if (dataGantt) {
       console.log("data Ready List Gantt");
       setGanttName(dataGantt.ganttGetProjectID.data);
-      console.log("data found", dataGantt.ganttGetProjectID.data);
+      console.log("data list gantt found", dataGantt.ganttGetProjectID.data);
     }
     console.log("USE EFFECT list daily report");
   }, [data, idProject, dataProject, dataGantt]);
@@ -195,7 +191,7 @@ const AddModalDailyReport = (props) => {
   const handleChangeActivity = (event) => {
     setActivityId(parseInt(event.target.value));
     console.log(
-      "Activity ID",
+      "Handle Change - Activity ID",
       typeof parseInt(event.target.value),
       event.target.value
     );
@@ -203,22 +199,22 @@ const AddModalDailyReport = (props) => {
 
   const handleName = (event) => {
     setName(event.target.value);
-    console.log("Name", event.target.value);
+    // console.log("Name", event.target.value);
   };
 
   const handleDescription = (event) => {
     setDescription(event.target.value);
-    console.log("Description", event.target.value);
+    // console.log("Description", event.target.value);
   };
 
   const handleStatus = (event) => {
     setStatus(event.target.value);
-    console.log("Status", event.target.value);
+    // console.log("Status", event.target.value);
   };
 
   const handleReportDate = (event) => {
     setReportDate(event.target.value);
-    console.log("Report Date", event.target.value);
+    // console.log("Report Date", event.target.value);
   };
 
   const handleFormChangeEquipment = (value, index) => {
@@ -226,10 +222,8 @@ const AddModalDailyReport = (props) => {
       return equipIndex === index ? value : equipItem;
     });
     setEquipment(dataEquip);
-
-    console.log("DATA", dataEquip);
-    console.log("DAILYREPORTEQUP", equipment);
   };
+
   const handleFormChange = (index, event) => {
     let data = [...inputFields];
     data[index][event.target.name] = event.target.value;
@@ -240,7 +234,6 @@ const AddModalDailyReport = (props) => {
     setWorkLogHour(inputFields.map((inputField) => parseInt(inputField.hour)));
   };
 
-  // setWorkLogName(inputFields.map((inputField) => inputField.name));
   const addFields = () => {
     let newfield = { equipment: "" };
 
@@ -256,8 +249,6 @@ const AddModalDailyReport = (props) => {
   const removeFieldsEquipment = (index) => {
     let dataEquip = [...equipment];
     dataEquip.splice(index, 1);
-    console.log("removefields", equipment);
-    console.log("removefields", dataEquip);
     setProjectObjectives(dataEquip);
   };
 
@@ -269,12 +260,7 @@ const AddModalDailyReport = (props) => {
       setErrorValidate("");
     }
 
-    // const idProject = parseInt(localStorage.getItem('reportProjectID'));
-    // idProject !== null ? idProject : setProjectId(parseInt('reportProjectID'));
-
-    console.log("PROJECT ID BEFORE SUBMIT", typeof project_id, project_id);
     const activity_id = parseInt(inputRefActivity.current.value);
-    // const project_id = parseInt(inputRefProject.current.value);
     activity_id === 0 ? setActivityId(parseInt(inputRefActivity.current.value)) : activity_id
     project_id === 0 ? setProjectId(parseInt(inputRefProject.current.value)) : project_id
 
@@ -309,21 +295,10 @@ const AddModalDailyReport = (props) => {
     updateTotal();
 
     // hideDialog();
-
-    console.log("PROJECT ID AFTER SUBMIT", typeof project_id, project_id);
   };
 
   return (
     <>
-      {/* <div className="flex flex-row items-center justify-center">
-        <button
-          onClick={showDialog}
-          className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
-          id="icon"
-        >
-          <IconPlus />
-        </button>
-      </div> */}
 
       <div className="add-button">
         <Button label="+ Add Report" onClick={showDialog} />
@@ -430,32 +405,6 @@ const AddModalDailyReport = (props) => {
                         </select>
                       </div>
                     </div>
-                    {/* project */}
-                    {/* <div className="mt-3">
-                      <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
-                        Project Name
-                      </label>
-                      <div className="flex flex-col items-center">
-                        <select
-                          ref={inputRefProject}
-                          value={project_id}
-                          onChange={handleChangeProject}
-                          className="editor_type select select-bordered w-full max-w-5xl"
-                        >
-                          {printListsetProjectName()}
-                        </select>
-                      </div>
-                    </div> */}
-                    {/* <div className="mt-6">
-                      <div className="form-control w-full max-w-5xl">
-                        <div className="border-2 border-grey-border rounded-lg px-4 py-2">
-                          <div className="">
-                            <p className="text-lg font-semibold">Work Log</p>
-                          </div>
-                          <Addnewworklog />
-                        </div>
-                      </div>
-                    </div> */}
                     <div>
                       <div className="">
                         <div className="pt-2 w-full max-w-5xl">
@@ -486,7 +435,6 @@ const AddModalDailyReport = (props) => {
                             </div>
                           </div>
                         </div>
-                        {console.log("INI INPUT FIELD", inputFields)}
                         {inputFields.map((input, index) => {
                           return (
                             <div key={index}>
@@ -558,15 +506,6 @@ const AddModalDailyReport = (props) => {
                         })}
                       </div>
                     </div>
-                    {/* <div className="mt-3">
-                      <div className="form-control w-full max-w-5xl">
-                        <label className="label">
-                          <span className="label-text">Equipments</span>
-                        </label>
-                        <Addnewequipment />
-                      </div>
-                    </div> */}
-                    {/* project objectives */}
                     <div className="pb-2">
                       <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
                         Equipment

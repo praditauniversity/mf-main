@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import FetchProjectByUserId from '../../../Middleware/Fetchers/FetchProjectByUserId';
 import GetProfile from '../../Auth/GetProfile';
 import { GET_PROJECT_DATA_BY_USER_ID } from '../../GraphQL/Queries';
 
@@ -37,10 +36,6 @@ const ListboxProject = () => {
     return (
         <div className="flex flex-col items-center">
             <select value={TPEID} onChange={handleChange} className="select select-ghost select-sm w-full max-w-xs">
-                {/* <option>Solar Panel Smart Lab</option>
-                <option>Winter Wonderland</option>
-                <option>Reverie Product</option>
-                <option>Meraki Development</option> */}
                 {printListProjectName()}
             </select>
         </div>

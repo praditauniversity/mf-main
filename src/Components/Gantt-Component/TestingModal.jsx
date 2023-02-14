@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import React, { useState } from 'react';
+import { Dialog } from '@headlessui/react';
 
 export const TestingModal = () => {
     const [isOpen, setIsOpen] = useState(false);

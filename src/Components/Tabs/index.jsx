@@ -2,7 +2,6 @@ import React from "react";
 import Tasks from "../Tasks/index.jsx";
 import VerticalTabs from "./verticalTabs";
 import Trash from "../../Assets/Icons/svg/Trash.svg";
-import { useState } from "react";
 import FetchActivity from "../../Middleware/Fetchers/FetchActivity.jsx";
 import FetchGantt from "../../Middleware/Fetchers/FetchGantt.jsx";
 import FetchProjectByUserId from "../../Middleware/Fetchers/FetchProjectByUserId.jsx";
@@ -13,12 +12,6 @@ const Tabs = ({ color }) => {
   const projectData = FetchProjectByUserId();
   const ganttData = FetchGantt();
   const activityData = FetchActivity();
-
-  // const [someTask, setSomeTask] = useState([
-  //   { id: 1, icon: Trash, projectName: "Project anomaly", taskName: "Make project charter", date: "30 Aug" },
-  //   { id: 2, icon: Trash, projectName: "Project anomaly", taskName: "Plan the BMC with team", date: "30 Aug" },
-  //   { id: 3, icon: Trash, projectName: "Project anomaly", taskName: "User requirements", date: "30 Aug" },
-  // ]);
 
   const completedTaskLength = activityData.filter((task) => {
     return task.phase.name === "Done"
