@@ -49,7 +49,7 @@ const DropdownButton = ({ selected, setSelected }) => {
                         {list.map((option) => (
                             <Menu.Item key={option.id} >
                                 <button onClick={(e) => {
-                                setSelected(option.value);
+                                setSelected(option.name);
                                 setIsActive(false);
                                 }}
                                     className=" ui-active:bg-indigo-50 text-gray-900 
