@@ -21,7 +21,7 @@ export default function Logout() {
                     <Dialog.Overlay className="fixed inset-0 bg-black opacity-30 transition-all" />
                 </Transition.Child>
                 <Dialog.Panel
-                    className='absolute mx-auto max-w-xl rounded-md shadow-md ring-1 ring-dark/5 bg-white z-20'
+                    className='absolute mx-auto max-w-xl rounded-md shadow-md ring-1 ring-dark/5 bg-white z-10'
                 >
                     <Dialog.Title>Deactivate account</Dialog.Title>
                     <Dialog.Description>
