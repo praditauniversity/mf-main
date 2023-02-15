@@ -40,6 +40,8 @@ const PCList = (props) => {
 
     const ifCharterDataEmpty = () => {
         if (charterData.length === 0) {
+            // localStorage.removeItem("projectID");
+            // localStorage.removeItem("ganttID");
             // fill the table with white space
             return (
                 <tr className="h-full" >

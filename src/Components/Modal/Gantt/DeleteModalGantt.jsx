@@ -9,7 +9,7 @@ import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 import { useParams } from 'react-router-dom';
 
 const DeleteModalGantt = (props) => {
-    const { ganttID, ganttName, total, setDataEmpty } = props;
+    const { ganttID, ganttName, total } = props;
 
     let { projectID } = useParams();
 
@@ -24,7 +24,7 @@ const DeleteModalGantt = (props) => {
                 variables: { project_id: projectID }
             },
         ],
-        onCompleted: () => { console.log("Berhasil Delete Gantt") }
+        onCompleted: () => { console.log("refetchQueries deleteGantt Completed") }
     }
     );
 
@@ -48,11 +48,13 @@ const DeleteModalGantt = (props) => {
             console.log(JSON.stringify(deleteGanttError, null, 2));
         }
 
-        if (total === 1) {
-            setDataEmpty();
-        }
-
         hideDialog();
+
+        localStorage.removeItem("projectID");
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
     };
 
     return (

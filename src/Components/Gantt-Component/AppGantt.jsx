@@ -956,6 +956,7 @@ function AppGantt(props) {
 
     // dhtmlx delete button
     gantt.attachEvent("onAfterTaskDelete", (id) => {
+        // If isDelete, delete activity using graphql
         if (isDelete.current === true) {
             isDelete.current = false;
             removeActivity(String(id));
@@ -963,14 +964,14 @@ function AppGantt(props) {
     });
 
     gantt.attachEvent("onLinkCreated", function (link) {
-        // your code here
         console.log("onlinkcreated", link);
+        // Changing the value of the isLinkAdd useRef
         isLinkAdd.current = true;
         return true;
     });
 
     gantt.attachEvent("onAfterLinkAdd", function (id, item) {
-        //any custom logic here
+        // If isLinkAdd, add activity link using graphql
         if (isLinkAdd.current === true) {
             console.log("islinkadd inside onafterlinkadd", isLinkAdd);
             console.log("onAfterLinkAdd", id, item);
@@ -978,8 +979,10 @@ function AppGantt(props) {
             const target = item.target;
             const type = item.type;
 
+            // Delete the link from dhtmlx gantt first
             gantt.deleteLink(id);
 
+            // Delete the link from graphql
             createLink(
                 source,
                 target,
@@ -992,15 +995,15 @@ function AppGantt(props) {
     });
 
     gantt.attachEvent("onLinkClick", function (id, e) {
-        // Your code here
-        console.log("onLinkClick", id, e);
+        // Event to show the clicked link on console.log
+        console.log("onLinkClick id", id, e);
         let link = gantt.getLink(id);
-        console.log("when link clicked", link);
+        console.log("onLinkClick Link", link);
     });
 
     gantt.attachEvent("onAfterLinkDelete", function (id, item) {
-        //any custom logic here
-        console.log("uslinkdelete", isLinkDelete)
+        // if isLinkDelete, delete activity link using graphql
+        console.log("isLinkDelete", isLinkDelete)
         console.log("onAfterLinkDelete", id, item);
         if (isLinkDelete === true && id !== null) {
             isLinkDelete = false;
@@ -1008,13 +1011,14 @@ function AppGantt(props) {
         }
     });
 
+    // function to cut character date to 10 first character
     function subStringDate(str) {
         return str.substring(0, 10);
     }
 
     function MappingPhase() {
         if (optionPhase.length === 0 && dataPhase.length > 0 || optionPhase.length === null) {
-            console.log("masuk mapping phase", dataPhase);
+            console.log("MappingPhase", dataPhase);
             const arrayPhase = dataPhase.map((phase) => {
                 optionPhase.push({
                     value: phase.ID,
@@ -1026,7 +1030,7 @@ function AppGantt(props) {
 
     function MappingUnitofMeasurement() {
         if (optionUnitMeasurement.length === 0 && dataUnitMeasure.length > 0) {
-            console.log("masuk mapping uom", dataUnitMeasure);
+            console.log("MappingUnitofMeasurement ", dataUnitMeasure);
             const arrayUOM = dataUnitMeasure.map((uom) => {
                 optionUnitMeasurement.push({
                     value: uom.ID,
@@ -1042,6 +1046,7 @@ function AppGantt(props) {
             previousDataLinkLength = dataLink.length;
             const dataLinkMap = dataLink.map((link) => {
                 if (!gantt.isLinkExists(link.ID)) {
+                    console.log("MappingLink");
                     gantt.addLink({
                         id: String(link.ID),
                         source: link.source,
@@ -1051,7 +1056,7 @@ function AppGantt(props) {
                 }
             });
             if (dataLinkMap.length === dataLink.length) {
-                console.log("masuk render mapping link");
+                console.log("MappingLink - render");
                 gantt.render();
             }
         }
@@ -1113,7 +1118,7 @@ function AppGantt(props) {
                         <div className="py-2 px-4 flex justify-between items-center align-middle">
                             <p className="text-md">{title}</p>
                             <div className="px-4 flex items-center align-right">
-                                {console.log("BRIAN", typeof projectID, projectID)}
+                                {console.log("isShowListGantt - projectID ", typeof projectID, projectID)}
                                 <ListboxGanttProjectDashboard projectID={String(projectID)} />
                             </div>
                         </div>

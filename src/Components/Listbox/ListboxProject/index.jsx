@@ -5,32 +5,38 @@ import { GET_PROJECT_DATA_BY_USER_ID } from '../../GraphQL/Queries';
 
 const ListboxProject = () => {
     const profile = GetProfile();
-    const {data, refetch} = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+    const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: profile.id, sort: "ID asc" },
     });
     const [projectData, setProjectData] = useState([]);
     const [TPEID, setTPEID] = useState(localStorage.getItem('TPEID'));
     useEffect(() => {
-    if(data){
-        setProjectData(data.projectByUserId.Data);
-        //if local storage is empty, set to first project id
-        localStorage.getItem('TPEID') === null ? localStorage.setItem('TPEID', data.projectByUserId.Data[0].ID) : console.log("TpeID is not null");
-        TPEID === null ? setTPEID(data.projectByUserId.Data[0].ID) : setTPEID(localStorage.getItem('TPEID'));
-    }
-    
-    refetch({ userId: String(profile.id), sort: "ID asc" });
+        if (data) {
+            setProjectData(data.projectByUserId.Data);
+            if (data.projectByUserId.Data.length !== 0) {
+
+                //if local storage is empty, set to first project id
+                localStorage.getItem('TPEID') === null ? localStorage.setItem('TPEID', data.projectByUserId.Data[0].ID) : console.log("TpeID is not null");
+                TPEID === null ? setTPEID(data.projectByUserId.Data[0].ID) : setTPEID(localStorage.getItem('TPEID'));
+            }
+            if (data.projectByUserId.Data.length === 0){
+                localStorage.removeItem('TPEID');
+            }
+        }
+
+        refetch({ userId: String(profile.id), sort: "ID asc" });
     }, [data]);
-    
+
     function printListProjectName() {
         return projectData.map(({ ID, name }) => (
             <>
-                <option value={ID}>{name}</option>               
+                <option value={ID}>{name}</option>
             </>
         ));
     }
-    const handleChange=(event)=>{
+    const handleChange = (event) => {
         setTPEID(event.target.value);
-        localStorage.setItem('TPEID',event.target.value);
+        localStorage.setItem('TPEID', event.target.value);
         window.location.reload();
     }
     return (

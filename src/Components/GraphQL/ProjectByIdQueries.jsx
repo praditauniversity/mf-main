@@ -7,7 +7,7 @@ export function Actual(props) {
     const profile = GetProfile();
     const { value } = props;
     console.log("Value: " + value);
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -20,6 +20,9 @@ export function Actual(props) {
             console.log("No data - Actual");
         }
     }, [data]);
+    // useEffect(() => {
+    //     refetch()  ;
+    // }, [data]);
 
     function printActual() {
         let act = 0;
@@ -45,7 +48,7 @@ export function Actual(props) {
 export function Cost(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -83,7 +86,7 @@ export function Cost(props) {
 export function Budget(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -121,7 +124,7 @@ export function Budget(props) {
 export function Danger(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -160,7 +163,7 @@ export function Danger(props) {
 export function Variance(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -199,7 +202,7 @@ export function Variance(props) {
 export function CostHealth(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -235,7 +238,7 @@ export function CostHealth(props) {
 export function ScheduleHealth(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -280,7 +283,7 @@ export function ScheduleHealth(props) {
 export function ProgressPercentage(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -315,7 +318,7 @@ export function ProgressPercentage(props) {
 export function ProjectManager(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -351,7 +354,7 @@ export function ProjectManager(props) {
 export function Client(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -387,7 +390,7 @@ export function Client(props) {
 export function ClientContact(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -423,7 +426,7 @@ export function ClientContact(props) {
 export function ProjectStatus(props) {
     const { value } = props;
     const profile = GetProfile();
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -459,7 +462,7 @@ export function ProjectStatus(props) {
 export function Location(props) {
     const { value } = props;
     const profile = GetProfile();
-    const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);

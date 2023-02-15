@@ -250,7 +250,7 @@ const UpdateModalDailyReport = (props) => {
       console.log("Error", JSON.stringify(updateDailyReportError));
     }
 
-    // biar dia bisa dapetin value sekarang
+    // To get the current value
     // setName("");
     // setEquipment([''])
     // setDescription("");

@@ -27,7 +27,7 @@ export const RegisterHandler = () => {
         { id: 1, name: 'Male', value: "Male", unavailable: false },
         { id: 2, name: 'Female', value: "Female", unavailable: false },
     ]
-    console.log("error register", JSON.stringify(registerError))
+    console.log("Error Register", JSON.stringify(registerError))
     
     const inputRefGender = useRef(null);
 
@@ -103,7 +103,7 @@ export const RegisterHandler = () => {
                 register({
                     variables: data
                 });
-                console.log("data berhasil");
+                console.log("Data Success");
                 setError('');
             } catch (err) {
                 console.log(err);

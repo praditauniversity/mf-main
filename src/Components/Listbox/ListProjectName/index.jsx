@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 const ListboxProjectName = (props) => {
     const { setGanttID, projectID, setProjectID, projectData } = props;
 
-    // TODO: Fix this
     function printListProjectName() {
         if (projectData.length > 0) {
             return projectData.map(({ ID, name }) => (

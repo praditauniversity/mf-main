@@ -25,7 +25,7 @@ const UpdateModalTask = (props) => {
                     variables: { id: String(taskData.ID) }
                 },
             ],
-            onCompleted: () => { console.log("Berhasil Fetch Update Task") }
+            onCompleted: () => { console.log("refetchQueries updateTask Completed") }
         });
 
         const changeTask = (
@@ -104,7 +104,7 @@ const UpdateModalTask = (props) => {
             const human_cost_plan = taskData.human_cost_plan;
             const human_cost_actual = taskData.human_cost_actual;
             const activity_type = taskData.activity_type;
-            const phase_id = 3; // Set Phase ID to 3 (Done)
+            const phase_id = 3;
             const unitofmeasurement_id = taskData.unitofmeasurement_id;
 
             changeTask(
@@ -222,7 +222,7 @@ const UpdateModalTask = (props) => {
                     variables: { id: String(taskData.ID) }
                 },
             ],
-            onCompleted: () => { console.log("Berhasil Fetch Delete Task") }
+            onCompleted: () => { console.log("refetchQueries deleteTask Completed") }
         });
     
         const handleDelete = (e) => {

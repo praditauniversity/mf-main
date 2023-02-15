@@ -28,7 +28,7 @@ const DeleteModalMinuteOfMeeting = (props) => {
                 variables: { projectId: String(localStorage.getItem('momProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
             },
         ],
-        onCompleted: () => { console.log("Berhasil Delete, sisa data:", total) }
+        onCompleted: () => { console.log("Delete Success, Remaining Data:", total) }
     }
     );
 

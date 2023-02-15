@@ -24,7 +24,7 @@ const EditModalGantt = (props) => {
                 variables: { project_id: projectID }
             },
         ],
-        onCompleted: () => { console.log("Berhasil Update Gantt") }
+        onCompleted: () => { console.log("refetchQueries updateGantt Completed") }
     });;
 
     const { data: readGanttData, error: readGanttError } = useQuery(GET_GANTT_DATA, {
@@ -79,14 +79,6 @@ const EditModalGantt = (props) => {
         if (updateGanttError) {
             console.log(JSON.stringify(updateGanttError));
         }
-
-        // setName('');
-        // setDescription('');
-        // // setUserId(profile.id);
-        // setVersion('');
-        // // setProjectId(0);
-        // setStartTime('');
-        // setEndTime('');
 
         hideDialog();
     };
@@ -194,7 +186,6 @@ const EditModalGantt = (props) => {
                                             <div className="pb-2 w-full min-w-5xl" id="buttonInside">
                                                 <div className="">
                                                     <DatePickerField
-                                                        // label="Start Date"
                                                         selected={new Date(start_time)}
                                                         onChange={(date) => setStartTime(date)}
                                                         placeholder="DD/MM/YYYY"
@@ -208,7 +199,6 @@ const EditModalGantt = (props) => {
                                             <div className="pb-2 w-full min-w-5xl" id="buttonInside">
                                                 <div className="">
                                                     <DatePickerField
-                                                        // label="End Date"
                                                         selected={new Date(end_time)}
                                                         onChange={(date) => setEndTime(date)}
                                                         placeholder="DD/MM/YYYY"

@@ -3,15 +3,8 @@ import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUse
 import FutureUpdateDeleteText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateDeleteText";
 import FutureUpdateEditText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateEditsText";
 
-//ini gabisa
-const useStyles = () => ({
-    gridHeight: {
-        height: '1000px'
-    }
-})
-
 const ActiveProjectCard = () => {
-    const classes = useStyles();
+
     const project = FetchProjectByUserId();
 
     const projectFilter = project.filter((item) => {

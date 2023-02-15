@@ -174,7 +174,7 @@ const AddModalProjectCharter = (props) => {
     const [addProjectCharter, { loading: addProjectLoading, error: addProjectError }] = useMutation(ADD_CHARTER,
         {
             refetchQueries: refetchQueries,
-            onCompleted: () => { console.log("Berhasil ADD PROJECT, total project", total) }
+            onCompleted: () => { console.log("Add Project Success, Total Project:", total) }
         });;
 
     const { data: dataMilestone, loading: loadingMilestone, error: errorMilestone } = useQuery(GET_MILESTONE_DATA);

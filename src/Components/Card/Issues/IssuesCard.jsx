@@ -3,15 +3,7 @@ import FutureUpdateDeleteText from "../../Modal/FutureUpdateModal/Edit & Delete 
 import FutureUpdateEditText from "../../Modal/FutureUpdateModal/Edit & Delete text/FutureUpdateEditsText";
 import FutureUpdateViewAllIssues from "../../Modal/FutureUpdateModal/ViewAllIssues/FutureUpdateViewAllIssues";
 
-//ini gabisa
-const useStyles = () => ({
-    gridHeight: {
-        height: '1000px'
-    }
-})
-
 const IssuesCard = () => {
-    const classes = useStyles();
 
     return (
         <div className="rounded-xl shadow-lg bg-white">

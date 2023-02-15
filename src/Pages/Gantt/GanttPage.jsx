@@ -35,11 +35,6 @@ const GanttPage = () => {
         }
     }, [ganttList]);
 
-    const setDataEmpty = () => {
-        // setGanttData([]);
-        console.log("GANTT DATA is cleared");
-    }
-
     const filler = () => {
         if (ganttData.length > 0) {
             // fill the table with white space
@@ -136,7 +131,7 @@ const GanttPage = () => {
                                 <td className="flex items-center space-x-3 w-48 pt-6">
                                     <div className="flex items-center mb-4">
                                         <EditModalGantt ganttID={gantt.ID} />
-                                        <DeleteModalGantt ganttID={gantt.ID} ganttName={gantt.name} total={totalData} setDataEmpty={setDataEmpty} />
+                                        <DeleteModalGantt ganttID={gantt.ID} ganttName={gantt.name} total={totalData} />
                                         <a
                                             href={`/#/project-list/${projectID}/gantt/${gantt.ID}/gantt-chart`}
                                         >

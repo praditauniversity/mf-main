@@ -76,7 +76,7 @@ const ActionsButton = (props) => {
 
     const buttonName = [
         { id: 1, name: "Project Charter", icon: dailyReportIcon, link: `/#/project-list/${projectID_Table}/charter` },
-        { id: 2, name: "Gantt", icon: dailyReportIcon, link: `/#/project-list/${projectID_Table}/gantt` }, // TODO: Change this link to gantt
+        { id: 2, name: "Gantt", icon: dailyReportIcon, link: `/#/project-list/${projectID_Table}/gantt` },
         { id: 3, name: "Daily Report", icon: dailyReportIcon, link: "/#/dailyreport" },
     ]
 

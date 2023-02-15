@@ -192,20 +192,6 @@ const UpdateModalMinutesOfMeeting = (props) => {
             },
         });
 
-        // setMeeting_name("");
-        // setMeeting_date("");
-        // setStart_time_meeting("");
-        // setEnd_time_meeting("");
-        // setLocation("");
-        // setMeeting_leader("");
-        // setMeeting_objective("");
-        // setAtendees([""]);
-        // setNotes([""]);
-        // setAction_item([""]);
-        // setOwner([""]);
-        // setDeadline([""]);s
-        // setStatus([""]);
-
         hideDialog();
     };
     return (

@@ -10,17 +10,12 @@ import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 import { useParams } from 'react-router-dom';
 
 
-// note
-//Kalo make localstorage, projectID mesti di trigger ke project dashboard dulu baru muncul
-//Kalo static, aman
-
 const AddModalGantt = () => {
     let { projectID } = useParams();
     
     const [isOpen, setIsOpen] = useState(false);
 
     const profile = GetProfile();
-    // const [projectID, setProjectID] = useLocalStorage('projectID');
 
     const [addGantt, { data: addGanttData, error: addGanttError }] = useMutation(ADD_GANTT, {
         refetchQueries: [
@@ -29,7 +24,7 @@ const AddModalGantt = () => {
                 variables: { project_id: projectID }
             },
         ],
-        onCompleted: () => { console.log("Berhasil Fetch") }
+        onCompleted: () => { console.log("refetchQueries addGantt Completed") }
     });
 
     const [name, setName] = useState('');

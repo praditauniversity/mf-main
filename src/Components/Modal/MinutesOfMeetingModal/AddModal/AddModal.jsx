@@ -125,7 +125,7 @@ const AddModalMinutesOfMeeting = (props) => {
   const [addMinutesOfMeeting, { loading: addMinutesOfMeetingLoading, error: addMinutesOfMeetingError },] = useMutation(ADD_MINUTES_OF_MEETING,
     {
       refetchQueries: refetchQueries,
-      onComplete: () => { console.log("Berhasil Add MOM") }
+      onComplete: () => { console.log("refetchQueries addMinutesOfMeeting Completed") }
     });
 
   const inputRefProject = React.useRef(null);
@@ -136,7 +136,7 @@ const AddModalMinutesOfMeeting = (props) => {
       setProject_id(parseInt('reportProjectID'));
     }
     else {
-      console.log("data idproject not found");
+      console.log("Data idproject not found");
     }
   }, [idProject]);
 

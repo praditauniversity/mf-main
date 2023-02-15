@@ -17,8 +17,8 @@ const PrintGanttProjectDashboard = (props) => {
         if (dataGanttProject) {
             setGanttName(dataGanttProject.ganttGetProjectID.data);
             if (dataGanttProject.ganttGetProjectID.data.length !== 0 ) {
-                localStorage.getItem('ganttID') === null ? localStorage.setItem('ganttID', dataGanttProject.ganttGetProjectID.data[0].ID) : console.log("ganttID is real not null");
-                localStorage.getItem('ganttID') === "null" ? localStorage.setItem('ganttID', dataGanttProject.ganttGetProjectID.data[0].ID) : console.log("ganttID is not null");
+                localStorage.getItem('ganttID') === null ? localStorage.setItem('ganttID', dataGanttProject.ganttGetProjectID.data[0].ID) : console.log("ganttID is not null");
+                localStorage.getItem('ganttID') === "null" ? localStorage.setItem('ganttID', dataGanttProject.ganttGetProjectID.data[0].ID) : console.log("ganttID is not string null");
                 ganttID === "null" ? setGanttID(dataGanttProject.ganttGetProjectID.data[0].ID) : setGanttID(localStorage.getItem('ganttID'));
             }
         }
@@ -36,7 +36,7 @@ const PrintGanttProjectDashboard = (props) => {
     const [testData, settestData] = useState([]);
 
     useEffect(() => {
-        console.log("USE EFFECT ACTIVITY");
+        console.log("USE EFFECT Activity");
         if (dataActivityGanttID) {
             console.log("Data Ready Activity");
             setActivity(dataActivityGanttID.activityGetGanttID.data);

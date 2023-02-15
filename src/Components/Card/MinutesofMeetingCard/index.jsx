@@ -33,8 +33,15 @@ const MinutesofMeetingCard = (props) => {
     useEffect(() => {
         if (data) {
             setProject(data.projectByUserId.Data);
-            localStorage.getItem("momProjectID") === null ? localStorage.setItem('momProjectID', data.projectByUserId.Data[0].ID) : console.log("momProjectID is not null");
-            momProjectID === null ? setMomProjectID(data.projectByUserId.Data[0].ID) : setMomProjectID(localStorage.getItem('momProjectID'));
+            if (data.projectByUserId.Data.length !== 0) {
+                localStorage.getItem("momProjectID") === null ? localStorage.setItem('momProjectID', data.projectByUserId.Data[0].ID) : console.log("momProjectID is not null");
+                momProjectID === null ? setMomProjectID(data.projectByUserId.Data[0].ID) : setMomProjectID(localStorage.getItem('momProjectID'));
+            }
+
+            if (data.projectByUserId.Data.length === 0){
+                localStorage.removeItem('momProjectID');
+            }
+
         }
         if (momData) {
             setTotalItems(momData.length);

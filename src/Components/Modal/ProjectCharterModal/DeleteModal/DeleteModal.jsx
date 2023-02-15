@@ -30,7 +30,7 @@ const DeleteModalProject = (props) => {
             }
         ],
         awaitRefetchQueries: true, // Wait for refetchQueries to complete before returning from useMutation
-        onCompleted: () => { console.log("Berhasil DELETE PROJECT, sisa", total) },
+        onCompleted: () => { console.log("Delete Project Success, Remaining", total) },
       });
       
       if (deleteCharterError) {
@@ -46,6 +46,12 @@ const DeleteModalProject = (props) => {
                 id: String(projectID),
             },
         });
+
+        localStorage.removeItem("projectID");
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
 
         if (deleteCharterError) {
             console.log(JSON.stringify(deleteCharterError, null, 2));

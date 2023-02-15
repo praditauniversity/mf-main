@@ -53,7 +53,7 @@ const DRList = (props) => {
 
   const setDataEmpty = () => {
     // setDailyReport([]);
-    console.log("Empty daily report data")
+    console.log("Empty Daily Report Data")
   }
 
   const ifDRListDataEmpty = () => {

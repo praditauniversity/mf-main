@@ -27,7 +27,7 @@ const DeleteModalReport = (props) => {
                 variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
             },
         ],
-        onCompleted: () => { console.log("Berhasil Hapus, sisa data:", total) }
+        onCompleted: () => { console.log("Delete Success, Remaining Data:", total) }
     }
     );
 

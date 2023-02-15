@@ -1,6 +1,7 @@
 import { Listbox } from '@headlessui/react';
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker.css'
 
 export const InputField = ({ value, label, name, placeholder, type, onChange, disabled, error, minLength, maxLength, pattern, errorMsg }) => (
     <div className="form-group">

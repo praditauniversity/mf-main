@@ -8,17 +8,16 @@ import {
 } from "../../../Middleware/GraphQL/mutations";
 import AppGantt from "../AppGantt";
 import UpcomingTaskCard from "../../Card/UpcomingTask/UpcomingTaskCard";
-import TestFormGantt from "../TestFormGantt";
 import TaskListCard from "../../Card/TaskList/TaskListCard";
-import VerticalTabs from "../../Tabs/verticalTabs";
-import ListGanttByProject from "../../Listbox/ListGanttName";
-import ListboxProjectName from "../../Listbox/ListProjectName";
+// import VerticalTabs from "../../Tabs/verticalTabs";
+// import ListGanttByProject from "../../Listbox/ListGanttName";
+// import ListboxProjectName from "../../Listbox/ListProjectName";
 import GetProfile from "../../Auth/GetProfile";
-import ProjectDashboard from "../../../Pages/ProjectDashboard/ProjectDashboard";
+// import ProjectDashboard from "../../../Pages/ProjectDashboard/ProjectDashboard";
 
 function useActivity() {
   const { ganttID } = useGantt();
-  const [ setGanttID] = useState(localStorage.getItem('ganttID'));
+  const [setGanttID] = useState(localStorage.getItem('ganttID'));
 
   const { data, loading, error } = useQuery(GET_ACTIVITY_GANTT_ID, {
     variables: { gantt_id: String(ganttID), sort: "ID asc" }
@@ -32,7 +31,7 @@ function useActivity() {
       console.log("Data Ready Activity");
       setActivity(data.activityGetGanttID.data);
       console.log(data.activityGetGanttID.data);
-    } 
+    }
     else {
       console.log("No data Activity");
     }
@@ -94,11 +93,13 @@ export function useProject() {
 
   useEffect(() => {
     if (dataProjectUser) {
-      console.log("Data Ready list gantt and project by userid : ", dataProjectUser.projectByUserId.Data);
       setProjectData(dataProjectUser.projectByUserId.Data);
-      localStorage.getItem('projectID') === null ? localStorage.setItem('projectID', dataProjectUser.projectByUserId.Data[0].ID) : console.log("projectID is not null");
-      projectID === null ? setProjectID(dataProjectUser.projectByUserId.Data[0].ID) : setProjectID(localStorage.getItem('projectID'));
+      if (dataProjectUser.projectByUserId.Data.length !== 0) {
 
+        console.log("Data Ready list gantt and project by userid : ", dataProjectUser.projectByUserId.Data);
+        // localStorage.getItem('projectID') === null ? localStorage.setItem('projectID', dataProjectUser.projectByUserId.Data[0].ID) : console.log("projectID is not null");
+        // projectID === null ? setProjectID(dataProjectUser.projectByUserId.Data[0].ID) : setProjectID(localStorage.getItem('projectID'));
+      }
     }
   }, [dataProjectUser]);
 
@@ -109,7 +110,7 @@ export function useProject() {
 function useGantt() {
 
   const [ganttName, setGanttName] = useState([]);
-  const {projectID} = useProject();
+  const { projectID } = useProject();
   const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
 
   const { data: dataGanttProject, loading: loadingGanttProject, error: errorGanttProject } = useQuery(GET_GANTT_PROJECT_ID, {
@@ -119,7 +120,7 @@ function useGantt() {
   useEffect(() => {
     if (dataGanttProject) {
       setGanttName(dataGanttProject.ganttGetProjectID.data);
-      if (dataGanttProject.ganttGetProjectID.data.length !== 0 ) {
+      if (dataGanttProject.ganttGetProjectID.data.length !== 0) {
         localStorage.getItem('ganttID') === null ? localStorage.setItem('ganttID', dataGanttProject.ganttGetProjectID.data[0].ID) : console.log("ganttID is real not null");
         localStorage.getItem('ganttID') === "null" ? localStorage.setItem('ganttID', dataGanttProject.ganttGetProjectID.data[0].ID) : console.log("ganttID is not null");
         ganttID === "null" ? setGanttID(dataGanttProject.ganttGetProjectID.data[0].ID) : setGanttID(localStorage.getItem('ganttID'));
@@ -195,21 +196,18 @@ export const PrintGanttPage = (props) => {
   </>
 }
 
-// TODO : ERROR
+/* No Use Because the error need to change the way to get data
+// Print List Project Name Data for Dropdown in ListboxProjectName
 export const PrintListProjetcName = () => {
   const { projectID, setProjectID, projectData } = useProject();
   const { ganttID, setGanttID, ganttName } = useGantt();
-  // console.log("PrintListProjetcName ganttt ID ", ganttID);
-  // console.log("PrintListProjetcName ProjectID", projectID);
-  // console.log("PrintListProjetcName ganttname", ganttName);
-  // console.log("PrintListProjetcName projectdata", projectData);
 
   return <>
     <ListboxProjectName setGanttID={setGanttID} projectID={projectID} setProjectID={setProjectID} projectData={projectData} />
   </>
 }
 
-// TODO : ERROR
+// Print List ProjectDashboard with projectData as passing value
 export const PrintProjectDashboard = () => {
   const [projectData,setProjectData]= useState(localStorage.getItem('projectID'));
   console.log("PrintProjectDashboard projectData : ", projectData);
@@ -229,3 +227,4 @@ export const PrintProjectDashboard = () => {
     <ProjectDashboard projectData={projectData} setProjectID={setProjectID} />
   </>
 }
+*/

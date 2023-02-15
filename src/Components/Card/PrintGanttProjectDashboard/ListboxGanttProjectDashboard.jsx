@@ -5,31 +5,37 @@ import { GET_GANTT_PROJECT_ID } from "../../GraphQL/Queries";
 
 const ListboxGanttProjectDashboard = (props) => {
     const profile = GetProfile();
-    const {projectID} = props;
-    const {data} = useQuery(GET_GANTT_PROJECT_ID, {
+    const { projectID } = props;
+    const { data } = useQuery(GET_GANTT_PROJECT_ID, {
         variables: { project_id: projectID, sort: "ID asc" },
     });
     const [ganttData, setganttData] = useState([]);
-    const [GANTTID,setGanttID] = useState(localStorage.getItem('ganttID'));
+    const [GANTTID, setGanttID] = useState(localStorage.getItem('ganttID'));
     useEffect(() => {
-    if(data){
-        setganttData(data.ganttGetProjectID.data);
-        //if local storage is empty, set to first project id
-        localStorage.getItem('ganttID') === null ? localStorage.setItem('ganttID', data.ganttGetProjectID.data[0].ID) : console.log("ganttID is not null");
-        GANTTID === null ? setGanttID(data.ganttGetProjectID.data[0].ID) : setGanttID(localStorage.getItem('ganttID'));
-    }
+        if (data) {
+            setganttData(data.ganttGetProjectID.data);
+
+            if (data.ganttGetProjectID.data.length !== 0) {
+                //if local storage is empty, set to first project id
+                localStorage.getItem('ganttID') === null ? localStorage.setItem('ganttID', data.ganttGetProjectID.data[0].ID) : console.log("ganttID is not null");
+                GANTTID === null ? setGanttID(data.ganttGetProjectID.data[0].ID) : setGanttID(localStorage.getItem('ganttID'));
+            }
+            if (data.ganttGetProjectID.data.length === 0){
+                localStorage.removeItem('ganttID');
+            }
+        }
     }, [data]);
-    
+
     function printListGanttName() {
         return ganttData.map(({ ID, name }) => (
             <>
-                <option value={ID}>{name}</option>               
+                <option value={ID}>{name}</option>
             </>
         ));
     }
-    const handleChange=(event)=>{
+    const handleChange = (event) => {
         setGanttID(event.target.value);
-        localStorage.setItem('ganttID',event.target.value);
+        localStorage.setItem('ganttID', event.target.value);
         window.location.reload();
     }
     return (
