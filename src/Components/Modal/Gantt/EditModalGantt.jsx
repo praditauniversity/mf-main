@@ -1,18 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import Addnewprojectobj from '../ProjectCharterModal/AddModal/Addnewprojectobj';
-import Addnewresource from '../ProjectCharterModal/AddModal/Addnewresource';
-import Addnewphase from '../ProjectCharterModal/AddModal/Addnewphase';
-import Addnewrisk from '../ProjectCharterModal/AddModal/Addnewrisk';
 import { IconDateForm, IconEdit, IconSaveForm } from '../../Icons/icon';
 import './AddModal.css';
-import Button from '../../Button';
 import GetProfile from '../../Auth/GetProfile';
-import useLocalStorage from '../../../Middleware/useLocalStorage';
 import { UPDATE_GANTT } from '../../../Middleware/GraphQL/mutations';
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { DatePickerField, InputField } from '../../Input/Input';
-import TableDatePicker from '../ModalDatePicker/DatePickerModal';
 import { GET_GANTT_DATA, GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 import { useParams } from 'react-router-dom';
 
@@ -31,7 +24,7 @@ const EditModalGantt = (props) => {
                 variables: { project_id: projectID }
             },
         ],
-        onCompleted: () => { console.log("Berhasil Fetch") }
+        onCompleted: () => { console.log("Berhasil Update Gantt") }
     });;
 
     const { data: readGanttData, error: readGanttError } = useQuery(GET_GANTT_DATA, {
@@ -43,24 +36,19 @@ const EditModalGantt = (props) => {
     }
 
     useEffect(() => {
-        // console.log("xxxxxxxxxxxxxxx", readGanttData);
         if (readGanttData) {
-            // setGanttData(readGanttData.gantt.data);
 
             setName(readGanttData.gantt.data[0].name);
             setDescription(readGanttData.gantt.data[0].description);
             setVersion(readGanttData.gantt.data[0].version);
             setStartTime(readGanttData.gantt.data[0].start_time);
             setEndTime(readGanttData.gantt.data[0].end_time);
-
-            // console.log("xxxxxxxxxxxxxxx", readGanttData.gantt.data);
         }
     }, [readGanttData]);
 
     const [ganttData, setGanttData] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    // const [user_id, setUserId] = useState(profile.id);
     const [version, setVersion] = useState(0);
     const [start_time, setStartTime] = useState('');
     const [end_time, setEndTime] = useState('');
@@ -73,8 +61,6 @@ const EditModalGantt = (props) => {
     }
 
     const handleSave = (e) => {
-
-        // console.log("handlesave", typeof start_time, start_time, typeof end_time, end_time)
         e.preventDefault();
 
         updateGantt({
@@ -145,11 +131,6 @@ const EditModalGantt = (props) => {
 
     return (
         <>
-            {/* {ganttData ? console.log("CCCCCCCCCCCCCCCC", ganttData[0].name): null} */}
-
-            {/* {console.log("ganttData", typeof start_time, start_time)}
-            {console.log("ganttData DATE", typeof new Date(start_time), new Date(start_time))} */}
-
             <button
                 onClick={showDialog}
                 className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
@@ -157,7 +138,6 @@ const EditModalGantt = (props) => {
             >
                 <IconEdit />
             </button>
-            {/* {console.log("update data", updateData)} */}
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40" onClose={hideDialog}>
                     <Transition.Child

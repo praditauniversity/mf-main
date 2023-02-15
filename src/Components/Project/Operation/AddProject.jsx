@@ -1,7 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useState, useEffect, useRef } from "react";
 import SubmitButton from "../../Button";
-import { DatePickerField, InputField, SelectorField } from "../../Input/Input";
+import { DatePickerField, InputField } from "../../Input/Input";
 import { IconDeleteForm, IconPlusForm } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
 import { GET_PHASE_DATA, GET_TYPE_DATA } from "../../GraphQL/Queries";
@@ -123,18 +123,13 @@ const AddProject = () => {
 
     useEffect(() => {
         if (data) {
-            console.log("Data Ready list type and phase");
             setTypeName(data.projectType.Data);
-            console.log("Data Ready", data.projectType.Data);
-        } else {
-            console.log("No data list type and phase");
+            console.log("Data Ready type project", data.projectType.Data);
         }
         if (dataPhase){
-            console.log("Data Ready list phase");
             setPhaseName(dataPhase.projectPhase.Data);
-            console.log("Data Ready",dataPhase.projectPhase.Data)
+            console.log("Data Ready phase project",dataPhase.projectPhase.Data)
         }
-        console.log("USE EFFECT list type and phase");
     }, [data, dataPhase]);
 
 
@@ -160,12 +155,12 @@ const AddProject = () => {
 
     const handleChangeType = (event) => {
         setTypeId(parseInt(event.target.value));
-        console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
+        // console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleChangePhase = (event) => {
         setPhaseId(parseInt(event.target.value));
-        console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
+        // console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleFormChangeProjectobj = (value, index) => {
@@ -173,9 +168,6 @@ const AddProject = () => {
             return objIndex === index ? value : objItem
         })
         setProjectObjectives(dataObj)
-
-        console.log("DATA", dataObj)
-        console.log("PROJECTOBJ", project_objectives)
     }
 
     const handleFormChangeRisk = (value, index) => {
@@ -183,49 +175,34 @@ const AddProject = () => {
             return riskIndex === index ? value : riskItem
         })
         setPotentialRisk(dataRisk)
-
-        console.log("DATA", dataRisk)
-        console.log("PROJECTOBJ", potential_risk)
     }
 
     const removeFieldsProjectobj = (index) => {
         let dataObj = [...project_objectives];
         dataObj.splice(index, 1)
-        console.log("removefields", project_objectives)
-        console.log("removefields", dataObj)
         setProjectObjectives(dataObj)
     }
 
     const removeFieldsRisk = (index) => {
         let dataRisk = [...potential_risk];
         dataRisk.splice(index, 1)
-        console.log("removefields", potential_risk)
-        console.log("removefields", dataRisk)
         setPotentialRisk(dataRisk)
     }
 
-
-    if (loading) return "Submitting...";
-    if (error) console.log(JSON.stringify(error));
-    if (loadingPhase) return "submitting...";
-    if (errorPhase) console.log(JSON.stringify(errorPhase));
-
-
-
+    // if (loading) return "Submitting...";
+    // if (error) console.log(JSON.stringify(error));
+    // if (loadingPhase) return "submitting...";
+    // if (errorPhase) console.log(JSON.stringify(errorPhase));
 
     const handleSubmit = (e) => {
         type_id !== 0 ? type_id : setTypeId(parseInt(inputRefType.current.value))
         phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))
 
-        console.log(typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
-        console.log(typeof type_id, type_id);
-        console.log(typeof phase_id, phase_id);
-
+        // console.log(typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
+        // console.log(typeof type_id, type_id);
+        // console.log(typeof phase_id, phase_id);
 
         e.preventDefault();
-        console.log(typeof start_project, start_project, "SEWI");
-        console.log(typeof project_objectives, "LIPAW");
-        console.log("asdsadasdasdasd", project_objectives);
         addProject({
             variables: {
                 status,

@@ -109,9 +109,6 @@ const ActionsButton = (props) => {
 const ProjectListPage = (props) => {
     const {value} = props;
 
-    
-    console.log("PROJECTDATALIST", value);
-
     const filler = () => {
         if (value.length > 0) {
             // fill the table with white space

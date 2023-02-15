@@ -12,15 +12,6 @@ const AddDialogProjectCharter = () => {
         setIsOpen(false);
     }
 
-
-    const DeleteDialog = () => {
-        return (
-            <>
-
-            </>
-        )
-    }
-
     const Open = () => {
         return (
             <>

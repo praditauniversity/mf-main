@@ -2,16 +2,12 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { GET_CHARTER_DATA_BY_USER_ID, GET_MILESTONE_DATA, GET_PHASE_DATA, GET_PROJECT_DATA_BY_USER_ID, GET_TYPE_DATA } from '../../../GraphQL/Queries';
-// import { GET_PROJECT_DATA_BY_ID } from "../../GraphQL/Queries";
 import '../../../../Assets/svgbutton/svgbutton.css';
-import FetchCharter from '../../../../Middleware/Fetchers/FetchCharter';
-import { IconDeleteForm, IconEdit, IconPlus, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
+import { IconDeleteForm, IconEdit, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
 import { DatePickerField, InputField } from '../../../Input/Input';
 import './UpdateModal.css';
 import GetProfile from "../../../Auth/GetProfile";
 
-
-//yang masih belom mutation dan querynya
 const UPDATE_CHARTER = gql`
     mutation updateProject(
         $id: String!
@@ -109,7 +105,6 @@ const UPDATE_CHARTER = gql`
 
 const UpdateModalProject = (props) => {
     const { projectData, page, limit, sort } = props;
-    // const charterData = FetchCharter();
     const [pcData, setPcData] = useState('');
 
 
@@ -154,11 +149,6 @@ const UpdateModalProject = (props) => {
         {
             refetchQueries: [
                 { query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort)  }},
-                
-                // {
-                //     query: GET_CHARTER_DATA_BY_USER_ID,
-                //     variables: { id: String(projectData.ID) }
-                // },
             ],
             // refetchQueries: refetchQueries,
             onComplete : () => {console.log("Berhasil Fetch UPDATE PROJECT CHARTER")}
@@ -179,41 +169,25 @@ const UpdateModalProject = (props) => {
     useEffect(() => {
         if (dataMilestone) {
             setMilestoneStatus(dataMilestone.projectMilestone.Data);
-            // console.log("Data Ready", data.project.Data);
-            console.log("Data Ready", dataMilestone.projectMilestone.Data)
+            console.log("Data Ready Milestone Update Charter", dataMilestone.projectMilestone.Data)
         }
         if(readPCData){
             setPcData(readPCData.projectByUserId.Data);
-            console.log("xxxxxxxxxxxxxxx", readPCData.projectByUserId.Data);
+            console.log("Data Ready Read update Charter Data", readPCData.projectByUserId.Data);
         }
         if (data) {
-            console.log("Data Ready list type and phase");
             setTypeName(data.projectType.Data);
-            console.log("Data Ready", data.projectType.Data);
+            console.log("Data Ready type update charter", data.projectType.Data);
         }
         if (dataPhase) {
-            console.log("Data Ready list phase");
             setPhaseName(dataPhase.projectPhase.Data);
-            console.log("Data Ready", dataPhase.projectPhase.Data)
+            console.log("Data Ready phase update charter", dataPhase.projectPhase.Data)
         }
 
         else {
-            console.log("No data list project and milestone");
+            console.log("No data update charter");
         }
-        console.log("USE EFFECT list project and milestone");
     }, [data, dataPhase, dataMilestone, readPCData]);
-    //should be up there
-    // [data, dataPhase]
-
-    // const { namePC, descriptionPC, clientPC, clientContactPC, officeLocationPC, workAreaPC, roleIDPC, stakeholderAmmountPC, totalManPowerPC, participantsPC, progressPercentagePC, currencyNamePC, currencyCodePC, currencySymbolPC, costActualPC, costPlanPC, budgetPC, statusPC, consideredSuccessWhenPC, availableResourcesPC, projectObjectivesPC, potentialRiskPC, startProjectPC, endProjectPC, milestoneStatusPC, typeNamePC, phaseNamePC } = pcData ? pcData.reduce((acc, data) => {
-    //     acc.namePC = data.name;
-    //     acc.descriptionPC = data.description;
-    //     acc.clientPC = data.client;
-    //     acc.clientContactPC = data.client_contact;
-    //     acc.officeLocationPC = data.office_location;
-    //     return acc;
-    // }, {}) : '';
-
 
     function printListTypeName() {
 
@@ -243,17 +217,17 @@ const UpdateModalProject = (props) => {
 
     const handleChangeType = (event) => {
         setTypeId(parseInt(event.target.value));
-        console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
+        // console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleChangePhase = (event) => {
         setPhaseId(parseInt(event.target.value));
-        console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
+        // console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleChangeMilestone = (event) => {
         setMilestoneId(parseInt(event.target.value));
-        console.log("Milestone ID", typeof parseInt(event.target.value), event.target.value);
+        // console.log("Milestone ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleFormChangeProjectobj = (value, index) => {
@@ -261,9 +235,6 @@ const UpdateModalProject = (props) => {
             return objIndex === index ? value : objItem
         })
         setProjectObjectives(dataObj)
-
-        console.log("DATA", dataObj)
-        console.log("PROJECTOBJ", project_objectives)
     }
 
     const handleFormChangeRisk = (value, index) => {
@@ -271,9 +242,6 @@ const UpdateModalProject = (props) => {
             return riskIndex === index ? value : riskItem
         })
         setPotentialRisk(dataRisk)
-
-        console.log("DATA", dataRisk)
-        console.log("PROJECTOBJ", potential_risk)
     }
 
     const handleFormChangeResources = (value, index) => {
@@ -281,32 +249,23 @@ const UpdateModalProject = (props) => {
             return resourceIndex === index ? value : resourceItem
         })
         setAvailableResources(dataResource)
-
-        console.log("DATA", dataResource)
-        console.log("PROJECTOBJ", available_resources)
     }
 
     const removeFieldsProjectobj = (index) => {
         let dataObj = [...project_objectives];
         dataObj.splice(index, 1)
-        console.log("removefields", project_objectives)
-        console.log("removefields", dataObj)
         setProjectObjectives(dataObj)
     }
 
     const removeFieldsRisk = (index) => {
         let dataRisk = [...potential_risk];
         dataRisk.splice(index, 1)
-        console.log("removefields", potential_risk)
-        console.log("removefields", dataRisk)
         setPotentialRisk(dataRisk)
     }
 
     const removeFieldsResources = (index) => {
         let dataResource = [...available_resources];
         dataResource.splice(index, 1)
-        console.log("removefields", available_resources)
-        console.log("removefields", dataResource)
         setAvailableResources(dataResource)
     }
 
@@ -318,16 +277,14 @@ const UpdateModalProject = (props) => {
         setIsOpen(false);
     }
 
-    if (loading) return "Submitting...";
-    if (error) console.log(JSON.stringify(error));
-    if (loadingMilestone) return "submitting...";
-    if (errorMilestone) console.log(JSON.stringify(errorMilestone));
-    if (loadingPhase) return "submitting...";
-    if (errorPhase) console.log(JSON.stringify(errorPhase));
+    // if (loading) return "Submitting...";
+    // if (error) console.log(JSON.stringify(error));
+    // if (loadingMilestone) return "submitting...";
+    // if (errorMilestone) console.log(JSON.stringify(errorMilestone));
+    // if (loadingPhase) return "submitting...";
+    // if (errorPhase) console.log(JSON.stringify(errorPhase));
 
-    if (updateProjectError) console.log(JSON.stringify(updateProjectError));
-
-
+    // if (updateProjectError) console.log(JSON.stringify(updateProjectError));
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -340,13 +297,13 @@ const UpdateModalProject = (props) => {
         phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))
         milestone_id === 0 ? setMilestoneId(parseInt(inputRefMilestone.current.value)) : milestone_id
 
-        console.log(typeof parseInt(inputRefMilestone.current.value), parseInt(inputRefMilestone.current.value));
-        console.log(typeof milestone_id, milestone_id);
-        console.log(typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
-        console.log(typeof parseInt(inputRefPhase.current.value), parseInt(inputRefPhase.current.value));
-        console.log("Berhasil submit")
+        // console.log(typeof parseInt(inputRefMilestone.current.value), parseInt(inputRefMilestone.current.value));
+        // console.log(typeof milestone_id, milestone_id);
+        // console.log(typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
+        // console.log(typeof parseInt(inputRefPhase.current.value), parseInt(inputRefPhase.current.value));
 
-        // e.preventDefault();
+        console.log("Berhasil submit Update Modal")
+
         updateProject({
             variables: {
                 id: String(projectData.ID),
@@ -379,8 +336,6 @@ const UpdateModalProject = (props) => {
                 budget,
             },
         });
-
-
 
         // setId(projectData.id);
         // setStatus(projectData.status);
@@ -573,7 +528,6 @@ const UpdateModalProject = (props) => {
     ];
 
     return (
-        console.log("Project id", typeof String(projectData.ID), String(projectData.ID)),
         <>
             <div className="flex flex-row items-center justify-center">
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
@@ -755,11 +709,6 @@ const UpdateModalProject = (props) => {
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                 onClick={handleSubmit}
-                                                // onClick={e => {
-                                                //     e.preventDefault();
-                                                //     handleSubmit();
-                                                //     window.location.reload(true);
-                                                // }}
                                             >
                                                 <IconSaveForm />
                                                 <p className='text-base text-white pt-0.5 px-1'>Save</p>

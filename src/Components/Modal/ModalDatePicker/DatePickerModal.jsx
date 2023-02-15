@@ -21,7 +21,6 @@ export default function TableDatePicker() {
         <Styles>
             <ModalDatePicker />
         </Styles>
-        // <ModalDatePicker />
     );
 }
 
@@ -45,5 +44,3 @@ export function ModalDatePicker() {
         />
     )
 }
-
-{/* <input type="text" placeholder="Enter start date" className="input input-bordered w-full bg-table-dark border-primary-light" /> */ }

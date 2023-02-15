@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useParams, withRouter } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 import { Dialog, Transition } from "@headlessui/react";
-import { GET_CHARTER_DATA } from '../../../GraphQL/Queries';
 import DescTitle from '../../../Card/ProjectCharterCard/desctitle';
 import Title from '../../../Card/ProjectCharterCard/title';
 import List from '../../../Card/ProjectCharterCard/list';
@@ -18,12 +16,6 @@ import { IconView } from '../../../Icons/icon';
 const ViewModalCharter = (props) => {
     const { charterID, charterName, charterManager, charterClient, charterDesc, charterObj, charterTeam, charterStakeholder, charterParticipant, charterPlanned, charterActual, charterSymbol, charterResource, charterStart, charterEnd, charterRisk } = props;
     let { projectID } = useParams();
-    const charterData = FetchCharter();
-    // const [getCharterID, { data, error }] = useQuery(GET_CHARTER_DATA,
-    //     {
-    //         variables: { id: projectID },
-    //     }
-    // );
 
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {

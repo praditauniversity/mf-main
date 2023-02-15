@@ -2,18 +2,13 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { GET_MILESTONE_DATA, GET_PHASE_DATA, GET_PROJECT_DATA_BY_USER_ID, GET_TYPE_DATA } from '../../../GraphQL/Queries';
-// import { GET_PROJECT_DATA_BY_ID } from "../../GraphQL/Queries";
 import '../../../../Assets/svgbutton/svgbutton.css';
-import FetchCharter from '../../../../Middleware/Fetchers/FetchCharter';
-import { IconDeleteForm, IconPlus, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
+import { IconDeleteForm, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
 import { DatePickerField, InputField } from '../../../Input/Input';
 import './AddModal.css';
 import Button from "../../../Button";
-import { useForm } from "react-hook-form";
 import GetProfile from "../../../Auth/GetProfile";
 
-
-//yang masih belom mutation dan querynya
 const ADD_CHARTER = gql`
     mutation addProject(
         $status: String
@@ -85,85 +80,6 @@ const ADD_CHARTER = gql`
     }
 `;
 
-const GET_CHARTER_DATA_BY_USER_ID = gql`
-query projectCharterByUserId($userId: String!) {
-    projectCharterByUserId(userId: $userId) {
-      Data {
-        ID
-        CreatedAt
-        UpdatedAt
-        DeletedAt
-        user_id
-        name
-        description
-        start_project
-        end_project
-        stakeholder_ammount
-        work_area
-        office_location
-        cost_plan
-        cost_actual
-        client
-        client_contact
-        role_id
-        type_id
-        Type {
-          ID
-          CreatedAt
-          UpdatedAt
-          DeletedAt
-          name
-          description
-          user_id
-          updated_by
-          deleted_by
-        }
-        progress_percentage
-        project_manager
-        project_duration
-        total_man_power
-        status
-        considered_success_when
-        currency_symbol
-        currency_code
-        currency_name
-        phase_id
-        Phase {
-          ID
-          CreatedAt
-          UpdatedAt
-          DeletedAt
-          name
-          color
-          order
-          user_id
-          updated_by
-          deleted_by
-        }
-        budget_health
-        budget
-        participants
-        milestone_id
-        Milestone {
-          ID
-          CreatedAt
-          UpdatedAt
-          DeletedAt
-          status
-          due_date
-          user_id
-          updated_by
-          deleted_by
-        }
-        project_objectives
-        available_resources
-        potential_risk
-        updated_by
-        deleted_by
-      }
-    }
-  }
-`;
 
 const AddModalProjectCharter = (props) => {
     const [status, setStatus] = useState("");
@@ -261,11 +177,6 @@ const AddModalProjectCharter = (props) => {
             onCompleted: () => { console.log("Berhasil ADD PROJECT, total project", total) }
         });;
 
-
-    // const profile = GetProfile();
-    // const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
-    //     variables: { userId: profile.id },
-    // });
     const { data: dataMilestone, loading: loadingMilestone, error: errorMilestone } = useQuery(GET_MILESTONE_DATA);
     const [projectName, setProjectName] = useState([]);
     const [milestoneStatus, setMilestoneStatus] = useState([]);
@@ -278,29 +189,21 @@ const AddModalProjectCharter = (props) => {
     useEffect(() => {
         if (dataMilestone) {
             setMilestoneStatus(dataMilestone.projectMilestone.Data);
-            // console.log("Data Ready", data.project.Data);
-            console.log("Data Ready", dataMilestone.projectMilestone.Data)
+            console.log("Data Milestone Ready", dataMilestone.projectMilestone.Data)
         }
         if (data) {
-            console.log("Data Ready list type and phase");
             setTypeName(data.projectType.Data);
-            console.log("Data Ready", data.projectType.Data);
+            console.log("Data Ready list type", data.projectType.Data);
         }
         if (dataPhase) {
-            console.log("Data Ready list phase");
             setPhaseName(dataPhase.projectPhase.Data);
-            console.log("Data Ready", dataPhase.projectPhase.Data)
+            console.log("Data Ready list phase", dataPhase.projectPhase.Data)
         }
 
         else {
-            console.log("No data list project and milestone");
+            console.log("No data milestone, type, phase");
         }
-        console.log("USE EFFECT list project and milestone");
     }, [data, dataPhase, dataMilestone]);
-    //should be up there
-    // [data, dataPhase]
-
-    const charterData = FetchCharter();
 
     function printListTypeName() {
 
@@ -320,14 +223,6 @@ const AddModalProjectCharter = (props) => {
         ));
     }
 
-    // function printListProjectName() {
-    //     return projectName.map(({ ID, name }) => (
-    //         <>
-    //             <option value={ID}>{name}</option>
-    //         </>
-    //     ));
-    // }
-
     function printListMilestoneName() {
         return milestoneStatus.map(({ ID, status }) => (
             <>
@@ -338,17 +233,17 @@ const AddModalProjectCharter = (props) => {
 
     const handleChangeType = (event) => {
         setTypeId(parseInt(event.target.value));
-        console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
+        // console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleChangePhase = (event) => {
         setPhaseId(parseInt(event.target.value));
-        console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
+        // console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleChangeMilestone = (event) => {
         setMilestoneId(parseInt(event.target.value));
-        console.log("Milestone ID", typeof parseInt(event.target.value), event.target.value);
+        // console.log("Milestone ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleFormChangeProjectobj = (value, index) => {
@@ -356,9 +251,6 @@ const AddModalProjectCharter = (props) => {
             return objIndex === index ? value : objItem
         })
         setProjectObjectives(dataObj)
-
-        console.log("DATA", dataObj)
-        console.log("PROJECTOBJ", project_objectives)
     }
 
     const handleFormChangeRisk = (value, index) => {
@@ -366,9 +258,6 @@ const AddModalProjectCharter = (props) => {
             return riskIndex === index ? value : riskItem
         })
         setPotentialRisk(dataRisk)
-
-        console.log("DATA", dataRisk)
-        console.log("PROJECTOBJ", potential_risk)
     }
 
     const handleFormChangeResources = (value, index) => {
@@ -376,32 +265,23 @@ const AddModalProjectCharter = (props) => {
             return resourceIndex === index ? value : resourceItem
         })
         setAvailableResources(dataResource)
-
-        console.log("DATA", dataResource)
-        console.log("PROJECTOBJ", available_resources)
     }
 
     const removeFieldsProjectobj = (index) => {
         let dataObj = [...project_objectives];
         dataObj.splice(index, 1)
-        console.log("removefields", project_objectives)
-        console.log("removefields", dataObj)
         setProjectObjectives(dataObj)
     }
 
     const removeFieldsRisk = (index) => {
         let dataRisk = [...potential_risk];
         dataRisk.splice(index, 1)
-        console.log("removefields", potential_risk)
-        console.log("removefields", dataRisk)
         setPotentialRisk(dataRisk)
     }
 
     const removeFieldsResources = (index) => {
         let dataResource = [...available_resources];
         dataResource.splice(index, 1)
-        console.log("removefields", available_resources)
-        console.log("removefields", dataResource)
         setAvailableResources(dataResource)
     }
 
@@ -413,14 +293,14 @@ const AddModalProjectCharter = (props) => {
         setIsOpen(false);
     }
 
-    if (loading) return "Submitting...";
-    if (error) console.log(JSON.stringify(error));
-    if (loadingMilestone) return "submitting...";
-    if (errorMilestone) console.log(JSON.stringify(errorMilestone));
-    if (loadingPhase) return "submitting...";
-    if (errorPhase) console.log(JSON.stringify(errorPhase));
+    // if (loading) return "Submitting...";
+    // if (error) console.log(JSON.stringify(error));
+    // if (loadingMilestone) return "submitting...";
+    // if (errorMilestone) console.log(JSON.stringify(errorMilestone));
+    // if (loadingPhase) return "submitting...";
+    // if (errorPhase) console.log(JSON.stringify(errorPhase));
 
-    if (addProjectError) console.log(JSON.stringify(addProjectError));
+    // if (addProjectError) console.log(JSON.stringify(addProjectError));
 
 
 
@@ -445,20 +325,16 @@ const AddModalProjectCharter = (props) => {
         phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))
         milestone_id !== 0 ? milestone_id : setMilestoneId(parseInt(inputRefMilestone.current.value))
 
-        // type_id !== 0 ? type_id : parseInt(inputRefType.current.value);
-        // phase_id !== 0 ? phase_id : parseInt(inputRefPhase.current.value);
-        // milestone_id !== 0 ? milestone_id : parseInt(inputRefMilestone.current.value);
+
+        // console.log("Milestone", typeof parseInt(inputRefMilestone.current.value), parseInt(inputRefMilestone.current.value));
+        // console.log("Milestone", typeof milestone_id, milestone_id);
+        // console.log("Type", typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
+        // console.log("Type", typeof type_id, type_id);
+        // console.log("Phase", typeof parseInt(inputRefPhase.current.value), parseInt(inputRefPhase.current.value));
+        // console.log("Phase", typeof phase_id, phase_id);
 
 
-        console.log("Milestone", typeof parseInt(inputRefMilestone.current.value), parseInt(inputRefMilestone.current.value));
-        console.log("Milestone", typeof milestone_id, milestone_id);
-        console.log("Type", typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
-        console.log("Type", typeof type_id, type_id);
-        console.log("Phase", typeof parseInt(inputRefPhase.current.value), parseInt(inputRefPhase.current.value));
-        console.log("Phase", typeof phase_id, phase_id);
-
-
-        console.log("Berhasil submit")
+        console.log("Berhasil submit add project charter")
 
         updateTotal();
 
@@ -539,16 +415,6 @@ const AddModalProjectCharter = (props) => {
     ]
 
     const dataProjectCharter = [
-        // {
-        //     label: "Name",
-        //     name: "name",
-        //     placeholder: "Example: Project Anomaly",
-        //     type: "text",
-        //     value: name,
-        //     onChange: (e) => setName(e.target.value),
-        //     minLength: 1,
-
-        // },
         {
             label: "Description",
             name: "description",
@@ -698,12 +564,6 @@ const AddModalProjectCharter = (props) => {
 
     return (
         <>
-            {/* <div className="flex flex-row items-center justify-center">
-                <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
-                    <IconPlus />
-                </button>
-            </div> */}
-
             <div className="add-button">
                 <Button label="+ Add Charter" onClick={showDialog} />
             </div>
@@ -778,7 +638,6 @@ const AddModalProjectCharter = (props) => {
                                                     minLength={data.minLength}
 
                                                 />
-                                                {/* <div style={{ color: "red" }}>{errorValidate.nameError}</div> */}
                                             </div>
 
 
@@ -910,11 +769,6 @@ const AddModalProjectCharter = (props) => {
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                 onClick={handleSubmit}
-                                            // onClick={e => {
-                                            //     // e.preventDefault();
-                                            //     handleSubmit();
-                                            //     // window.location.reload(true);
-                                            // }}
                                             >
                                                 <IconSaveForm />
                                                 <p className='text-base text-white pt-0.5 px-1'>Save</p>

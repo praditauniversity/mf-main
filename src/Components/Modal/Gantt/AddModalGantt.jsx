@@ -1,14 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { IconDateForm, IconPlus, IconSaveForm } from '../../Icons/icon';
+import {IconPlus, IconSaveForm } from '../../Icons/icon';
 import './AddModal.css'
-import Button from '../../Button';
 import GetProfile from '../../Auth/GetProfile';
-import useLocalStorage from '../../../Middleware/useLocalStorage';
 import { ADD_GANTT } from '../../../Middleware/GraphQL/mutations';
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { DatePickerField, InputField } from '../../Input/Input';
-import TableDatePicker from '../ModalDatePicker/DatePickerModal';
 import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 import { useParams } from 'react-router-dom';
 
@@ -39,7 +36,6 @@ const AddModalGantt = () => {
     const [description, setDescription] = useState('');
     const [user_id, setUserId] = useState(profile.id);
     const [version, setVersion] = useState(0);
-    // const [project_id, setProjectId] = useState(1);
     const [start_time, setStartTime] = useState(new Date());
     const [end_time, setEndTime] = useState(new Date());
     const showDialog = () => {
@@ -54,11 +50,8 @@ const AddModalGantt = () => {
     }
 
     const handleSave = (e) => {
-        console.log("Save", typeof start_time, start_time);
+        console.log("Handle Save", typeof start_time, start_time);
         e.preventDefault();
-        // const idUser = setUserId(parseInt(user_id));
-        // setUserId(parseInt(user_id));
-        // setUserId(parseInt(profile.id));
 
         addGantt({
             variables: {
@@ -72,29 +65,11 @@ const AddModalGantt = () => {
             },
         });
 
-        console.log(typeof name, name);
-        console.log(typeof description, description);
-        // console.log(typeof parseInt(user_id), parseInt(user_id));
-        // console.log(typeof parseInt(profile.id), parseInt(profile.id));
-        console.log(typeof user_id, user_id);
-        console.log(typeof profile.id, profile.id);
-        console.log(typeof version, version);
-        // console.log(typeof project_id, project_id);
-        // console.log(typeof projectID, projectID);
-        console.log(typeof start_time, start_time);
-        console.log(typeof end_time, end_time);
-
         if (addGanttError) {
             console.log(JSON.stringify(addGanttError, null, 2));
         }
 
-        // setName('');
-        // setDescription('');
         setUserId(profile.id);
-        // setVersion('');
-        // setProjectId(1);
-        // setStartTime('');
-        // setEndTime('');
 
         hideDialog();
     };
@@ -129,9 +104,6 @@ const AddModalGantt = () => {
 
     return (
         <>
-            {/* <div className="h-full px-5 align-right">
-                <Button onClick={showDialog} label="ADD GANTT"></Button>
-            </div> */}
             <button
                 onClick={showDialog}
                 className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
@@ -199,7 +171,6 @@ const AddModalGantt = () => {
                                                 <span className="label-text">Start Date</span>
                                             </label>
                                             <DatePickerField
-                                                // label="Start Date"
                                                 selected={start_time}
                                                 onChange={(date) => setStartTime(date)}
                                                 placeholder="DD/MM/YYYY"
@@ -213,21 +184,12 @@ const AddModalGantt = () => {
                                                 <span className="label-text">End Date</span>
                                             </label>
                                             <DatePickerField
-                                                // label="End Date"
                                                 selected={end_time}
                                                 onChange={(date) => setEndTime(date)}
                                                 placeholder="DD/MM/YYYY"
                                             />
                                         </div>
                                     </div>
-
-
-                                    {/* <settingtUserProject 
-                                        value={user_id}
-                                    />
-                                    <settingtUserProject 
-                                        value={project_id}
-                                    /> */}
 
                                     <div className="mt-10">
                                         <div className='flex justify-end'>

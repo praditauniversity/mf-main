@@ -1,13 +1,10 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { useParams, withRouter } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from "@headlessui/react";
 import '../../../../Assets/svgbutton/svgbutton.css';
 import { IconView } from '../../../Icons/icon';
 import DescTitleMOM from '../../../Card/MinutesofMeetingCard/desctitlemom';
 import TitleMOM from '../../../Card/MinutesofMeetingCard/titlemom';
 import ListMOM from '../../../Card/MinutesofMeetingCard/listmom';
-import DescTitleTimeMOM from '../../../Card/MinutesofMeetingCard/desctitlemompadding';
 import ListMOMNoDot from '../../../Card/MinutesofMeetingCard/listmomnodot';
 
 

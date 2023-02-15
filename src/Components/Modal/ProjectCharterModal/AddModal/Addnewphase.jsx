@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import './AddModal.css'
 
 const Addnewphase = () => {
-    // const [inputFields, setInputFields] = useState([
-    //     { name: '', age: '' }
-    // ])
     const [inputFields, setInputFields] = useState([
         { phases: '', enddate: '' }
     ])
@@ -66,54 +63,6 @@ const Addnewphase = () => {
                                     <div className="flex justify-end">
                                         {(inputFields.length !== 1) ? <button className="text-primary ml-2" onClick={() => removeFields(index)}>X</button> : ''}
                                     </div>
-
-                                    {/* <div className='grid grid-cols-15 gap-3 pt-2'>
-                                    <div className='col-span-7'>
-                                        <label className="label">
-                                            <p className='text-base font-medium'>Phases</p>
-                                        </label>
-                                        <input
-                                            className="input input-bordered w-full"
-                                            name='phases'
-                                            placeholder='Enter phase'
-                                            value={input.phases}
-                                            onChange={event => handleFormChange(index, event)}
-                                        />
-                                    </div>
-                                    <div className='col-span-7'>
-                                        <label className="label">
-                                            <p className='text-base font-medium'>End Date</p>
-                                        </label>
-                                        <input
-                                            className="input input-bordered w-full  "
-                                            name='enddate'
-                                            placeholder='Enter end date'
-                                            value={input.enddate}
-                                            onChange={event => handleFormChange(index, event)}
-                                        />
-                                    </div>
-                                    <div className="col-span-1 pt-14">
-                                        {(inputFields.length !== 1) ? <button className="text-primary ml-2" onClick={() => removeFields(index)}>X</button> : ''}
-                                    </div>
-
-                                </div> */}
-
-                                    {/* <button onClick={() => removeFields(index)}>Remove</button> */}
-                                    {/* <input
-                                    className="input input-bordered w-full"
-                                    name='phases'
-                                    placeholder='Enter phase'
-                                    value={input.phases}
-                                    onChange={event => handleFormChange(index, event)}
-                                />
-                                <input
-                                    className="input input-bordered w-full"
-                                    name='enddate'
-                                    placeholder='Enter end date'
-                                    value={input.enddate}
-                                    onChange={event => handleFormChange(index, event)}
-                                />
-                                {(inputFields.length !== 1) ? <button className="text-primary ml-2" onClick={() => removeFields(index)}>X</button> : ''} */}
                                 </div>
                             </div>
                         </div>

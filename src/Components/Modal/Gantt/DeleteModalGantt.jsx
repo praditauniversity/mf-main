@@ -1,18 +1,10 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import Addnewprojectobj from '../ProjectCharterModal/AddModal/Addnewprojectobj';
-import Addnewresource from '../ProjectCharterModal/AddModal/Addnewresource';
-import Addnewphase from '../ProjectCharterModal/AddModal/Addnewphase';
-import Addnewrisk from '../ProjectCharterModal/AddModal/Addnewrisk';
-import { IconDateForm, IconDelete, IconSaveForm } from '../../Icons/icon';
+import { IconDelete, IconSaveForm } from '../../Icons/icon';
 import './AddModal.css'
-import Button from '../../Button';
 import GetProfile from '../../Auth/GetProfile';
-import useLocalStorage from '../../../Middleware/useLocalStorage';
-import { ADD_GANTT, DELETE_GANTT } from '../../../Middleware/GraphQL/mutations';
-import { useQuery, gql, useMutation } from "@apollo/client";
-import { DatePickerField } from '../../Input/Input';
-import TableDatePicker from '../ModalDatePicker/DatePickerModal';
+import { DELETE_GANTT } from '../../../Middleware/GraphQL/mutations';
+import { useMutation } from "@apollo/client";
 import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 import { useParams } from 'react-router-dom';
 
@@ -21,15 +13,9 @@ const DeleteModalGantt = (props) => {
 
     let { projectID } = useParams();
 
-    // let currentUrl = window.location.href;
-    // let lastUrl = currentUrl.split('/').pop();
-    // const project_id = parseInt(lastUrl);
-
-
     const [isOpen, setIsOpen] = useState(false);
 
     const profile = GetProfile();
-    // const [projectID, setProjectID] = useLocalStorage('projectID');
 
     const [deleteGantt, { data: deleteGanttData, error: deleteGanttError }] = useMutation(DELETE_GANTT, {
         refetchQueries: [
@@ -38,7 +24,7 @@ const DeleteModalGantt = (props) => {
                 variables: { project_id: projectID }
             },
         ],
-        onCompleted: () => { console.log("Berhasil Fetch") }
+        onCompleted: () => { console.log("Berhasil Delete Gantt") }
     }
     );
 
@@ -71,7 +57,6 @@ const DeleteModalGantt = (props) => {
 
     return (
         <>
-        {console.log("Delete Modal Gantt")}
             <button
                 onClick={showDialog}
                 className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"

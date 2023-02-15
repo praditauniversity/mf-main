@@ -4,9 +4,6 @@ import '../../../../Assets/svgbutton/svgbutton.css'
 import './AddModal.css'
 
 const Addnewrisk = () => {
-    // const [inputFields, setInputFields] = useState([
-    //     { name: '', age: '' }
-    // ])
     const [inputFields, setInputFields] = useState([
         { risk: '' }
     ])
@@ -50,9 +47,6 @@ const Addnewrisk = () => {
                     </div>
                 )
             })}
-            {/* <div className='pb-2 pl-2'>
-                <button className='text-primary' onClick={addFields}>+ New List</button>
-            </div> */}
         </div>
     );
 }

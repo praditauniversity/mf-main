@@ -29,8 +29,8 @@ const PCList = (props) => {
         }
     }, [data]);
 
-    if (loading) return 'Submitting...';
-    if (error) return `Submission error! ${error.message}`;
+    // if (loading) return 'Submitting...';
+    // if (error) return `Submission error! ${error.message}`;
 
     const setCharterDataEmpty = () => {
         // setCharter([]);

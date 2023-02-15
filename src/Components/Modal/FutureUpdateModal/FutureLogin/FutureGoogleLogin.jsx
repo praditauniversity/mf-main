@@ -1,8 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from "@headlessui/react";
-import { IconFilter } from '../../../Icons/icon';
-
-
 
 const FutureGoogleLogin = () => {
     const [isOpen, setIsOpen] = useState(false);

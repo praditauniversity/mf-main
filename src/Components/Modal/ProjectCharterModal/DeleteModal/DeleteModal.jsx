@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from 'react';
-import { gql, useMutation, ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { Dialog, Transition } from '@headlessui/react';
 import '../../../../Assets/svgbutton/svgbutton.css'
 import { IconDelete, IconSaveForm } from '../../../Icons/icon';
-import { GET_CHARTER_DATA_BY_USER_ID, GET_PROJECT_DATA, GET_PROJECT_DATA_BY_USER_ID } from '../../../GraphQL/Queries';
+import { GET_PROJECT_DATA_BY_USER_ID } from '../../../GraphQL/Queries';
 import GetProfile from '../../../Auth/GetProfile';
 
 const DELETE_PROJECTCHARTER = gql`
@@ -22,16 +22,6 @@ const DeleteModalProject = (props) => {
     }
 
     const profile = GetProfile();
-
-    // let refetchQueries = [];
-    //if only one item in the first page, then data will be empty
-    // if (total % limit === 1 && page === 1) {
-    //     refetchQueries = [
-    //         {
-    //             query: GET_PROJECT_DATA,
-    //         },
-    //     ];
-    // } 
 
     const [deleteCharter, { data: deleteCharterData, error: deleteCharterError }] = useMutation(DELETE_PROJECTCHARTER, {
         refetchQueries: [
@@ -138,11 +128,6 @@ const DeleteModalProject = (props) => {
                                                 className="inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-primary hover:bg-error-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                                 value={projectID}
                                                 onClick={handleDelete}
-                                            // onClick={e => {
-                                            //     e.preventDefault();
-                                            //     handleDelete();
-                                            //     // window.location.reload(true);
-                                            // }}
                                             >
                                                 <IconSaveForm />
                                                 <p className='text-base text-white pt-0.5 px-1'>Delete</p>

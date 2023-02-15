@@ -112,18 +112,11 @@ const UpdateProject = () => {
 
     useEffect(() => {
         if (data) {
-            console.log("Data Ready list type and phase");
             setTypeName(data.projectType.Data);
-            console.log("Data Ready", data.projectType.Data);
-        } else {
-            console.log("No data list type and phase");
         }
         if(dataPhase){
-            console.log("Data Ready list phase");
             setPhaseName(dataPhase.projectPhase.Data);
-            console.log("Data Ready",dataPhase.projectPhase.Data)
         }
-        console.log("USE EFFECT list type and phase");
     }, [data, dataPhase]);
 
 
@@ -149,12 +142,12 @@ const UpdateProject = () => {
 
     const handleChangeType = (event) => {
         setTypeId(parseInt(event.target.value));
-        console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
+        // console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleChangePhase = (event) => {
         setPhaseId(parseInt(event.target.value));
-        console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
+        // console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleFormChangeProjectobj = (value, index) => {
@@ -162,9 +155,6 @@ const UpdateProject = () => {
             return objIndex === index ? value : objItem
         })
         setProjectObjectives(dataObj)
-
-        console.log("DATA", dataObj)
-        console.log("PROJECTOBJ", project_objectives)
     }
 
     const handleFormChangeRisk = (value, index) => {
@@ -172,32 +162,25 @@ const UpdateProject = () => {
             return riskIndex === index ? value : riskItem
         })
         setPotentialRisk(dataRisk)
-
-        console.log("DATA", dataRisk)
-        console.log("PROJECTOBJ", potential_risk)
     }
 
     const removeFieldsProjectobj = (index) => {
         let dataObj = [...project_objectives];
         dataObj.splice(index, 1)
-        console.log("removefields", project_objectives)
-        console.log("removefields", dataObj)
         setProjectObjectives(dataObj)
     }
 
     const removeFieldsRisk = (index) => {
         let dataRisk = [...potential_risk];
         dataRisk.splice(index, 1)
-        console.log("removefields", potential_risk)
-        console.log("removefields", dataRisk)
         setPotentialRisk(dataRisk)
     }
 
-    if (loading) return 'Submitting...';
-    if (error) return `Submission error! ${error.message}`;
+    // if (loading) return 'Submitting...';
+    // if (error) return `Submission error! ${error.message}`;
+
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(typeof "WUAW", id);
         updateProject({
             variables: {
                 id,

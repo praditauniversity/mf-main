@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { Dialog, Transition } from '@headlessui/react';
 import { DELETE_ACTIVITY, UPDATE_ACTIVITY } from '../../../Middleware/GraphQL/mutations';
-import { IconDelete, IconSaveForm } from '../../Icons/icon';
+import { IconSaveForm } from '../../Icons/icon';
 import Done from "../../../Assets/Icons/svg/Done.svg";
 import Trash from "../../../Assets/Icons/svg/Trash.svg";
 import { GET_ACTIVITY_DATA } from '../../GraphQL/Queries';
@@ -25,7 +25,7 @@ const UpdateModalTask = (props) => {
                     variables: { id: String(taskData.ID) }
                 },
             ],
-            onCompleted: () => { console.log("Berhasil Fetch") }
+            onCompleted: () => { console.log("Berhasil Fetch Update Task") }
         });
 
         const changeTask = (
@@ -136,10 +136,8 @@ const UpdateModalTask = (props) => {
 
         return (
             <>
-            {/* {console.log("ICONNNNNNNNNN", icon)} */}
                 <div className="flex flex-row items-center justify-center">
                     <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
-                        {/* <IconDelete /> */}
                         <img src={icon} className="w-12"></img> 
                     </button>
                 </div>
@@ -198,12 +196,6 @@ const UpdateModalTask = (props) => {
                                                 <button
                                                     type="button"
                                                     className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                                    // value={taskData.ID}
-                                                    // onClick={e => {
-                                                    //     e.preventDefault();
-                                                    //     handleSubmit();
-                                                    //     // window.location.reload(true);
-                                                    // }}
                                                     onClick={handleSubmit}
                                                 >
                                                     <IconSaveForm />
@@ -230,7 +222,7 @@ const UpdateModalTask = (props) => {
                     variables: { id: String(taskData.ID) }
                 },
             ],
-            onCompleted: () => { console.log("Berhasil Fetch") }
+            onCompleted: () => { console.log("Berhasil Fetch Delete Task") }
         });
     
         const handleDelete = (e) => {
@@ -249,10 +241,8 @@ const UpdateModalTask = (props) => {
         };
         return (
             <>
-            {/* {console.log("ICONNNNNNNNNN", icon)} */}
                 <div className="flex flex-row items-center justify-center">
                     <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
-                        {/* <IconDelete /> */}
                         <img src={icon} className="w-12"></img> 
                     </button>
                 </div>
@@ -311,12 +301,6 @@ const UpdateModalTask = (props) => {
                                                 <button
                                                     type="button"
                                                     className="inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-primary hover:bg-error-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                                    // value={taskData.ID}
-                                                    // onClick={e => {
-                                                    //     e.preventDefault();
-                                                    //     handleDelete();
-                                                    //     // window.location.reload(true);
-                                                    // }}
                                                     onClick={handleDelete}
                                                 >
                                                     <IconSaveForm />

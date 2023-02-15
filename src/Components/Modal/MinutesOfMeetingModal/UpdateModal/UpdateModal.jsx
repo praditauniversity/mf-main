@@ -57,9 +57,6 @@ mutation updateMinuteOfMeeting (
 const UpdateModalMinutesOfMeeting = (props) => {
     const { momData, page, limit, sort } = props;
 
-    // const [inputFields, setInputFields] = useState([
-    //     { action_item: "", owner: "", deadline: "", status: "" },
-    // ]);
     const [inputFields, setInputFields] = useState(() => {
         const inputFieldsData = [];
         for (let i = 0; i < momData.action_item.length; i++) {
@@ -110,9 +107,6 @@ const UpdateModalMinutesOfMeeting = (props) => {
             return notesIndex === index ? value : notesItem;
         });
         setNotes(dataNotes);
-
-        console.log("DATA", dataNotes);
-        console.log("DAILYREPORTEQUP", notes);
     };
 
 
@@ -120,7 +114,6 @@ const UpdateModalMinutesOfMeeting = (props) => {
         let data = [...inputFields];
         data[index][event.target.name] = event.target.value;
         setInputFields(data);
-        console.log("DATAAAAAA", data);
         setAction_item(inputFields.map((inputField) => inputField.action_item));
         setOwner(inputFields.map((inputField) => inputField.owner));
         setDeadline(inputFields.map((inputField) => inputField.deadline));
@@ -132,12 +125,8 @@ const UpdateModalMinutesOfMeeting = (props) => {
             return atendeesIndex === index ? value : atendeesItem;
         });
         setAtendees(dataAtendees);
-        console.log("DATA", dataAtendees);
-        console.log("DAILYREPORTEQUP", atendees);
-
     };
 
-    // setWorkLogName(inputFields.map((inputField) => inputField.name));
     const addFields = () => {
         let newfield = { action_item: "", owner: "", deadline: "", status: "" };
 
@@ -169,16 +158,12 @@ const UpdateModalMinutesOfMeeting = (props) => {
     const removeFieldsNotes = (index) => {
         let dataNotes = [...notes];
         dataNotes.splice(index, 1);
-        console.log("removefields", notes);
-        console.log("removefields", dataNotes);
         setNotes(dataNotes);
     };
 
     const removeFieldsAtendees = (index) => {
         let dataAtendees = [...atendees];
         dataAtendees.splice(index, 1);
-        console.log("removefields", notes);
-        console.log("removefields", dataAtendees);
         setAtendees(dataAtendees);
     };
 
@@ -186,16 +171,7 @@ const UpdateModalMinutesOfMeeting = (props) => {
         console.log(JSON.stringify(error));
 
     const handleSubmit = (e) => {
-        var gue3 = action_item;
-        console.log("gue3", gue3);
 
-        console.log("BAIBBIBIIBIB", inputFields.map((inputField) => inputField.action_item))
-
-
-        console.log("Action_item", action_item);
-        console.log("Owner", owner);
-        console.log("Deadline", deadline);
-        console.log("Status", status);
         e.preventDefault();
         updateMinutesOfMeeting({
             variables: {
@@ -368,17 +344,6 @@ const UpdateModalMinutesOfMeeting = (props) => {
                                             </div>
                                         </div>
 
-                                        {/* <div className="mt-3">
-                      <div className="form-control w-full max-w-5xl">
-                        <label className="label">
-                          <span className="label-text">Attendees</span>
-                        </label>
-                        <textarea
-                          className="textarea textarea-bordered h-36 w-full bg-table-dark border-primary-light"
-                          placeholder="Enter meeting attendees"
-                        ></textarea>
-                      </div>
-                    </div> */}
                                         {/* Atendees */}
                                         <div className="mt-3">
                                             <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
@@ -508,7 +473,6 @@ const UpdateModalMinutesOfMeeting = (props) => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {console.log(inputFields)}
                                                 {inputFields.map((input, index) => {
                                                     return (
                                                         <div key={index}>
@@ -579,10 +543,6 @@ const UpdateModalMinutesOfMeeting = (props) => {
                                                 })}
                                             </div>
                                         </div>
-
-                                        {/* <div>
-                                            <p className="label-text">Minutes of Meeting ID: <span className="label-text font-bold">{String(momData.ID)}</span></p>
-                                        </div> */}
 
                                         <div className="mt-10">
                                             <div className="flex justify-end">

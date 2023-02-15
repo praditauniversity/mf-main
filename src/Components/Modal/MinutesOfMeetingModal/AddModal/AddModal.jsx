@@ -2,38 +2,16 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import "../../../../Assets/svgbutton/svgbutton.css";
-// import Addnewprojectobj from './Addnewprojectobj';
-// import Addnewresource from './Addnewresource';
-// import Addnewphase from './Addnewphase';
-// import Addnewrisk from './Addnewrisk';
 import {
-  IconDateForm,
   IconDeleteForm,
-  IconPlus,
   IconPlusForm,
   IconSaveForm,
-  IconTime,
 } from "../../../Icons/icon";
 import "./AddModal.css";
 import { DatePickerField, TimePickerField } from "../../../Input/Input";
-import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID, GET_PROJECT_DATA } from "../../../GraphQL/Queries";
-import FetchProjectByUserId from "../../../../Middleware/Fetchers/FetchProjectByUserId";
+import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../../GraphQL/Queries";
 import Button from "../../../Button";
 
-const GET_MINUTES_OF_MEETING_DATA = gql`
-  query minuteOfMeeting {
-    minuteofmeeting {
-      data {
-        ID
-        project_id
-        meeting_name
-        start_time_meeting
-        end_time_meeting
-        user_id
-      }
-    }
-  }
-`;
 const ADD_MINUTES_OF_MEETING = gql`
   mutation addMinuteOfMeeting(
     $project_id: Int!
@@ -147,11 +125,10 @@ const AddModalMinutesOfMeeting = (props) => {
   const [addMinutesOfMeeting, { loading: addMinutesOfMeetingLoading, error: addMinutesOfMeetingError },] = useMutation(ADD_MINUTES_OF_MEETING,
     {
       refetchQueries: refetchQueries,
-      onComplete: (total) => { console.log("Total", total) }
+      onComplete: () => { console.log("Berhasil Add MOM") }
     });
 
   const inputRefProject = React.useRef(null);
-  // const projectName = FetchProjectByUserId();
   const idProject = parseInt(localStorage.getItem('momProjectID'));
 
   useEffect(() => {
@@ -159,22 +136,12 @@ const AddModalMinutesOfMeeting = (props) => {
       setProject_id(parseInt('reportProjectID'));
     }
     else {
-      console.log("data not found");
+      console.log("data idproject not found");
     }
-    console.log("USE EFFECT list daily report");
   }, [idProject]);
-
-  // function printListProjectName() {
-  //   return projectName.map(({ ID, name }) => (
-  //     <>
-  //       <option value={ID}>{name}</option>
-  //     </>
-  //   ));
-  // }
 
   const handleChangeProject = (event) => {
     setProject_id(parseInt(event.target.value));
-    console.log("project_id", typeof parseInt(event.target.value), event.target.value);
   };
 
 
@@ -191,9 +158,6 @@ const AddModalMinutesOfMeeting = (props) => {
       return notesIndex === index ? value : notesItem;
     });
     setNotes(dataNotes);
-
-    console.log("DATA", dataNotes);
-    console.log("DAILYREPORTEQUP", notes);
   };
 
 
@@ -201,7 +165,6 @@ const AddModalMinutesOfMeeting = (props) => {
     let data = [...inputFields];
     data[index][event.target.name] = event.target.value;
     setInputFields(data);
-    console.log("DATAAAAAA", data);
     setAction_item(inputFields.map((inputField) => inputField.action_item));
     setOwner(inputFields.map((inputField) => inputField.owner));
     setDeadline(inputFields.map((inputField) => inputField.deadline));
@@ -213,13 +176,9 @@ const AddModalMinutesOfMeeting = (props) => {
       return atendeesIndex === index ? value : atendeesItem;
     });
     setAtendees(dataAtendees);
-    console.log("DATA", dataAtendees);
-    console.log("DAILYREPORTEQUP", atendees);
 
   };
 
-
-  // setWorkLogName(inputFields.map((inputField) => inputField.name));
   const addFields = () => {
     let newfield = { notes: "" };
 
@@ -235,16 +194,12 @@ const AddModalMinutesOfMeeting = (props) => {
   const removeFieldsNotes = (index) => {
     let dataNotes = [...notes];
     dataNotes.splice(index, 1);
-    console.log("removefields", notes);
-    console.log("removefields", dataNotes);
     setNotes(dataNotes);
   };
 
   const removeFieldsAtendees = (index) => {
     let dataAtendees = [...atendees];
     dataAtendees.splice(index, 1);
-    console.log("removefields", notes);
-    console.log("removefields", dataAtendees);
     setAtendees(dataAtendees);
   };
 
@@ -259,11 +214,8 @@ const AddModalMinutesOfMeeting = (props) => {
       hideDialog();
       setErrorValidate("");
     }
-    //ini buat projectnya milih pake dropdown
-    // const project_id = parseInt(inputRefProject.current.value);
-    project_id === 0 ? setProject_id(parseInt(inputRefProject.current.value)) : project_id
 
-    console.log("ToTALL DATA BEFORE", total);
+    project_id === 0 ? setProject_id(parseInt(inputRefProject.current.value)) : project_id
 
     addMinutesOfMeeting({
       variables: {
@@ -304,18 +256,6 @@ const AddModalMinutesOfMeeting = (props) => {
   };
   return (
     <>
-      {/* <div className="flex flex-row items-center justify-center">
-        <button
-          onClick={showDialog}
-          className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
-          id="icon"
-        >
-          <IconPlus />
-        </button>
-
-        
-
-      </div> */}
       <div className="add-button">
         <Button label="+ Add Meeting" onClick={showDialog} />
       </div>
@@ -370,23 +310,6 @@ const AddModalMinutesOfMeeting = (props) => {
                         <div className="mt-3" style={{ color: "red" }}>{errorValidate.nameError}</div>
                       </div>
                     </div>
-                    
-                    {/* project */}
-                    {/* <div className="mt-3">
-                      <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
-                        Project Name
-                      </label>
-                      <div className="flex flex-col items-center">
-                        <select
-                          ref={inputRefProject}
-                          value={project_id}
-                          onChange={handleChangeProject}
-                          className="editor_type select select-bordered w-full max-w-5xl"
-                        >
-                          {printListProjectName()}
-                        </select>
-                      </div>
-                    </div> */}
 
                     <div className="mt-3">
                       <DatePickerField
@@ -462,17 +385,6 @@ const AddModalMinutesOfMeeting = (props) => {
                       </div>
                     </div>
 
-                    {/* <div className="mt-3">
-                      <div className="form-control w-full max-w-5xl">
-                        <label className="label">
-                          <span className="label-text">Attendees</span>
-                        </label>
-                        <textarea
-                          className="textarea textarea-bordered h-36 w-full bg-table-dark border-primary-light"
-                          placeholder="Enter meeting attendees"
-                        ></textarea>
-                      </div>
-                    </div> */}
                     {/* Atendees */}
                     <div className="mt-3">
                       <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">
@@ -602,7 +514,6 @@ const AddModalMinutesOfMeeting = (props) => {
                             </div>
                           </div>
                         </div>
-                        {console.log(inputFields)}
                         {inputFields.map((input, index) => {
                           return (
                             <div key={index}>

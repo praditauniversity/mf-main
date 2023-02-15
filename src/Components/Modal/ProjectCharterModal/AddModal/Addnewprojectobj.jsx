@@ -48,9 +48,6 @@ const Addnewprojectobj = () => {
                     </div>
                 )
             })}
-            {/* <div className='pb-2 pl-2 col-span-1' >
-                <button className='text-primary' onClick={addFields}>+ New List</button>
-            </div> */}
         </div>
     );
 }
