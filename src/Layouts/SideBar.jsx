@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-// import logo from "../Assets/Icons/svg/Logo.svg";
 import logo from "../Assets/Icons/png/Logo.png";
 import chat from "../Assets/Icons/svg/Chat.svg";
-// import user from "../../Assets/Icons/svg/User.svg";
 import addproject from "../Assets/Icons/svg/AddProject.svg";
 import maindashboard from "../Assets/Icons/svg/MainDashboard.svg";
 import profile from "../Assets/Icons/svg/Profile.svg";
@@ -10,23 +8,14 @@ import chart from "../Assets/Icons/svg/Progress.svg";
 import LogoutButton from "../Components/Auth/LogoutDialog";
 import Stat from "../Assets/Icons/svg/Stat.svg";
 import Key from "../Assets/Icons/svg/Key.svg";
-// import Settings from "../Assets/Icons/svg/"
 
 export const SideBar = () => {
     const [sideList, setSideList] = useState([
         { id: 0, name: "MainDashboard", link: "/#/maindashboard", icon: maindashboard, tooltip: "Main" },
-        // { id: 1, name: "Dashboard", link: "/#/dashboard", icon: chat },
-        // { id: 2, name: "Project", link: "/#/project", icon: addproject, tooltip: "Project" },
-        // { id: 3, name: "PMODashboard", link: "/#/pmodashboard", icon: dashboard },
-        // { id: 4, name: "ProjectDashboard", link: "/#/projectdashboard", icon: dashboard },
-        // { id: 5, name: "MemberDashboard", link: "/#/memberdashboard", icon: dashboard },
         { id: 5, name: "ProjectCharter", link: "/#/projectcharter", icon: addproject, tooltip: "Project Charter" },
         { id: 6, name: "DailyReport", link: "/#/dailyreport", icon: chart, tooltip: "Daily Report" },
         { id: 7, name: "MinuteofMeeting", link: "/#/minutesofmeeting", icon: chat, tooltip: "Minute of Meeting" },
         { id: 8, name: "UserAccount", link: "/#/useraccount", icon: profile, tooltip: "User Account" },
-        // { id: 9, name: "About", link: "/#/about", icon: compass },
-        // { id: 10, name: "Contact", link: "/#/contact", icon: compass },
-        // { id: 11, name: "ProjectDashboard", link: "/#/projectdashboard", icon: key },
         { id: 12, name: "MasterPageSuperAdmin", link: "/#/masterpage/superadmin", icon: Key, tooltip: "Master Page Super Admin" },
         { id: 13, name: "MasterPageAdmin", link: "/#/masterpage/admin", icon: Stat, tooltip: "Master Page Admin" },
     ]);
