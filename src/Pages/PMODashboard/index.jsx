@@ -1,7 +1,7 @@
 import React from "react";
 import UserCard from "../../Components/Card/UserCard";
 import BudgetCard from "../../Components/Card/BudgetCard";
-import { SumActual, SumCost, ProjectHealth, SumBudget, SumDanger, SumVariance } from "../../Components/GraphQL/ProjectQueries";
+import { SumActual, SumCost, SumBudget, SumDanger, SumVariance } from "../../Components/GraphQL/ProjectQueries";
 import ProjectByCard from "../../Components/ApexCharts/ProjectBy";
 import ManpowerCard from "../../Components/ApexCharts/Manpower";
 import SCurveCard from "../../Components/ApexCharts/SCurve";
@@ -32,10 +32,6 @@ const PMODashboardPage = () => {
                         <div className="md:col-span-6 col-span-12"> <ManpowerCard /> </div>
                         <div className="md:col-span-6 col-span-12"> <ProjectByCard /> </div>
                     </div>
-
-                    {/* Project List */}
-                    {/* <div className="col-span-full"> <ProjectListCard /> </div>
-                    <div className="col-span-full"> <ProjectProgressOverviewCard /> </div> */}
                 </div>
             </div>
 
@@ -54,10 +50,7 @@ const PMODashboardPage = () => {
             <div className="2xl:col-span-18 col-span-12"> 
                 <ProjectListCard /> 
             </div>
-
-
-            {/* can be delete later - testing for gantt */}
-            {/* <div className="col-span-7 row-span-1"> <TestQuery /> </div> */}
+            
         </div>
     );
 }

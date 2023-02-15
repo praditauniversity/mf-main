@@ -2,7 +2,6 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import CalendarCard from "../../Components/Card/Calendar/CalendarCard";
 import ProjectCharterCard from "../../Components/Card/ProjectCharterCard";
-import ProjectCharterPage from "../../Components/Card/ProjectCharterCard/indexProjectCharter";
 import UserCard from "../../Components/Card/UserCard";
 
 const ProjectCharterView = () => {

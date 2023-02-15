@@ -12,27 +12,10 @@ import { Actual, Budget, Client, Cost, CostHealth, Danger, ProjectManager, Sched
 import PrintGanttProjectDashboard from "../../Components/Card/PrintGanttProjectDashboard/PrintGanttProjectDashboard";
 
 const ProjectDashboard = (props) => {
-
     const { value } = props;
-
-    // const [data, setData] = useState(localStorage.getItem('projectID'));
-
-    // useEffect(() => {
-    //     if (projectData) {
-    //         if (projectData === null) {
-    //             setData(localStorage.getItem('projectID'));
-    //         } else {
-    //             setData(projectData);
-    //         }
-    //     }
-    // }, [projectData]);
-
-    console.log("ProjectDashboard value", value);
-    
 
     return (
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 2xl:grid-cols-18 lg:mt-0 mt-4 no-scrollbar">
-            {console.log("RENDER ProjectDashboard", value)}
             <div className="2xl:col-span-15 col-span-12 row-span-1">
                 <div className="grid grid-cols-15 gap-2">
                     {/* Top row */}
@@ -58,13 +41,9 @@ const ProjectDashboard = (props) => {
 
                     {/* Main row */}
                     <div className="md:col-span-5 col-span-15 row-span-1"> <ProjectProgressCard /> </div>
-                    {/* <div className="md:col-span-10 col-span-15 row-span-3"> <PrintGantt projectID={value} title="Gantt Chart" /></div> */}
                     <div className="md:col-span-10 col-span-15 row-span-3"> <PrintGanttProjectDashboard projectID={value} title="Gantt Chart" /></div>
-                    {/* <div className="md:col-span-10 col-span-15 row-span-3"> <ListboxGanttProjectDashboard projectID={value} /></div> */}
-                    {/* <div className="md:col-span-5 col-span-15 row-span-1"> <TaskOverviewCardProject /> </div> */}
                     <div className="md:col-span-5 col-span-15 row-span-1"> <DonutTaskOverviewProject value={value} /> </div>
                     <div className="col-span-15">
-                        {/* <TaskListCard />  */}
                         {<PrintTaskList />}
                     </div>
                 </div>
@@ -77,7 +56,6 @@ const ProjectDashboard = (props) => {
                         <CalendarTailwind />
                     </div>
                     <div className="col-span-12">
-                        {/* <UpcomingTaskCard /> */}
                         <PrintTask />
                     </div>
                     <div className="col-span-12">

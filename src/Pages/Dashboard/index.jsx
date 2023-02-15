@@ -1,13 +1,9 @@
 import React, { useEffect } from "react";
 import UserCard from "../../Components/Card/UserCard";
-import CalendarCard from "../../Components/Card/Calendar/CalendarCard";
-import AppGantt from "../../Components/Gantt-Component/AppGantt";
 import ActiveProjectCard from "../../Components/Card/ActiveProject/ActiveProjectCard";
 import ProjectProgressOverviewCard from "../../Components/ApexCharts/ProjectProgressOverview";
 import TaskOverviewCard from "../../Components/ApexCharts/TaskOverview";
 import MemberTaskCard from "../../Components/Card/MemberTask/MemberTaskCard";
-import { PrintGantt } from "../../Components/Gantt-Component/CustomActivityState";
-import { TestingModal } from "../../Components/Gantt-Component/TestingModal";
 import CalendarTailwind from "../../Components/Card/CalendarTailwind/Calendar";
 import PrintGanttProjectDashboard from "../../Components/Card/PrintGanttProjectDashboard/PrintGanttProjectDashboard";
 
@@ -16,10 +12,6 @@ const DashboardPage = () => {
 
     useEffect(() => {
         setProjectID(localStorage.getItem('projectID'));
-        // savedOption !=0 ? setSavedOption(savedOption) : setSavedOption(0);
-        // console.log("savedOption", savedOption);
-        // Update the savedOption value in local storage whenever it changes
-        // localStorage.setItem('savedOption', savedOption);
     }, [ProjectID]);
 
     return (
@@ -27,7 +19,6 @@ const DashboardPage = () => {
             <div className="col-span-14">
                 <div className="grid grid-cols-14 gap-2">
                     <div className="col-span-4 row-span-1"> <CalendarTailwind /> </div>
-                    {/* <div className="col-span-10 row-span-2"> <PrintGantt title="Gantt Chart" /> </div> */}
                     <div className="col-span-10 row-span-2"> <PrintGanttProjectDashboard projectID={ProjectID} title="Gantt Chart" /> </div>
                     <div className="col-span-4 row-span-1"> <TaskOverviewCard />  </div>
 

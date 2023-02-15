@@ -1,7 +1,6 @@
 import React from "react";
 import CalendarCard from "../../Components/Card/Calendar/CalendarCard";
 import DailyReportCard from "../../Components/Card/DailyReportCard";
-import DailyReportPage from "../../Components/Card/DailyReportCard/indexDailyReport";
 import UserCard from "../../Components/Card/UserCard";
 
 const DailyReportView = () => {
@@ -11,7 +10,6 @@ const DailyReportView = () => {
             <div className="col-span-14">
                 <div className="grid gap-2">
                     <DailyReportCard />
-                    {/* <DailyReportPage/> */}
                 </div>
             </div>
             <div className="col-span-4">

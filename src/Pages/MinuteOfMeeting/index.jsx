@@ -1,5 +1,4 @@
 import React from "react";
-import CalendarCard from "../../Components/Card/Calendar/CalendarCard";
 import CalendarTailwind from "../../Components/Card/CalendarTailwind/Calendar";
 import MinutesofMeetingCard from "../../Components/Card/MinutesofMeetingCard";
 import UserCard from "../../Components/Card/UserCard";

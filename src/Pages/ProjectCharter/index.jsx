@@ -1,10 +1,7 @@
 import React from "react";
-import CalendarCard from "../../Components/Card/Calendar/CalendarCard";
 import CalendarTailwind from "../../Components/Card/CalendarTailwind/Calendar";
-import ProjectCharterCard from "../../Components/Card/ProjectCharterCard";
 import ProjectCharterPage from "../../Components/Card/ProjectCharterCard/indexProjectCharter";
 import UserCard from "../../Components/Card/UserCard";
-import AddModalGantt from "../../Components/Modal/Gantt/AddModalGantt";
 
 const ProjectCharter = () => {
 
@@ -13,7 +10,6 @@ const ProjectCharter = () => {
             <div className="2xl:col-span-14 col-span-12">
                 <div className="grid gap-2">
                     <ProjectCharterPage />
-                    {/* <ProjectCharterCard /> */}
                     
                 </div>
 

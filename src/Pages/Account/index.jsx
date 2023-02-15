@@ -3,11 +3,9 @@ import AboutMeCard from "../../Components/Card/AccountDescriptionCard/AboutMeCar
 import EducationCard from "../../Components/Card/AccountDescriptionCard/EducationCard";
 import EmploymentCard from "../../Components/Card/AccountDescriptionCard/EmploymentCard";
 import SkillsCard from "../../Components/Card/AccountDescriptionCard/SkillsCard";
-import CalendarCard from "../../Components/Card/Calendar/CalendarCard";
 import CalendarTailwind from "../../Components/Card/CalendarTailwind/Calendar";
 import MyAccount from "../../Components/Card/MyAccount";
 import SocialMediaCard from "../../Components/Card/SocialMedia";
-import UserCard from "../../Components/Card/UserCard";
 
 const UserAccount = () => {
     return (

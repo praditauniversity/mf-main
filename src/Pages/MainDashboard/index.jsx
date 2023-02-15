@@ -9,16 +9,6 @@ import "./scrollbar.css";
 const MainDashboard = () => {
     const project = FetchProjectByUserId();
 
-    // const [project, setProject] = useState([
-    //     { id: 1, name: "Project Anomaly 1", description: "This is project anomaly 1, totally the first one.", link: "/#/projectdashboard/1" },
-    //     { id: 2, name: "Project Anomaly 2", description: "This is project anomaly 2, totally the second one.", link: "/#/projectdashboard/2" },
-    //     { id: 3, name: "Project Anomaly 3", description: "This is project anomaly 3, totally the third one.", link: "/#/projectdashboard/3" },
-    //     { id: 4, name: "Project Anomaly 4", description: "This is project anomaly 4, totally the fourth one.", link: "/#/projectdashboard/4" },
-    //     { id: 5, name: "Project Anomaly 5", description: "This is project anomaly 5, totally the fifth one.", link: "/#/projectdashboard/5" },
-    //     { id: 6, name: "Project Anomaly 6", description: "This is project anomaly 6, totally the sixth one.", link: "/#/projectdashboard/6" },
-    // ]);
-    // const projectLength = project.length;
-
     const projectLength = project.filter((item) => {
         const todayDate = new Date();
         const startDate = new Date(item.start_project);
@@ -81,7 +71,6 @@ const MainDashboard = () => {
                 </div>
 
                 <div className="mt-2 border border-none rounded-lg bg-background-snow p-5 mr-5 2xl:min-h-[900px] min-h-none">
-                    {/* <fCalendar /> */}
                     <TabsDailyReminder />
                 </div>
             </div>

@@ -1,8 +1,5 @@
 import React from "react";
-import UserCard from "../../Components/Card/UserCard";
 import Dropdown from "../../Components/Dropdown";
-import { SelectorField } from "../../Components/Input/Input";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const AboutPage = () => {
     const list = [

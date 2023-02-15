@@ -1,6 +1,5 @@
 import React from "react";
 import UserCard from "../../Components/Card/UserCard";
-import BlankCard from "../../Components/Card/Blank";
 
 const MemberDashboardPage = () => {
     return (

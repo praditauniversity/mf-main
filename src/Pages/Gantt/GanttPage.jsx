@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react';
-// import IconEdit from '../../Assets/Icons/svg/IconEdit.svg';
-// import IconDelete from '../../Assets/Icons/svg/IconDelete.svg';
-import { IconEdit, IconList } from '../../Components/Icons/icon';
 import { useParams } from 'react-router-dom';
 import FetchGanttByProjectId from '../../Middleware/Fetchers/FetchGanttByProjectId';
-import { IconPlus } from '../../Components/Icons/icon';
 import AddModalGantt from '../../Components/Modal/Gantt/AddModalGantt';
 import EditModalGantt from '../../Components/Modal/Gantt/EditModalGantt';
 import DeleteModalGantt from '../../Components/Modal/Gantt/DeleteModalGantt';
-import { GET_GANTT_DATA } from '../../Components/GraphQL/Queries';
-import { useQuery, gql, useMutation } from "@apollo/client";
-import ViewGanttChart from '../../Components/Modal/Gantt/ViewGanttChart';
 import dailyReportIcon from "../../Assets/Icons/svg/File_dock_duotone.svg";
 
 const GanttPage = () => {
@@ -145,7 +138,6 @@ const GanttPage = () => {
                                         <EditModalGantt ganttID={gantt.ID} />
                                         <DeleteModalGantt ganttID={gantt.ID} ganttName={gantt.name} total={totalData} setDataEmpty={setDataEmpty} />
                                         <a
-                                            // className="rounded-full bg-primary-light cursor-pointer"
                                             href={`/#/project-list/${projectID}/gantt/${gantt.ID}/gantt-chart`}
                                         >
                                             <img

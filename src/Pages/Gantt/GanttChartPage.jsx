@@ -1,7 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { PrintGantt, PrintGanttPage } from '../../Components/Gantt-Component/CustomActivityState';
-import { useMutation } from '@apollo/client';
+import { PrintGanttPage } from '../../Components/Gantt-Component/CustomActivityState';
 
 const GanttChartPage = () => {
     let { ganttID, projectID } = useParams();
