@@ -4,8 +4,9 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { GET_CHARTER_DATA_BY_USER_ID, GET_MILESTONE_DATA, GET_PHASE_DATA, GET_PROJECT_DATA_BY_USER_ID, GET_TYPE_DATA } from '../../../GraphQL/Queries';
 import '../../../../Assets/svgbutton/svgbutton.css';
 import { IconDeleteForm, IconEdit, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
-import { DatePickerField, InputField } from '../../../Input/Input';
+import { DatePickerField, InputField, InputFieldFocus } from '../../../Input/Input';
 import './UpdateModal.css';
+import '../AddModal/toast.css';
 import GetProfile from "../../../Auth/GetProfile";
 
 const UPDATE_CHARTER = gql`
@@ -172,6 +173,24 @@ const UpdateModalProject = (props) => {
     });
     const [typeName, setTypeName] = useState([]);
     const [phaseName, setPhaseName] = useState([]);
+    const [errorValidate, setErrorValidate] = useState({});
+    const inputRef = useRef(null);
+
+    const validate = () => {
+        let nameError = "";
+
+        if (name.length < 1) {
+            nameError = "Name can't be empty";
+            inputRef.current.focus();
+        }
+
+        if (nameError) {
+            setErrorValidate({ nameError });
+            return false;
+        }
+
+        return true;
+    };
 
     useEffect(() => {
         if (dataMilestone) {
@@ -309,8 +328,6 @@ const UpdateModalProject = (props) => {
         // console.log(typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
         // console.log(typeof parseInt(inputRefPhase.current.value), parseInt(inputRefPhase.current.value));
 
-        console.log("Berhasil submit Update Modal")
-
         updateProject({
             variables: {
                 id: String(projectData.ID),
@@ -344,19 +361,45 @@ const UpdateModalProject = (props) => {
             },
         });
 
-        hideDialog();
+        const isValid = validate();
+        if (isValid) {
+            //to show toast when sucesss create project
+            var x = document.getElementById("snackbarupd");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
+            setErrorValidate("");
+
+            hideDialog();
+        }
+
+        console.log("Berhasil submit Update Modal")
     }
 
-    const dataProjectCharter = [
+    const dataProjectCharterName = [
         {
             label: "Name",
+            required: "*",
             name: "name",
             placeholder: "Example: Project Anomaly",
             type: "text",
             value: name,
             onChange: (e) => setName(e.target.value),
+            minLength: 1,
+
         },
+    ]
+
+    const dataProjectCharter = [
+        // {
+        //     label: "Name",
+        //     required: "*",
+        //     name: "name",
+        //     placeholder: "Example: Project Anomaly",
+        //     type: "text",
+        //     value: name,
+        //     onChange: (e) => setName(e.target.value),
+        // },
         {
             label: "Description",
             name: "description",
@@ -510,6 +553,7 @@ const UpdateModalProject = (props) => {
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
                     <IconEdit />
                 </button>
+                <div id="snackbarupd">Project updated successfully</div>
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>
@@ -545,11 +589,33 @@ const UpdateModalProject = (props) => {
                                        Edit Project Charter
                                     </Dialog.Title>
 
-                                    {/* participants */}
+                                    {/* Name */}
+                                    {dataProjectCharterName.map((data, index) => {
+                                        return (
+                                            <div className="pb-2">
+                                                <InputFieldFocus
+                                                    key={index}
+                                                    label={data.label}
+                                                    required={data.required}
+                                                    name={data.name}
+                                                    placeholder={data.placeholder}
+                                                    type={data.type}
+                                                    value={data.value}
+                                                    onChange={data.onChange}
+                                                    minLength={data.minLength}
+                                                    inputRef={inputRef}
+                                                />
+                                                <div style={{ color: "red" }}>{errorValidate.nameError}</div>
+                                            </div>
+                                        );
+                                    })}
+
+                                    {/* data */}
                                     {dataProjectCharter.map((data, index) => {
                                         return (
                                             <InputField
                                                 key={index}
+                                                required={data.required}
                                                 label={data.label}
                                                 name={data.name}
                                                 placeholder={data.placeholder}

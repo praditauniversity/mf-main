@@ -114,7 +114,7 @@ const PCList = (props) => {
                                                 updateTotal={updateTotalItems}
                                                 dropCurrentPage={onPageChange}
                                                 totalPages={totalPages}
-                                                setEmpty={setCharterDataEmpty}
+                                                // setEmpty={setCharterDataEmpty}
                                             />
                                         </button>
                                         <button className="" id="icon">

@@ -1,18 +1,19 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import {IconPlus, IconSaveForm } from '../../Icons/icon';
+import { IconPlus, IconSaveForm } from '../../Icons/icon';
 import './AddModal.css'
+import './toast.css';
 import GetProfile from '../../Auth/GetProfile';
 import { ADD_GANTT } from '../../../Middleware/GraphQL/mutations';
 import { useMutation } from "@apollo/client";
-import { DatePickerField, InputField } from '../../Input/Input';
+import { DatePickerField, InputField, InputFieldFocus } from '../../Input/Input';
 import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 import { useParams } from 'react-router-dom';
 
 
 const AddModalGantt = () => {
     let { projectID } = useParams();
-    
+
     const [isOpen, setIsOpen] = useState(false);
 
     const profile = GetProfile();
@@ -33,6 +34,24 @@ const AddModalGantt = () => {
     const [version, setVersion] = useState(0);
     const [start_time, setStartTime] = useState(new Date());
     const [end_time, setEndTime] = useState(new Date());
+
+    const [errorValidate, setErrorValidate] = useState({});
+    const inputRef = useRef(null);
+    const validate = () => {
+        let nameError = "";
+
+        if (name.length < 1) {
+            nameError = "Name can't be empty";
+            inputRef.current.focus();
+        }
+        if (nameError) {
+            setErrorValidate({ nameError });
+            return false;
+        }
+
+        return true;
+    };
+
     const showDialog = () => {
         setIsOpen(true);
     }
@@ -52,7 +71,7 @@ const AddModalGantt = () => {
             variables: {
                 name,
                 description,
-                user_id: profile.id,
+                // user_id: profile.id,
                 version,
                 project_id: parseInt(projectID),
                 start_time,
@@ -64,20 +83,35 @@ const AddModalGantt = () => {
             console.log(JSON.stringify(addGanttError, null, 2));
         }
 
-        setUserId(profile.id);
+        // setUserId(profile.id);
 
-        hideDialog();
+        const isValid = validate();
+        if (isValid) {
+            //to show toast when sucesss create gantt
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 10000);
+
+            hideDialog();
+            setErrorValidate("");
+        }
+
+        // hideDialog();
     };
 
-    const ganttList = [
+    const ganttListName = [
         {
             label: "Name",
+            required: "*",
             name: "name",
             placeholder: "Example:  Gantt First Project",
             type: "text",
             value: name,
             onChange: (e) => setName(e.target.value),
         },
+    ]
+
+    const ganttList = [
         {
             label: "Description",
             name: "descrtiption",
@@ -106,6 +140,8 @@ const AddModalGantt = () => {
             >
                 <IconPlus />
             </button>
+            <div id="snackbar">Gantt created successfully</div>
+
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40" onClose={hideDialog}>
                     <Transition.Child
@@ -138,6 +174,29 @@ const AddModalGantt = () => {
                                     >
                                         Create Gantt
                                     </Dialog.Title>
+                                    <>
+                                        {ganttListName.map((item, index) => {
+                                            return (
+                                                <div className="mt-3">
+                                                    <div className="form-control w-full max-w-5xl">
+                                                        <label className="label">
+                                                            <span className="label-text">{item.label} <span className="text-error">{item.required}</span></span>
+                                                        </label>
+                                                        <InputFieldFocus
+                                                            key={index}
+                                                            name={item.name}
+                                                            placeholder={item.placeholder}
+                                                            type={item.type}
+                                                            value={item.value}
+                                                            onChange={item.onChange}
+                                                            inputRef={inputRef}
+                                                        />
+                                                        <div className="mt-3" style={{ color: "red" }}>{errorValidate.nameError}</div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </>
                                     <>
                                         {ganttList.map((item, index) => {
                                             return (

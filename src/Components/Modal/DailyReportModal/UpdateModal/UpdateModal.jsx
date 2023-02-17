@@ -77,6 +77,22 @@ const UpdateModalDailyReport = (props) => {
   const [work_log_status, setWorkLogStatus] = useState(reportData.work_log_status);
   const [work_log_hour, setWorkLogHour] = useState(reportData.work_log_hour);
 
+  const [errorValidate, setErrorValidate] = useState({});
+  const validate = () => {
+    let nameError = "";
+
+    if (name.length < 1) {
+      nameError = "Name can't be empty";
+      inputRef.current.focus();
+    }
+    if (nameError) {
+      setErrorValidate({ nameError });
+      return false;
+    }
+
+    return true;
+  };
+
   const [ updateDailyReport, { loading: updateDailyReportloading, error: updateDailyReportError },] = useMutation(UPDATE_DAILY_REPORT, 
     {
     refetchQueries: [
@@ -92,6 +108,7 @@ const UpdateModalDailyReport = (props) => {
     ],
   });
 
+  const inputRef = useRef(null);
   const inputRefActivity = useRef(null);
 
   const { data: dataProject } = useQuery(GET_PROJECT_DATA_BY_ID, {
@@ -261,7 +278,16 @@ const UpdateModalDailyReport = (props) => {
     // setStatus("");
     // setReportDate("");
 
-    hideDialog();
+    const isValid = validate();
+    if (isValid) {
+      //to show toast when sucesss update report
+      var x = document.getElementById("snackbarupd");
+      x.className = "show";
+      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+      hideDialog();
+      setErrorValidate("")
+    }
   };
 
   return (
@@ -274,6 +300,7 @@ const UpdateModalDailyReport = (props) => {
         >
           <IconEdit />
         </button>
+        <div id="snackbarupd">Daily report updated successfully</div>
       </div>
       <>
         <Transition appear show={isOpen} as={Fragment}>
@@ -311,15 +338,17 @@ const UpdateModalDailyReport = (props) => {
                     <div className="mt-3">
                       <div className="form-control w-full max-w-5xl">
                         <label className="label">
-                          <span className="label-text">Daily Report Name</span>
+                          <span className="label-text">Daily Report Name  <span class='text-error'>*</span></span>
                         </label>
                         <input
                           value={name}
                           type="text"
                           placeholder="Enter project name"
                           onChange={handleName}
+                          ref={inputRef}
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                         />
+                        <div className="mt-3" style={{ color: "red" }}>{errorValidate.nameError}</div>
                       </div>
                     </div>
                     <div className="mt-3">
@@ -418,7 +447,7 @@ const UpdateModalDailyReport = (props) => {
                                   <div className="flex justify-start gap-3">
                                     <input
                                       className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
-                                      name="name"
+                                      name="name (*)"
                                       placeholder="Enter name"
                                       value={input.name}
                                       onChange={(event) =>

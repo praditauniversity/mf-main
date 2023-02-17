@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import "../../../../Assets/svgbutton/svgbutton.css";
 import {
@@ -83,6 +83,23 @@ const UpdateModalMinutesOfMeeting = (props) => {
     const [owner, setOwner] = useState(momData.owner);
     const [deadline, setDeadline] = useState(momData.deadline);
     const [status, setStatus] = useState(momData.status);
+
+    const [errorValidate, setErrorValidate] = useState({});
+    const inputRef = useRef(null);
+    const validate = () => {
+        let nameError = "";
+
+        if (meeting_name.length < 1) {
+        nameError = "Name can't be empty";
+        inputRef.current.focus();
+        }
+        if (nameError) {
+        setErrorValidate({ nameError });
+        return false;
+        }
+
+        return true;
+    };
 
     const [updateMinutesOfMeeting,{ loading, error },] = useMutation(UPDATE_MINUTES_OF_MEETING, 
         {
@@ -192,7 +209,16 @@ const UpdateModalMinutesOfMeeting = (props) => {
             },
         });
 
-        hideDialog();
+        const isValid = validate();
+        if (isValid) {
+            //to show toast when sucesss update MOM
+            var x = document.getElementById("snackbarupd");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+
+            hideDialog();
+            setErrorValidate("");
+        }
     };
     return (
         <>
@@ -204,6 +230,7 @@ const UpdateModalMinutesOfMeeting = (props) => {
                 >
                     <IconEdit />
                 </button>
+                <div id="snackbarupd">Minute of Meeting updated successfully</div>
             </div>
 
             <>
@@ -243,7 +270,7 @@ const UpdateModalMinutesOfMeeting = (props) => {
                                             <div className="form-control w-full max-w-5xl">
                                                 <label className="label">
                                                     <span className="label-text">
-                                                        Meeting Name
+                                                        Meeting Name  <span class='text-error'>*</span>
                                                     </span>
                                                 </label>
                                                 <input
@@ -252,7 +279,9 @@ const UpdateModalMinutesOfMeeting = (props) => {
                                                     placeholder="Example: Meeting Day 1"
                                                     className="input input-bordered w-full bg-table-dark border-primary-light"
                                                     onChange={(e) => setMeeting_name(e.target.value)}
+                                                    ref={inputRef}
                                                 />
+                                                <div className="mt-3" style={{ color: "red" }}>{errorValidate.nameError}</div>
                                             </div>
                                         </div>
 

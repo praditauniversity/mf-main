@@ -24,6 +24,20 @@ const GanttPage = () => {
         )
     }
 
+    const TableFooter = () => {
+        return (
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Duration</th>
+                <th>Version</th>
+                <th>Action Badge</th>
+                <th></th>
+            </tr>
+        )
+    }
+
     const ganttList = FetchGanttByProjectId({ projectID });
     const [totalData, setTotalData] = useState(ganttList.length);
     const [ganttData, setGanttData] = useState([]);
@@ -151,7 +165,7 @@ const GanttPage = () => {
                     </tbody>
                     {/* <!-- foot --> */}
                     <tfoot>
-                        <TableHeader />
+                        <TableFooter />
                     </tfoot>
                 </table>
             </div>

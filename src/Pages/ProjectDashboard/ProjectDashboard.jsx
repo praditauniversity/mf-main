@@ -5,8 +5,6 @@ import BudgetCard from "../../Components/Card/BudgetCard";
 import CalendarTailwind from "../../Components/Card/CalendarTailwind/Calendar";
 import HealthCard from "../../Components/Card/HealthCard";
 import IssuesCard from "../../Components/Card/Issues/IssuesCard";
-import ProjectOverviewCard from "../../Components/Card/ProjectOverviewCard";
-import ListboxGanttProjectDashboard from "../../Components/Card/PrintGanttProjectDashboard/ListboxGanttProjectDashboard";
 import { PrintGantt, PrintListGanttName, PrintTask, PrintTaskList, useProject } from "../../Components/Gantt-Component/CustomActivityState";
 import { Actual, Budget, Client, Cost, CostHealth, Danger, ProjectManager, ScheduleHealth, Variance } from "../../Components/GraphQL/ProjectByIdQueries";
 import PrintGanttProjectDashboard from "../../Components/Card/PrintGanttProjectDashboard/PrintGanttProjectDashboard";
@@ -39,6 +37,7 @@ const ProjectDashboard = (props) => {
     const handleChange = (event) => {
         setProjectID(event.target.value);
         localStorage.setItem('projectID', event.target.value);
+        localStorage.setItem('ganttID', null);
         window.location.reload();
     };
 
@@ -48,17 +47,6 @@ const ProjectDashboard = (props) => {
                 <div className="grid grid-cols-15 gap-2">
                     {/* Top row */}
                     <div className="md:col-span-9 col-span-15">
-
-                        {/* Delete this if no error left */}
-                        {/* <ProjectOverviewCard
-                            title1="Project Name"
-                            description1="Project Anomaly"
-                            title2="Project Manager"
-                            description2={value != 0 ? <ProjectManager value={value} /> : "N/A"}
-                            title3="Client"
-                            description3={value != 0 ? <Client value={value} /> : "N/A"}
-                        /> */}
-
                         <div className="bg-white flex shadow-lg justify-between mx-auto items-center align-middle flex-row rounded-lg h-32">
                             <div className="py-4 px-12">
                                 <p className="py-1 text-md pl-3">Project Name</p>

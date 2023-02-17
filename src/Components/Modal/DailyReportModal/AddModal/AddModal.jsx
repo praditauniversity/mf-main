@@ -11,6 +11,7 @@ import {
 } from "../../../Icons/icon";
 import { DatePickerField } from "../../../Input/Input";
 import "./AddModal.css";
+import './toast.css';
 
 const ADD_DAILY_REPORT = gql`
   mutation addDailyReport(
@@ -72,6 +73,7 @@ const AddModalDailyReport = (props) => {
 
     if (name.length < 1) {
       nameError = "Name can't be empty";
+      inputRef.current.focus();
     }
     if (nameError) {
       setErrorValidate({ nameError });
@@ -122,6 +124,7 @@ const AddModalDailyReport = (props) => {
 
   const inputRefActivity = useRef(null);
   const inputRefProject = useRef(null);
+  const inputRef = useRef(null);
 
   const { data: dataProject } = useQuery(GET_PROJECT_DATA_BY_ID, {
     variables: { id: String(localStorage.getItem("reportProjectID")) },
@@ -256,11 +259,6 @@ const AddModalDailyReport = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const isValid = validate();
-    if (isValid) {
-      hideDialog();
-      setErrorValidate("");
-    }
 
     const activity_id = parseInt(inputRefActivity.current.value);
     activity_id === 0 ? setActivityId(parseInt(inputRefActivity.current.value)) : activity_id
@@ -286,17 +284,27 @@ const AddModalDailyReport = (props) => {
         work_log_hour,
       },
     });
-    setName("");
-    setEquipment([''])
-    setDescription("");
-    setStatus("");
-    setActivityId(0);
-    setProjectId(String(localStorage.getItem("reportProjectID")));
-    setReportDate(new Date());
 
-    updateTotal();
+    const isValid = validate();
+    if (isValid) {
+      //to show toast when sucesss create report
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
-    // hideDialog();
+      updateTotal();
+
+      hideDialog();
+      setErrorValidate("");
+
+      setName("");
+      setEquipment([''])
+      setDescription("");
+      setStatus("");
+      setActivityId(0);
+      setProjectId(String(localStorage.getItem("reportProjectID")));
+      setReportDate(new Date());
+    }
   };
 
   return (
@@ -304,6 +312,7 @@ const AddModalDailyReport = (props) => {
 
       <div className="add-button">
         <Button label="+ Add Report" onClick={showDialog} />
+        <div id="snackbar">Daily report created successfully</div>
       </div>
       <>
         <Transition appear show={isOpen} as={Fragment}>
@@ -341,19 +350,20 @@ const AddModalDailyReport = (props) => {
                     <div className="mt-3">
                       <div className="form-control w-full max-w-5xl">
                         <label className="label">
-                          <span className="label-text">Daily Report Name</span>
+                          <span className="label-text">Daily Report Name <span class='text-error'>*</span></span>
                         </label>
                         <input
                           value={name}
                           type="text"
                           placeholder="Example: Daily Report 1"
                           onChange={handleName}
+                          ref={inputRef}
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                         />
                         <div className="mt-3" style={{ color: "red" }}>{errorValidate.nameError}</div>
                       </div>
                     </div>
-                    
+
                     <div className="mt-3">
                       <div className="form-control w-full max-w-5xl">
                         <label className="label">

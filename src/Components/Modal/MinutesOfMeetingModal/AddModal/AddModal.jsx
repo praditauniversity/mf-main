@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import "../../../../Assets/svgbutton/svgbutton.css";
 import {
@@ -8,6 +8,7 @@ import {
   IconSaveForm,
 } from "../../../Icons/icon";
 import "./AddModal.css";
+import './toast.css';
 import { DatePickerField, TimePickerField } from "../../../Input/Input";
 import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../../GraphQL/Queries";
 import Button from "../../../Button";
@@ -81,6 +82,7 @@ const AddModalMinutesOfMeeting = (props) => {
 
     if (meeting_name.length < 1) {
       nameError = "Name can't be empty";
+      inputRef.current.focus();
     }
     if (nameError) {
       setErrorValidate({ nameError });
@@ -129,6 +131,7 @@ const AddModalMinutesOfMeeting = (props) => {
     });
 
   const inputRefProject = React.useRef(null);
+  const inputRef = useRef(null);
   const idProject = parseInt(localStorage.getItem('momProjectID'));
 
   useEffect(() => {
@@ -208,12 +211,6 @@ const AddModalMinutesOfMeeting = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const isValid = validate();
-
-    if (isValid) {
-      hideDialog();
-      setErrorValidate("");
-    }
 
     project_id === 0 ? setProject_id(parseInt(inputRefProject.current.value)) : project_id
 
@@ -236,28 +233,39 @@ const AddModalMinutesOfMeeting = (props) => {
       },
     });
 
-    setMeeting_name("");
-    setMeeting_date(new Date());
-    setStart_time_meeting(new Date());
-    setEnd_time_meeting(new Date());
-    setLocation("");
-    setMeeting_leader("");
-    setMeeting_objective("");
-    setAtendees([""]);
-    setNotes([""]);
-    setAction_item([""]);
-    setOwner([""]);
-    setDeadline([""]);
-    setStatus([""]);
+    const isValid = validate();
+    if (isValid) {
+      //to show toast when sucesss create MOM
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 
-    updateTotal();
+      updateTotal();
 
-    // hideDialog();
+      hideDialog();
+      setErrorValidate("");
+
+      setMeeting_name("");
+      setMeeting_date(new Date());
+      setStart_time_meeting(new Date());
+      setEnd_time_meeting(new Date());
+      setLocation("");
+      setMeeting_leader("");
+      setMeeting_objective("");
+      setAtendees([""]);
+      setNotes([""]);
+      setAction_item([""]);
+      setOwner([""]);
+      setDeadline([""]);
+      setStatus([""]);
+    }
+
   };
   return (
     <>
       <div className="add-button">
         <Button label="+ Add Meeting" onClick={showDialog} />
+        <div id="snackbar">Minute of Meeting created successfully</div>
       </div>
 
       <>
@@ -297,7 +305,7 @@ const AddModalMinutesOfMeeting = (props) => {
                       <div className="form-control w-full max-w-5xl">
                         <label className="label">
                           <span className="label-text">
-                            Meeting or Project Name
+                            Meeting or Project Name  <span class='text-error'>*</span>
                           </span>
                         </label>
                         <input
@@ -306,6 +314,7 @@ const AddModalMinutesOfMeeting = (props) => {
                           placeholder="Example: Meeting Day 1"
                           className="input input-bordered w-full bg-table-dark border-primary-light"
                           onChange={(e) => setMeeting_name(e.target.value)}
+                          ref={inputRef}
                         />
                         <div className="mt-3" style={{ color: "red" }}>{errorValidate.nameError}</div>
                       </div>

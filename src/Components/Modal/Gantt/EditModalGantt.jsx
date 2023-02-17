@@ -1,11 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { IconDateForm, IconEdit, IconSaveForm } from '../../Icons/icon';
 import './AddModal.css';
 import GetProfile from '../../Auth/GetProfile';
 import { UPDATE_GANTT } from '../../../Middleware/GraphQL/mutations';
 import { useQuery, useMutation } from "@apollo/client";
-import { DatePickerField, InputField } from '../../Input/Input';
+import { DatePickerField, InputField, InputFieldFocus } from '../../Input/Input';
 import { GET_GANTT_DATA, GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 import { useParams } from 'react-router-dom';
 
@@ -54,6 +54,23 @@ const EditModalGantt = (props) => {
     const [start_time, setStartTime] = useState('');
     const [end_time, setEndTime] = useState('');
 
+    const [errorValidate, setErrorValidate] = useState({});
+    const inputRef = useRef(null);
+    const validate = () => {
+        let nameError = "";
+
+        if (name.length < 1) {
+            nameError = "Name can't be empty";
+            inputRef.current.focus();
+        }
+        if (nameError) {
+            setErrorValidate({ nameError });
+            return false;
+        }
+
+        return true;
+    };
+
     const showDialog = () => {
         setIsOpen(true);
     }
@@ -81,7 +98,16 @@ const EditModalGantt = (props) => {
             console.log(JSON.stringify(updateGanttError));
         }
 
-        hideDialog();
+        const isValid = validate();
+        if (isValid) {
+            //to show toast when sucesss edit gantt
+            var x = document.getElementById("snackbarupd");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+            hideDialog();
+            setErrorValidate("");
+        }
     };
 
 
@@ -94,15 +120,28 @@ const EditModalGantt = (props) => {
         return acc;
     }, {}) : '';
 
-    const ganttList = [
+    const ganttListName = [
         {
             label: "Name",
+            required: "*",
             name: "name",
             placeholder: "Example:  Gantt First Project",
             type: "text",
             value: name,
             onChange: (e) => setName(e.target.value),
         },
+    ]
+
+    const ganttList = [
+        // {
+        //     label: "Name",
+        //     required: "*",
+        //     name: "name",
+        //     placeholder: "Example:  Gantt First Project",
+        //     type: "text",
+        //     value: name,
+        //     onChange: (e) => setName(e.target.value),
+        // },
         {
             label: "Description",
             name: "descrtiption",
@@ -131,6 +170,7 @@ const EditModalGantt = (props) => {
             >
                 <IconEdit />
             </button>
+            <div id="snackbarupd">Gantt updated successfully</div>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40" onClose={hideDialog}>
                     <Transition.Child
@@ -164,13 +204,35 @@ const EditModalGantt = (props) => {
                                         Update Gantt
                                     </Dialog.Title>
 
+                                    {ganttListName.map((item, index) => {
+                                        return (
+                                            <div className="mt-3">
+                                                <div className="form-control w-full max-w-5xl">
+                                                    <label className="label">
+                                                        <span className="label-text">{item.label} <span className="text-error">{item.required}</span></span>
+                                                    </label>
+                                                    <InputFieldFocus
+                                                        key={index}
+                                                        name={item.name}
+                                                        placeholder={item.placeholder}
+                                                        type={item.type}
+                                                        value={item.value}
+                                                        onChange={item.onChange}
+                                                        inputRef={inputRef}
+                                                    />
+                                                    <div className="mt-3" style={{ color: "red" }}>{errorValidate.nameError}</div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+
                                     {
                                         ganttList.map((gantt, index) => {
                                             return (
                                                 <div className="mt-3">
                                                     <div className="form-control w-full max-w-5xl">
                                                         <label className="label">
-                                                            <span className="label-text">{gantt.label}</span>
+                                                            <span className="label-text">{gantt.label} <span className="text-error">{gantt.required}</span></span>
                                                         </label>
                                                         <InputField key={index} type={gantt.type} placeholder={gantt.placeholder} value={gantt.value} onChange={gantt.onChange} />
                                                     </div>

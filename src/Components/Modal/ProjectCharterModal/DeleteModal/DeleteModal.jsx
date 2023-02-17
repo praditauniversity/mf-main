@@ -5,10 +5,11 @@ import '../../../../Assets/svgbutton/svgbutton.css'
 import { IconDelete, IconSaveForm } from '../../../Icons/icon';
 import { GET_PROJECT_DATA_BY_USER_ID } from '../../../GraphQL/Queries';
 import GetProfile from '../../../Auth/GetProfile';
+import '../AddModal/toast.css';
 
 const DELETE_PROJECTCHARTER = gql`
 mutation DeleteProject($id: String!) {
-deleteProject(id: $id) 
+    deleteProject(id: $id) 
 }`;
 
 const DeleteModalProject = (props) => {
@@ -49,11 +50,23 @@ const DeleteModalProject = (props) => {
             },
         });
         // client.cache.reset();
-        localStorage.removeItem("projectID");
-        localStorage.removeItem("ganttID");
-        localStorage.removeItem("TPEID");
-        localStorage.removeItem("reportProjectID");
-        localStorage.removeItem("momProjectID");
+
+        if (String(projectID) === localStorage.getItem('projectID')) {
+            localStorage.removeItem('projectID');
+            localStorage.removeItem('ganttID');
+        }
+
+        if (String(projectID) === localStorage.getItem('TPEID')) {
+            localStorage.removeItem('TPEID');
+        }
+
+        if (String(projectID) === localStorage.getItem('reportProjectID')) {
+            localStorage.removeItem('reportProjectID');
+        }
+
+        if (String(projectID) === localStorage.getItem('momProjectID')) {
+            localStorage.removeItem('momProjectID');
+        }
 
         if (deleteCharterError) {
             console.log(JSON.stringify(deleteCharterError, null, 2));
@@ -65,13 +78,18 @@ const DeleteModalProject = (props) => {
             dropCurrentPage(page - 1);
         }
 
-        if (total % limit === 1 && page === 1) {
-            setEmpty();
-        }
+        // if (total % limit === 1 && page === 1) {
+        //     setEmpty();
+        // }
+
+        //to show toast when sucesss create project
+        var x = document.getElementById("snackbardel");
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
         hideDialog();
 
-        window.location.reload();
+        // window.location.reload();
     };
 
     return (
@@ -80,6 +98,7 @@ const DeleteModalProject = (props) => {
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
                     <IconDelete />
                 </button>
+                <div id="snackbardel">Project deleted successfully</div>
             </div>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40" onClose={hideDialog}>

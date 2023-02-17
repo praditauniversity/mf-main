@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useMutation, gql } from '@apollo/client';
 import Button from "../Button";
+import './toast.css'
 import { InputField, SelectField, MenuItem, SelectorField } from "../Input/Input";
 import { REGISTER } from "../../Middleware/GraphQL/mutations";
 
@@ -28,7 +29,7 @@ export const RegisterHandler = () => {
         { id: 2, name: 'Female', value: "Female", unavailable: false },
     ]
     console.log("Error Register", JSON.stringify(registerError))
-    
+
     const inputRefGender = useRef(null);
 
     const [errorValidate, setErrorValidate] = useState({});
@@ -92,86 +93,94 @@ export const RegisterHandler = () => {
                 company_id: 'dc9076aa-2fda-4019-bd2c-900a8284b9aa',
                 created_by: 'user',
             });
-            alert("Register Success");
-            }
+            // alert("Register Success");
+
+            //to show toast when sucesss create report
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        }
 
         e.preventDefault();
 
-            setLoading(true);
-            try {
-                console.log(data);
-                register({
-                    variables: data
-                });
-                console.log("Data Success");
-                setError('');
-            } catch (err) {
-                console.log(err);
-                setError(err.message);
-            }
-            setLoading(false);
+        setLoading(true);
+        try {
+            console.log(data);
+            register({
+                variables: data
+            });
+            console.log("Data Success");
+            setError('');
+        } catch (err) {
+            console.log(err);
+            setError(err.message);
         }
+        setLoading(false);
+    }
 
 
-        return (
-            <>
-                <form onSubmit={handleSubmit}>
-                    <div className="flex space-x-8">
-                        <div className="w-full">
-                            <InputField name="username" label="Username" placeholder="Enter your username" type="text" minlength="5" maxlength="100" value={input.username} onChange={handleChange} required />
-                            <InputField name="first_name" label="First Name" type="text" placeholder="Enter first name" minlength="5" maxlength="100" value={input.first_name} onChange={handleChange} required />
-                            <InputField name="last_name" label="Last Name" type="text" placeholder="Enter last name" minlength="5" maxlength="100" value={input.last_name} onChange={handleChange} required />
-                            <InputField name="nik" label="NIK" type="text" placeholder="Enter your nik" minlength="5" maxlength="100" value={input.nik} onChange={handleChange} required />
-                            <InputField name="address" label="Address" type="text" placeholder="Enter your address" value={input.address} onChange={handleChange} required />
-                            <InputField name="phone_number" label="Phone Number" placeholder="Enter your phone number" type="text" minlength="11" maxlength="13" value={input.phone_number} onChange={handleChange} required />
-                            <div className="form-group">
-                                <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">Gender</label>
-                                <select
-                                    value={input.gender}
-                                    name="gender"
-                                    className="form-control mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline "
-                                    onChange={handleChange}
-                                    error={error}
-                                    ref={inputRefGender}
-                                >
-                                    {gender.map((option) => (
-                                        <option key={option.id} value={option.value} className="hover:bg-gray-400 rounded-none">
-                                            {option.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <InputField name="email" label="Email" placeholder="example@gmail.com" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value={input.email} onChange={handleChange} required />
-                            <InputField name="password" label="Password" placeholder="Min Password 8 Characters" type="password" minlength="8" value={input.password} onChange={handleChange} required />
-                            <div className="mt-3" style={{ color: "red" }}>{errorValidate.passwordError}</div>
-                            <InputField label="Password Confirmation" placeholder="Min Password 8 Characters" type="password" value={password_confirmation} onChange={e => setPasswordConfirmation(e.target.value)} required />
-                            <div className="mt-3" style={{ color: "red" }}>{errorValidate2.confirmPasswordError}</div>
+    return (
+        <>
+            <form onSubmit={handleSubmit}>
+                <div className="flex space-x-8">
+                    <div className="w-full">
+                        <InputField name="username" label="Username" placeholder="Enter your username" type="text" minlength="5" maxlength="100" value={input.username} onChange={handleChange} required="*" />
+                        <InputField name="first_name" label="First Name" type="text" placeholder="Enter first name" minlength="5" maxlength="100" value={input.first_name} onChange={handleChange} required="*" />
+                        <InputField name="last_name" label="Last Name" type="text" placeholder="Enter last name" minlength="5" maxlength="100" value={input.last_name} onChange={handleChange} required="*" />
+                        <InputField name="nik" label="NIK" type="text" placeholder="Enter your nik" minlength="5" maxlength="100" value={input.nik} onChange={handleChange} required="*" />
+                        <InputField name="address" label="Address" type="text" placeholder="Enter your address" value={input.address} onChange={handleChange} required="*" />
+                        <InputField name="phone_number" label="Phone Number" placeholder="Enter your phone number" type="text" minlength="11" maxlength="13" value={input.phone_number} onChange={handleChange} required="*" />
+                        <div className="form-group">
+                            <label className="block uppercase tracking-wide text-darkest text-xs font-bold mb-2">Gender</label>
+                            <select
+                                value={input.gender}
+                                name="gender"
+                                className="form-control mb-4 shadow appearance-none border rounded w-full py-2 px-3 text-darkest leading-tight focus:outline-none focus:shadow-outline "
+                                onChange={handleChange}
+                                error={error}
+                                ref={inputRefGender}
+                            >
+                                {gender.map((option) => (
+                                    <option key={option.id} value={option.value} className="hover:bg-gray-400 rounded-none">
+                                        {option.name}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
+                        <InputField name="email" label="Email" placeholder="example@gmail.com" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value={input.email} onChange={handleChange} required="*" />
+                        <InputField name="password" label="Password" placeholder="Min Password 8 Characters" type="password" minlength="8" value={input.password} onChange={handleChange} required="*" />
+                        <div className="mt-3" style={{ color: "red" }}>{errorValidate.passwordError}</div>
+                        <InputField label="Password Confirmation" placeholder="Min Password 8 Characters" type="password" value={password_confirmation} onChange={e => setPasswordConfirmation(e.target.value)} required="*" />
+                        <div className="mt-3" style={{ color: "red" }}>{errorValidate2.confirmPasswordError}</div>
                     </div>
-                    <div className="py-4 mx-auto flex items-center justify-between space-x-4">
-                        <button type="submit"
-                            className="w-full flex justify-center bg-gradient-to-r from-indigo-600 to-indigo-800  
+                </div>
+                <div className="py-4 mx-auto flex items-center justify-between space-x-4">
+                    <button type="submit"
+                        className="w-full flex justify-center bg-gradient-to-r from-indigo-600 to-indigo-800  
                         text-gray-100 p-2  rounded-lg tracking-wide font-semibold  shadow-lg cursor-pointer">
-                            Register
-                        </button>
-                    </div>
-                    <div className="text-center mx-auto">
-                        Have an account?
-                        <a className="text-center text-primary" href="/#/login"> Sign In </a>
-                    </div>
-                </form>
-            </>
-        );
-    }
+                        Register
+                    </button>
+                </div>
+                <div className="text-center mx-auto">
+                    Have an account?
+                    <a className="text-center text-primary" href="/#/login"> Sign In </a>
+                </div>
 
-    const Register = () => {
-        return (
-            <div className=" max-w-sm h-full mx-auto my-10 bg-white rounded-xl shadow shadow-slate-300 sm:max-w-lg">
-                <p className="font-bold text-md tracking-widest uppercase">Register</p>
-                <p className="mb-8 italic text-sm">Register to the system.</p>
-                <RegisterHandler />
-            </div>
-        );
-    }
+                <div id="snackbar">Register success</div>
+            </form>
+            
+        </>
+    );
+}
 
-    export default Register;
+const Register = () => {
+    return (
+        <div className=" max-w-sm h-full mx-auto my-10 bg-white rounded-xl shadow shadow-slate-300 sm:max-w-lg">
+            <p className="font-bold text-md tracking-widest uppercase">Register</p>
+            <p className="mb-8 italic text-sm">Register to the system.</p>
+            <RegisterHandler />
+        </div>
+    );
+}
+
+export default Register;

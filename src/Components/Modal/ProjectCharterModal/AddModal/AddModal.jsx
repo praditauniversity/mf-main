@@ -6,6 +6,7 @@ import '../../../../Assets/svgbutton/svgbutton.css';
 import { IconDeleteForm, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
 import { DatePickerField, InputField, InputFieldFocus } from '../../../Input/Input';
 import './AddModal.css';
+import './toast.css';
 import Button from "../../../Button";
 import GetProfile from "../../../Auth/GetProfile";
 
@@ -314,12 +315,6 @@ const AddModalProjectCharter = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        const isValid = validate();
-        if (isValid) {
-            hideDialog();
-            setErrorValidate("");
-        }
 
         const milestone_id = parseInt(inputRefMilestone.current.value);
         const phase_id = parseInt(inputRefPhase.current.value);
@@ -328,7 +323,7 @@ const AddModalProjectCharter = (props) => {
         setPhaseId(parseInt(inputRefPhase.current.value))
         setTypeId(parseInt(inputRefType.current.value))
         setMilestoneId(parseInt(inputRefMilestone.current.value))
-        
+
 
         type_id !== 0 ? type_id : setTypeId(parseInt(inputRefType.current.value))
         phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))
@@ -341,11 +336,6 @@ const AddModalProjectCharter = (props) => {
         // console.log("Type", typeof type_id, type_id);
         // console.log("Phase", typeof parseInt(inputRefPhase.current.value), parseInt(inputRefPhase.current.value));
         // console.log("Phase", typeof phase_id, phase_id);
-
-
-        console.log("Berhasil submit add project charter")
-
-        updateTotal();
 
         addProjectCharter({
             variables: {
@@ -379,40 +369,55 @@ const AddModalProjectCharter = (props) => {
             },
         });
 
-        setStatus("");
-        setWorkArea("");
-        setStartProject(new Date());
-        setStakeholderAmmount(0);
-        setRoleId(0);
-        setTypeId(0);
-        setConsideredSuccessWhen("");
-        setCostActual(0);
-        setCostPlan(0);
-        setClient("");
-        setClientContact("");
-        setCurrencyName("");
-        setCurrencyCode("");
-        setCurrencySymbol("");
-        setDescription("");
-        setEndProject(new Date());
-        setName("");
-        setOfficeLocation("");
-        setPhaseId(0);
-        setPotentialRisk([""]);
-        setTotalManPower(0);
-        setProjectObjectives([""]);
-        setProgressPercentage(0);
-        setBudget(0);
+        const isValid = validate();
+        if (isValid) {
+            //to show toast when sucesss create project
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
-        setParticipants(0);
-        setAvailableResources(['']);
+            updateTotal();
 
-        // hideDialog();
+            setErrorValidate("");
+
+            setStatus("");
+            setWorkArea("");
+            setStartProject(new Date());
+            setStakeholderAmmount(0);
+            setRoleId(0);
+            setTypeId(0);
+            setConsideredSuccessWhen("");
+            setCostActual(0);
+            setCostPlan(0);
+            setClient("");
+            setClientContact("");
+            setCurrencyName("");
+            setCurrencyCode("");
+            setCurrencySymbol("");
+            setDescription("");
+            setEndProject(new Date());
+            setName("");
+            setOfficeLocation("");
+            setPhaseId(0);
+            setPotentialRisk([""]);
+            setTotalManPower(0);
+            setProjectObjectives([""]);
+            setProgressPercentage(0);
+            setBudget(0);
+
+            setParticipants(0);
+            setAvailableResources(['']);
+
+            hideDialog();
+        }
+        console.log("IS Validdddddd", isValid)
+        console.log("Berhasil submit add project charter")
     }
 
     const dataProjectCharterName = [
         {
             label: "Name",
+            required: "*",
             name: "name",
             placeholder: "Example: Project Anomaly",
             type: "text",
@@ -575,6 +580,7 @@ const AddModalProjectCharter = (props) => {
         <>
             <div className="add-button">
                 <Button label="+ Add Charter" onClick={showDialog} />
+                <div id="snackbar">Project created successfully</div>
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>
@@ -610,13 +616,14 @@ const AddModalProjectCharter = (props) => {
                                         Add Project Charter
                                     </Dialog.Title>
 
-                                    {/* participants */}
+                                    {/* Name */}
                                     {dataProjectCharterName.map((data, index) => {
                                         return (
                                             <div className="pb-2">
                                                 <InputFieldFocus
                                                     key={index}
                                                     label={data.label}
+                                                    required={data.required}
                                                     name={data.name}
                                                     placeholder={data.placeholder}
                                                     type={data.type}
@@ -632,7 +639,7 @@ const AddModalProjectCharter = (props) => {
                                         );
                                     })}
 
-                                    {/* participants */}
+                                    {/* data */}
                                     {dataProjectCharter.map((data, index) => {
                                         return (
                                             <div>
@@ -645,7 +652,6 @@ const AddModalProjectCharter = (props) => {
                                                     value={data.value}
                                                     onChange={data.onChange}
                                                     minLength={data.minLength}
-
                                                 />
                                             </div>
 

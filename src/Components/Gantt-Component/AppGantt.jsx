@@ -158,7 +158,7 @@ const handleClearAll = () => {
                 "<div class='dhx_cal_ltext px-4'>" +
                 "<div class='form-control w-3/4'>" +
                 "<label class='label'>" +
-                "<span class='label-text'>Name</span>" +
+                "<span class='label-text'>Name <span class='text-error'>*</span></span>" +
                 "</label>" +
                 "<input type='text' placeholder='Example: Preparing' class='editor_name input input-bordered w-full' name='name' />" +
                 "</div>" +
