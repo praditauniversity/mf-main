@@ -5,6 +5,7 @@ import { GET_DAILY_REPORT_DATA_BY_PROJECT_ID } from '../../Components/GraphQL/Qu
 const FetchDailyReportByProjectId = () => {
     const { data } = useQuery(GET_DAILY_REPORT_DATA_BY_PROJECT_ID, {
         variables: { projectId: localStorage.getItem('reportProjectID'), sort: "ID asc" },
+        pollInterval: 1000,
     });
     const [dailyReport, setDailyReport] = useState([]);
 

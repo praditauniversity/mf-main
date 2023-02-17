@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { GET_MILESTONE_DATA } from '../../Components/GraphQL/Queries';
 
 const FetchMilestone = () => {
-    const { data } = useQuery(GET_MILESTONE_DATA);
+    const { data } = useQuery(GET_MILESTONE_DATA, {
+        pollInterval: 1000,
+    });
     const [milestone, setMilestone] = useState([]);
 
     useEffect(() => {

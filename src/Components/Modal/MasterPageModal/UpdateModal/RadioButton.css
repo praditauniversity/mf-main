@@ -1,0 +1,47 @@
+.button {
+  margin: 0 5px 0 0;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  border: 1px solid grey;
+  transition: all 0.2s;
+}
+
+.button:has(input[type="radio"]:checked ) {
+  border: 1px solid grey;
+}
+
+.button label,
+.button input {
+  display: block;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  right: 0;
+  bottom: 0;
+}
+
+.button input[type="radio"] {
+  opacity: 0.011;
+  z-index: 100;
+}
+
+.button input[type="radio"]:checked {
+  margin: 5px;
+  border: 1px solid #ACAFBF;
+}
+
+.button input[type="radio"]:checked+label {
+  border-radius: 100%;
+}
+
+.button label {
+  cursor: pointer;
+  z-index: 90;
+  line-height: 1.8em;
+}

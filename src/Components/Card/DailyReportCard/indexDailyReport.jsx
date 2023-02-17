@@ -20,6 +20,7 @@ const DailyReportPage = (props) => {
     const profile = GetProfile();
     const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: profile.id, sort: "ID asc" },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     const [reportProjectID, setReportProjectID] = useState(localStorage.getItem('reportProjectID'));

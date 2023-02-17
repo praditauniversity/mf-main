@@ -8,6 +8,7 @@ const PrintListProjectDashboardWithData = () => {
     const profile = GetProfile();
     const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: profile.id, sort: "ID asc" },
+        pollInterval: 1000,
         // fetchPolicy: "cache-and-network",
     });
     const [projectData, setProjectData] = useState([]);

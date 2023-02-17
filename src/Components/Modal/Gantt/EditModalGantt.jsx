@@ -29,6 +29,7 @@ const EditModalGantt = (props) => {
 
     const { data: readGanttData, error: readGanttError } = useQuery(GET_GANTT_DATA, {
         variables: { id: String(ganttID) },
+        pollInterval: 1000,
     });
 
     if (updateGanttError) {

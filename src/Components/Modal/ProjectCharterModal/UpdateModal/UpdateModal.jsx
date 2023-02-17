@@ -156,13 +156,20 @@ const UpdateModalProject = (props) => {
 
     const { data: readPCData, error: readPCDataError } = useQuery(GET_CHARTER_DATA_BY_USER_ID, {
         variables: { id: String(projectData.ID) },
+        pollInterval: 1000,
     });
 
-    const { data: dataMilestone, loading: loadingMilestone, error: errorMilestone } = useQuery(GET_MILESTONE_DATA);
+    const { data: dataMilestone, loading: loadingMilestone, error: errorMilestone } = useQuery(GET_MILESTONE_DATA, {
+        pollInterval: 1000,
+    });
     const [milestoneStatus, setMilestoneStatus] = useState([]);
 
-    const { data, loading, error } = useQuery(GET_TYPE_DATA);
-    const { data: dataPhase, loading: loadingPhase, error: errorPhase } = useQuery(GET_PHASE_DATA);
+    const { data, loading, error } = useQuery(GET_TYPE_DATA, {
+        pollInterval: 1000,
+    });
+    const { data: dataPhase, loading: loadingPhase, error: errorPhase } = useQuery(GET_PHASE_DATA, {
+        pollInterval: 1000,
+    });
     const [typeName, setTypeName] = useState([]);
     const [phaseName, setPhaseName] = useState([]);
 

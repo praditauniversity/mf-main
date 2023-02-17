@@ -20,7 +20,8 @@ function useActivity() {
   const [setGanttID] = useState(localStorage.getItem('ganttID'));
 
   const { data, loading, error } = useQuery(GET_ACTIVITY_GANTT_ID, {
-    variables: { gantt_id: String(ganttID), sort: "ID asc" }
+    variables: { gantt_id: String(ganttID), sort: "ID asc" },
+    pollInterval: 1000,
   });
 
   const [activityData, setActivity] = useState([]);
@@ -44,7 +45,8 @@ function useUpcomingActivity() {
   const { ganttID } = useGantt();
 
   const { data, loading, error } = useQuery(GET_ACTIVITY_GANTT_ID, {
-    variables: { gantt_id: String(ganttID), limit: "6", sort: "start_time asc" }
+    variables: { gantt_id: String(ganttID), limit: "6", sort: "start_time asc" },
+    pollInterval: 1000,
   });
 
   const [upcomingData, setUpcomingData] = useState([]);
@@ -66,7 +68,9 @@ function useUpcomingActivity() {
 function useLink() {
   const [linkData, setLink] = useState([]);
 
-  const { data, loading, error } = useQuery(GET_LINK_DATA);
+  const { data, loading, error } = useQuery(GET_LINK_DATA, {
+    pollInterval: 1000,
+  });
 
   useEffect(() => {
     if (data) {
@@ -89,6 +93,7 @@ export function useProject() {
 
   const { loading: loadingProjectUser, error: errorProjectUser, data: dataProjectUser } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
     variables: { userId: profile.id },
+    pollInterval: 1000,
   });
 
   useEffect(() => {
@@ -114,7 +119,8 @@ function useGantt() {
   const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
 
   const { data: dataGanttProject, loading: loadingGanttProject, error: errorGanttProject } = useQuery(GET_GANTT_PROJECT_ID, {
-    variables: { project_id: projectID }
+    variables: { project_id: projectID },
+    pollInterval: 1000,
   });
 
   useEffect(() => {
@@ -133,7 +139,9 @@ function useGantt() {
 }
 
 function useActivityPhase() {
-  const { data: dataActivityPhase, loading, error } = useQuery(GET_ACTIVITY_PHASE_DATA);
+  const { data: dataActivityPhase, loading, error } = useQuery(GET_ACTIVITY_PHASE_DATA, {
+    pollInterval: 1000,
+  });
   const [activityPhaseData, setActivityPhaseData] = useState([]);
 
   useEffect(() => {
@@ -165,7 +173,9 @@ export const PrintTaskList = () => {
 }
 
 export const useUnitMeasure = () => {
-  const { data: dataUnitMeasure, loading, error } = useQuery(GET_UNIT_OF_MEASUREMENT_DATA);
+  const { data: dataUnitMeasure, loading, error } = useQuery(GET_UNIT_OF_MEASUREMENT_DATA, {
+    pollInterval: 1000,
+  });
   const [unitMeasureData, setUnitMeasureData] = useState([]);
 
   useEffect(() => {

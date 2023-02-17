@@ -4,6 +4,11 @@ import {IconDelete, IconEdit, IconInfo} from "../../../Components/Icons/icon";
 import TableFooter from './TableFooter';
 import TableHeader from './TableHeader';
 import "./table.css";
+import ViewModalRole from '../../Modal/MasterPageModal/ViewModal/ViewModalRole';
+import UpdateModalRole from '../../Modal/MasterPageModal/UpdateModal/UpdateModalRole';
+import DeleteModalRole from '../../Modal/MasterPageModal/DeleteModal/DeleteModalRole';
+
+
 
 const RoleLists = () => {
     const data = [
@@ -82,13 +87,28 @@ const RoleLists = () => {
                                 <td align="center" className="font-semibold">{item.createdby}</td>
                                 <td align="center">
                                     <button className="px-1" id="icon">
-                                        <IconInfo />
+                                        <ViewModalRole 
+                                            roleId={item.id}
+                                            roleName={item.name}
+                                            roleDescription={item.description}
+                                            roleColor={item.color}
+                                        />
                                     </button>
                                     <button className="px-1" id="icon">
-                                        <IconEdit />
+                                        <UpdateModalRole
+                                            roleId={item.id}   
+                                            roleName={item.name}
+                                            roleDescription={item.description}
+                                            roleColor={item.color}
+                                        />
                                     </button>
                                     <button className="px-1" id="icon">
-                                        <IconDelete />
+                                        <DeleteModalRole
+                                            roleId={item.id}
+                                            roleName={item.name}
+                                            roleDescription={item.description}
+                                            roleColor={item.color}
+                                        />
                                     </button>
                                     
                                 </td>

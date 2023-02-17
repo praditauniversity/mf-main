@@ -10,8 +10,12 @@ export default function RadialChart() {
   // Not implement right now
 
   const profile = GetProfile();
-  const { loading, error, data } = useQuery(GET_PROJECT_DATA);
-  const { loading: loading2, error: error2, data: data2 } = useQuery(GET_PHASE_DATA);
+  const { loading, error, data } = useQuery(GET_PROJECT_DATA, {
+    pollInterval: 1000,
+  });
+  const { loading: loading2, error: error2, data: data2 } = useQuery(GET_PHASE_DATA, {
+    pollInterval: 1000,
+  });
   
   function printSeries() {
     // let totalProject = projectPerPhase.length;

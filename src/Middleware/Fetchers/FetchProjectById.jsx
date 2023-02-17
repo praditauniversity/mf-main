@@ -8,6 +8,7 @@ const FetchProjectById = (props) => {
     const {projectID } = props;
     const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: projectID},
+        pollInterval: 1000,
     });
     const [project, setProject] = useState([]);
 

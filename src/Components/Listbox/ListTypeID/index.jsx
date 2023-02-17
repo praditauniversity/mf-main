@@ -11,7 +11,9 @@ const ListProjectType = () => {
     }, [typeID]);
 
     function printListTypeName() {
-        const { data, loading, error } = useQuery(GET_TYPE_DATA);
+        const { data, loading, error } = useQuery(GET_TYPE_DATA, {
+            pollInterval: 1000,
+        });
         const [typeName, setTypeName] = useState([]);
 
         useEffect(() => {

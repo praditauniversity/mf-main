@@ -8,19 +8,32 @@ export function Actual(props) {
     const { value } = props;
     console.log("Value: " + value);
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
+    
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Actual");
-            setProject(data.project.Data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Actual");
         }
         refetch();
     }, [data]);
+    
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }     
 
     function printActual() {
         let act = 0;
@@ -47,19 +60,31 @@ export function Cost(props) {
     const profile = GetProfile();
     const { value } = props;
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Cost");
-            setProject(data.project.Data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Cost");
         }
         refetch();
     }, [data]);
+
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }    
 
     function printCost() {
         let cost = 0;
@@ -86,19 +111,31 @@ export function Budget(props) {
     const profile = GetProfile();
     const { value } = props;
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Budget");
-            setProject(data.project.Data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Budget");
         }
         refetch();
     }, [data]);
+
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }    
 
     function printBudget() {
         let budget = 0;
@@ -125,19 +162,31 @@ export function Danger(props) {
     const profile = GetProfile();
     const { value } = props;
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Danger");
-            setProject(data.project.Data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Danger");
         }
         refetch();
     }, [data]);
+
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }    
 
     function printDanger() {
         let danger = 0;
@@ -165,19 +214,31 @@ export function Variance(props) {
     const profile = GetProfile();
     const { value } = props;
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Variance");
-            setProject(data.project.Data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Variance");
         }
         refetch();
     }, [data]);
+
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }    
 
     function printVariance() {
         let variance = 0;
@@ -205,19 +266,31 @@ export function CostHealth(props) {
     const profile = GetProfile();
     const { value } = props;
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Cost Health");
-            setProject(data.project.Data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Cost Health");
         }
         refetch();
     }, [data]);
+
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }    
 
     function printCostHealth() {
         let costHealth = "";
@@ -242,19 +315,31 @@ export function ScheduleHealth(props) {
     const profile = GetProfile();
     const { value } = props;
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Schedule Health");
-            setProject(data.project.Data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Schedule Health");
         }
         refetch();
     }, [data]);
+
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }    
 
     function printScheduleHealth() {
         let scheduleHealth = "";
@@ -288,19 +373,31 @@ export function ProgressPercentage(props) {
     const profile = GetProfile();
     const { value } = props;
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Progress Percentage");
-            setProject(data.project.Data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Progress Percentage");
         }
         refetch();
     }, [data]);
+
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }    
 
     function printProgressPercentage() {
         let projectPercentage = 0;
@@ -325,19 +422,32 @@ export function ProjectManager(props) {
     const profile = GetProfile();
     const { value } = props;
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Project Manager");
-            setProject(data.project.Data);
+            console.log("PM DATAAAAAAA", data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Project Manager");
         }
         refetch();
     }, [data]);
+
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }   
 
     function printProjectManager() {
         let projectManager = "";
@@ -362,25 +472,31 @@ export function Client(props) {
     const profile = GetProfile();
     const { value } = props;
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Client");
-            setProject(data.project.Data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Client");
         }
         refetch();
-    }, [data, value]);
+    }, [data]);
 
-    useEffect(() => {
-        refetch();
-    }, [data, value]);
-
-    refetch();
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }    
     
     function printClient() {
         let client = "";
@@ -405,19 +521,31 @@ export function ClientContact(props) {
     const profile = GetProfile();
     const { value } = props;
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Client Contact");
-            setProject(data.project.Data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Client Contact");
         }
         refetch();
     }, [data]);
+
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }    
 
     function printClientContact() {
         let clientContact = "";
@@ -442,19 +570,31 @@ export function ProjectStatus(props) {
     const { value } = props;
     const profile = GetProfile();
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Project Status");
-            setProject(data.project.Data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Project Status");
         }
         refetch();
     }, [data]);
+
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }    
 
     function printProjectStatus() {
         let projectStatus = "";
@@ -479,19 +619,31 @@ export function Location(props) {
     const { value } = props;
     const profile = GetProfile();
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
-        variables: { id: value },
+        variables: { id: value || '' },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Location");
-            setProject(data.project.Data);
+            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
             console.log(projectData);
+        } else if (data && !data.project.Data) {
+            console.log(`Project with ID ${value} not found in database.`);
+            clearProjectIdFromLocalStorage();
         } else {
             console.log("No data - Location");
         }
         refetch();
     }, [data]);
+
+    function clearProjectIdFromLocalStorage() {
+        localStorage.removeItem('projectID');
+        localStorage.removeItem("ganttID");
+        localStorage.removeItem("TPEID");
+        localStorage.removeItem("reportProjectID");
+        localStorage.removeItem("momProjectID");
+    }    
 
     function printLocation() {
         let location = "";

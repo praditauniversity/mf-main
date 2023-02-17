@@ -10,6 +10,7 @@ const TPECard = () => {
     const profile = GetProfile();
     const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: profile.id, sort: "ID asc" },
+        pollInterval: 1000,
     });
     const [TpeID,setTPEID] = useState(localStorage.getItem('TPEID'));
     console.log("TPECard TpeID",TpeID)

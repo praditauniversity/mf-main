@@ -7,6 +7,7 @@ const FetchProjectByUserId = (props) => {
     const profile = GetProfile();
     const { data } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: String(profile.id), sort: "ID asc" },
+        pollInterval: 1000,
     });
     const [project, setProject] = useState([]);
 

@@ -7,7 +7,8 @@ const ListboxGanttProjectDashboard = (props) => {
     const profile = GetProfile();
     const { projectID } = props;
     const { data } = useQuery(GET_GANTT_PROJECT_ID, {
-        variables: { project_id: projectID, sort: "ID asc" },
+        variables: { project_id: projectID || '', sort: "ID asc" },
+        pollInterval: 1000,
     });
     const [ganttData, setganttData] = useState([]);
     const [GANTTID, setGanttID] = useState(localStorage.getItem('ganttID'));

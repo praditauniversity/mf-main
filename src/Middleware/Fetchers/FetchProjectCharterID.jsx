@@ -6,7 +6,8 @@ import { GET_CHARTER_DATA } from '../../Components/GraphQL/Queries';
 const FetchProjectCharterID = (props) => {
     const {projectID} = props
     const { data } = useQuery(GET_CHARTER_DATA,{
-        variables: { ID : projectID }
+        variables: { ID : projectID },
+        pollInterval: 1000,
     });
     const [project, setProject] = useState([]);
 

@@ -13,6 +13,7 @@ const PCList = (props) => {
     const profile = GetProfile();
     const { data, error: errorGetProject } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) },
+        pollInterval: 1000,
     });
     const [charterData, setCharter] = useState([]);
 

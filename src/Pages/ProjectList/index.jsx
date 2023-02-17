@@ -8,6 +8,7 @@ const ProjectList = () => {
     const profile = GetProfile();
     const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: String(profile.id), sort: "ID asc" },
+        pollInterval: 1000,
         // pollInterval: 5000, // refetch the result every 5 seconds
     });
     const [project, setProject] = useState([]);

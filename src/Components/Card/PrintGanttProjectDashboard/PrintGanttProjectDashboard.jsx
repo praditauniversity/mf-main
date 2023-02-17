@@ -10,7 +10,8 @@ const PrintGanttProjectDashboard = (props) => {
     const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
 
     const { data: dataGanttProject, loading: loadingGanttProject, error: errorGanttProject } = useQuery(GET_GANTT_PROJECT_ID, {
-        variables: { project_id: projectID }
+        variables: { project_id: projectID },
+        pollInterval: 1000,
     });
 
     useEffect(() => {
@@ -29,7 +30,8 @@ const PrintGanttProjectDashboard = (props) => {
     console.log("PrintGantt ganttID", ganttID);
 
     const { data: dataActivityGanttID } = useQuery(GET_ACTIVITY_GANTT_ID, {
-        variables: { gantt_id: String(ganttID), sort: "ID asc" }
+        variables: { gantt_id: String(ganttID), sort: "ID asc" },
+        pollInterval: 1000,
     });
 
     const [activityData, setActivity] = useState([]);
@@ -48,7 +50,9 @@ const PrintGanttProjectDashboard = (props) => {
 
     const [linkData, setLink] = useState([]);
 
-    const { data: dataGetLinkData } = useQuery(GET_LINK_DATA);
+    const { data: dataGetLinkData } = useQuery(GET_LINK_DATA, {
+        pollInterval: 1000,
+    });
 
     useEffect(() => {
         if (dataGetLinkData) {
@@ -61,7 +65,9 @@ const PrintGanttProjectDashboard = (props) => {
         console.log("USE EFFECT LINK");
     }, [dataGetLinkData]);
 
-    const { data: dataActivityPhase } = useQuery(GET_ACTIVITY_PHASE_DATA);
+    const { data: dataActivityPhase } = useQuery(GET_ACTIVITY_PHASE_DATA, {
+        pollInterval: 1000,
+    });
     const [activityPhaseData, setActivityPhaseData] = useState([]);
 
     useEffect(() => {
@@ -73,7 +79,9 @@ const PrintGanttProjectDashboard = (props) => {
         console.log("USE EFFECT Phase");
     }, [dataActivityPhase]);
 
-    const { data: dataUnitMeasure, loading, error } = useQuery(GET_UNIT_OF_MEASUREMENT_DATA);
+    const { data: dataUnitMeasure, loading, error } = useQuery(GET_UNIT_OF_MEASUREMENT_DATA, {
+        pollInterval: 1000,
+    });
     const [unitMeasureData, setUnitMeasureData] = useState([]);
 
     useEffect(() => {

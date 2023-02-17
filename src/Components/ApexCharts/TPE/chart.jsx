@@ -13,6 +13,7 @@ export default function BarChart(props) {
     console.log("Value: " + value);
     const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
+        pollInterval: 1000,
     });
     const [projectData, setProject] = useState([]);
     useEffect(() => {

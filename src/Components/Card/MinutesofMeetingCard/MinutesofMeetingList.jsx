@@ -15,7 +15,8 @@ const MinutesofMeetingList = (props) => {
   const projectData = FetchProjectByUserId();
 
   const { data } = useQuery(GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID, {
-    variables: { projectId: String(localStorage.getItem('momProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
+    variables: { projectId: String(localStorage.getItem('momProjectID')), page: String(page), limit: String(limit), sort: String(sort) },
+    pollInterval: 1000,
   });
 
   const [momData, setMomData] = useState([]);

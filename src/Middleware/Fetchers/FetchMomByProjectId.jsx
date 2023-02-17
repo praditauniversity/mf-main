@@ -5,6 +5,7 @@ import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from '../../Components/Grap
 const FetchMomByProjectId = () => {
     const { data } = useQuery(GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID, {
         variables: { projectId: String(localStorage.getItem('momProjectID')), sort: "ID asc" },
+        pollInterval: 1000,
     });
     const [minutesOfMeeting, setMinutesOfMeeting] = useState([]);
 

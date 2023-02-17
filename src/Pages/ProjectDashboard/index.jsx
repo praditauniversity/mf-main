@@ -9,13 +9,16 @@ const ProjectDashboardPage = () => {
     const profile = GetProfile();
     const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: profile.id, sort: "ID asc" },
-        // fetchPolicy: "cache-and-network",
+        // fetchPolicy: "network-only",
+        pollInterval: 1000,
     });
     const[ProjectID, setProjectID] = React.useState(localStorage.getItem('projectID'));
 
+    const [projectData, setProjectData] = useState([]);
+
     useEffect(() => {
         if (data)   {
-            
+        setProjectData(data.projectByUserId.Data);
         setProjectID(localStorage.getItem('projectID'));
         if (data.projectByUserId.Data.length !== 0) {
             //if local storage is empty, set to first project id
@@ -27,14 +30,14 @@ const ProjectDashboardPage = () => {
             localStorage.removeItem('projectID');
         }
     }
-    refetch({ userId: String(profile.id), sort: "ID asc" });
+    // refetch({ userId: String(profile.id), sort: "ID asc" });
 }, [data, ProjectID]);
 
 
 
     return (
         <>
-            <ProjectDashboard value = {ProjectID}/>
+            <ProjectDashboard value = {ProjectID} projectData = {projectData}/>
 
         </>
     );

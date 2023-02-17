@@ -4,7 +4,9 @@ import { GET_CHARTER_DATA } from '../../Components/GraphQL/Queries';
 
 
 const FetchProjectCharter = () => {
-    const { data } = useQuery(GET_CHARTER_DATA);
+    const { data } = useQuery(GET_CHARTER_DATA, {
+        pollInterval: 1000,
+    });
     const [project, setProject] = useState([]);
 
     useEffect(() => {

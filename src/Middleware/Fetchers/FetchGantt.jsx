@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { GET_GANTT_DATA } from "../../Components/GraphQL/Queries";
 
 const FetchGantt = () => {
-    const {data, loading, error} = useQuery(GET_GANTT_DATA);
+    const {data, loading, error} = useQuery(GET_GANTT_DATA, {
+        pollInterval: 1000,
+    });
     const [ganttData, setGantt] = useState([]);
 
     useEffect(() => {

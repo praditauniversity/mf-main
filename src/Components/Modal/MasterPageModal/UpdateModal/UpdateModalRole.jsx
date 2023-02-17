@@ -1,14 +1,14 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useState } from 'react';
 import '../../../../Assets/svgbutton/svgbutton.css';
-import { IconSaveForm } from '../../../Icons/icon';
+import { IconEdit, IconSaveForm } from '../../../Icons/icon';
 import { InputField } from '../../../Input/Input';
-import './AddModal.css';
+import './UpdateModal.css';
 import Button from "../../../Button";
 import ChooseColor from "./ChooseColor";
 
 
-const AddModalRoleList = () => {
+const UpdateModalRole = () => {
     const [description, setDescription] = useState("");
     const [name, setName] = useState("");
 
@@ -102,8 +102,10 @@ const AddModalRoleList = () => {
     return (
         <>
 
-            <div className="add-button">
-                <Button label="+ ADD NEW ROLE" onClick={showDialog} />
+            <div className="flex flex-row items-center justify-center">
+                <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
+                    <IconEdit />
+                </button>
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>
@@ -247,4 +249,4 @@ const AddModalRoleList = () => {
         </>
     )
 }
-export default AddModalRoleList;
+export default UpdateModalRole;

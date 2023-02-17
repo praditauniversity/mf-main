@@ -96,15 +96,19 @@ const UpdateModalDailyReport = (props) => {
 
   const { data: dataProject } = useQuery(GET_PROJECT_DATA_BY_ID, {
     variables: { id: String(localStorage.getItem("reportProjectID")) },
+    pollInterval: 1000,
   });
   const [projectName, setProjectName] = useState([]);
 
   const { data: dataGantt } = useQuery(GET_GANTT_PROJECT_ID, {
     variables: { project_id: String(localStorage.getItem("reportProjectID")) },
+    pollInterval: 1000,
   });
   const [ganttName, setGanttName] = useState([]);
 
-  const { data, loading, error } = useQuery(GET_ACTIVITY_DATA);
+  const { data, loading, error } = useQuery(GET_ACTIVITY_DATA, {
+    pollInterval: 1000,
+  });
   const [activityName, setActivityName] = useState([]);
 
   useEffect(() => {

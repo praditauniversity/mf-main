@@ -14,6 +14,7 @@ const DonutTaskOverviewProject = (props) => {
 
     const { data} = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
+        pollInterval: 1000,
     });
 
     const [projectDataID, setProjectDataID] = useState([]);

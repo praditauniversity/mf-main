@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css'
 
-export const InputField = ({ value, label, name, placeholder, type, onChange, disabled, error, minLength, maxLength, pattern, errorMsg }) => (
+export const InputField = ({ value, label, name, placeholder, type, onChange, disabled, error, minLength, maxLength, pattern, errorMsg, autoFocus }) => (
     <div className="form-group">
         <label className="block uppercase tracking-wide text-darkest text-xs font-bold pb-2">{label}</label>
         <input
@@ -18,6 +18,26 @@ export const InputField = ({ value, label, name, placeholder, type, onChange, di
             minLength={minLength}
             maxLength={maxLength}
             pattern={pattern}
+        />
+    </div>
+);
+
+export const InputFieldFocus = ({ value, label, name, placeholder, type, onChange, disabled, error, minLength, maxLength, pattern, errorMsg, inputRef }) => (
+    <div className="form-group">
+        <label className="block uppercase tracking-wide text-darkest text-xs font-bold pb-2">{label}</label>
+        <input
+            type={type}
+            value={value}
+            name={name}
+            className="form-control input input-bordered mb-4 shadow appearance-none border rounded w-full bg-table-dark border-primary-light rounded-lg py-3 px-4 "
+            placeholder={placeholder}
+            onChange={onChange}
+            disabled={disabled}
+            error={error}
+            minLength={minLength}
+            maxLength={maxLength}
+            pattern={pattern}
+            ref={inputRef}
         />
     </div>
 );

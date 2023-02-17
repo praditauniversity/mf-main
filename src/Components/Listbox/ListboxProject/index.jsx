@@ -7,6 +7,7 @@ const ListboxProject = () => {
     const profile = GetProfile();
     const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
         variables: { userId: profile.id, sort: "ID asc" },
+        pollInterval: 1000,
     });
     const [projectData, setProjectData] = useState([]);
     const [TPEID, setTPEID] = useState(localStorage.getItem('TPEID'));

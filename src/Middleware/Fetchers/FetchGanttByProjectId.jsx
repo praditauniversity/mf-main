@@ -6,7 +6,8 @@ import { GET_GANTT_PROJECT_ID, GET_PROJECT_DATA_BY_USER_ID } from '../../Compone
 const FetchGanttByProjectId = (props) => {
     const {projectID} = props
     const { data, loading, error } = useQuery(GET_GANTT_PROJECT_ID, {
-        variables: { project_id: projectID }
+        variables: { project_id: projectID },
+        pollInterval: 1000,
       });
     const [ganttData, setGanttData] = useState([]);
 

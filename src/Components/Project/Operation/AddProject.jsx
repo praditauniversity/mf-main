@@ -116,8 +116,12 @@ const AddProject = () => {
         refetchQueries: [{ query: GET_PROJECT }],
     });
 
-    const { data, loading, error } = useQuery(GET_TYPE_DATA);
-    const { data: dataPhase, loading: loadingPhase, error: errorPhase } = useQuery(GET_PHASE_DATA);
+    const { data, loading, error } = useQuery(GET_TYPE_DATA, {
+        pollInterval: 1000,
+    });
+    const { data: dataPhase, loading: loadingPhase, error: errorPhase } = useQuery(GET_PHASE_DATA, {
+        pollInterval: 1000,
+    });
     const [typeName, setTypeName] = useState([]);
     const [phaseName, setPhaseName] = useState([]);
 

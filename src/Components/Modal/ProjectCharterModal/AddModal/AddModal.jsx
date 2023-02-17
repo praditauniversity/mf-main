@@ -4,7 +4,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { GET_MILESTONE_DATA, GET_PHASE_DATA, GET_PROJECT_DATA_BY_USER_ID, GET_TYPE_DATA } from '../../../GraphQL/Queries';
 import '../../../../Assets/svgbutton/svgbutton.css';
 import { IconDeleteForm, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
-import { DatePickerField, InputField } from '../../../Input/Input';
+import { DatePickerField, InputField, InputFieldFocus } from '../../../Input/Input';
 import './AddModal.css';
 import Button from "../../../Button";
 import GetProfile from "../../../Auth/GetProfile";
@@ -120,6 +120,7 @@ const AddModalProjectCharter = (props) => {
 
         if (name.length < 1) {
             nameError = "Name can't be empty";
+            inputRef.current.focus();
         }
         if (description.length > 4) {
             descError = "Description can't be empty";
@@ -137,6 +138,7 @@ const AddModalProjectCharter = (props) => {
     const inputRefType = useRef(null);
     const inputRefPhase = useRef(null);
     const inputRefMilestone = useRef(null);
+    const inputRef = useRef(null);
 
     const { page, limit, sort, total, updateTotal, totalPages } = props;
     const profile = GetProfile();
@@ -177,12 +179,18 @@ const AddModalProjectCharter = (props) => {
             onCompleted: () => { console.log("Add Project Success, Total Project:", total) }
         });;
 
-    const { data: dataMilestone, loading: loadingMilestone, error: errorMilestone } = useQuery(GET_MILESTONE_DATA);
+    const { data: dataMilestone, loading: loadingMilestone, error: errorMilestone } = useQuery(GET_MILESTONE_DATA, {
+        pollInterval: 1000,
+    });
     const [projectName, setProjectName] = useState([]);
     const [milestoneStatus, setMilestoneStatus] = useState([]);
 
-    const { data, loading, error } = useQuery(GET_TYPE_DATA);
-    const { data: dataPhase, loading: loadingPhase, error: errorPhase } = useQuery(GET_PHASE_DATA);
+    const { data, loading, error } = useQuery(GET_TYPE_DATA, {
+        pollInterval: 1000,
+    });
+    const { data: dataPhase, loading: loadingPhase, error: errorPhase } = useQuery(GET_PHASE_DATA, {
+        pollInterval: 1000,
+    });
     const [typeName, setTypeName] = useState([]);
     const [phaseName, setPhaseName] = useState([]);
 
@@ -606,7 +614,7 @@ const AddModalProjectCharter = (props) => {
                                     {dataProjectCharterName.map((data, index) => {
                                         return (
                                             <div className="pb-2">
-                                                <InputField
+                                                <InputFieldFocus
                                                     key={index}
                                                     label={data.label}
                                                     name={data.name}
@@ -615,7 +623,7 @@ const AddModalProjectCharter = (props) => {
                                                     value={data.value}
                                                     onChange={data.onChange}
                                                     minLength={data.minLength}
-
+                                                    inputRef={inputRef}
                                                 />
                                                 <div style={{ color: "red" }}>{errorValidate.nameError}</div>
                                             </div>
