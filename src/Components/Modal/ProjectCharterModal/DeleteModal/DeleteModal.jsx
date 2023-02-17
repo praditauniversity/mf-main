@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { gql, useApolloClient, useMutation } from '@apollo/client';
 import { Dialog, Transition } from '@headlessui/react';
 import '../../../../Assets/svgbutton/svgbutton.css'
 import { IconDelete, IconSaveForm } from '../../../Icons/icon';
@@ -12,6 +12,8 @@ deleteProject(id: $id)
 }`;
 
 const DeleteModalProject = (props) => {
+    // const client = useApolloClient();
+
     const { projectID, projectName, page, limit, sort, total, updateTotal, dropCurrentPage, totalPages, setEmpty } = props;
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
@@ -46,7 +48,7 @@ const DeleteModalProject = (props) => {
                 id: String(projectID),
             },
         });
-
+        // client.cache.reset();
         localStorage.removeItem("projectID");
         localStorage.removeItem("ganttID");
         localStorage.removeItem("TPEID");
@@ -68,6 +70,8 @@ const DeleteModalProject = (props) => {
         }
 
         hideDialog();
+
+        window.location.reload();
     };
 
     return (

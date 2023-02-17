@@ -79,16 +79,16 @@ const ViewModalMOM = (props) => {
 
                                                 <div className="grid grid-cols-12 py-6 flex justify-between">
                                                     <div className='col-span-5'>
-                                                        <DescTitleMOM title="Location" description={meetingLocation} />
+                                                        <DescTitleMOM title="Location" description={meetingLocation ? meetingLocation : 'N/A'} />
                                                     </div>
                                                     <div className='col-span-5'>
-                                                        <DescTitleMOM title="Meeting Leader" description={meetingLeader} />
+                                                        <DescTitleMOM title="Meeting Leader" description={meetingLeader ? meetingLeader : 'N/A'} />
                                                     </div>
                                                 </div>
 
                                                 <div className="grid grid-cols-12 py-6 flex justify-between">
                                                     <div className='col-span-5'>
-                                                        <DescTitleMOM title="Meeting Objectives" description={meetingObj} />
+                                                        <DescTitleMOM title="Meeting Objectives" description={meetingObj ? meetingObj : 'N/A'} />
                                                     </div>
                                                 </div>
 
@@ -99,7 +99,7 @@ const ViewModalMOM = (props) => {
                                                             {meetingAtendees.map((item, index) => {
                                                                 return (
                                                                     <div key={index}>
-                                                                        <ListMOM description={item} />
+                                                                        <ListMOM description={item ? item : 'N/A'} />
                                                                     </div>
                                                                 )
                                                             })
@@ -115,7 +115,7 @@ const ViewModalMOM = (props) => {
                                                             {meetingNotes.map((item, index) => {
                                                                 return (
                                                                     <div key={index}>
-                                                                        <ListMOM description={item} />
+                                                                        <ListMOM description={item ? item : 'N/A'} />
                                                                     </div>
                                                                 )
                                                             })
@@ -144,7 +144,7 @@ const ViewModalMOM = (props) => {
                                                                                     {meetingActionItem.map((item, index) => {
                                                                                         return (
                                                                                             <div key={index} className="py-2">
-                                                                                                <ListMOMNoDot description={item} />
+                                                                                                <ListMOMNoDot description={item ? item : 'N/A'} />
                                                                                             </div>
                                                                                         )
                                                                                     })
@@ -158,7 +158,7 @@ const ViewModalMOM = (props) => {
                                                                                     {meetingOwner.map((item, index) => {
                                                                                         return (
                                                                                             <div key={index} className="py-2">
-                                                                                                <ListMOMNoDot description={item} />
+                                                                                                <ListMOMNoDot description={item ? item : 'N/A'} />
                                                                                             </div>
                                                                                         )
                                                                                     })
@@ -172,7 +172,7 @@ const ViewModalMOM = (props) => {
                                                                                     {meetingDeadline.map((item, index) => {
                                                                                         return (
                                                                                             <div key={index} className="py-2">
-                                                                                                <ListMOMNoDot description={item} />
+                                                                                                <ListMOMNoDot description={item ? item : 'N/A'} />
                                                                                             </div>
                                                                                         )
                                                                                     })
@@ -186,7 +186,7 @@ const ViewModalMOM = (props) => {
                                                                                     {meetingStatus.map((item, index) => {
                                                                                         return (
                                                                                             <div key={index} className="py-2">
-                                                                                                <ListMOMNoDot description={item} />
+                                                                                                <ListMOMNoDot description={item ? item : 'N/A'} />
                                                                                             </div>
                                                                                         )
                                                                                     })

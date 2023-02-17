@@ -170,9 +170,13 @@ export const TimePickerField = ({ label, selected, placeholder, onChange, disabl
                 placeholder={placeholder}
                 disabled={disabled}
                 error={error}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
                 timeInputLabel="Time:"
-                dateFormat="MM/dd/yyyy h:mm aa"
-                showTimeInput
+                // dateFormat="MM/dd/yyyy h:mm aa"
+                dateFormat="h:mm aa"
+                // showTimeInput
 
             />
         </div>

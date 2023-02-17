@@ -59,9 +59,14 @@ const DRList = (props) => {
   const ifDRListDataEmpty = () => {
     if (dataLength === 0 && noneDataLength === 0) {
       return (
-        <tr>
-          <td colSpan="5" align="center">No Daily Report Data</td>
-        </tr>
+        <tr className="h-full" >
+             <td colSpan="7" className="text-center ">
+                 <div className="text-gray-400">
+                     <div className="text-5xl font-bold">No Daily Report</div>
+                     <div className="text-xl">Please add a daily report</div>
+                 </div>
+             </td>
+         </tr>
       );
     }
   };

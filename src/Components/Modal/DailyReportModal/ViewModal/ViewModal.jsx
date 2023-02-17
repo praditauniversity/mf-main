@@ -76,7 +76,7 @@ const ViewModalReport = (props) => {
 
                                                 <div className="grid grid-cols-12 py-6 flex justify-between">
                                                     <div className='col-span-12'>
-                                                        <DescTitleReport title="Report Description" description={reportDesc} />
+                                                        <DescTitleReport title="Report Description" description={reportDesc ? reportDesc : 'N/A'} />
                                                     </div>
                                                 </div>
 
@@ -110,7 +110,7 @@ const ViewModalReport = (props) => {
                                                                                     {reportWLName.map((item, index) => {
                                                                                         return (
                                                                                             <div key={index} className="py-2">
-                                                                                                <ListReportNoDot description={item} />
+                                                                                                <ListReportNoDot description={item ? item : 'N/A'} />
                                                                                             </div>
                                                                                         )
                                                                                     })
@@ -124,7 +124,7 @@ const ViewModalReport = (props) => {
                                                                                     {reportWLDesc.map((item, index) => {
                                                                                         return (
                                                                                             <div key={index} className="py-2">
-                                                                                                <ListReportNoDot description={item} />
+                                                                                                <ListReportNoDot description={item ? item : 'N/A'} />
                                                                                             </div>
                                                                                         )
                                                                                     })
@@ -138,7 +138,7 @@ const ViewModalReport = (props) => {
                                                                                     {reportWLStatus.map((item, index) => {
                                                                                         return (
                                                                                             <div key={index} className="py-2">
-                                                                                                <ListReportNoDot description={item} />
+                                                                                                <ListReportNoDot description={item ? item : 'N/A'} />
                                                                                             </div>
                                                                                         )
                                                                                     })
@@ -178,7 +178,7 @@ const ViewModalReport = (props) => {
                                                             {reportEq.map((item, index) => {
                                                                 return (
                                                                     <div key={index} className="py-1">
-                                                                        <ListReport description={item} />
+                                                                        <ListReport description={item ? item : 'N/A'} />
                                                                     </div>
                                                                 )
                                                             })

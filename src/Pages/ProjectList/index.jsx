@@ -21,9 +21,7 @@ const ProjectList = () => {
             setProject([]);
         }
 
-        if (data) {
-            refetch({ userId: String(profile.id), sort: "ID asc" });
-        }
+        refetch({ userId: String(profile.id), sort: "ID asc" });
     }, [data]);
 
     

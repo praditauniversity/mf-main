@@ -44,8 +44,13 @@ const MinutesofMeetingList = (props) => {
   const ifMomListEmpty = () => {
     if (dataLength === 0) {
       return (
-        <tr>
-          <td colSpan="6" align="center">No Minutes of Meeting</td>
+        <tr className="h-full" >
+            <td colSpan="7" className="text-center ">
+                <div className="text-gray-400">
+                    <div className="text-5xl font-bold">No Minutes of Meeting</div>
+                    <div className="text-xl">Please add a minutes of meeting</div>
+                </div>
+            </td>
         </tr>
       );
     }

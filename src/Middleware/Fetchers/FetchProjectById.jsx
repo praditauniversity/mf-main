@@ -6,7 +6,7 @@ import { GET_PROJECT_DATA_BY_ID } from '../../Components/GraphQL/Queries';
 const FetchProjectById = (props) => {
     const profile = GetProfile();
     const {projectID } = props;
-    const { data } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: projectID},
     });
     const [project, setProject] = useState([]);
@@ -18,6 +18,7 @@ const FetchProjectById = (props) => {
         } else {
             console.log("No data found for project with user id : " + profile.id);
         }
+        refetch();
     }, [data]);
 
     return project;

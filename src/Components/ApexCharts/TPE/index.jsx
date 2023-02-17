@@ -1,14 +1,34 @@
+import { useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
+import GetProfile from "../../Auth/GetProfile.jsx";
+import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries.jsx";
 import ListboxProject from "../../Listbox/ListboxProject/index.jsx";
 import DetailTPE from "../../Modal/FutureUpdateModal/DetailTPE/DetailTPE.jsx";
 import BarChart from "./chart.jsx";
 
 const TPECard = () => {
+    const profile = GetProfile();
+    const { data, refetch } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
+        variables: { userId: profile.id, sort: "ID asc" },
+    });
     const [TpeID,setTPEID] = useState(localStorage.getItem('TPEID'));
     console.log("TPECard TpeID",TpeID)
     useEffect(() => {
-        setTPEID(localStorage.getItem('TPEID'));
-    }, [TpeID]);
+        if (data) {
+            setTPEID(localStorage.getItem('TPEID'));
+            if (data.projectByUserId.Data.length !== 0) {
+
+                //if local storage is empty, set to first project id
+                localStorage.getItem('TPEID') === null ? localStorage.setItem('TPEID', data.projectByUserId.Data[0].ID) : console.log("TpeID is not null");
+                TpeID === null ? setTPEID(data.projectByUserId.Data[0].ID) : setTPEID(localStorage.getItem('TPEID'));
+            }
+            if (data.projectByUserId.Data.length === 0){
+                localStorage.removeItem('TPEID');
+            }
+        }
+
+        refetch({ userId: String(profile.id), sort: "ID asc" });
+    }, [TpeID,data]);
     console.log("TPECard TpeID AFTER",TpeID)
     return (
         <div className="rounded-xl shadow-lg bg-white py-6 px-12">

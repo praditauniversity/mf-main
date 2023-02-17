@@ -14,6 +14,8 @@ import PrintGanttProjectDashboard from "../../Components/Card/PrintGanttProjectD
 const ProjectDashboard = (props) => {
     const { value } = props;
 
+    console.log("projectdashboard localstorage", localStorage.getItem('projectID'));
+
     return (
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 2xl:grid-cols-18 lg:mt-0 mt-4 no-scrollbar">
             <div className="2xl:col-span-15 col-span-12 row-span-1">

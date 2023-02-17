@@ -7,7 +7,7 @@ export function Actual(props) {
     const profile = GetProfile();
     const { value } = props;
     console.log("Value: " + value);
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -19,10 +19,8 @@ export function Actual(props) {
         } else {
             console.log("No data - Actual");
         }
+        refetch();
     }, [data]);
-    // useEffect(() => {
-    //     refetch()  ;
-    // }, [data]);
 
     function printActual() {
         let act = 0;
@@ -48,7 +46,7 @@ export function Actual(props) {
 export function Cost(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -60,6 +58,7 @@ export function Cost(props) {
         } else {
             console.log("No data - Cost");
         }
+        refetch();
     }, [data]);
 
     function printCost() {
@@ -86,7 +85,7 @@ export function Cost(props) {
 export function Budget(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -98,6 +97,7 @@ export function Budget(props) {
         } else {
             console.log("No data - Budget");
         }
+        refetch();
     }, [data]);
 
     function printBudget() {
@@ -124,7 +124,7 @@ export function Budget(props) {
 export function Danger(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -136,6 +136,7 @@ export function Danger(props) {
         } else {
             console.log("No data - Danger");
         }
+        refetch();
     }, [data]);
 
     function printDanger() {
@@ -163,7 +164,7 @@ export function Danger(props) {
 export function Variance(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -175,6 +176,7 @@ export function Variance(props) {
         } else {
             console.log("No data - Variance");
         }
+        refetch();
     }, [data]);
 
     function printVariance() {
@@ -202,7 +204,7 @@ export function Variance(props) {
 export function CostHealth(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -214,6 +216,7 @@ export function CostHealth(props) {
         } else {
             console.log("No data - Cost Health");
         }
+        refetch();
     }, [data]);
 
     function printCostHealth() {
@@ -238,7 +241,7 @@ export function CostHealth(props) {
 export function ScheduleHealth(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -250,6 +253,7 @@ export function ScheduleHealth(props) {
         } else {
             console.log("No data - Schedule Health");
         }
+        refetch();
     }, [data]);
 
     function printScheduleHealth() {
@@ -283,7 +287,7 @@ export function ScheduleHealth(props) {
 export function ProgressPercentage(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -295,7 +299,9 @@ export function ProgressPercentage(props) {
         } else {
             console.log("No data - Progress Percentage");
         }
+        refetch();
     }, [data]);
+
     function printProgressPercentage() {
         let projectPercentage = 0;
         projectData.map((project) => {
@@ -318,7 +324,7 @@ export function ProgressPercentage(props) {
 export function ProjectManager(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -330,6 +336,7 @@ export function ProjectManager(props) {
         } else {
             console.log("No data - Project Manager");
         }
+        refetch();
     }, [data]);
 
     function printProjectManager() {
@@ -354,7 +361,7 @@ export function ProjectManager(props) {
 export function Client(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -366,8 +373,15 @@ export function Client(props) {
         } else {
             console.log("No data - Client");
         }
-    }, [data]);
+        refetch();
+    }, [data, value]);
 
+    useEffect(() => {
+        refetch();
+    }, [data, value]);
+
+    refetch();
+    
     function printClient() {
         let client = "";
         projectData.map((project) => {
@@ -390,7 +404,7 @@ export function Client(props) {
 export function ClientContact(props) {
     const profile = GetProfile();
     const { value } = props;
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -402,6 +416,7 @@ export function ClientContact(props) {
         } else {
             console.log("No data - Client Contact");
         }
+        refetch();
     }, [data]);
 
     function printClientContact() {
@@ -426,7 +441,7 @@ export function ClientContact(props) {
 export function ProjectStatus(props) {
     const { value } = props;
     const profile = GetProfile();
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -438,6 +453,7 @@ export function ProjectStatus(props) {
         } else {
             console.log("No data - Project Status");
         }
+        refetch();
     }, [data]);
 
     function printProjectStatus() {
@@ -462,7 +478,7 @@ export function ProjectStatus(props) {
 export function Location(props) {
     const { value } = props;
     const profile = GetProfile();
-    const { data, loading, error,refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
+    const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
     });
     const [projectData, setProject] = useState([]);
@@ -474,6 +490,7 @@ export function Location(props) {
         } else {
             console.log("No data - Location");
         }
+        refetch();
     }, [data]);
 
     function printLocation() {

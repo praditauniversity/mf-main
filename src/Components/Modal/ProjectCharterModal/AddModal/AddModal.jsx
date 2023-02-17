@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useApolloClient, useMutation, useQuery } from "@apollo/client";
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { GET_MILESTONE_DATA, GET_PHASE_DATA, GET_PROJECT_DATA_BY_USER_ID, GET_TYPE_DATA } from '../../../GraphQL/Queries';
@@ -320,6 +320,7 @@ const AddModalProjectCharter = (props) => {
         setPhaseId(parseInt(inputRefPhase.current.value))
         setTypeId(parseInt(inputRefType.current.value))
         setMilestoneId(parseInt(inputRefMilestone.current.value))
+        
 
         type_id !== 0 ? type_id : setTypeId(parseInt(inputRefType.current.value))
         phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))

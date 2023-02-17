@@ -18,6 +18,7 @@ const ProjectListCard = () => {
             )
         }
     }
+    const sliced = 6;
     return (
         <div className="rounded-xl shadow-lg bg-white pt-6 overflow-x-auto">
             <div className="flex justify-start pl-8 pb-6">
@@ -70,17 +71,19 @@ const ProjectListCard = () => {
                                 </tr>
                             )
                         })
-                            .slice(0, 6)
+                            .slice(0, sliced)
                     }
                     {ifProjectEmpty()}
                 </tbody>
             </table>
-            <div className="flex justify-end pr-8 py-6">
-                <button className="font-semibold text-sm text-primary">
-                    <a href="/#/projectcharter">View All Projects</a>
-                </button>
-
-            </div>
+            { project.length > sliced ?
+                <div className="flex justify-end pr-8 py-6">
+                    <button className="font-semibold text-sm text-primary">
+                        <a href="/#/projectcharter">View All Projects</a>
+                    </button>
+                </div>
+              : null
+            }
         </div>
     )
 }
