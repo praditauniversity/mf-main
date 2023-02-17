@@ -17,6 +17,7 @@ const DRList = (props) => {
   const activityData = FetchActivity();
   const { data } = useQuery(GET_DAILY_REPORT_DATA_BY_PROJECT_ID, {
     variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) },
+    pollInterval: 1000,
   });
   const [dailyReportData, setDailyReport] = useState([]);
 

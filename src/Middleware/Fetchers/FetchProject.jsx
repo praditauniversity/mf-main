@@ -4,7 +4,9 @@ import { GET_PROJECT_DATA } from '../../Components/GraphQL/Queries';
 
 
 const FetchProject = () => {
-    const { data } = useQuery(GET_PROJECT_DATA);
+    const { data } = useQuery(GET_PROJECT_DATA, {
+        pollInterval: 1000,
+    });
     const [project, setProject] = useState([]);
 
     useEffect(() => {
