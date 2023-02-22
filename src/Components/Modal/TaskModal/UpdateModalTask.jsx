@@ -6,7 +6,7 @@ import { IconSaveForm } from '../../Icons/icon';
 import Done from "../../../Assets/Icons/svg/Done.svg";
 import Trash from "../../../Assets/Icons/svg/Trash.svg";
 import { GET_ACTIVITY_DATA } from '../../GraphQL/Queries';
-import './toast.css';
+// import './toast.css';
 import Snackbar from '../../Snackbar/Snackbar';
 
 const UpdateModalTask = (props) => {
@@ -82,7 +82,7 @@ const UpdateModalTask = (props) => {
         });
 
     };
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -139,11 +139,11 @@ const UpdateModalTask = (props) => {
         // to show toast when sucesss update task
         var x = document.getElementById("snackbarupd");
         x.className = "show";
-        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);    
-        
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
         // Display snackbar with success message
-        setIsAppear(true);
-        setSnackbarMessage('Task updated successfully!');
+        // setIsAppear(true);
+        // setSnackbarMessage('Task updated successfully!');
 
         hideDialog();
 
@@ -152,6 +152,7 @@ const UpdateModalTask = (props) => {
         //     setIsAppear(false);
         // }, 3000);
     };
+
     const [deleteTask, { data: deleteTaskData, error: deleteTaskError }] = useMutation(DELETE_ACTIVITY, {
         refetchQueries: [
             {
@@ -175,9 +176,9 @@ const UpdateModalTask = (props) => {
         }
 
         //to show toast when sucesss delete task
-        // var x = document.getElementById("snackbardel");
-        // x.className = "show";
-        // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        var x = document.getElementById("snackbardel");
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
         // Display snackbar with success message
         // setIsAppear(true);
@@ -186,177 +187,87 @@ const UpdateModalTask = (props) => {
         hideDialog();
     };
 
-    {if (icon === Done ) {
+    return (
+        <>
+            <div className="flex flex-row items-center justify-center">
+                <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
+                    <img src={icon} className="w-12"></img>
+                </button>
+            </div>
+            <Transition appear show={isOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-40" onClose={hideDialog}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                    </Transition.Child>
 
-        return (
-            <>
-                <div className="flex flex-row items-center justify-center">
-                    <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
-                        <img src={icon} className="w-12"></img> 
-                    </button>
-                    <div id="snackbarupd" className="relative z-40">{icon === Done ? "Task updated successfully" : null }</div>
-                </div>
-                <Transition appear show={isOpen} as={Fragment}>
-                    <Dialog as="div" className="relative z-40" onClose={hideDialog}>
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0"
-                            enterTo="opacity-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
-                        >
-                            <div className="fixed inset-0 bg-black bg-opacity-25" />
-                        </Transition.Child>
+                    <div className="fixed inset-0 overflow-y-auto">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="px-24 py-16 w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-lg font-bold leading-6"
+                                    >
+                                        {icon === Done ? "Update Task" : "Delete Task"}
+                                    </Dialog.Title>
+                                    <div className="mt-3">
+                                        <div className="form-control w-full max-w-5xl text-center">
+                                            <p className="label-text">Are you sure?</p>
+                                        </div>
+                                    </div>
+                                    <div className="mt-3">
+                                        <div className="form-control w-full max-w-5xl text-center item-center">
+                                            <p className="label-text"> {icon === Done ? `Update task ${taskData.name} 's status to 'Done'?` : `Delete task ${taskData.name}?`} </p>
+                                        </div>
+                                    </div>
+                                    <div className="mt-10">
+                                        <div className='flex justify-between px-56'>
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md border border-transparent bg-grey px-4 py-2 text-sm font-medium text-primary hover:bg-grey-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                onClick={hideDialog}
+                                            >
+                                                <IconSaveForm />
+                                                <p className='text-base text-white pt-0.5 px-1'>Cancel</p>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className={ icon === Done ? "inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" : "inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-primary hover:bg-error-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"}
+                                                onClick={icon === Done ? handleSubmit : handleDelete}
+                                            >
+                                                <IconSaveForm />
+                                                <p className='text-base text-white pt-0.5 px-1'>{icon === Done ? "Update" : "Delete"}</p>
+                                            </button>
+                                        </div>
 
-                        <div className="fixed inset-0 overflow-y-auto">
-                            <div className="flex min-h-full items-center justify-center p-4 text-center">
-                                <Transition.Child
-                                    as={Fragment}
-                                    enter="ease-out duration-300"
-                                    enterFrom="opacity-0 scale-95"
-                                    enterTo="opacity-100 scale-100"
-                                    leave="ease-in duration-200"
-                                    leaveFrom="opacity-100 scale-100"
-                                    leaveTo="opacity-0 scale-95"
-                                >
-                                    <Dialog.Panel className="px-24 py-16 w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                        <Dialog.Title
-                                            as="h3"
-                                            className="text-lg font-bold leading-6"
-                                        >
-                                            Update Task
-                                        </Dialog.Title>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl text-center">
-                                                <p className="label-text">Are you sure?</p>
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl text-center item-center">
-                                                <p className="label-text">Update task {taskData.name} 's status to 'Done'?</p>
-                                            </div>
-                                        </div>
-                                        <div className="mt-10">
-                                            <div className='flex justify-between px-56'>
-                                                <button
-                                                    type="button"
-                                                    className="inline-flex justify-center rounded-md border border-transparent bg-grey px-4 py-2 text-sm font-medium text-primary hover:bg-grey-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                                    onClick={hideDialog}
-                                                >
-                                                    <IconSaveForm />
-                                                    <p className='text-base text-white pt-0.5 px-1'>Cancel</p>
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                                    onClick={handleSubmit}
-                                                >
-                                                    <IconSaveForm />
-                                                    <p className='text-base text-white pt-0.5 px-1'>Update</p>
-                                                </button>
-                                            </div>
-
-                                        </div>
-                                    </Dialog.Panel>
-                                </Transition.Child>
-                            </div>
+                                    </div>
+                                </Dialog.Panel>
+                            </Transition.Child>
                         </div>
-                    </Dialog>
-                </Transition>
-                {/* <div id="">
-                    {isAppear ? <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(true); setSnackbarMessage(''); }} /> : null}
-                </div> */}
-            </>
-        )
-    }}
-
-    {if (icon === Trash ) {
-        
-        return (
-            <>
-                <div className="flex flex-row items-center justify-center">
-                    <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
-                        <img src={icon} className="w-12"></img> 
-                    </button>
-                    <div id="snackbardel">Task deleted successfully</div>
-                </div>
-                <Transition appear show={isOpen} as={Fragment}>
-                    <Dialog as="div" className="relative z-40" onClose={hideDialog}>
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0"
-                            enterTo="opacity-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
-                        >
-                            <div className="fixed inset-0 bg-black bg-opacity-25" />
-                        </Transition.Child>
-
-                        <div className="fixed inset-0 overflow-y-auto">
-                            <div className="flex min-h-full items-center justify-center p-4 text-center">
-                                <Transition.Child
-                                    as={Fragment}
-                                    enter="ease-out duration-300"
-                                    enterFrom="opacity-0 scale-95"
-                                    enterTo="opacity-100 scale-100"
-                                    leave="ease-in duration-200"
-                                    leaveFrom="opacity-100 scale-100"
-                                    leaveTo="opacity-0 scale-95"
-                                >
-                                    <Dialog.Panel className="px-24 py-16 w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                        <Dialog.Title
-                                            as="h3"
-                                            className="text-lg font-bold leading-6"
-                                        >
-                                            Delete Task
-                                        </Dialog.Title>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl text-center">
-                                                <p className="label-text">Are you sure?</p>
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">
-                                            <div className="form-control w-full max-w-5xl text-center item-center">
-                                                <p className="label-text">Delete task {taskData.name}?</p>
-                                            </div>
-                                        </div>
-                                        <div className="mt-10">
-                                            <div className='flex justify-between px-56'>
-                                                <button
-                                                    type="button"
-                                                    className="inline-flex justify-center rounded-md border border-transparent bg-grey px-4 py-2 text-sm font-medium text-primary hover:bg-grey-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                                    onClick={hideDialog}
-                                                >
-                                                    <IconSaveForm />
-                                                    <p className='text-base text-white pt-0.5 px-1'>Cancel</p>
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className="inline-flex justify-center rounded-md border border-transparent bg-error px-4 py-2 text-sm font-medium text-primary hover:bg-error-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                                    onClick={handleDelete}
-                                                >
-                                                    <IconSaveForm />
-                                                    <p className='text-base text-white pt-0.5 px-1'>Delete</p>
-                                                </button>
-                                            </div>
-
-                                        </div>
-                                    </Dialog.Panel>
-                                </Transition.Child>
-                            </div>
-                        </div>
-                    </Dialog>
-                </Transition>
-                {/* <div id="">
-                    {isAppear ? <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} /> : null}
-                </div> */}
-            </>
-        )
-    }}
-}
+                    </div>
+                </Dialog>
+            </Transition>
+            {/* <div id="">
+                {isAppear ? <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(true); setSnackbarMessage(''); }} /> : null}
+            </div> */}
+        </>
+    );
+};
 export default UpdateModalTask;
 
