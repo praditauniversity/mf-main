@@ -13,3 +13,20 @@
   cursor: pointer;
   transform: translateX(2px);
 }
+
+.rangeDateButton {
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: white;
+  border: 1px solid #ccc;
+  /* color: blueviolet; */
+  padding: 0px 8px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.borderSelect {
+  background-color: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}

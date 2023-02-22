@@ -6,8 +6,9 @@ import '../../../../Assets/svgbutton/svgbutton.css';
 import { IconDeleteForm, IconEdit, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
 import { DatePickerField, InputField, InputFieldFocus } from '../../../Input/Input';
 import './UpdateModal.css';
-import '../AddModal/toast.css';
 import GetProfile from "../../../Auth/GetProfile";
+import Snackbar from "../../../Snackbar/Snackbar";
+import '../../../Snackbar/Snackbar.css';
 
 const UPDATE_CHARTER = gql`
     mutation updateProject(
@@ -149,10 +150,10 @@ const UpdateModalProject = (props) => {
     const [updateProject, { loading: updateProjectLoading, error: updateProjectError }] = useMutation(UPDATE_CHARTER,
         {
             refetchQueries: [
-                { query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort)  }},
+                { query: GET_PROJECT_DATA_BY_USER_ID, variables: { userId: String(profile.id), page: String(page), limit: String(limit), sort: String(sort) } },
             ],
             // refetchQueries: refetchQueries,
-            onComplete : () => {console.log("refetchQueries updateProject Completed")}
+            onComplete: () => { console.log("refetchQueries updateProject Completed") }
         });
 
     const { data: readPCData, error: readPCDataError } = useQuery(GET_CHARTER_DATA_BY_USER_ID, {
@@ -197,7 +198,7 @@ const UpdateModalProject = (props) => {
             setMilestoneStatus(dataMilestone.projectMilestone.Data);
             console.log("Data Ready Milestone Update Charter", dataMilestone.projectMilestone.Data)
         }
-        if(readPCData){
+        if (readPCData) {
             setPcData(readPCData.projectByUserId.Data);
             console.log("Data Ready Read update Charter Data", readPCData.projectByUserId.Data);
         }
@@ -303,6 +304,9 @@ const UpdateModalProject = (props) => {
         setIsOpen(false);
     }
 
+    const [isAppear, setIsAppear] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+
     // if (loading) return "Submitting...";
     // if (error) console.log(JSON.stringify(error));
     // if (loadingMilestone) return "submitting...";
@@ -363,10 +367,14 @@ const UpdateModalProject = (props) => {
 
         const isValid = validate();
         if (isValid) {
-            //to show toast when sucesss create project
-            var x = document.getElementById("snackbarupd");
-            x.className = "show";
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            //to show toast when sucesss update project
+            // var x = document.getElementById("snackbarupd");
+            // x.className = "show";
+            // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+
+            setIsAppear(true);
+            setSnackbarMessage('Project Charter updated successfully!');
 
             setErrorValidate("");
 
@@ -553,7 +561,10 @@ const UpdateModalProject = (props) => {
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
                     <IconEdit />
                 </button>
-                <div id="snackbarupd">Project updated successfully</div>
+                <div id="">
+                    {isAppear ? <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} /> : null}
+                </div>
+                {/* <div id="snackbarupd">Project updated successfully</div> */}
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>
@@ -586,7 +597,7 @@ const UpdateModalProject = (props) => {
                                         as="h3"
                                         className="text-lg font-bold leading-6 pb-8"
                                     >
-                                       Edit Project Charter
+                                        Edit Project Charter
                                     </Dialog.Title>
 
                                     {/* Name */}

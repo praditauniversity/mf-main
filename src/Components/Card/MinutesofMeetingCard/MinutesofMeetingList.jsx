@@ -104,7 +104,7 @@ const MinutesofMeetingList = (props) => {
                           <td align="center">{mom.location ? mom.location : "N/A"}</td>
                           <td align="center">{mom.meeting_leader ? mom.meeting_leader : "N/A"}</td>
                           <td align="center">
-                            <button className="px-1" id="icon">
+                            <button className="px-1" id="">
                               <UpdateModalMinutesOfMeeting
                                 momData={mom}
                                 page={page}
@@ -112,7 +112,7 @@ const MinutesofMeetingList = (props) => {
                                 sort={sort}
                               />
                             </button>
-                            <button className="px-1" id="icon">
+                            <button className="px-1" id="">
                               <DeleteModalMinuteOfMeeting
                                 momID={String(mom.ID)}
                                 momName={mom.meeting_name}
@@ -126,7 +126,7 @@ const MinutesofMeetingList = (props) => {
                                 // setDataEmpty={setDataEmpty}
                               />
                             </button>
-                            <button className="px-1" id="icon">
+                            <button className="px-1" id="">
                               <ViewModalMOM
                                 meetingName={mom.meeting_name}
                                 meetingDate={dateOfMeeting}

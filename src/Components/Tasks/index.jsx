@@ -22,7 +22,7 @@ const Tasks = (props) => {
                 <h6 className="text-xs text-grey ">{taskStartDateDay} {taskStartDateMonth} - {taskEndDateDay} {taskEndDateMonth}</h6>
             </div>
 
-            <a key={data.ID} className="flex justify-center align-center opacity-70 hover:opacity-100 ease-out duration-100">
+            <a key={data.ID} className="flex justify-center align-center ease-out duration-100">
                 <UpdateModalTask taskData={data} icon={icon} />
             </a>
             

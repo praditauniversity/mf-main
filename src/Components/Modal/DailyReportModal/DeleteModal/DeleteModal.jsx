@@ -4,6 +4,8 @@ import { Dialog, Transition } from '@headlessui/react';
 import '../../../../Assets/svgbutton/svgbutton.css'
 import { IconDelete, IconSaveForm } from '../../../Icons/icon';
 import { GET_DAILY_REPORT_DATA_BY_PROJECT_ID } from '../../../GraphQL/Queries';
+import Snackbar from '../../../Snackbar/Snackbar';
+import ReactDOM from "react-dom";
 
 const DELETE_DAILYREPORT = gql`
   mutation DeleteDailyReport($id: String!) {
@@ -20,6 +22,9 @@ const DeleteModalReport = (props) => {
         setIsOpen(false);
     }
 
+    const [isAppear, setIsAppear] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+
     const [deleteReport, { data , error }] = useMutation(DELETE_DAILYREPORT, {
         refetchQueries: [
             {
@@ -27,6 +32,7 @@ const DeleteModalReport = (props) => {
                 variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) }
             },
         ],
+        awaitRefetchQueries: true, // Wait for refetchQueries to complete before returning from useMutation
         onCompleted: () => { console.log("Delete Success, Remaining Data:", total) }
     }
     );
@@ -55,20 +61,25 @@ const DeleteModalReport = (props) => {
         // }
 
         //to show toast when sucesss delete report
-        var x = document.getElementById("snackbardel");
-        x.className = "show";
-        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        // var x = document.getElementById("snackbardel");
+        // x.className = "show";
+        // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+        // Display snackbar with success message
+        setIsAppear(true);
+        setSnackbarMessage('Daily Report deleted successfully!');
 
         hideDialog();
     };
 
     return (
+
         <>
             <div className="flex flex-row items-center justify-center">
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
                     <IconDelete />
                 </button>
-                <div id="snackbardel">Daily report deleted successfully</div>
+                {/* <div id="snackbardel">Daily report deleted successfully</div> */}
             </div>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40" onClose={hideDialog}>
@@ -140,6 +151,7 @@ const DeleteModalReport = (props) => {
                     </div>
                 </Dialog>
             </Transition>
+            {isAppear ? <Snackbar message={snackbarMessage} onClose={() => setIsAppear(false)} /> : null}
         </>
     )
 }

@@ -6,6 +6,6 @@
       saturate(2)
       brightness(0.8)
       /* drop-shadow(16px 16px 20px purple) */
-      opacity(100%)
+      /* opacity(100%) */
       grayscale(1%);
   }

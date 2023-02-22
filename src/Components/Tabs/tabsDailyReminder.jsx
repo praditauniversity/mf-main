@@ -3,8 +3,8 @@ import Done from "../../Assets/Icons/svg/Done.svg";
 import FetchActivity from "../../Middleware/Fetchers/FetchActivity";
 import FetchGantt from "../../Middleware/Fetchers/FetchGantt";
 import FetchProjectByUserId from "../../Middleware/Fetchers/FetchProjectByUserId";
-import Tasks from "../Tasks/index";
-import NoTasks from "../Tasks/NoTasks";
+import Tasks from "../Tasks/index.jsx";
+import NoTasks from "../Tasks/NoTasks.jsx";
 
 const TabsDailyReminder = ({ color }) => {
   const [openTab, setOpenTab] = React.useState(1);
@@ -17,7 +17,7 @@ const TabsDailyReminder = ({ color }) => {
     const todayDate = new Date();
     const endDate = new Date(item.end_time);
     const status = item.phase.name;
-    return endDate > todayDate && status === "In Progress";
+    return /*endDate > todayDate &&*/ status === "In Progress";
   }).filter((item) => {
     return ganttData.filter((gantt) => {
       return gantt.ID === item.gantt_id;
@@ -83,18 +83,18 @@ const TabsDailyReminder = ({ color }) => {
             </li>
           </ul>
 
-          <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded ">
+          <div className="relative z-[1] flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded">
             <div className="px-4 py-5 flex-auto overflow-y-scroll scrollbar">
               <div className="tab-content tab-space">
-                <div className={openTab === 1 ? "block" : "hidden"} id="link1">
+                <div className={openTab === 1 ? "block relative z-[1]" : "hidden relative z-10"} id="link1">
                 {calendarTaskLength === 0 
-                ? <NoTasks height="100"/> 
+                ? <NoTasks height="100" className='relative z-[1]'/> 
                 : projectData.map((project) => {
                   return ganttData.map((gantt) => {
                     return activityData.map((activity) => {
                       const todayDate = new Date();
                       const endDate = new Date(activity.end_time);
-                      if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id && endDate > todayDate && activity.phase.name === "In Progress") {
+                      if (project.ID === gantt.project_id && gantt.ID === activity.gantt_id /*&& endDate > todayDate*/ && activity.phase.name === "In Progress") {
                         return (
                           <Tasks data={activity} icon={Done} projectName={project.name} />
                         );
@@ -108,7 +108,7 @@ const TabsDailyReminder = ({ color }) => {
                 {someTask1Length === 0 
                 ? <NoTasks height="100"/> 
                 : someTask1.map((item) => (
-                  <Tasks data={activity} icon={item.icon} projectName={item.projectName} />
+                  <Tasks data={item} icon={item.icon} projectName={item.projectName} />
                 ))
                 }
                 </div>

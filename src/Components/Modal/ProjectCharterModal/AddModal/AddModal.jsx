@@ -9,6 +9,7 @@ import './AddModal.css';
 import './toast.css';
 import Button from "../../../Button";
 import GetProfile from "../../../Auth/GetProfile";
+import Snackbar from "../../../Snackbar/Snackbar";
 
 const ADD_CHARTER = gql`
     mutation addProject(
@@ -135,6 +136,8 @@ const AddModalProjectCharter = (props) => {
         return true;
     };
 
+    const [isAppear, setIsAppear] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
 
     const inputRefType = useRef(null);
     const inputRefPhase = useRef(null);
@@ -372,9 +375,12 @@ const AddModalProjectCharter = (props) => {
         const isValid = validate();
         if (isValid) {
             //to show toast when sucesss create project
-            var x = document.getElementById("snackbar");
-            x.className = "show";
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            // var x = document.getElementById("snackbar");
+            // x.className = "show";
+            // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+            setIsAppear(true);
+            setSnackbarMessage('Project Charter added successfully!');
 
             updateTotal();
 
@@ -580,7 +586,10 @@ const AddModalProjectCharter = (props) => {
         <>
             <div className="add-button">
                 <Button label="+ Add Charter" onClick={showDialog} />
-                <div id="snackbar">Project created successfully</div>
+                {/* <div id="snackbar">Project created successfully</div> */}
+                {isAppear ? (
+                    <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
+                ) : null}
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>

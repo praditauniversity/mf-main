@@ -2,18 +2,18 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { IconDateForm, IconEdit, IconSaveForm } from '../../Icons/icon';
 import './AddModal.css';
+import './toast.css'
 import GetProfile from '../../Auth/GetProfile';
 import { UPDATE_GANTT } from '../../../Middleware/GraphQL/mutations';
 import { useQuery, useMutation } from "@apollo/client";
 import { DatePickerField, InputField, InputFieldFocus } from '../../Input/Input';
 import { GET_GANTT_DATA, GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 import { useParams } from 'react-router-dom';
+import Snackbar from '../../Snackbar/Snackbar';
 
 const EditModalGantt = (props) => {
     const { ganttID } = props;
     let { projectID } = useParams();
-
-    const [isOpen, setIsOpen] = useState(false);
 
     const profile = GetProfile();
 
@@ -71,12 +71,16 @@ const EditModalGantt = (props) => {
         return true;
     };
 
+    const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);
     }
     const hideDialog = () => {
         setIsOpen(false);
     }
+
+    const [isAppear, setIsAppear] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
 
     const handleSave = (e) => {
         e.preventDefault();
@@ -101,9 +105,12 @@ const EditModalGantt = (props) => {
         const isValid = validate();
         if (isValid) {
             //to show toast when sucesss edit gantt
-            var x = document.getElementById("snackbarupd");
-            x.className = "show";
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            // var x = document.getElementById("snackbarupd");
+            // x.className = "show";
+            // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+            setIsAppear(true);
+            setSnackbarMessage('Gantt updated successfully!');
 
             hideDialog();
             setErrorValidate("");
@@ -133,15 +140,6 @@ const EditModalGantt = (props) => {
     ]
 
     const ganttList = [
-        // {
-        //     label: "Name",
-        //     required: "*",
-        //     name: "name",
-        //     placeholder: "Example:  Gantt First Project",
-        //     type: "text",
-        //     value: name,
-        //     onChange: (e) => setName(e.target.value),
-        // },
         {
             label: "Description",
             name: "descrtiption",
@@ -163,6 +161,9 @@ const EditModalGantt = (props) => {
 
     return (
         <>
+            {isAppear ? (
+                <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
+            ) : null}
             <button
                 onClick={showDialog}
                 className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
@@ -170,7 +171,7 @@ const EditModalGantt = (props) => {
             >
                 <IconEdit />
             </button>
-            <div id="snackbarupd">Gantt updated successfully</div>
+            {/* <div id="snackbarupd">Gantt updated successfully</div> */}
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40" onClose={hideDialog}>
                     <Transition.Child

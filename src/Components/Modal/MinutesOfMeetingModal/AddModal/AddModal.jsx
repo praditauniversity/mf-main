@@ -12,6 +12,7 @@ import './toast.css';
 import { DatePickerField, TimePickerField } from "../../../Input/Input";
 import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../../GraphQL/Queries";
 import Button from "../../../Button";
+import Snackbar from "../../../Snackbar/Snackbar";
 
 const ADD_MINUTES_OF_MEETING = gql`
   mutation addMinuteOfMeeting(
@@ -147,7 +148,6 @@ const AddModalMinutesOfMeeting = (props) => {
     setProject_id(parseInt(event.target.value));
   };
 
-
   const [isOpen, setIsOpen] = useState(false);
   const showDialog = () => {
     setIsOpen(true);
@@ -155,6 +155,9 @@ const AddModalMinutesOfMeeting = (props) => {
   const hideDialog = () => {
     setIsOpen(false);
   };
+
+  const [isAppear, setIsAppear] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const handleFormChangeNotes = (value, index) => {
     const dataNotes = notes.map((notesItem, notesIndex) => {
@@ -236,9 +239,13 @@ const AddModalMinutesOfMeeting = (props) => {
     const isValid = validate();
     if (isValid) {
       //to show toast when sucesss create MOM
-      var x = document.getElementById("snackbar");
-      x.className = "show";
-      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      // var x = document.getElementById("snackbar");
+      // x.className = "show";
+      // setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+
+      // Display snackbar with success message
+      setIsAppear(true);
+      setSnackbarMessage('Minute of Meeting added successfully!');
 
       updateTotal();
 
@@ -265,7 +272,10 @@ const AddModalMinutesOfMeeting = (props) => {
     <>
       <div className="add-button">
         <Button label="+ Add Meeting" onClick={showDialog} />
-        <div id="snackbar">Minute of Meeting created successfully</div>
+        {/* <div id="snackbar">Minute of Meeting created successfully</div> */}
+        {isAppear ? (
+          <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
+        ) : null}
       </div>
 
       <>

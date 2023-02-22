@@ -56,9 +56,9 @@ const DeleteModalMinuteOfMeeting = (props) => {
         // }
 
         //to show toast when sucesss delete MOM
-        var x = document.getElementById("snackbardel");
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        // var x = document.getElementById("snackbardel");
+        // x.className = "show";
+        // setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 
         hideDialog();
     };
@@ -69,7 +69,7 @@ const DeleteModalMinuteOfMeeting = (props) => {
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
                     <IconDelete />
                 </button>
-                <div id="snackbardel">Minute of Meeting deleted successfully</div>
+                {/* <div id="snackbardel">Minute of Meeting deleted successfully</div> */}
             </div>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40" onClose={hideDialog}>

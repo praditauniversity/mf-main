@@ -53,9 +53,9 @@ const DeleteModalGantt = (props) => {
         }
 
         //to show toast when sucesss delete gantt
-        var x = document.getElementById("snackbardel");
-        x.className = "show";
-        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        // var x = document.getElementById("snackbardel");
+        // x.className = "show";
+        // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         hideDialog();
     };
 
@@ -66,7 +66,7 @@ const DeleteModalGantt = (props) => {
                 className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
                 id="icon"
             >
-            <div id="snackbardel">Gantt deleted successfully</div>
+            {/* <div id="snackbardel">Gantt deleted successfully</div> */}
                 <IconDelete />
             </button>
             <Transition appear show={isOpen} as={Fragment}>

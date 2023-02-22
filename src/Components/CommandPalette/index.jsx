@@ -3,12 +3,14 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Combobox, Dialog, Transition } from '@headlessui/react'
 import React, { Fragment, useEffect, useState } from 'react'
-import FetchProject from '../../Middleware/Fetchers/FetchProject'
+import FetchProjectByUserId from '../../Middleware/Fetchers/FetchProjectByUserId'
 
 const CommandPalette = () => {
-    const projects = FetchProject();
+    const projects = FetchProjectByUserId();
+
     const [isOpen, setIsOpen] = useState(false)
     const [query, setQuery] = useState('')
+
     const filteredOptions = query ?
         projects.filter((project) => project.name.toLowerCase().startsWith(query.toLowerCase())) :
         projects;
@@ -25,7 +27,7 @@ const CommandPalette = () => {
 
     return (
         <Transition appear show={isOpen} as={Fragment}>
-            <Dialog open={isOpen} onClose={setIsOpen} className="fixed inset-0 z-10 overflow-y-auto pt-[25vh]" >
+            <Dialog open={isOpen} onClose={setIsOpen} className="fixed inset-0 z-40 overflow-y-auto pt-[25vh]" >
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -50,7 +52,9 @@ const CommandPalette = () => {
                     <Combobox
                         onChange={(project) => {
                             console.log(project.ID)
+                            localStorage.setItem('projectID', project.ID)
                             window.location.href = `/#/projectdashboard`
+                            window.location.reload();
                         }}
                         as="div"
                         className='relative mx-auto max-w-xl rounded-md shadow-md ring-1 ring-dark/5 bg-white z-10'

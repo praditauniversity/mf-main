@@ -6,7 +6,25 @@ import { InputField, SelectField, MenuItem, SelectorField } from "../Input/Input
 import { REGISTER } from "../../Middleware/GraphQL/mutations";
 
 export const RegisterHandler = () => {
-    const [register, { error: registerError }] = useMutation(REGISTER);
+    const [register, { error: registerError }] = useMutation(REGISTER, {
+        onCompleted: (data) => {
+            console.log("Registration successful!", data);
+            handleRegisterSuccess();
+        },
+        onError: (error) => {
+            console.log("Register Error :", JSON.stringify(error, null, 2));
+
+            if (error.graphQLErrors && error.graphQLErrors.length > 0) {
+                const errorMessage = error.graphQLErrors[0].message; // HTTP Error: 500, Could not invoke operation POST /register
+                const errorDetails = error.graphQLErrors[0].extensions.responseBody.errors.error;
+                const errorText = `Error: \n${errorMessage}\n\n Error Details:\n${JSON.stringify(errorDetails, null, 2)}`;
+                alert(errorText);
+            } else {
+                console.log("Register Error :", JSON.stringify(error));
+            }
+        }
+    });
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [testate, settestate] = useState('');
@@ -28,7 +46,6 @@ export const RegisterHandler = () => {
         { id: 1, name: 'Male', value: "Male", unavailable: false },
         { id: 2, name: 'Female', value: "Female", unavailable: false },
     ]
-    console.log("Error Register", JSON.stringify(registerError))
 
     const inputRefGender = useRef(null);
 
@@ -94,11 +111,6 @@ export const RegisterHandler = () => {
                 created_by: 'user',
             });
             // alert("Register Success");
-
-            //to show toast when sucesss create report
-            var x = document.getElementById("snackbar");
-            x.className = "show";
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         }
 
         e.preventDefault();
@@ -118,6 +130,13 @@ export const RegisterHandler = () => {
         setLoading(false);
     }
 
+    function handleRegisterSuccess() {
+        //to show toast when sucesss create report
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        setTimeout(function () { window.location.href = '/#/login'; }, 3000);
+    }
 
     return (
         <>
@@ -168,7 +187,7 @@ export const RegisterHandler = () => {
 
                 <div id="snackbar">Register success</div>
             </form>
-            
+
         </>
     );
 }

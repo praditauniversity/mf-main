@@ -10,8 +10,9 @@ import {
   IconSaveForm,
 } from "../../../Icons/icon";
 import { DatePickerField } from "../../../Input/Input";
+import Snackbar from "../../../Snackbar/Snackbar";
 import "./AddModal.css";
-import './toast.css';
+import './toastDR.css';
 
 const ADD_DAILY_REPORT = gql`
   mutation addDailyReport(
@@ -83,6 +84,18 @@ const AddModalDailyReport = (props) => {
     return true;
   };
 
+  const [isAppear, setIsAppear] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  // useEffect(() => {
+  //   if (snackbarMessage !== '') {
+  //     const timer = setTimeout(() => {
+  //       setSnackbarMessage('');
+  //     }, 3000); // Snackbar will disappear after 3 seconds
+
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [snackbarMessage]);
 
   const { page, limit, sort, total, updateTotal, totalPages } = props;
 
@@ -288,9 +301,13 @@ const AddModalDailyReport = (props) => {
     const isValid = validate();
     if (isValid) {
       //to show toast when sucesss create report
-      var x = document.getElementById("snackbar");
-      x.className = "show";
-      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+      // var x = document.getElementById("snackbar");
+      // x.className = "show";
+      // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+      // Display snackbar with success message
+      setIsAppear(true);
+      setSnackbarMessage('Daily Report added successfully!');
 
       updateTotal();
 
@@ -312,7 +329,10 @@ const AddModalDailyReport = (props) => {
 
       <div className="add-button">
         <Button label="+ Add Report" onClick={showDialog} />
-        <div id="snackbar">Daily report created successfully</div>
+        {/* <div id="snackbar">Daily report created successfully</div> */}
+        {isAppear ? (
+          <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
+        ) : null}
       </div>
       <>
         <Transition appear show={isOpen} as={Fragment}>

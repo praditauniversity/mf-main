@@ -102,7 +102,7 @@ const DRList = (props) => {
                         <td align="center">{reportDateYear}/{reportDateMonth}/{reportDateDay}</td>
                         <td align="center">None</td>
                         <td align="center">
-                          <button className="px-1" id="icon">
+                          <button className="px-1" id="">
                             <UpdateModalDailyReport
                               reportData={dailyReport}
                               page={page}
@@ -110,7 +110,7 @@ const DRList = (props) => {
                               sort={sort}
                             />
                           </button>
-                          <button className="px-1" id="icon">
+                          <button className="px-1" id="">
                             <DeleteModalReport
                               reportID={String(dailyReport.ID)}
                               reportName={dailyReport.name}
@@ -124,7 +124,7 @@ const DRList = (props) => {
                               // setDataEmpty={setDataEmpty}
                             />
                           </button>
-                          <button className="px-1" id="icon">
+                          <button className="px-1" id="">
                             <ViewModalReport
                               reportName={dailyReport.name}
                               reportDesc={dailyReport.description}

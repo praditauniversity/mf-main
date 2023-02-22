@@ -95,7 +95,7 @@ const PCList = (props) => {
                                     <td align="center">{startProjectMonth}/{startProjectDay}/{startProjectYear}</td>
                                     <td align="center">{endProjectMonth}/{endProjectDay}/{endProjectYear}</td>
                                     <td align="center">
-                                        <button className="" id="icon">
+                                        <button className="" id="">
                                             <UpdateModalProject
                                                 projectData={item}
                                                 page={page}
@@ -103,7 +103,7 @@ const PCList = (props) => {
                                                 sort={sort}
                                             />
                                         </button>
-                                        <button className="" id="icon">
+                                        <button className="" id="">
                                             <DeleteModalProject
                                                 projectID={String(item.ID)}
                                                 projectName={item.name}
@@ -117,7 +117,7 @@ const PCList = (props) => {
                                                 // setEmpty={setCharterDataEmpty}
                                             />
                                         </button>
-                                        <button className="" id="icon">
+                                        <button className="" id="">
                                             <ViewModalCharter
                                                 charterID={item.ID}
                                                 charterName={item.name}

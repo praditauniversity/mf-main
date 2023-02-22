@@ -11,6 +11,8 @@ import {
 import "./UpdateModal.css";
 import { DatePickerField, TimePickerField } from "../../../Input/Input";
 import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../../GraphQL/Queries";
+import Snackbar from "../../../Snackbar/Snackbar";
+import '../AddModal/toast.css'
 
 const UPDATE_MINUTES_OF_MEETING = gql`
 mutation updateMinuteOfMeeting (
@@ -100,6 +102,9 @@ const UpdateModalMinutesOfMeeting = (props) => {
 
         return true;
     };
+
+    const [isAppear, setIsAppear] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
 
     const [updateMinutesOfMeeting,{ loading, error },] = useMutation(UPDATE_MINUTES_OF_MEETING, 
         {
@@ -212,9 +217,12 @@ const UpdateModalMinutesOfMeeting = (props) => {
         const isValid = validate();
         if (isValid) {
             //to show toast when sucesss update MOM
-            var x = document.getElementById("snackbarupd");
-            x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            // var x = document.getElementById("snackbarupd");
+            // x.className = "show";
+            // setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+
+            setIsAppear(true);
+            setSnackbarMessage('Minute of Meeting updated successfully!');
 
             hideDialog();
             setErrorValidate("");
@@ -222,7 +230,15 @@ const UpdateModalMinutesOfMeeting = (props) => {
     };
     return (
         <>
-            <div className="flex flex-row items-center justify-center">
+           {!isOpen && isAppear && (
+                <div id="">
+                    <Snackbar
+                        message={snackbarMessage}
+                        onClose={() => { setIsAppear(false); setSnackbarMessage(''); }}
+                    />
+                </div>
+            )}
+            <div className="flex flex-row items-center justify-center" id="">
                 <button
                     onClick={showDialog}
                     className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
@@ -230,7 +246,7 @@ const UpdateModalMinutesOfMeeting = (props) => {
                 >
                     <IconEdit />
                 </button>
-                <div id="snackbarupd">Minute of Meeting updated successfully</div>
+                {/* <div id="snackbarupd">Minute of Meeting updated successfully</div> */}
             </div>
 
             <>

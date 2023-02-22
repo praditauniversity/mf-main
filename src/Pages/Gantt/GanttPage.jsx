@@ -93,7 +93,16 @@ const GanttPage = () => {
                 <table className="table w-full h-full">
                     {/* <!-- head --> */}
                     <thead>
-                        <TableHeader />
+                        {/* <TableHeader /> */}
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Duration</th>
+                            <th>Version</th>
+                            <th>Action Badge</th>
+                            <th className='normal-case'><AddModalGantt /></th>
+                        </tr>
                     </thead>
                     <tbody>
                         {ganttData.map((gantt) => (
