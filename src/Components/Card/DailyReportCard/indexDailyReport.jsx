@@ -81,7 +81,8 @@ const DailyReportPage = (props) => {
 
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
-            {console.log("Daily report items total: " + totalItems)}
+            {/* Snackbar */}
+            <div id="snackbardel">Daily Report deleted successfully!</div>
             <div>
                 <div className="pt-4 pb-0 flex justify-between">
                     <div className="flex justify-start">

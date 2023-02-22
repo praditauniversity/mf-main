@@ -96,6 +96,12 @@ const AddModalGantt = () => {
             hideDialog();
             
             setErrorValidate("");
+
+            setName("");
+            setDescription("");
+            setVersion(0);
+            setStartTime(new Date());
+            setEndTime(new Date());
         }
         if (addGanttError) {
             console.log(JSON.stringify(addGanttError, null, 2));

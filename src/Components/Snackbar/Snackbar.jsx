@@ -28,8 +28,8 @@ function Snackbar({ message, onClose }) {
     <div className={`snackbar ${showSnackbar ? 'show' : ''}`}>
       {/* <div className="bg-primary text-white rounded-lg shadow-md p-4">
         <div className="flex items-center justify-between"> */}
-          <div className="text-sm">{message}</div>
-          {/* <span className="message">{message}</span> */}
+          {/* <div className="text-sm">{message}</div> */}
+          <span className="message">{message}</span>
           {/* <button className="close-btn" onClick={handleClose}>
             &times;
           </button> */}

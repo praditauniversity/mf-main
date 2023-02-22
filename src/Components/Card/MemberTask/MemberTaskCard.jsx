@@ -19,10 +19,16 @@ const MemberTaskCard = () => {
 
     const ifMemberTaskEmpty = () => {
         if (dataLength === 0) {
+            // fill the table with white space
             return (
-                <div className="flex justify-center items-center h-full">
-                    <p className="text-lg font-semibold">No task assigned</p>
-                </div>
+                <tr className="h-full" >
+                    <td colSpan="7" className="text-center ">
+                        <div className="text-gray-400">
+                            <div className="text-5xl font-bold">No Task Assigned</div>
+                            <div className="text-xl">Please take your time</div>
+                        </div>
+                    </td>
+                </tr>
             )
         }
     }

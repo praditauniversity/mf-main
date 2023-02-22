@@ -82,10 +82,10 @@ const DeleteModalProject = (props) => {
         //     setEmpty();
         // }
 
-        //to show toast when sucesss create project
-        // var x = document.getElementById("snackbardel");
-        // x.className = "show";
-        // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        // to show toast when sucesss create project
+        var x = document.getElementById("snackbardel");
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
         hideDialog();
 
@@ -98,7 +98,6 @@ const DeleteModalProject = (props) => {
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
                     <IconDelete />
                 </button>
-                {/* <div id="snackbardel">Project deleted successfully</div> */}
             </div>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40" onClose={hideDialog}>

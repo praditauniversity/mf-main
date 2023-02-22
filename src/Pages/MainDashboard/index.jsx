@@ -43,8 +43,8 @@ const MainDashboard = () => {
     return (
         <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-9 xl:grid-cols-12 2xl:grid-cols-18 lg:mt-0 mt-2 mb-7">
             {/* Snackbar */}
-            <div id="snackbarupd">Task updated successfully</div>
-            <div id="snackbardel">Task deleted successfully</div>
+            <div id="snackbarupd">Task updated successfully!</div>
+            <div id="snackbardel">Task deleted successfully!</div>
             <div className="2xl:col-span-12 col-span-12 h-100">
                 <div className="col-span-12 ml-5 mb-10 mr-5 h-100">
                     <div className="flex items-center mb-3 mt-3">
