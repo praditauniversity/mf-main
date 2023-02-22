@@ -7,12 +7,16 @@ import DeleteModalMinuteOfMeeting from "../../Modal/MinutesOfMeetingModal/Delete
 import UpdateModalMinutesOfMeeting from "../../Modal/MinutesOfMeetingModal/UpdateModal/UpdateModal";
 import ViewModalMOM from "../../Modal/MinutesOfMeetingModal/ViewModal/ViewModal";
 import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../GraphQL/Queries";
+import FetchProjectById from "../../../Middleware/Fetchers/FetchProjectById";
 
 
 const MinutesofMeetingList = (props) => {
   const { page, limit, sort, totalItems, updateTotalItems, onPageChange, totalPages } = props;
 
   const projectData = FetchProjectByUserId();
+
+  const projectID = localStorage.getItem('momProjectID');
+  const projectPerID = FetchProjectById({ projectID });
 
   const { data } = useQuery(GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID, {
     variables: { projectId: String(localStorage.getItem('momProjectID')), page: String(page), limit: String(limit), sort: String(sort) },
@@ -29,7 +33,7 @@ const MinutesofMeetingList = (props) => {
     } else {
       console.log("No data found for Minutes of Meeting with project id " + localStorage.getItem('momProjectID'));
     }
-  }, [data]);
+  }, [data, projectPerID]);
 
   const dataLength = momData.filter((mom) => {
     return projectData.filter((project) => {

@@ -8,6 +8,7 @@ import UpdateModalDailyReport from "../../Modal/DailyReportModal/UpdateModal/Upd
 import DeleteModalReport from "../../Modal/DailyReportModal/DeleteModal/DeleteModal";
 import ViewModalReport from "../../Modal/DailyReportModal/ViewModal/ViewModal";
 import { GET_DAILY_REPORT_DATA_BY_PROJECT_ID } from "../../GraphQL/Queries";
+import FetchProjectById from "../../../Middleware/Fetchers/FetchProjectById";
 
 
 const DRList = (props) => {
@@ -15,6 +16,10 @@ const DRList = (props) => {
   const projectData = FetchProject();
   const ganttData = FetchGantt();
   const activityData = FetchActivity();
+
+  const projectID = localStorage.getItem('momProjectID');
+  const projectPerID = FetchProjectById({ projectID });
+
   const { data } = useQuery(GET_DAILY_REPORT_DATA_BY_PROJECT_ID, {
     variables: { projectId: String(localStorage.getItem('reportProjectID')), page: String(page), limit: String(limit), sort: String(sort) },
     pollInterval: 1000,
@@ -28,7 +33,7 @@ const DRList = (props) => {
     } else {
       console.log("No data found for daily report with project id " + localStorage.getItem('reportProjectID'));
     }
-  }, [data]);
+  }, [data, projectPerID]);
 
   const dataLength = dailyReportData.filter((dailyReport) => {
     return activityData.filter((activity) => {
