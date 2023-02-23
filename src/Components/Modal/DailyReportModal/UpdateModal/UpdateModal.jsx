@@ -286,13 +286,13 @@ const UpdateModalDailyReport = (props) => {
     const isValid = validate();
     if (isValid) {
       //to show toast when sucesss update report
-      // var x = document.getElementById("snackbarupd");
-      // x.className = "show";
-      // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+      var x = document.getElementById("snackbarupd");
+      x.className = "show";
+      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
       // Display snackbar with success message
-      setIsAppear(true);
-      setSnackbarMessage('Daily Report updated successfully!');
+      // setIsAppear(true);
+      // setSnackbarMessage('Daily Report updated successfully!');
 
       hideDialog();
       setErrorValidate("")
@@ -584,10 +584,10 @@ const UpdateModalDailyReport = (props) => {
           </div>
         </Dialog>
       </Transition>
-
+{/* 
       <div id="">
         {isAppear ? <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} /> : null}
-      </div>
+      </div> */}
 
     </>
   );
