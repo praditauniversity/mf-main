@@ -453,7 +453,7 @@ const UpdateModalDailyReport = (props) => {
                                 <div className="flex justify-start gap-3">
                                   <input
                                     className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
-                                    name="name (*)"
+                                    name="name"
                                     placeholder="Enter name"
                                     value={input.name}
                                     onChange={(event) =>

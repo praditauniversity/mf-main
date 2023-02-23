@@ -330,7 +330,7 @@ const AddModalDailyReport = (props) => {
     <>
 
       <div className="add-button">
-        <Button label="+ Add Report" onClick={showDialog} />
+        <Button label="+ Add Report" onClick={localStorage.getItem("reportProjectID") !== null ? showDialog : () => { window.alert("Please select a project first. If you don't have any, please create one.") } } />
         {/* <div id="snackbar">Daily report created successfully</div> */}
         {/* {isAppear ? (
           <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
