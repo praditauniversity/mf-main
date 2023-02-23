@@ -48,9 +48,10 @@ const DeleteModalGantt = (props) => {
             console.log(JSON.stringify(deleteGanttError, null, 2));
         }
 
-        if (String(ganttID) === localStorage.getItem('ganttID')) {
-            localStorage.removeItem('ganttID');
-        }
+        // if (String(ganttID) === localStorage.getItem('ganttID')) {
+        //     localStorage.removeItem('ganttID');
+        // }
+        localStorage.removeItem('ganttID');
 
         //to show toast when sucesss delete gantt
         var x = document.getElementById("snackbardel");

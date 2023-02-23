@@ -12,7 +12,7 @@ import "./UpdateModal.css";
 import { DatePickerField, TimePickerField } from "../../../Input/Input";
 import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../../GraphQL/Queries";
 import Snackbar from "../../../Snackbar/Snackbar";
-import '../AddModal/toast.css'
+import "../../../Snackbar/toast.css";
 
 const UPDATE_MINUTES_OF_MEETING = gql`
 mutation updateMinuteOfMeeting (

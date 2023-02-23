@@ -8,7 +8,7 @@ import {
   IconSaveForm,
 } from "../../../Icons/icon";
 import "./AddModal.css";
-import './toast.css';
+import "../../../Snackbar/toast.css";
 import { DatePickerField, TimePickerField } from "../../../Input/Input";
 import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../../GraphQL/Queries";
 import Button from "../../../Button";
@@ -265,6 +265,8 @@ const AddModalMinutesOfMeeting = (props) => {
       setOwner([""]);
       setDeadline([""]);
       setStatus([""]);
+      
+      setInputFields([{ action_item: "", owner: "", deadline: "", status: "" }]);
     }
 
   };

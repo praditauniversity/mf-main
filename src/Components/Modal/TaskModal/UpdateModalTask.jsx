@@ -9,6 +9,8 @@ import { GET_ACTIVITY_DATA } from '../../GraphQL/Queries';
 // import './toast.css';
 import Snackbar from '../../Snackbar/Snackbar';
 
+import "../../Snackbar/toast.css";
+
 const UpdateModalTask = (props) => {
     const { taskData, icon } = props;
     const [isOpen, setIsOpen] = useState(false);

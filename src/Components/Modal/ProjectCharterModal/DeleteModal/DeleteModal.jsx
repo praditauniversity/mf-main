@@ -5,7 +5,7 @@ import '../../../../Assets/svgbutton/svgbutton.css'
 import { IconDelete, IconSaveForm } from '../../../Icons/icon';
 import { GET_PROJECT_DATA_BY_USER_ID } from '../../../GraphQL/Queries';
 import GetProfile from '../../../Auth/GetProfile';
-import '../AddModal/toast.css';
+import "../../../Snackbar/toast.css";
 
 const DELETE_PROJECTCHARTER = gql`
 mutation DeleteProject($id: String!) {
@@ -41,6 +41,14 @@ const DeleteModalProject = (props) => {
         console.error(JSON.stringify(deleteCharterError));
       }
 
+    function clearProjectIdFromLocalStorage() {
+      localStorage.removeItem('projectID');
+      localStorage.removeItem("ganttID");
+      localStorage.removeItem("TPEID");
+      localStorage.removeItem("reportProjectID");
+      localStorage.removeItem("momProjectID");
+    }   
+
     const handleDelete = (e) => {
         e.preventDefault();
 
@@ -51,22 +59,24 @@ const DeleteModalProject = (props) => {
         });
         // client.cache.reset();
 
-        if (String(projectID) === localStorage.getItem('projectID')) {
-            localStorage.removeItem('projectID');
-            localStorage.removeItem('ganttID');
-        }
+        // if (String(projectID) === localStorage.getItem('projectID')) {
+        //     localStorage.removeItem('projectID');
+        //     localStorage.removeItem('ganttID');
+        // }
 
-        if (String(projectID) === localStorage.getItem('TPEID')) {
-            localStorage.removeItem('TPEID');
-        }
+        // if (String(projectID) === localStorage.getItem('TPEID')) {
+        //     localStorage.removeItem('TPEID');
+        // }
 
-        if (String(projectID) === localStorage.getItem('reportProjectID')) {
-            localStorage.removeItem('reportProjectID');
-        }
+        // if (String(projectID) === localStorage.getItem('reportProjectID')) {
+        //     localStorage.removeItem('reportProjectID');
+        // }
 
-        if (String(projectID) === localStorage.getItem('momProjectID')) {
-            localStorage.removeItem('momProjectID');
-        }
+        // if (String(projectID) === localStorage.getItem('momProjectID')) {
+        //     localStorage.removeItem('momProjectID');
+        // }
+
+        clearProjectIdFromLocalStorage();
 
         if (deleteCharterError) {
             console.log(JSON.stringify(deleteCharterError, null, 2));

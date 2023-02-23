@@ -8,7 +8,7 @@ import { DatePickerField, InputField, InputFieldFocus } from '../../../Input/Inp
 import './UpdateModal.css';
 import GetProfile from "../../../Auth/GetProfile";
 import Snackbar from "../../../Snackbar/Snackbar";
-import '../../../Snackbar/Snackbar.css';
+import "../../../Snackbar/toast.css";
 
 const UPDATE_CHARTER = gql`
     mutation updateProject(

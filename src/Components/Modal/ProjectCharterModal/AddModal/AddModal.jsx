@@ -6,7 +6,7 @@ import '../../../../Assets/svgbutton/svgbutton.css';
 import { IconDeleteForm, IconPlusForm, IconSaveForm } from '../../../Icons/icon';
 import { DatePickerField, InputField, InputFieldFocus } from '../../../Input/Input';
 import './AddModal.css';
-import './toast.css';
+import "../../../Snackbar/toast.css";
 import Button from "../../../Button";
 import GetProfile from "../../../Auth/GetProfile";
 import Snackbar from "../../../Snackbar/Snackbar";

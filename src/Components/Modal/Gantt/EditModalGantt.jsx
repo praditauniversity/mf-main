@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { IconDateForm, IconEdit, IconSaveForm } from '../../Icons/icon';
 import './AddModal.css';
-import './toast.css'
+import "../../Snackbar/toast.css";
 import GetProfile from '../../Auth/GetProfile';
 import { UPDATE_GANTT } from '../../../Middleware/GraphQL/mutations';
 import { useQuery, useMutation } from "@apollo/client";

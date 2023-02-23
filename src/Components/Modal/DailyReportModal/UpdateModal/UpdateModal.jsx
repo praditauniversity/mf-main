@@ -13,7 +13,7 @@ import {
 import { DatePickerField } from "../../../Input/Input";
 import "./UpdateModal.css";
 import Snackbar from "../../../Snackbar/Snackbar";
-import '../../../Snackbar/Snackbar.css';
+import "../../../Snackbar/toast.css";
 
 const UPDATE_DAILY_REPORT = gql`
 mutation updateDailyreports(

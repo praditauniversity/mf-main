@@ -12,7 +12,7 @@ import {
 import { DatePickerField } from "../../../Input/Input";
 import Snackbar from "../../../Snackbar/Snackbar";
 import "./AddModal.css";
-import './toastDR.css';
+import "../../../Snackbar/toast.css";
 
 const ADD_DAILY_REPORT = gql`
   mutation addDailyReport(
@@ -321,6 +321,8 @@ const AddModalDailyReport = (props) => {
       setActivityId(0);
       setProjectId(String(localStorage.getItem("reportProjectID")));
       setReportDate(new Date());
+
+      setInputFields([{ name: "", description: "", status: "", hour: "" }]);
     }
   };
 

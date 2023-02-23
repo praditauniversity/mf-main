@@ -7,7 +7,8 @@ const MemberTaskCard = () => {
     const projectData = FetchProjectByUserId();
     const ganttData = FetchGantt();
     const activityData = FetchActivity();
-    const dataLength = activityData.filter((activity) => {
+
+    const dataFilter = activityData.filter((activity) => {
         return ganttData.filter((gantt) => {
             return gantt.ID === activity.gantt_id
         }).filter((gantt) => {
@@ -15,7 +16,12 @@ const MemberTaskCard = () => {
                 return project.ID === gantt.project_id
             }).length > 0
         }).length > 0
-    }).length
+    })
+
+    const dataLength = dataFilter.length;
+
+    const sliced = 6;
+    const filteredData = dataFilter.slice(0, sliced);
 
     const ifMemberTaskEmpty = () => {
         if (dataLength === 0) {
@@ -51,7 +57,7 @@ const MemberTaskCard = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
+                        {/* {
                             projectData.map((project) => {
                                 return ganttData.map((gantt) => {
                                     return activityData.map((activity, index) => {
@@ -73,10 +79,51 @@ const MemberTaskCard = () => {
                                     })
                                 })
                             })
+                        } */}
+                        {
+                            filteredData.map((activity, index) => {
+                                const deadline = new Date(activity.end_time);
+                                const deadlineYear = deadline.toLocaleDateString('en-US', { year: 'numeric' });
+                                const deadlineMonth = deadline.toLocaleDateString('en-US', { month: '2-digit' });
+                                const deadlineDay = deadline.toLocaleDateString('en-US', { day: '2-digit' });
+                                return (
+                                    <tr key={index}>
+                                        <td align="center">{activity.name}</td>
+                                        <td align="center">{projectData.filter((project) => {
+                                            return ganttData.filter((gantt) => {
+                                                return gantt.ID === activity.gantt_id
+                                            }).filter((gantt) => {
+                                                return project.ID === gantt.project_id
+                                            }).length > 0
+                                        }).map((project) => {
+                                            return project.name
+                                        })}</td>
+                                        <td align="center">{projectData.filter((project) => {
+                                            return ganttData.filter((gantt) => {
+                                                return gantt.ID === activity.gantt_id
+                                            }).filter((gantt) => {
+                                                return project.ID === gantt.project_id
+                                            }).length > 0
+                                        }).map((project) => {
+                                            return project.project_manager
+                                        })}</td>
+                                        <td align="center">{deadlineYear}/{deadlineMonth}/{deadlineDay}</td>
+                                        <td align="center">{activity.progress_percentage}%</td>
+                                    </tr>
+                                )
+                            })
                         }
                         {ifMemberTaskEmpty()}
                     </tbody>
                 </table>
+                { dataLength > sliced ?
+                    <div className="flex justify-end pr-8 py-6">
+                        <button className="font-semibold text-sm text-primary">
+                            <a href={`/#/project-list/${localStorage.getItem('projectID')}/gantt/${localStorage.getItem('ganttID')}/gantt-chart`}>View All Tasks</a>
+                        </button>
+                    </div>
+                : null
+                }
             </div>
         </div>
     )

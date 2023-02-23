@@ -34,8 +34,9 @@ const TaskListCard = (props) => {
             )
         }
     }
+    const sliced = 10;
     return (
-        <div className="rounded-xl shadow-lg bg-white pt-6 h-[575px]">
+        <div className="rounded-xl shadow-lg bg-white pt-6">
             <div className="flex justify-start pl-8 pb-6">
                 <p className="text-lg font-semibold">Task List</p>
             </div>
@@ -82,11 +83,19 @@ const TaskListCard = (props) => {
                                     </tr>  
                                 )
                             })
+                                .slice(0, sliced)
                         }
                         {ifTaskDataEmpty()}
-                        {filler()}
                     </tbody>
                 </table>
+                { dataTask.length > sliced ?
+                    <div className="flex justify-end pr-8 py-6">
+                        <button className="font-semibold text-sm text-primary">
+                            <a href={`/#/project-list/${localStorage.getItem('projectID')}/gantt/${localStorage.getItem('ganttID')}/gantt-chart`}>View All Tasks</a>
+                        </button>
+                    </div>
+                : filler()
+                }
             </div>
 
         </div>

@@ -2,7 +2,7 @@ import React, { Fragment, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { IconPlus, IconSaveForm } from '../../Icons/icon';
 import './AddModal.css'
-import './toast.css';
+import "../../Snackbar/toast.css";
 import GetProfile from '../../Auth/GetProfile';
 import { ADD_GANTT } from '../../../Middleware/GraphQL/mutations';
 import { useMutation } from "@apollo/client";
@@ -10,6 +10,7 @@ import { DatePickerField, InputField, InputFieldFocus } from '../../Input/Input'
 import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 import { useParams } from 'react-router-dom';
 import Snackbar from '../../Snackbar/Snackbar';
+
 
 
 const AddModalGantt = () => {
