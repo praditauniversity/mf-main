@@ -89,6 +89,8 @@ const GanttPage = () => {
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4 flex min-full">
             {/* Snackbar */}
+            <div id="snackbar">Gantt created successfully!</div>
+            <div id="snackbarupd">Gantt updated successfully!</div>
             <div id="snackbardel">Gantt deleted successfully!</div>
             <div className="overflow-y-auto overflow-x-auto w-full h-500">
 

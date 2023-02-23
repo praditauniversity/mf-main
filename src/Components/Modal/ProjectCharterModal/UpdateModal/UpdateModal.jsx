@@ -368,13 +368,13 @@ const UpdateModalProject = (props) => {
         const isValid = validate();
         if (isValid) {
             //to show toast when sucesss update project
-            // var x = document.getElementById("snackbarupd");
-            // x.className = "show";
-            // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            var x = document.getElementById("snackbarupd");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
 
-            setIsAppear(true);
-            setSnackbarMessage('Project Charter updated successfully!');
+            // setIsAppear(true);
+            // setSnackbarMessage('Project Charter updated successfully!');
 
             setErrorValidate("");
 
@@ -561,9 +561,9 @@ const UpdateModalProject = (props) => {
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
                     <IconEdit />
                 </button>
-                <div id="">
+                {/* <div id="">
                     {isAppear ? <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} /> : null}
-                </div>
+                </div> */}
                 {/* <div id="snackbarupd">Project updated successfully</div> */}
             </div>
 

@@ -216,13 +216,13 @@ const UpdateModalMinutesOfMeeting = (props) => {
 
         const isValid = validate();
         if (isValid) {
-            //to show toast when sucesss update MOM
-            // var x = document.getElementById("snackbarupd");
-            // x.className = "show";
-            // setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            // to show toast when sucesss update MOM
+            var x = document.getElementById("snackbarupd");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 
-            setIsAppear(true);
-            setSnackbarMessage('Minute of Meeting updated successfully!');
+            // setIsAppear(true);
+            // setSnackbarMessage('Minute of Meeting updated successfully!');
 
             hideDialog();
             setErrorValidate("");
@@ -230,14 +230,14 @@ const UpdateModalMinutesOfMeeting = (props) => {
     };
     return (
         <>
-           {!isOpen && isAppear && (
+           {/* {!isOpen && isAppear && (
                 <div id="">
                     <Snackbar
                         message={snackbarMessage}
                         onClose={() => { setIsAppear(false); setSnackbarMessage(''); }}
                     />
                 </div>
-            )}
+            )} */}
             <div className="flex flex-row items-center justify-center" id="">
                 <button
                     onClick={showDialog}

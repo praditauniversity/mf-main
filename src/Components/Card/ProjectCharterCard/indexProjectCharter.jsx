@@ -48,6 +48,8 @@ const ProjectCharterPage = (props) => {
     return (
         <div className="rounded-xl shadow-lg bg-white py-4 px-4">
             {/* Snackbar */}
+            <div id="snackbar">Project created successfully!</div>
+            <div id="snackbarupd">Project updated successfully!</div>
             <div id="snackbardel">Project deleted successfully!</div>
             <div>
                 <div className="pt-4 pb-0 flex justify-between">

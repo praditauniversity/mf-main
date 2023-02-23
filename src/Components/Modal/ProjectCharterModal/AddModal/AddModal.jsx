@@ -375,12 +375,12 @@ const AddModalProjectCharter = (props) => {
         const isValid = validate();
         if (isValid) {
             //to show toast when sucesss create project
-            // var x = document.getElementById("snackbar");
-            // x.className = "show";
-            // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
-            setIsAppear(true);
-            setSnackbarMessage('Project Charter added successfully!');
+            // setIsAppear(true);
+            // setSnackbarMessage('Project Charter added successfully!');
 
             updateTotal();
 
@@ -587,9 +587,9 @@ const AddModalProjectCharter = (props) => {
             <div className="add-button">
                 <Button label="+ Add Charter" onClick={showDialog} />
                 {/* <div id="snackbar">Project created successfully</div> */}
-                {isAppear ? (
+                {/* {isAppear ? (
                     <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
-                ) : null}
+                ) : null} */}
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>

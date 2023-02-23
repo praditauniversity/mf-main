@@ -301,13 +301,13 @@ const AddModalDailyReport = (props) => {
     const isValid = validate();
     if (isValid) {
       //to show toast when sucesss create report
-      // var x = document.getElementById("snackbar");
-      // x.className = "show";
-      // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
       // Display snackbar with success message
-      setIsAppear(true);
-      setSnackbarMessage('Daily Report added successfully!');
+      // setIsAppear(true);
+      // setSnackbarMessage('Daily Report added successfully!');
 
       updateTotal();
 
@@ -330,9 +330,9 @@ const AddModalDailyReport = (props) => {
       <div className="add-button">
         <Button label="+ Add Report" onClick={showDialog} />
         {/* <div id="snackbar">Daily report created successfully</div> */}
-        {isAppear ? (
+        {/* {isAppear ? (
           <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
-        ) : null}
+        ) : null} */}
       </div>
       <>
         <Transition appear show={isOpen} as={Fragment}>

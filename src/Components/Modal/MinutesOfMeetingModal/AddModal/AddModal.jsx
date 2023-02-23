@@ -239,13 +239,13 @@ const AddModalMinutesOfMeeting = (props) => {
     const isValid = validate();
     if (isValid) {
       //to show toast when sucesss create MOM
-      // var x = document.getElementById("snackbar");
-      // x.className = "show";
-      // setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 
       // Display snackbar with success message
-      setIsAppear(true);
-      setSnackbarMessage('Minute of Meeting added successfully!');
+      // setIsAppear(true);
+      // setSnackbarMessage('Minute of Meeting added successfully!');
 
       updateTotal();
 
@@ -273,9 +273,9 @@ const AddModalMinutesOfMeeting = (props) => {
       <div className="add-button">
         <Button label="+ Add Meeting" onClick={showDialog} />
         {/* <div id="snackbar">Minute of Meeting created successfully</div> */}
-        {isAppear ? (
+        {/* {isAppear ? (
           <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
-        ) : null}
+        ) : null} */}
       </div>
 
       <>

@@ -105,12 +105,12 @@ const EditModalGantt = (props) => {
         const isValid = validate();
         if (isValid) {
             //to show toast when sucesss edit gantt
-            // var x = document.getElementById("snackbarupd");
-            // x.className = "show";
-            // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            var x = document.getElementById("snackbarupd");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
-            setIsAppear(true);
-            setSnackbarMessage('Gantt updated successfully!');
+            // setIsAppear(true);
+            // setSnackbarMessage('Gantt updated successfully!');
 
             hideDialog();
             setErrorValidate("");
@@ -161,9 +161,9 @@ const EditModalGantt = (props) => {
 
     return (
         <>
-            {isAppear ? (
+            {/* {isAppear ? (
                 <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
-            ) : null}
+            ) : null} */}
             <button
                 onClick={showDialog}
                 className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"

@@ -86,12 +86,12 @@ const AddModalGantt = () => {
         if (isValid) {
             console.log("LIPAW");
             //to show toast when sucesss edit gantt
-            // var x = document.getElementById("snackbar");
-            // x.className = "show";
-            // setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            var x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
-            setIsAppear(true);
-            setSnackbarMessage('Gantt added successfully!');
+            // setIsAppear(true);
+            // setSnackbarMessage('Gantt added successfully!');
             
             hideDialog();
             
@@ -145,9 +145,9 @@ const AddModalGantt = () => {
 
     return (
         <>
-            {isAppear ? (
+            {/* {isAppear ? (
                 <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
-            ) : null}
+            ) : null} */}
             <button
                 onClick={showDialog}
                 className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
