@@ -12,9 +12,9 @@ const FetchMomByProjectId = () => {
     useEffect(() => {
         if (data) {
             setMinutesOfMeeting(data. minuteOfMeetingGetProjectID.data);
-            console.log("Minutes of Meeting data with project id " + localStorage.getItem('momProjectID') + " found");
+            // console.log("Minutes of Meeting data with project id " + localStorage.getItem('momProjectID') + " found");
         } else {
-            console.log("No data found for Minutes of Meeting with project id " + localStorage.getItem('momProjectID'));
+            // console.log("No data found for Minutes of Meeting with project id " + localStorage.getItem('momProjectID'));
         }
     }, [data]);
 

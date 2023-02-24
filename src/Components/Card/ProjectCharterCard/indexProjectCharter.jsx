@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import { IconPlus, IconEdit, IconDelete, IconFilter, IconSearch } from "../../Icons/icon";
+import { IconSearch } from "../../Icons/icon";
 import '../../../Assets/svgbutton/svgbutton.css'
-import { InputField } from "../../Input/Input";
 import TableFooter from "./TableFooter";
-import AddModalDailyReport from "../../Modal/DailyReportModal/AddModal/AddModal";
 import PCList from "./ListProjectCharterPage";
-import AddModalProjectCharter from "../../Modal/ProjectCharterModal/AddModal/AddModal";
-import { GET_PROJECT_DATA_BY_USER_ID } from "../../GraphQL/Queries";
 import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 import { useEffect } from "react";
 import FutureUpdateFilter from "../../Modal/FutureUpdateModal/Filter/FutureUpdateFilter";
@@ -27,7 +23,7 @@ const ProjectCharterPage = (props) => {
         if (projectData) {
             setTotalItems(projectData.length)
         } else {
-            console.log("projectData null");
+            console.log("Data Project Charter null");
         }
     }, [projectData])
 

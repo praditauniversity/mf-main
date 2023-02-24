@@ -16,7 +16,7 @@ export default class ProjectProgressCard extends React.Component {
                         </div>
                     </div>
                     <div className="pt-1 pb-4 flex justify-start">
-                        <p className="text-xl font-semibold place-self-center">66{/*<ProgressPercentage value={savedOption}/>*/}</p>
+                        <p className="text-xl font-semibold place-self-center">66{/* <ProgressPercentage value={savedOption}/>*/}</p>
                         <p className="text-xs opacity-70 align-text-bottom place-self-center">00 %</p>
                     </div>
                 </div>

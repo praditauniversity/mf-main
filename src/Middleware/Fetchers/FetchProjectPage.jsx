@@ -15,7 +15,7 @@ const FetchProjectPage = () => {
         if (data) {
             setProject(data.projectByUserId.Data);
         } else {
-            console.log("No data found for project");
+            
         }
     }, [data]);
 

@@ -17,10 +17,10 @@ const ProjectCharterCard = (props) => {
             <div>
                 {projectcharterdata.map((charter) => {
                     if (charter.ID !== localStorage.getItem('charterID')) {
-                        console.log("Different ID")
+                        // console.log("Different ID")
                     }
                     else {
-                        console.log("same ID");
+                        // console.log("same ID");
                     }
                     return (
                         <div key={charter.item}>

@@ -6,7 +6,7 @@ import { GET_PROJECT_DATA_BY_ID } from "./Queries";
 export function Actual(props) {
     const profile = GetProfile();
     const { value } = props;
-    console.log("Value: " + value);
+    // console.log("Value: " + value);
     const { data, loading, error, refetch } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value || '' },
         pollInterval: 1000,
@@ -15,9 +15,8 @@ export function Actual(props) {
     
     useEffect(() => {
         if (data) {
-            console.log("Data Ready - Actual");
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            // console.log("Data Ready - Actual");
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Actual");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();
@@ -66,9 +65,8 @@ export function Cost(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready - Cost");
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            // console.log("Data Ready - Cost");
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Cost");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();
@@ -118,8 +116,7 @@ export function Budget(props) {
     useEffect(() => {
         if (data) {
             console.log("Data Ready - Budget");
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Budget");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();
@@ -168,9 +165,7 @@ export function Danger(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready - Danger");
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Dange");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();
@@ -220,9 +215,7 @@ export function Variance(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready - Variance");
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Variance");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();
@@ -272,9 +265,7 @@ export function CostHealth(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready - Cost Health");
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Cost Health");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();
@@ -321,9 +312,7 @@ export function ScheduleHealth(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready - Schedule Health");
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Schedule Health");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();
@@ -379,9 +368,7 @@ export function ProgressPercentage(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready - Progress Percentage");
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Progress Percentage");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();
@@ -428,10 +415,7 @@ export function ProjectManager(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready - Project Manager");
-            console.log("PM DATAAAAAAA", data);
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Project Manager");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();
@@ -478,9 +462,7 @@ export function Client(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready - Client");
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Client");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();
@@ -527,9 +509,7 @@ export function ClientContact(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready - Client Contact");
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Client Contact");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();
@@ -576,9 +556,7 @@ export function ProjectStatus(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready - Project Status");
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Project Status");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();
@@ -625,9 +603,7 @@ export function Location(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready - Location");
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(projectData);
+            data.project.Data ? setProject(data.project.Data) : console.log("No data - Location");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${value} not found in database.`);
             clearProjectIdFromLocalStorage();

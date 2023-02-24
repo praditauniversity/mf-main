@@ -34,8 +34,6 @@ const AddModalUserList = () => {
         return true;
     };
 
-
-
     const [isOpen, setIsOpen] = useState(false);
     const showDialog = () => {
         setIsOpen(true);

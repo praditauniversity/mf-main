@@ -5,7 +5,6 @@ const TaskListCard = (props) => {
 
     const filler = () => {
         if (dataTask.length > 0) {
-            // fill the table with white space
             return (
                 <tr className="h-full" >
                     <td colSpan="7" className="text-center ">
@@ -21,7 +20,6 @@ const TaskListCard = (props) => {
 
     const ifTaskDataEmpty = () => {
         if (dataTask.length === 0) {
-            // fill the table with white space
             return (
                 <tr className="h-full" >
                     <td colSpan="7" className="text-center ">

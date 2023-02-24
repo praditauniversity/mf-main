@@ -7,9 +7,7 @@ import GetProfile from '../../Auth/GetProfile';
 import { ADD_GANTT } from '../../../Middleware/GraphQL/mutations';
 import { useMutation } from "@apollo/client";
 import { DatePickerField, InputField, InputFieldFocus } from '../../Input/Input';
-import { GET_GANTT_PROJECT_ID } from '../../GraphQL/Queries';
 import { useParams } from 'react-router-dom';
-import Snackbar from '../../Snackbar/Snackbar';
 
 
 
@@ -19,12 +17,6 @@ const AddModalGantt = () => {
     const profile = GetProfile();
 
     const [addGantt, { data: addGanttData, error: addGanttError }] = useMutation(ADD_GANTT, {
-        // refetchQueries: [
-        //     {
-        //         query: GET_GANTT_PROJECT_ID,
-        //         variables: { project_id: projectID }
-        //     },
-        // ],
         onCompleted: () => { console.log("refetchQueries addGantt Completed");}
     });
 
@@ -68,7 +60,6 @@ const AddModalGantt = () => {
     }
 
     const handleSave = (e) => {
-        console.log("Handle Save", typeof start_time, start_time);
         e.preventDefault();
 
         addGantt({
@@ -85,14 +76,9 @@ const AddModalGantt = () => {
 
         const isValid = validate();
         if (isValid) {
-            console.log("LIPAW");
-            //to show toast when sucesss edit gantt
             var x = document.getElementById("snackbar");
             x.className = "show";
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-
-            // setIsAppear(true);
-            // setSnackbarMessage('Gantt added successfully!');
             
             hideDialog();
             
@@ -108,8 +94,6 @@ const AddModalGantt = () => {
             console.log(JSON.stringify(addGanttError, null, 2));
         }
 
-
-        // hideDialog();
     };
 
     const ganttListName = [
@@ -146,9 +130,6 @@ const AddModalGantt = () => {
 
     return (
         <>
-            {/* {isAppear ? (
-                <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
-            ) : null} */}
             <button
                 onClick={showDialog}
                 className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
@@ -156,7 +137,6 @@ const AddModalGantt = () => {
             >
                 <IconPlus />
             </button>
-            {/* <div id="snackbar">Gantt created successfully</div> */}
 
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40" onClose={hideDialog}>

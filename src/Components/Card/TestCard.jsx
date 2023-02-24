@@ -1,9 +1,7 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDollar } from "@fortawesome/free-solid-svg-icons";
 
 const TestCard = (props) => {
-  const { icon, title, description, content, colorIcon, borderColor, bgcolor } = props;
+  const { title, description, content, colorIcon } = props;
   return (
     <div className="bg-white flex justify-between mx-auto items-start align-middle flex-row h-32">
       <div className="py-4 px-4">

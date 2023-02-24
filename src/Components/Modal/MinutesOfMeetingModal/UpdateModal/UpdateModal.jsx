@@ -221,8 +221,6 @@ const UpdateModalMinutesOfMeeting = (props) => {
             x.className = "show";
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 
-            // setIsAppear(true);
-            // setSnackbarMessage('Minute of Meeting updated successfully!');
 
             hideDialog();
             setErrorValidate("");
@@ -230,14 +228,6 @@ const UpdateModalMinutesOfMeeting = (props) => {
     };
     return (
         <>
-           {/* {!isOpen && isAppear && (
-                <div id="">
-                    <Snackbar
-                        message={snackbarMessage}
-                        onClose={() => { setIsAppear(false); setSnackbarMessage(''); }}
-                    />
-                </div>
-            )} */}
             <div className="flex flex-row items-center justify-center" id="">
                 <button
                     onClick={showDialog}
@@ -246,7 +236,6 @@ const UpdateModalMinutesOfMeeting = (props) => {
                 >
                     <IconEdit />
                 </button>
-                {/* <div id="snackbarupd">Minute of Meeting updated successfully</div> */}
             </div>
 
             <>

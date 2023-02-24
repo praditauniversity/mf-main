@@ -146,12 +146,10 @@ const UpdateProject = () => {
 
     const handleChangeType = (event) => {
         setTypeId(parseInt(event.target.value));
-        // console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleChangePhase = (event) => {
         setPhaseId(parseInt(event.target.value));
-        // console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleFormChangeProjectobj = (value, index) => {

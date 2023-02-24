@@ -35,7 +35,6 @@ const Accordion = ({ data }) => {
                                     {startDateDay} {startDateMonth} - {endDateDay} {endDateMonth}
                                 </p>
                                 <div className='mt-5'>
-                                    {/* <LinkButton link={item.link} id={item.ID} label="View Details" /> */}
                                     <a href="/#/projectdashboard" onClick={() => localStorage.setItem('projectID', item.ID)}>
                                         <button className='btn'>
                                             View Details

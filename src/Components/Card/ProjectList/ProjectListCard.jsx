@@ -5,7 +5,6 @@ const ProjectListCard = () => {
     const project = FetchProjectByUserId();
     const ifProjectEmpty = () => {
         if (project.length === 0) {
-            // fill the table with white space
             return (
                 <tr className="h-full" >
                     <td colSpan="7" className="text-center ">
@@ -64,9 +63,9 @@ const ProjectListCard = () => {
                                     <td align="center">{durationInDays} Days</td>
                                     <td align="center">{item.total_man_power}</td>
                                     <td align="center">{item.currency_symbol ? item.currency_symbol : "N/A"} {item.budget}</td>
-                                    <td align="center">{item.currency_symbol ? item.currency_symbol : "N/A"} {item.cost_actual}</td> {/*Invoice */}
-                                    <td align="center">{item.currency_symbol ? item.currency_symbol : "N/A"} {variance}</td> {/*Cash In */}
-                                    <td align="center">{item.currency_symbol ? item.currency_symbol : "N/A"} {item.cost_plan}</td> {/*Outstanding Balance */}
+                                    <td align="center">{item.currency_symbol ? item.currency_symbol : "N/A"} {item.cost_actual}</td> {/* Invoice */}
+                                    <td align="center">{item.currency_symbol ? item.currency_symbol : "N/A"} {variance}</td> {/* Cash In */}
+                                    <td align="center">{item.currency_symbol ? item.currency_symbol : "N/A"} {item.cost_plan}</td> {/* Outstanding Balance */}
                                     <td align="center">{item.progress_percentage}%</td>
                                 </tr>
                             )

@@ -117,14 +117,12 @@ export const RegisterHandler = () => {
 
         setLoading(true);
         try {
-            console.log(data);
             register({
                 variables: data
             });
-            console.log("Data Success");
+            console.log("Register Success");
             setError('');
         } catch (err) {
-            console.log(err);
             setError(err.message);
         }
         setLoading(false);

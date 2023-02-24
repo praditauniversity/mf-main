@@ -97,16 +97,7 @@ const GanttPage = () => {
                 <table className="table w-full h-full">
                     {/* <!-- head --> */}
                     <thead>
-                        {/* <TableHeader /> */}
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Date</th>
-                            <th>Duration</th>
-                            <th>Version</th>
-                            <th>Action Badge</th>
-                            <th className='normal-case'><AddModalGantt /></th>
-                        </tr>
+                        <TableHeader />
                     </thead>
                     <tbody>
                         {ganttData.map((gantt) => (
@@ -122,14 +113,11 @@ const GanttPage = () => {
                                     <p className="truncate w-56 whitespace-nowrap text-ellipsis overflow-hidden">
                                         {gantt.description ? gantt.description : "N/A"}
                                     </p>
-                                    {/* <span className="badge badge-ghost badge-sm">
-                                        gantt
-                                    </span> */}
                                 </td>
                                 <td>
                                     <div className="flex items-center space-x-3">
                                         <div>
-                                            {/*parsing from 2023-01-05T04:04:48.377Z to 05 January 2023 */}
+                                            {/* parsing from 2023-01-05T04:04:48.377Z to 05 January 2023 */}
                                             <div className="font-bold">{new Date(gantt.start_time).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</div>
                                             <div className="text-sm opacity-50">{new Date(gantt.end_time).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</div>
                                         </div>
@@ -149,7 +137,6 @@ const GanttPage = () => {
                                     <div className="flex items-center space-x-3">
                                         <div>
                                             <div className="font-bold">{gantt.version}</div>
-                                            {/* <div className="badge badge-ghost badge-sm">gantt version</div> */}
 
                                         </div>
                                     </div>

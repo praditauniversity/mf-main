@@ -1,19 +1,10 @@
 import React, { Component, useEffect, useState } from "react";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { GET_ACTIVITY_GANTT_ID, GET_ACTIVITY_PHASE_DATA, GET_GANTT_PROJECT_ID, GET_LINK_DATA, GET_PROJECT_DATA_BY_USER_ID, GET_UNIT_OF_MEASUREMENT_DATA } from "../../GraphQL/Queries";
-import {
-  ADD_GANTT,
-  UPDATE_GANTT,
-  DELETE_GANTT,
-} from "../../../Middleware/GraphQL/mutations";
 import AppGantt from "../AppGantt";
 import UpcomingTaskCard from "../../Card/UpcomingTask/UpcomingTaskCard";
 import TaskListCard from "../../Card/TaskList/TaskListCard";
-// import VerticalTabs from "../../Tabs/verticalTabs";
-// import ListGanttByProject from "../../Listbox/ListGanttName";
-// import ListboxProjectName from "../../Listbox/ListProjectName";
 import GetProfile from "../../Auth/GetProfile";
-// import ProjectDashboard from "../../../Pages/ProjectDashboard/ProjectDashboard";
 
 function useActivity() {
   const { ganttID } = useGantt();
@@ -27,11 +18,8 @@ function useActivity() {
   const [activityData, setActivity] = useState([]);
 
   useEffect(() => {
-    console.log("USE EFFECT ACTIVITY");
     if (data) {
-      console.log("Data Ready Activity");
       setActivity(data.activityGetGanttID.data);
-      console.log(data.activityGetGanttID.data);
     }
     else {
       console.log("No data Activity");
@@ -52,13 +40,10 @@ function useUpcomingActivity() {
   const [upcomingData, setUpcomingData] = useState([]);
 
   useEffect(() => {
-    console.log("USE EFFECT ACTIVITY");
     if (data) {
-      console.log("Data Ready Upcoming");
       setUpcomingData(data.activityGetGanttID.data);
-      console.log(data.activityGetGanttID.data);
     } else {
-      console.log("No data Activity");
+      console.log("No data Upcoming Activity");
     }
   }, [data]);
 
@@ -74,13 +59,11 @@ function useLink() {
 
   useEffect(() => {
     if (data) {
-      console.log("Data Ready Link");
       setLink(data.activityLink.data);
       console.log(data.activityLink.data);
     } else {
       console.log("No data Link");
     }
-    console.log("USE EFFECT LINK");
   }, [data]);
 
   return [linkData, setLink];
@@ -148,9 +131,8 @@ function useActivityPhase() {
     if (dataActivityPhase) {
       setActivityPhaseData(dataActivityPhase.activityPhase.data);
     } else {
-      console.log("No data Phase");
+      console.log("No data ActivityPhase");
     }
-    console.log("USE EFFECT Phase");
   }, [dataActivityPhase]);
 
   return [activityPhaseData, setActivityPhaseData];
@@ -180,13 +162,10 @@ export const useUnitMeasure = () => {
 
   useEffect(() => {
     if (dataUnitMeasure) {
-      console.log("Data Ready Unit Measure");
       setUnitMeasureData(dataUnitMeasure.activityUnitOfMeasurement.data);
-      console.log(dataUnitMeasure.activityUnitOfMeasurement.data);
     } else {
       console.log("No data Unit Measure");
     }
-    console.log("USE EFFECT Unit Measure");
   }, [dataUnitMeasure]);
 
   return [unitMeasureData, setUnitMeasureData];

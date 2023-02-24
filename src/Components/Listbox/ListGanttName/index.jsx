@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const ListGanttByProject = (props) => {
-    const {ganttID, projectID, ganttName} = props;
+    const {ganttID, ganttName} = props;
 
-    // TODO: Fix this
     function printListGanttName() {
 
         if(ganttName.length>0){
@@ -14,9 +13,6 @@ const ListGanttByProject = (props) => {
                 </>
             ));
         }
-        // else{
-        //     return <option value="0">No Data Gantt</option>
-        // }
 
     }
 
@@ -24,7 +20,6 @@ const ListGanttByProject = (props) => {
         setGanttID(event.target.value);
         localStorage.setItem('ganttID', event.target.value);
         window.location.reload();
-        // localStorage.setItem('selectedOption', selectedOption);
     };
 
     return (

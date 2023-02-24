@@ -14,9 +14,8 @@ const FetchProjectByUserId = (props) => {
     useEffect(() => {
         if (data) {
             setProject(data.projectByUserId.Data);
-            console.log("FetchProjectByUserId pulled")
         } else {
-            console.log("No data found for project with user id : " + profile.id);
+            
         }
     }, [data]);
 

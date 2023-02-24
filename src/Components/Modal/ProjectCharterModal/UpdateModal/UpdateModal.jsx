@@ -196,23 +196,15 @@ const UpdateModalProject = (props) => {
     useEffect(() => {
         if (dataMilestone) {
             setMilestoneStatus(dataMilestone.projectMilestone.Data);
-            console.log("Data Ready Milestone Update Charter", dataMilestone.projectMilestone.Data)
         }
         if (readPCData) {
             setPcData(readPCData.projectByUserId.Data);
-            console.log("Data Ready Read update Charter Data", readPCData.projectByUserId.Data);
         }
         if (data) {
             setTypeName(data.projectType.Data);
-            console.log("Data Ready type update charter", data.projectType.Data);
         }
         if (dataPhase) {
             setPhaseName(dataPhase.projectPhase.Data);
-            console.log("Data Ready phase update charter", dataPhase.projectPhase.Data)
-        }
-
-        else {
-            console.log("No data update charter");
         }
     }, [data, dataPhase, dataMilestone, readPCData]);
 
@@ -244,17 +236,14 @@ const UpdateModalProject = (props) => {
 
     const handleChangeType = (event) => {
         setTypeId(parseInt(event.target.value));
-        // console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleChangePhase = (event) => {
         setPhaseId(parseInt(event.target.value));
-        // console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleChangeMilestone = (event) => {
         setMilestoneId(parseInt(event.target.value));
-        // console.log("Milestone ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleFormChangeProjectobj = (value, index) => {
@@ -304,18 +293,6 @@ const UpdateModalProject = (props) => {
         setIsOpen(false);
     }
 
-    const [isAppear, setIsAppear] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-
-    // if (loading) return "Submitting...";
-    // if (error) console.log(JSON.stringify(error));
-    // if (loadingMilestone) return "submitting...";
-    // if (errorMilestone) console.log(JSON.stringify(errorMilestone));
-    // if (loadingPhase) return "submitting...";
-    // if (errorPhase) console.log(JSON.stringify(errorPhase));
-
-    // if (updateProjectError) console.log(JSON.stringify(updateProjectError));
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -326,11 +303,6 @@ const UpdateModalProject = (props) => {
         type_id !== 0 ? type_id : setTypeId(parseInt(inputRefType.current.value))
         phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))
         milestone_id === 0 ? setMilestoneId(parseInt(inputRefMilestone.current.value)) : milestone_id
-
-        // console.log(typeof parseInt(inputRefMilestone.current.value), parseInt(inputRefMilestone.current.value));
-        // console.log(typeof milestone_id, milestone_id);
-        // console.log(typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
-        // console.log(typeof parseInt(inputRefPhase.current.value), parseInt(inputRefPhase.current.value));
 
         updateProject({
             variables: {
@@ -372,16 +344,10 @@ const UpdateModalProject = (props) => {
             x.className = "show";
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
-
-            // setIsAppear(true);
-            // setSnackbarMessage('Project Charter updated successfully!');
-
             setErrorValidate("");
 
             hideDialog();
         }
-
-        console.log("Berhasil submit Update Modal")
     }
 
     const dataProjectCharterName = [
@@ -399,15 +365,6 @@ const UpdateModalProject = (props) => {
     ]
 
     const dataProjectCharter = [
-        // {
-        //     label: "Name",
-        //     required: "*",
-        //     name: "name",
-        //     placeholder: "Example: Project Anomaly",
-        //     type: "text",
-        //     value: name,
-        //     onChange: (e) => setName(e.target.value),
-        // },
         {
             label: "Description",
             name: "description",
@@ -561,10 +518,6 @@ const UpdateModalProject = (props) => {
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
                     <IconEdit />
                 </button>
-                {/* <div id="">
-                    {isAppear ? <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} /> : null}
-                </div> */}
-                {/* <div id="snackbarupd">Project updated successfully</div> */}
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>
@@ -754,8 +707,6 @@ const UpdateModalProject = (props) => {
                                             </select>
                                         </div>
                                     </div>
-
-                                    {/* <p className="label-text">Project ID: <span className="label-text font-bold">{String(projectData.ID)}</span></p> */}
 
                                     <div className="mt-10">
                                         <div className='flex justify-end'>

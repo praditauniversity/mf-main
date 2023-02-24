@@ -79,9 +79,6 @@ const EditModalGantt = (props) => {
         setIsOpen(false);
     }
 
-    const [isAppear, setIsAppear] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-
     const handleSave = (e) => {
         e.preventDefault();
 
@@ -104,13 +101,9 @@ const EditModalGantt = (props) => {
 
         const isValid = validate();
         if (isValid) {
-            //to show toast when sucesss edit gantt
             var x = document.getElementById("snackbarupd");
             x.className = "show";
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-
-            // setIsAppear(true);
-            // setSnackbarMessage('Gantt updated successfully!');
 
             hideDialog();
             setErrorValidate("");
@@ -161,9 +154,6 @@ const EditModalGantt = (props) => {
 
     return (
         <>
-            {/* {isAppear ? (
-                <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
-            ) : null} */}
             <button
                 onClick={showDialog}
                 className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white"
@@ -171,7 +161,6 @@ const EditModalGantt = (props) => {
             >
                 <IconEdit />
             </button>
-            {/* <div id="snackbarupd">Gantt updated successfully</div> */}
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-40" onClose={hideDialog}>
                     <Transition.Child

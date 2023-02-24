@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from "react";
-import GetProfile from '../../Components/Auth/GetProfile';
 import { GET_GANTT_PROJECT_ID, GET_PROJECT_DATA_BY_USER_ID } from '../../Components/GraphQL/Queries';
 
 const FetchGanttByProjectId = (props) => {
@@ -13,10 +12,9 @@ const FetchGanttByProjectId = (props) => {
 
     useEffect(() => {
         if (data) {
-            console.log("data: " + data.ganttGetProjectID.data);
             setGanttData(data.ganttGetProjectID.data);
         } else {
-            console.log("No data found for gantt with project id : " + projectID);
+            // console.log("No data found for gantt with project id : " + projectID);
         }
     }, [data]);
 

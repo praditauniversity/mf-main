@@ -10,7 +10,7 @@ export default function BarChart(props) {
     
     const profile = GetProfile();
     const { value } = props;
-    console.log("Value: " + value);
+    // console.log("Value: " + value);
     const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
         pollInterval: 1000,
@@ -18,9 +18,8 @@ export default function BarChart(props) {
     const [projectData, setProject] = useState([]);
     useEffect(() => {
         if (data) {
-            console.log("Data Ready");
+            console.log("Project Data Available");
             setProject(data.project.Data);
-            console.log(projectData);
         } else {
             console.log("No data");
         }

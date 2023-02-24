@@ -56,18 +56,10 @@ const DeleteModalReport = (props) => {
             dropCurrentPage(page - 1);
         }
 
-        // if (total % limit === 1 && page === 1) {
-        //     setDataEmpty();
-        // }
-
         //to show toast when sucesss delete report
         var x = document.getElementById("snackbardel");
         x.className = "show";
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-
-        // Display snackbar with success message
-        // setIsAppear(true);
-        // setSnackbarMessage('Daily Report deleted successfully!');
 
         hideDialog();
     };
@@ -150,7 +142,6 @@ const DeleteModalReport = (props) => {
                     </div>
                 </Dialog>
             </Transition>
-            {/* {isAppear ? <Snackbar message={snackbarMessage} onClose={() => setIsAppear(false)} /> : null} */}
         </>
     )
 }

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const ListboxProjectName = (props) => {
-    const { setGanttID, projectID, setProjectID, projectData } = props;
+    const { projectID, setProjectID, projectData } = props;
 
     function printListProjectName() {
         if (projectData.length > 0) {
@@ -11,9 +11,6 @@ const ListboxProjectName = (props) => {
                 </>
             ));
         }
-        //  else {
-        //     return <option value="0">No Data Project</option>
-        // }
     }
 
     const handleChange = (event) => {
@@ -28,7 +25,6 @@ const ListboxProjectName = (props) => {
             <select value={projectID} onChange={handleChange} className="select select-ghost select-sm w-full max-w-lg">
                 {printListProjectName()}
             </select>
-            {/* {console.log("OPTION val:", typeof projectID, projectID)} */}
         </div>
     );
 }

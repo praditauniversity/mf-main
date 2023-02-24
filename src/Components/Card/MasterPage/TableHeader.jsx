@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
-import ChevronLeft from "../../../Assets/Icons/svg/ChevronLeft.svg";
-import ChevronRight from "../../../Assets/Icons/svg/Chevron.svg";
 import { IconFilter, IconSearch } from "../../Icons/icon";
-import Button from "../../Button";
 import AddModalRoleList from "../../Modal/MasterPageModal/AddModal/AddModalRoleList";
 import AddModalUserList from "../../Modal/MasterPageModal/AddModal/AddModalUserList";
 

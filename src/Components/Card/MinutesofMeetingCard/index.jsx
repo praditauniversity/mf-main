@@ -46,10 +46,10 @@ const MinutesofMeetingCard = (props) => {
         }
         if (momData) {
             setTotalItems(momData.length);
-            console.log("totalItems : " + totalItems);
+            // console.log("totalItems : " + totalItems);
         }
         else {
-            console.log("No data found for project with user id : " + profile.id);
+            // console.log("No data found for project with user id : " + profile.id);
             localStorage.setItem('momProjectID', 0)
         }
 

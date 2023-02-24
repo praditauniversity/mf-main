@@ -7,7 +7,6 @@ const ListProjectType = () => {
 
     useEffect(() => {
         localStorage.setItem('typeID', typeID);
-        console.log("typeID", typeID);
     }, [typeID]);
 
     function printListTypeName() {
@@ -18,7 +17,6 @@ const ListProjectType = () => {
 
         useEffect(() => {
             if (data) {
-                console.log("Data Ready list type");
                 setTypeName(data.projectType.Data);
             } else {
                 console.log("No data list type");

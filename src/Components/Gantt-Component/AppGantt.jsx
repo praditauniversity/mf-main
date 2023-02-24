@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
-import { ADD_ACTIVITY, ADD_ACTIVITY_LINK, DELETE_ACTIVITY, UPDATE_ACTIVITY, UPDATE_ACTIVITY_LINK, DELETE_ACTIVITY_LINK } from "../../Middleware/GraphQL/mutations";
+import { ADD_ACTIVITY, ADD_ACTIVITY_LINK, DELETE_ACTIVITY, UPDATE_ACTIVITY, DELETE_ACTIVITY_LINK } from "../../Middleware/GraphQL/mutations";
 import Gantt from "./Gantt";
 
 // import gantt module
@@ -54,7 +54,7 @@ gantt.eachTask(function (task) {
 });
 
 const handleRender = () => {
-    console.log("This is View modal HandlerRender");
+    // console.log("This is View modal HandlerRender");
     gantt.render();
 };
 const handleClearAll = () => {

@@ -32,6 +32,15 @@ const MainRoute = async () => {
       setError(err.message);
   }
 }
+const LoginRoute = async () => {
+  try {
+      window.location.href = '/#/login';
+      window.location.reload();
+      setError('');
+  } catch (err) {
+      setError(err.message);
+  }
+}
 
 export default function Routing() {
   const islogin = localStorage.getItem("token") !== null;
@@ -41,13 +50,14 @@ export default function Routing() {
         <Route path="/" element={<Auth />} />
         <Route path="/login" element={<Auth />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/maindashboard" element={<LoginRoute />} />
       </Routes>
     );
   } else {
     return (
       <Routes>
         <Route path="/" element={<MainRoute />} />
-        {/* <Route path="/login" element={<MainRoute />} /> */}
+        <Route path="/login" element={<MainRoute />} />
         <Route path="/project" element={<Project />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/pmodashboard" element={<PMODashboardPage />} />

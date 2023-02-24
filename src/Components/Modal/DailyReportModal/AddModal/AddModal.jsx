@@ -169,23 +169,17 @@ const AddModalDailyReport = (props) => {
       setProjectId(parseInt('reportProjectID'));
     }
     if (data) {
-      console.log("data Ready List Activity");
       setActivityName(data.activity.data);
       console.log("data list activity found", data.activity.data);
-    } else {
-      console.log("data list activity not found");
     }
     if (dataProject) {
-      console.log("data Ready List Project");
       setProjectName(dataProject.project.Data);
-      console.log("data found", dataProject.project.Data);
+      console.log("data list project found", dataProject.project.Data);
     }
     if (dataGantt) {
-      console.log("data Ready List Gantt");
       setGanttName(dataGantt.ganttGetProjectID.data);
       console.log("data list gantt found", dataGantt.ganttGetProjectID.data);
     }
-    console.log("USE EFFECT list daily report");
   }, [data, idProject, dataProject, dataGantt]);
 
   function printListsetActivityName() {
@@ -217,22 +211,18 @@ const AddModalDailyReport = (props) => {
 
   const handleName = (event) => {
     setName(event.target.value);
-    // console.log("Name", event.target.value);
   };
 
   const handleDescription = (event) => {
     setDescription(event.target.value);
-    // console.log("Description", event.target.value);
   };
 
   const handleStatus = (event) => {
     setStatus(event.target.value);
-    // console.log("Status", event.target.value);
   };
 
   const handleReportDate = (event) => {
     setReportDate(event.target.value);
-    // console.log("Report Date", event.target.value);
   };
 
   const handleFormChangeEquipment = (value, index) => {
@@ -305,10 +295,6 @@ const AddModalDailyReport = (props) => {
       x.className = "show";
       setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
-      // Display snackbar with success message
-      // setIsAppear(true);
-      // setSnackbarMessage('Daily Report added successfully!');
-
       updateTotal();
 
       hideDialog();
@@ -331,10 +317,6 @@ const AddModalDailyReport = (props) => {
 
       <div className="add-button">
         <Button label="+ Add Report" onClick={localStorage.getItem("reportProjectID") !== null ? showDialog : () => { window.alert("Please select a project first. If you don't have any, please create one.") } } />
-        {/* <div id="snackbar">Daily report created successfully</div> */}
-        {/* {isAppear ? (
-          <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
-        ) : null} */}
       </div>
       <>
         <Transition appear show={isOpen} as={Fragment}>

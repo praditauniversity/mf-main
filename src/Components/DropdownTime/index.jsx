@@ -1,6 +1,5 @@
 import React from "react";
 import Dropdown from "../Dropdown";
-import DropdownButton from "./Dropdown";
 
 const list = [
     {

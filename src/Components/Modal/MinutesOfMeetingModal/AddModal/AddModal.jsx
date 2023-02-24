@@ -274,10 +274,6 @@ const AddModalMinutesOfMeeting = (props) => {
     <>
       <div className="add-button">
       <Button label="+ Add Meeting" onClick={localStorage.getItem("momProjectID") !== null ? showDialog : () => { window.alert("Please select a project first. If you don't have any, please create one.") } } />
-        {/* <div id="snackbar">Minute of Meeting created successfully</div> */}
-        {/* {isAppear ? (
-          <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
-        ) : null} */}
       </div>
 
       <>

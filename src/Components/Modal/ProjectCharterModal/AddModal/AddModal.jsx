@@ -9,7 +9,6 @@ import './AddModal.css';
 import "../../../Snackbar/toast.css";
 import Button from "../../../Button";
 import GetProfile from "../../../Auth/GetProfile";
-import Snackbar from "../../../Snackbar/Snackbar";
 
 const ADD_CHARTER = gql`
     mutation addProject(
@@ -201,19 +200,12 @@ const AddModalProjectCharter = (props) => {
     useEffect(() => {
         if (dataMilestone) {
             setMilestoneStatus(dataMilestone.projectMilestone.Data);
-            console.log("Data Milestone Ready", dataMilestone.projectMilestone.Data)
         }
         if (data) {
             setTypeName(data.projectType.Data);
-            console.log("Data Ready list type", data.projectType.Data);
         }
         if (dataPhase) {
             setPhaseName(dataPhase.projectPhase.Data);
-            console.log("Data Ready list phase", dataPhase.projectPhase.Data)
-        }
-
-        else {
-            console.log("No data milestone, type, phase");
         }
     }, [data, dataPhase, dataMilestone]);
 
@@ -245,17 +237,14 @@ const AddModalProjectCharter = (props) => {
 
     const handleChangeType = (event) => {
         setTypeId(parseInt(event.target.value));
-        // console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleChangePhase = (event) => {
         setPhaseId(parseInt(event.target.value));
-        // console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleChangeMilestone = (event) => {
         setMilestoneId(parseInt(event.target.value));
-        // console.log("Milestone ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleFormChangeProjectobj = (value, index) => {
@@ -305,17 +294,6 @@ const AddModalProjectCharter = (props) => {
         setIsOpen(false);
     }
 
-    // if (loading) return "Submitting...";
-    // if (error) console.log(JSON.stringify(error));
-    // if (loadingMilestone) return "submitting...";
-    // if (errorMilestone) console.log(JSON.stringify(errorMilestone));
-    // if (loadingPhase) return "submitting...";
-    // if (errorPhase) console.log(JSON.stringify(errorPhase));
-
-    // if (addProjectError) console.log(JSON.stringify(addProjectError));
-
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -332,13 +310,6 @@ const AddModalProjectCharter = (props) => {
         phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))
         milestone_id !== 0 ? milestone_id : setMilestoneId(parseInt(inputRefMilestone.current.value))
 
-
-        // console.log("Milestone", typeof parseInt(inputRefMilestone.current.value), parseInt(inputRefMilestone.current.value));
-        // console.log("Milestone", typeof milestone_id, milestone_id);
-        // console.log("Type", typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
-        // console.log("Type", typeof type_id, type_id);
-        // console.log("Phase", typeof parseInt(inputRefPhase.current.value), parseInt(inputRefPhase.current.value));
-        // console.log("Phase", typeof phase_id, phase_id);
 
         addProjectCharter({
             variables: {
@@ -416,8 +387,6 @@ const AddModalProjectCharter = (props) => {
 
             hideDialog();
         }
-        console.log("IS Validdddddd", isValid)
-        console.log("Berhasil submit add project charter")
     }
 
     const dataProjectCharterName = [
@@ -586,10 +555,6 @@ const AddModalProjectCharter = (props) => {
         <>
             <div className="add-button">
                 <Button label="+ Add Charter" onClick={showDialog} />
-                {/* <div id="snackbar">Project created successfully</div> */}
-                {/* {isAppear ? (
-                    <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} />
-                ) : null} */}
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>

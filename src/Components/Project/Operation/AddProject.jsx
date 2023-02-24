@@ -128,11 +128,9 @@ const AddProject = () => {
     useEffect(() => {
         if (data) {
             setTypeName(data.projectType.Data);
-            console.log("Data Ready type project", data.projectType.Data);
         }
         if (dataPhase){
             setPhaseName(dataPhase.projectPhase.Data);
-            console.log("Data Ready phase project",dataPhase.projectPhase.Data)
         }
     }, [data, dataPhase]);
 
@@ -159,12 +157,10 @@ const AddProject = () => {
 
     const handleChangeType = (event) => {
         setTypeId(parseInt(event.target.value));
-        // console.log("TYPE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleChangePhase = (event) => {
         setPhaseId(parseInt(event.target.value));
-        // console.log("PHASE ID", typeof parseInt(event.target.value), event.target.value);
     };
 
     const handleFormChangeProjectobj = (value, index) => {
@@ -193,18 +189,9 @@ const AddProject = () => {
         setPotentialRisk(dataRisk)
     }
 
-    // if (loading) return "Submitting...";
-    // if (error) console.log(JSON.stringify(error));
-    // if (loadingPhase) return "submitting...";
-    // if (errorPhase) console.log(JSON.stringify(errorPhase));
-
     const handleSubmit = (e) => {
         type_id !== 0 ? type_id : setTypeId(parseInt(inputRefType.current.value))
         phase_id !== 0 ? phase_id : setPhaseId(parseInt(inputRefPhase.current.value))
-
-        // console.log(typeof parseInt(inputRefType.current.value), parseInt(inputRefType.current.value));
-        // console.log(typeof type_id, type_id);
-        // console.log(typeof phase_id, phase_id);
 
         e.preventDefault();
         addProject({

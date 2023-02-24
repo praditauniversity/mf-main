@@ -57,7 +57,6 @@ const AddModalRoleList = () => {
         setDescription("");
         setName("");
 
-        // hideDialog();
     }
 
     const dataProjectCharterName = [

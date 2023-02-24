@@ -7,7 +7,6 @@ import { GET_PHASE_DATA } from "../../GraphQL/Queries";
 import GetProfile from "../../Auth/GetProfile";
 
 export default function RadialChart() {
-  // Not implement right now
 
   const profile = GetProfile();
   const { loading, error, data } = useQuery(GET_PROJECT_DATA, {
@@ -127,7 +126,6 @@ export default function RadialChart() {
       "#673AB7",
       "#B39DDB",
     ],
-    // colors: printColors(),
     labels: [
       "Closing",
       "Evaluation",
@@ -137,7 +135,6 @@ export default function RadialChart() {
       "Planning",
       "Initiation",
     ],
-    // labels: printLabels(),
     legend: {
       show: true,
       fontSize: "10px",

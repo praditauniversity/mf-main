@@ -8,10 +8,9 @@ const FetchProjectPhase = () => {
 
     useEffect(() => {
         if (data) {
-            console.log("ProjectPhase's Ready to Fetch");
             setProjectPhase(data.projectPhase.Data);
         } else {
-            console.log("No data ProjectPhase");
+            
         }
     }, [data]);
     return projectPhase;

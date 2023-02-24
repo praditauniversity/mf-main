@@ -11,9 +11,8 @@ const FetchDailyReport = () => {
     useEffect(() => {
         if (data) {
             setDailyReport(data.dailyReport.data);
-            console.log("Daily Report data found");
         } else {
-            console.log("No data found for daily report");
+            
         }
     }, [data]);
 

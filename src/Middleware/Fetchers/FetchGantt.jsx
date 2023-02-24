@@ -10,10 +10,9 @@ const FetchGantt = () => {
 
     useEffect(() => {
         if (data) {
-            console.log("GanttData's Ready to Fetch");
             setGantt(data.gantt.data);
         } else {
-            console.log("No data Gantt");
+            
         }
     }, [data]);
 

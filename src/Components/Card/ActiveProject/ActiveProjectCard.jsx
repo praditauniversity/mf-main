@@ -18,7 +18,6 @@ const ActiveProjectCard = () => {
 
     const ifActiveProjectEmpty = () => {
         if (projectLength === 0) {
-            // fill the table with white space
             return (
                 <div className="h-full" >
                     <div colSpan="7" className="text-center py-24">
@@ -63,7 +62,6 @@ const ActiveProjectCard = () => {
                                     </div>
                                     <div className="flex justify-end">
                                         <div className="dropdown dropdown-button dropdown-end">
-                                            {/* <button tabIndex={0} className="btn btn-outline text-xs">:</button> */}
                                             <button tabIndex={0} className="text-base font-black">:</button>
                                             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box">
                                                 <li>

@@ -1,9 +1,7 @@
 import React, { Fragment, useState } from 'react';
-// import { gql, useMutation } from '@apollo/client';
 import { Dialog, Transition } from '@headlessui/react';
 import '../../../../Assets/svgbutton/svgbutton.css'
 import { IconDelete, IconSaveForm } from '../../../Icons/icon';
-// import { GET_DAILY_REPORT_DATA_BY_PROJECT_ID } from '../../../GraphQL/Queries';
 
 
 const DeleteModalRole = (props) => {

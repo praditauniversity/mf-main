@@ -11,9 +11,8 @@ const FetchMilestone = () => {
     useEffect(() => {
         if (data) {
             setMilestone(data.projectMilestone.Data);
-            console.log("Milestone data found");
         } else {
-            console.log("No data found for milestone");
+            
         }
     }, [data]);
 

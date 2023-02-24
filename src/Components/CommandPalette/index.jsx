@@ -51,7 +51,7 @@ const CommandPalette = () => {
                 >
                     <Combobox
                         onChange={(project) => {
-                            console.log(project.ID)
+                            // console.log(project.ID)
                             localStorage.setItem('projectID', project.ID)
                             window.location.href = `/#/projectdashboard`
                             window.location.reload();

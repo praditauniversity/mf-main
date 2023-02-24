@@ -6,9 +6,8 @@ import { InputField } from "../Input/Input";
 
 const SubmitHandler = async (e, login, email, password, setProfile, setError) => {
     e.preventDefault();
-    console.log("SubmitHandler");
     try {
-        console.log("SubmitHandler TRY");
+        console.log("Try to Login");
         const response = await login({ variables: { email, password } });
         const data = response.data.login.data;
         const token = data.auth_token;

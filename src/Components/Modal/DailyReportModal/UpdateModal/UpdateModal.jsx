@@ -13,7 +13,7 @@ import {
 import { DatePickerField } from "../../../Input/Input";
 import "./UpdateModal.css";
 import Snackbar from "../../../Snackbar/Snackbar";
-import "../../../Snackbar/toast.css";
+import '../../../Snackbar/Snackbar.css';
 
 const UPDATE_DAILY_REPORT = gql`
 mutation updateDailyreports(
@@ -182,22 +182,18 @@ const UpdateModalDailyReport = (props) => {
 
   const handleName = (event) => {
     setName(event.target.value);
-    // console.log("Name", event.target.value);
   };
 
   const handleDescription = (event) => {
     setDescription(event.target.value);
-    // console.log("Description", event.target.value);
   };
 
   const handleStatus = (event) => {
     setStatus(event.target.value);
-    // console.log("Status", event.target.value);
   };
 
   const handleReportDate = (event) => {
     setReportDate(event.target.value);
-    // console.log("Report Date", event.target.value);
   };
 
   const handleFormChangeEquipment = (value, index) => {
@@ -276,23 +272,12 @@ const UpdateModalDailyReport = (props) => {
       console.log("Error", JSON.stringify(updateDailyReportError));
     }
 
-    // To get the current value
-    // setName("");
-    // setEquipment([''])
-    // setDescription("");
-    // setStatus("");
-    // setReportDate("");
-
     const isValid = validate();
     if (isValid) {
-      //to show toast when sucesss update report
-      var x = document.getElementById("snackbarupd");
-      x.className = "show";
-      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
       // Display snackbar with success message
-      // setIsAppear(true);
-      // setSnackbarMessage('Daily Report updated successfully!');
+      setIsAppear(true);
+      setSnackbarMessage('Daily Report updated successfully!');
 
       hideDialog();
       setErrorValidate("")
@@ -305,7 +290,9 @@ const UpdateModalDailyReport = (props) => {
         <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white" id='icon'>
           <IconEdit />
         </button>
-        {/* <div id="snackbarupd">Daily Report updated successfully</div> */}
+        <div id="">
+          {isAppear ? <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} /> : null}
+        </div>
       </div>
 
 
@@ -453,7 +440,7 @@ const UpdateModalDailyReport = (props) => {
                                 <div className="flex justify-start gap-3">
                                   <input
                                     className="input input-bordered border-primary-light bg-table-dark tracking-normal w-[20%]"
-                                    name="name"
+                                    name="name (*)"
                                     placeholder="Enter name"
                                     value={input.name}
                                     onChange={(event) =>
@@ -584,11 +571,6 @@ const UpdateModalDailyReport = (props) => {
           </div>
         </Dialog>
       </Transition>
-{/* 
-      <div id="">
-        {isAppear ? <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(false); setSnackbarMessage(''); }} /> : null}
-      </div> */}
-
     </>
   );
 };

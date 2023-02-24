@@ -4,10 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { DELETE_ACTIVITY, UPDATE_ACTIVITY } from '../../../Middleware/GraphQL/mutations';
 import { IconSaveForm } from '../../Icons/icon';
 import Done from "../../../Assets/Icons/svg/Done.svg";
-import Trash from "../../../Assets/Icons/svg/Trash.svg";
 import { GET_ACTIVITY_DATA } from '../../GraphQL/Queries';
-// import './toast.css';
-import Snackbar from '../../Snackbar/Snackbar';
 
 import "../../Snackbar/toast.css";
 
@@ -21,14 +18,10 @@ const UpdateModalTask = (props) => {
         setIsOpen(false);
     }
 
-    const [isAppear, setIsAppear] = useState(true);
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-
     const [updateTask, { data: updateTaskData, error: updateTaskError }] = useMutation(UPDATE_ACTIVITY, {
         refetchQueries: [
             {
                 query: GET_ACTIVITY_DATA,
-                // variables: { id: String(taskData.ID) }
             },
         ],
         onCompleted: () => { console.log("refetchQueries updateTask Completed") }
@@ -143,23 +136,14 @@ const UpdateModalTask = (props) => {
         x.className = "show";
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 
-        // Display snackbar with success message
-        // setIsAppear(true);
-        // setSnackbarMessage('Task updated successfully!');
-
         hideDialog();
 
-        // Hide snackbar after 3 seconds
-        // setTimeout(() => {
-        //     setIsAppear(false);
-        // }, 3000);
     };
 
     const [deleteTask, { data: deleteTaskData, error: deleteTaskError }] = useMutation(DELETE_ACTIVITY, {
         refetchQueries: [
             {
                 query: GET_ACTIVITY_DATA,
-                // variables: { id: String(taskData.ID) }
             },
         ],
         onCompleted: () => { console.log("refetchQueries deleteTask Completed") }
@@ -181,10 +165,6 @@ const UpdateModalTask = (props) => {
         var x = document.getElementById("snackbardel");
         x.className = "show";
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-
-        // Display snackbar with success message
-        // setIsAppear(true);
-        // setSnackbarMessage('Task deleted successfully!');
 
         hideDialog();
     };
@@ -265,9 +245,6 @@ const UpdateModalTask = (props) => {
                     </div>
                 </Dialog>
             </Transition>
-            {/* <div id="">
-                {isAppear ? <Snackbar message={snackbarMessage} onClose={() => { setIsAppear(true); setSnackbarMessage(''); }} /> : null}
-            </div> */}
         </>
     );
 };

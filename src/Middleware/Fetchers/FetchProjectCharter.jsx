@@ -12,9 +12,7 @@ const FetchProjectCharter = () => {
     useEffect(() => {
         if (data) {
             setProject(data.project.Data);
-            console.log("Project data found");
         } else {
-            console.log("No data found for project");
         }
     }, [data]);
 

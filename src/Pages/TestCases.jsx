@@ -13,7 +13,6 @@ const Cases = () => {
   return (
     <div>
       <h1>Counter</h1>
-      {/* <p>{counter}</p> */}
       <button onClick={() => dispatch(incrementCounter())}>Increment</button>
       <button onClick={() => dispatch(decrementCounter())}>Decrement</button>
       {JSON.stringify(counter.counter.counter)}

@@ -18,8 +18,6 @@ const DeleteProject = () => {
         ]
     });
 
-    // if (loading) return 'Submitting...';
-    // if (error) return `Submission error! ${error.message}`;
 
     return (
         <form onSubmit={e => {

@@ -10,11 +10,9 @@ const FetchActivity = () => {
 
     useEffect(() => {
         if (data) {
-        console.log("ActivityData's Ready to Fetch");
         setActivity(data.activity.data);
-        // console.log(data.activityGetGanttID.data);
         } else {
-        console.log("No data Activity");
+            
         }
     }, [data]);
 

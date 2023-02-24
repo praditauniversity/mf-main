@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import React, { useEffect, useState } from "react";
 import '../../../Assets/svgbutton/svgbutton.css';
 import GetProfile from '../../Auth/GetProfile';
@@ -19,31 +19,28 @@ const PCList = (props) => {
 
     useEffect(() => {
         if (errorGetProject) {
-            console.log("Error Get Project", errorGetProject);
+            // console.log("Error Get Project", errorGetProject);
         }
         if (data) {
             setCharter(data.projectByUserId.Data);
-            console.log("Data found for project with user id : " + profile.id);
-            console.log("Data found for project with user id : " + data.projectByUserId.Data);
+            // console.log("Data found for project with user id : " + profile.id);
+            // console.log("Data found for project with user id : " + data.projectByUserId.Data);
         } else {
-            console.log("No data found for project with user id : " + profile.id);
+            // console.log("No data found for project with user id : " + profile.id);
         }
     }, [data]);
 
     // if (loading) return 'Submitting...';
     // if (error) return `Submission error! ${error.message}`;
 
-    const setCharterDataEmpty = () => {
-        // setCharter([]);
-        console.log("setCharterDataEmpty with Total Items", totalItems);
-        console.log("setCharterDataEmpty with Charter Data", charterData);
-    }
+    // const setCharterDataEmpty = () => {
+    //     // setCharter([]);
+    //     console.log("setCharterDataEmpty with Total Items", totalItems);
+    //     console.log("setCharterDataEmpty with Charter Data", charterData);
+    // }
 
     const ifCharterDataEmpty = () => {
         if (charterData.length === 0) {
-            // localStorage.removeItem("projectID");
-            // localStorage.removeItem("ganttID");
-            // fill the table with white space
             return (
                 <tr className="h-full" >
                     <td colSpan="7" className="text-center ">

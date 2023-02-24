@@ -57,10 +57,10 @@ const DRList = (props) => {
     }).length > 0;
   }).length;
 
-  const setDataEmpty = () => {
-    // setDailyReport([]);
-    console.log("Empty Daily Report Data")
-  }
+  // const setDataEmpty = () => {
+  //   // setDailyReport([]);
+  //   console.log("Empty Daily Report Data")
+  // }
 
   const ifDRListDataEmpty = () => {
     if (dataLength === 0 && noneDataLength === 0) {

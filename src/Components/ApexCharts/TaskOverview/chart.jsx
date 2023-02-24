@@ -5,7 +5,7 @@ import FetchGantt from "../../../Middleware/Fetchers/FetchGantt";
 import FetchProjectByUserId from "../../../Middleware/Fetchers/FetchProjectByUserId";
 
 export default function DonutChart() {
-    //dashboard
+    //for dashboard
     const projectData = FetchProjectByUserId();
     const ganttData = FetchGantt();
     const activityData = FetchActivity();

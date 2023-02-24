@@ -14,13 +14,11 @@ const FetchProjectById = (props) => {
 
     useEffect(() => {
         if (data) {
-            data.project.Data ? setProject(data.project.Data) : console.log("No dataaaaa");
-            console.log(project);
+            data.project.Data ? setProject(data.project.Data) : console.log("No data ");
         } else if (data && !data.project.Data) {
             console.log(`Project with ID ${projectID} not found in database.`);
             clearProjectIdFromLocalStorage();
         } else {
-            console.log("No data - Project Manager");
         }
         refetch();
     }, [data]);

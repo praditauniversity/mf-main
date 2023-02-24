@@ -13,7 +13,6 @@ mutation DeleteProject($id: String!) {
 }`;
 
 const DeleteModalProject = (props) => {
-    // const client = useApolloClient();
 
     const { projectID, projectName, page, limit, sort, total, updateTotal, dropCurrentPage, totalPages, setEmpty } = props;
     const [isOpen, setIsOpen] = useState(false);
@@ -57,25 +56,6 @@ const DeleteModalProject = (props) => {
                 id: String(projectID),
             },
         });
-        // client.cache.reset();
-
-        // if (String(projectID) === localStorage.getItem('projectID')) {
-        //     localStorage.removeItem('projectID');
-        //     localStorage.removeItem('ganttID');
-        // }
-
-        // if (String(projectID) === localStorage.getItem('TPEID')) {
-        //     localStorage.removeItem('TPEID');
-        // }
-
-        // if (String(projectID) === localStorage.getItem('reportProjectID')) {
-        //     localStorage.removeItem('reportProjectID');
-        // }
-
-        // if (String(projectID) === localStorage.getItem('momProjectID')) {
-        //     localStorage.removeItem('momProjectID');
-        // }
-
         clearProjectIdFromLocalStorage();
 
         if (deleteCharterError) {
@@ -88,10 +68,6 @@ const DeleteModalProject = (props) => {
             dropCurrentPage(page - 1);
         }
 
-        // if (total % limit === 1 && page === 1) {
-        //     setEmpty();
-        // }
-
         // to show toast when sucesss create project
         var x = document.getElementById("snackbardel");
         x.className = "show";
@@ -99,7 +75,6 @@ const DeleteModalProject = (props) => {
 
         hideDialog();
 
-        // window.location.reload();
     };
 
     return (

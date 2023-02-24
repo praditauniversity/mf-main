@@ -12,9 +12,8 @@ const FetchCharter = (props) => {
     useEffect(() => {
         if (data) {
             setCharter(data.project.Data);
-            console.log("Charter data found");
         } else {
-            console.log("No data found for charter");
+           
         }
     }, [data]);
 
