@@ -8,7 +8,6 @@ import DescTitlePadding from '../../../Card/ProjectCharterCard/desctitlepadd';
 import DescTitleBudget from '../../../Card/ProjectCharterCard/desctitlebudget';
 import DescTitleBudgetPadding from '../../../Card/ProjectCharterCard/desctitlebudgetpadd';
 import TitleMilestone from '../../../Card/ProjectCharterCard/titlemilestone';
-import FetchCharter from '../../../../Middleware/Fetchers/FetchCharter';
 import '../../../../Assets/svgbutton/svgbutton.css';
 import { IconView } from '../../../Icons/icon';
 
