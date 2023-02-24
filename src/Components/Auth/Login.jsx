@@ -37,8 +37,6 @@ export const LoginHandler = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    // const [email, setEmail] = useLocalStorage('email', 'coba@gmail.com');
-    // const [password, setPassword] = useLocalStorage('password', '4dM1nSuPeR');
     const [error, setError] = useState('');
     const [profile, setProfile] = useLocalStorage('profile', () => {
         return {

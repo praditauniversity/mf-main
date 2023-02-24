@@ -8,7 +8,7 @@ const Cases = () => {
   const dispatch = useDispatch();
   const counter = useSelector(state => state.counter);
 
-  console.log(counter)
+  // console.log(counter)
 
   return (
     <div>

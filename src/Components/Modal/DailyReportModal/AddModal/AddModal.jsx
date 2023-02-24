@@ -10,7 +10,6 @@ import {
   IconSaveForm,
 } from "../../../Icons/icon";
 import { DatePickerField } from "../../../Input/Input";
-import Snackbar from "../../../Snackbar/Snackbar";
 import "./AddModal.css";
 import "../../../Snackbar/toast.css";
 
@@ -83,19 +82,6 @@ const AddModalDailyReport = (props) => {
 
     return true;
   };
-
-  const [isAppear, setIsAppear] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-
-  // useEffect(() => {
-  //   if (snackbarMessage !== '') {
-  //     const timer = setTimeout(() => {
-  //       setSnackbarMessage('');
-  //     }, 3000); // Snackbar will disappear after 3 seconds
-
-  //     return () => clearTimeout(timer);
-  //   }
-  // }, [snackbarMessage]);
 
   const { page, limit, sort, total, updateTotal, totalPages } = props;
 

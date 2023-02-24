@@ -10,7 +10,6 @@ export default function BarChart(props) {
     
     const profile = GetProfile();
     const { value } = props;
-    // console.log("Value: " + value);
     const { data, loading, error } = useQuery(GET_PROJECT_DATA_BY_ID, {
         variables: { id: value },
         pollInterval: 1000,

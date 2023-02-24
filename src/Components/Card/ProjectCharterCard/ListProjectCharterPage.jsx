@@ -30,15 +30,6 @@ const PCList = (props) => {
         }
     }, [data]);
 
-    // if (loading) return 'Submitting...';
-    // if (error) return `Submission error! ${error.message}`;
-
-    // const setCharterDataEmpty = () => {
-    //     // setCharter([]);
-    //     console.log("setCharterDataEmpty with Total Items", totalItems);
-    //     console.log("setCharterDataEmpty with Charter Data", charterData);
-    // }
-
     const ifCharterDataEmpty = () => {
         if (charterData.length === 0) {
             return (
@@ -111,7 +102,6 @@ const PCList = (props) => {
                                                 updateTotal={updateTotalItems}
                                                 dropCurrentPage={onPageChange}
                                                 totalPages={totalPages}
-                                                // setEmpty={setCharterDataEmpty}
                                             />
                                         </button>
                                         <button className="" id="">

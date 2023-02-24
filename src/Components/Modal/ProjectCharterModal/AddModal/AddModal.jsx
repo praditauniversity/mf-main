@@ -135,9 +135,6 @@ const AddModalProjectCharter = (props) => {
         return true;
     };
 
-    const [isAppear, setIsAppear] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState('');
-
     const inputRefType = useRef(null);
     const inputRefPhase = useRef(null);
     const inputRefMilestone = useRef(null);
@@ -349,9 +346,6 @@ const AddModalProjectCharter = (props) => {
             var x = document.getElementById("snackbar");
             x.className = "show";
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-
-            // setIsAppear(true);
-            // setSnackbarMessage('Project Charter added successfully!');
 
             updateTotal();
 

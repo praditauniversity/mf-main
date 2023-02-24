@@ -28,7 +28,6 @@ const MinutesofMeetingList = (props) => {
   useEffect(() => {
     if (data) {
       setMomData(data.minuteOfMeetingGetProjectID.data);
-      // reportProjectID === 0 ? localStorage.setItem('reportProjectID', data.minutesOfMeetingGetProjectID.data[0].ID) : localStorage.setItem('reportProjectID', reportProjectID);
       console.log("Minutes of Meeting data with project id " + localStorage.getItem('momProjectID') + " found");
     } else {
       console.log("No data found for Minutes of Meeting with project id " + localStorage.getItem('momProjectID'));
@@ -40,11 +39,6 @@ const MinutesofMeetingList = (props) => {
       return project.ID === mom.project_id;
     }).length > 0;
   }).length;
-
-  // const setDataEmpty = () => {
-  //   // setMomData([]);
-  //   console.log("Data Minutes of Meeting is empty")
-  // }
 
   const ifMomListEmpty = () => {
     if (dataLength === 0) {
@@ -127,7 +121,6 @@ const MinutesofMeetingList = (props) => {
                                 updateTotal={updateTotalItems}
                                 dropCurrentPage={onPageChange}
                                 totalPages={totalPages}
-                                // setDataEmpty={setDataEmpty}
                               />
                             </button>
                             <button className="px-1" id="">

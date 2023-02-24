@@ -69,36 +69,10 @@ function useLink() {
   return [linkData, setLink];
 }
 
-export function useProject() {
-  const profile = GetProfile();
-  const [projectData, setProjectData] = useState([]);
-  const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
-
-  const { loading: loadingProjectUser, error: errorProjectUser, data: dataProjectUser } = useQuery(GET_PROJECT_DATA_BY_USER_ID, {
-    variables: { userId: profile.id },
-    pollInterval: 1000,
-  });
-
-  useEffect(() => {
-    if (dataProjectUser) {
-      setProjectData(dataProjectUser.projectByUserId.Data);
-      if (dataProjectUser.projectByUserId.Data.length !== 0) {
-
-        console.log("Data Ready list gantt and project by userid : ", dataProjectUser.projectByUserId.Data);
-        // localStorage.getItem('projectID') === null ? localStorage.setItem('projectID', dataProjectUser.projectByUserId.Data[0].ID) : console.log("projectID is not null");
-        // projectID === null ? setProjectID(dataProjectUser.projectByUserId.Data[0].ID) : setProjectID(localStorage.getItem('projectID'));
-      }
-    }
-  }, [dataProjectUser]);
-
-  return { projectData, projectID, setProjectID, dataProjectUser };
-
-}
-
 function useGantt() {
 
   const [ganttName, setGanttName] = useState([]);
-  const { projectID } = useProject();
+  const projectID = localStorage.getItem('projectID');
   const [ganttID, setGanttID] = useState(localStorage.getItem('ganttID'));
 
   const { data: dataGanttProject, loading: loadingGanttProject, error: errorGanttProject } = useQuery(GET_GANTT_PROJECT_ID, {
@@ -184,36 +158,3 @@ export const PrintGanttPage = (props) => {
     <AppGantt title={title} dataGantt={activityData} dataLink={linkData} dataPhase={activityPhaseData} dataUnitMeasure={unitMeasureData} ganttID={ganttID} isReadOnly={false} isShowAddColumn={true} isShowListGantt={false} />
   </>
 }
-
-/* No Use Because the error need to change the way to get data
-// Print List Project Name Data for Dropdown in ListboxProjectName
-export const PrintListProjetcName = () => {
-  const { projectID, setProjectID, projectData } = useProject();
-  const { ganttID, setGanttID, ganttName } = useGantt();
-
-  return <>
-    <ListboxProjectName setGanttID={setGanttID} projectID={projectID} setProjectID={setProjectID} projectData={projectData} />
-  </>
-}
-
-// Print List ProjectDashboard with projectData as passing value
-export const PrintProjectDashboard = () => {
-  const [projectData,setProjectData]= useState(localStorage.getItem('projectID'));
-  console.log("PrintProjectDashboard projectData : ", projectData);
-  useEffect(() => {
-    if (projectData === null) {
-      setProjectData(String(localStorage.getItem('projectID')));
-    } else {
-      setProjectData(String(localStorage.getItem('projectID')));
-    }
-  }, [projectData]);
-
-  const setProjectID = (projectData) => {
-    setProjectData(projectData);
-  }
-
-  return <>
-    <ProjectDashboard projectData={projectData} setProjectID={setProjectID} />
-  </>
-}
-*/

@@ -12,7 +12,6 @@ import "../../../Snackbar/toast.css";
 import { DatePickerField, TimePickerField } from "../../../Input/Input";
 import { GET_MINUTES_OF_MEETING_DATA_BY_PROJECT_ID } from "../../../GraphQL/Queries";
 import Button from "../../../Button";
-import Snackbar from "../../../Snackbar/Snackbar";
 
 const ADD_MINUTES_OF_MEETING = gql`
   mutation addMinuteOfMeeting(
@@ -156,9 +155,6 @@ const AddModalMinutesOfMeeting = (props) => {
     setIsOpen(false);
   };
 
-  const [isAppear, setIsAppear] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-
   const handleFormChangeNotes = (value, index) => {
     const dataNotes = notes.map((notesItem, notesIndex) => {
       return notesIndex === index ? value : notesItem;
@@ -242,10 +238,6 @@ const AddModalMinutesOfMeeting = (props) => {
       var x = document.getElementById("snackbar");
       x.className = "show";
       setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-
-      // Display snackbar with success message
-      // setIsAppear(true);
-      // setSnackbarMessage('Minute of Meeting added successfully!');
 
       updateTotal();
 

@@ -18,7 +18,6 @@ const MainDashboard = () => {
 
     const ifOnGoingProjectEmpty = () => {
         if (projectLength === 0) {
-            // fill the table with white space
             return (
                 <div className="h-full" >
                     <div colSpan="7" className="text-center py-24">

@@ -1,6 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import React, { useState } from 'react';
-import compass from '../../Assets/Icons/svg/Compass.svg';
+import logout from "../../Assets/Icons/svg/Logout.svg"
 
 const LogoutButton = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -58,7 +58,7 @@ const LogoutButton = () => {
         <>
             <div className="flex flex-row items-center justify-center">
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white">
-                    <img src={compass} alt="logout" className="w-6 h-6" />
+                    <img src={logout} alt="logout" />
                 </button>
             </div>
             <LogoutDialog />

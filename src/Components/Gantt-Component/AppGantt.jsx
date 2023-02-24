@@ -53,10 +53,12 @@ gantt.eachTask(function (task) {
     gantt.open(task.id);
 });
 
+// for testing button
 const handleRender = () => {
     // console.log("This is View modal HandlerRender");
     gantt.render();
 };
+// for testing button
 const handleClearAll = () => {
     // Clear data and links Gantt chart
     gantt.clearAll();
@@ -411,8 +413,6 @@ let optionPriority = [
     { value: "3", label: "Low" },
 ];
 
-
-
 gantt.locale.labels.section_activity = "Activity Form";
 gantt.locale.labels.section_priority = "Priority";
 gantt.locale.labels.section_phase = "Phase";
@@ -476,7 +476,6 @@ gantt.attachEvent("onBeforeTaskDisplay", (id, task) => {
             gantt.getTask(link.target).text;
 
         modal = gantt.modalbox({
-            // title: linkTitle,
             text: "<div>" +
                 "<label>Do you want to delete Link : " +
                 `<span class='font-bold'>${linkTitle}</span>` +
@@ -745,8 +744,6 @@ function AppGantt(props) {
             },
         });
 
-        // window.location.reload();
-
         if (deleteActivityLinkError) {
             console.log("deleteActivityLinkError", JSON.stringify(deleteActivityLinkError));
         }
@@ -756,9 +753,8 @@ function AppGantt(props) {
     gantt.attachEvent("onBeforeTaskChanged", function (id, mode, task) {
         // fires after the user has pressed the mouse button and started dragging, but before dhtmlxGantt starts the drag-and-drop operation
 
-        //any custom logic here
+        // any custom logic here
         console.log("onBeforeTaskChanged", id, mode, task);
-        // isAdd = false;
         isDrag.current = true;
         return true;
     });

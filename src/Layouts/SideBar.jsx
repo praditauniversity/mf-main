@@ -8,13 +8,15 @@ import chart from "../Assets/Icons/svg/Progress.svg";
 import LogoutButton from "../Components/Auth/LogoutDialog";
 import Stat from "../Assets/Icons/svg/Stat.svg";
 import Key from "../Assets/Icons/svg/Key.svg";
+import MOM from "../Assets/Icons/svg/MOM.svg"
+import DR from "../Assets/Icons/svg/DailyReport.svg"
 
 export const SideBar = () => {
     const [sideList, setSideList] = useState([
         { id: 0, name: "MainDashboard", link: "/#/maindashboard", icon: maindashboard, tooltip: "Main" },
         { id: 5, name: "ProjectCharter", link: "/#/projectcharter", icon: addproject, tooltip: "Project Charter" },
-        { id: 6, name: "DailyReport", link: "/#/dailyreport", icon: chart, tooltip: "Daily Report" },
-        { id: 7, name: "MinuteofMeeting", link: "/#/minutesofmeeting", icon: chat, tooltip: "Minute of Meeting" },
+        { id: 6, name: "DailyReport", link: "/#/dailyreport", icon: DR, tooltip: "Daily Report" },
+        { id: 7, name: "MinuteofMeeting", link: "/#/minutesofmeeting", icon: MOM, tooltip: "Minute of Meeting" },
         { id: 8, name: "UserAccount", link: "/#/useraccount", icon: profile, tooltip: "User Account" },
         { id: 12, name: "MasterPageSuperAdmin", link: "/#/masterpage/superadmin", icon: Key, tooltip: "Master Page Super Admin" },
         { id: 13, name: "MasterPageAdmin", link: "/#/masterpage/admin", icon: Stat, tooltip: "Master Page Admin" },

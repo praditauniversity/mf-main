@@ -5,7 +5,7 @@ import BudgetCard from "../../Components/Card/BudgetCard";
 import CalendarTailwind from "../../Components/Card/CalendarTailwind/Calendar";
 import HealthCard from "../../Components/Card/HealthCard";
 import IssuesCard from "../../Components/Card/Issues/IssuesCard";
-import { PrintGantt, PrintListGanttName, PrintTask, PrintTaskList, useProject } from "../../Components/Gantt-Component/CustomActivityState";
+import { PrintTask, PrintTaskList } from "../../Components/Gantt-Component/CustomActivityState";
 import { Actual, Budget, Client, Cost, CostHealth, Danger, ProjectManager, ScheduleHealth, Variance } from "../../Components/GraphQL/ProjectByIdQueries";
 import PrintGanttProjectDashboard from "../../Components/Card/PrintGanttProjectDashboard/PrintGanttProjectDashboard";
 
@@ -13,8 +13,6 @@ const ProjectDashboard = (props) => {
 
     window.addEventListener('storage', function(event) {
         if (event.key === 'projectID' && event.newValue === null) {
-          // The data was deleted, so update the UI
-        //   updateUI();
         console.log("projectID deleted");
         window.location.reload();
         }
@@ -23,8 +21,6 @@ const ProjectDashboard = (props) => {
     const { value, projectData } = props;
 
     const [projectID, setProjectID] = useState(localStorage.getItem('projectID'));
-
-    console.log("projectdashboard localstorage", localStorage.getItem('projectID'));
 
     function printListProjectName() {
         return projectData.map(({ ID, name }) => (

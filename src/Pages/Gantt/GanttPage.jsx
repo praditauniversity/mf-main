@@ -4,7 +4,7 @@ import FetchGanttByProjectId from '../../Middleware/Fetchers/FetchGanttByProject
 import AddModalGantt from '../../Components/Modal/Gantt/AddModalGantt';
 import EditModalGantt from '../../Components/Modal/Gantt/EditModalGantt';
 import DeleteModalGantt from '../../Components/Modal/Gantt/DeleteModalGantt';
-import dailyReportIcon from "../../Assets/Icons/svg/File_dock_duotone.svg";
+import ViewIcon from "../../Assets/Icons/svg/ViewIcon.svg";
 
 const GanttPage = () => {
 
@@ -150,9 +150,9 @@ const GanttPage = () => {
                                             href={`/#/project-list/${projectID}/gantt/${gantt.ID}/gantt-chart`}
                                         >
                                             <img
-                                                src={dailyReportIcon}
+                                                src={ViewIcon}
                                                 alt="view gantt"
-                                                className="w-5 h-5 opacity-75 hover:opacity "
+                                                id='icon'
                                             />
                                         </a>
                                     </div>

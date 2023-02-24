@@ -178,9 +178,6 @@ const UpdateProject = () => {
         setPotentialRisk(dataRisk)
     }
 
-    // if (loading) return 'Submitting...';
-    // if (error) return `Submission error! ${error.message}`;
-
     const handleSubmit = e => {
         e.preventDefault();
         updateProject({

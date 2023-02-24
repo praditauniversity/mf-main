@@ -15,8 +15,8 @@ export const RegisterHandler = () => {
             console.log("Register Error :", JSON.stringify(error, null, 2));
 
             if (error.graphQLErrors && error.graphQLErrors.length > 0) {
-                const errorMessage = error.graphQLErrors[0].message; // HTTP Error: 500, Could not invoke operation POST /register
-                const errorDetails = error.graphQLErrors[0].extensions.responseBody.errors.error;
+                const errorMessage = error.graphQLErrors[0].message; // Ex. HTTP Error: 500, Could not invoke operation POST /register
+                const errorDetails = error.graphQLErrors[0].extensions.responseBody.errors.error; // Ex. Error Details: "Key: 'User.Email' Error:Field validation for 'Email' failed on the 'unique' tag"
                 const errorText = `Error: \n${errorMessage}\n\n Error Details:\n${JSON.stringify(errorDetails, null, 2)}`;
                 alert(errorText);
             } else {
@@ -110,7 +110,6 @@ export const RegisterHandler = () => {
                 company_id: 'dc9076aa-2fda-4019-bd2c-900a8284b9aa',
                 created_by: 'user',
             });
-            // alert("Register Success");
         }
 
         e.preventDefault();
@@ -120,7 +119,6 @@ export const RegisterHandler = () => {
             register({
                 variables: data
             });
-            console.log("Register Success");
             setError('');
         } catch (err) {
             setError(err.message);

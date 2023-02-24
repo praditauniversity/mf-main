@@ -1,61 +1,7 @@
 import React, { useEffect, useState } from "react";
-import dailyReportIcon from "../../../Assets/Icons/svg/File_dock_duotone.svg";
-
-const ListProject = [
-    {
-        id: 1,
-        name: "Project 1",
-        description: "Description 1",
-        location: "Location 1",
-        jobs: [
-            {
-                id: 11,
-                name: "Job 1",
-            },
-            {
-                id: 12,
-                name: "Job 2",
-            }
-        ],
-        company: "Company 1",
-        link: "/#/projectdashboard/1",
-        favoriteColor: "Red",
-    },
-    {
-        id: 2,
-        name: "Project 2",
-        description: "Description 1",
-        location: "Location 2",
-        jobs: [
-            {
-                id: 21,
-                name: "Job 1",
-            },
-            {
-                id: 22,
-                name: "Job 2",
-            }
-        ],
-        company: "Company 2",
-        link: "/#/projectdashboard/2",
-        favoriteColor: "Blue",
-    },
-    {
-        id: 3,
-        name: "Project 3",
-        description: "Description 1",
-        location: "Location 3",
-        jobs: [
-            {
-                id: 31,
-                name: "Job 1",
-            }
-        ],
-        company: "Company 3",
-        link: "/#/projectdashboard/3",
-        favoriteColor: "Green",
-    }
-]
+import ganttIcon from "../../../Assets/Icons/svg/Gantt.svg";
+import charter from "../../../Assets/Icons/svg/AddProject.svg";
+import DR from "../../../Assets/Icons/svg/DailyReport.svg";
 
 const TableHeader = () => {
     return (
@@ -75,9 +21,9 @@ const ActionsButton = (props) => {
     const { projectID_Table } = props;
 
     const buttonName = [
-        { id: 1, name: "Project Charter", icon: dailyReportIcon, link: `/#/project-list/${projectID_Table}/charter` },
-        { id: 2, name: "Gantt", icon: dailyReportIcon, link: `/#/project-list/${projectID_Table}/gantt` },
-        { id: 3, name: "Daily Report", icon: dailyReportIcon, link: "/#/dailyreport" },
+        { id: 1, name: "Project Charter", icon: charter, link: `/#/project-list/${projectID_Table}/charter` },
+        { id: 2, name: "Gantt", icon: ganttIcon, link: `/#/project-list/${projectID_Table}/gantt` },
+        { id: 3, name: "Daily Report", icon: DR, link: "/#/dailyreport" },
     ]
 
     return (

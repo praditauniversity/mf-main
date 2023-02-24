@@ -15,10 +15,8 @@ const ProjectList = () => {
     
     useEffect(() => {
         if (data && data.projectByUserId && data.projectByUserId.Data) {
-            console.log("Data Project by user ID : ", data.projectByUserId.Data);
             setProject(data.projectByUserId.Data);
         } else {
-            console.log("Setting project to empty array");
             setProject([]);
         }
 
@@ -29,7 +27,7 @@ const ProjectList = () => {
     return (
         <div className="h-full">
             <div className="grid gap-2 h-full">
-                {console.log("Filter Deleted Project", project.filter((item) => !item.DeletedAt))}
+                {/* {console.log("Filter Deleted Project", project.filter((item) => !item.DeletedAt))} */}
                 <ProjectListPage value={project} />
             </div>
         </div>
