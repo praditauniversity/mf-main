@@ -58,7 +58,9 @@ const LogoutButton = () => {
         <>
             <div className="flex flex-row items-center justify-center">
                 <button onClick={showDialog} className="flex flex-col items-center text-base font-normal text-gray-900 rounded-lg dark:text-white">
-                    <img src={logout} alt="logout" />
+                    <div className="tooltip tooltip-right z-40" data-tip="Logout">
+                        <img src={logout} alt="logout" />
+                    </div>
                 </button>
             </div>
             <LogoutDialog />

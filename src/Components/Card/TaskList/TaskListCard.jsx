@@ -92,7 +92,10 @@ const TaskListCard = (props) => {
                             <a href={`/#/project-list/${localStorage.getItem('projectID')}/gantt/${localStorage.getItem('ganttID')}/gantt-chart`}>View All Tasks</a>
                         </button>
                     </div>
-                : filler()
+                : 
+                    <div className="flex justify-center">
+                        {filler()}
+                    </div>
                 }
             </div>
 
