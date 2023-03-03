@@ -425,7 +425,7 @@ const AddModalProjectCharter = (props) => {
         {
             label: "Office Location",
             name: "office_location",
-            placeholder: "Example: Sudriman",
+            placeholder: "Example: Sudirman",
             type: "text",
             value: office_location,
             onChange: (e) => setOfficeLocation(e.target.value),

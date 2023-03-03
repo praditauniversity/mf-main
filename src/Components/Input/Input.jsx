@@ -129,7 +129,7 @@ export const SelectorField = ({ options, label }) => {
 }
 
 export const DatePickerField = ({ label, dateFormat, selected, placeholder, onChange, disabled, error }) => {
-    const years = range(getYear(new Date()) + 1, 2080, 1);
+    const years = range(getYear(new Date()), 2080, 1);
     const months = [
         "January",
         "February",
